@@ -1,1 +1,17 @@
-﻿
+﻿  Game.cpp
+d:\git\castlevania\castlevania\castlevania\game.cpp(259): warning C4305: '=': truncation from '__int64' to 'float'
+d:\git\castlevania\castlevania\castlevania\game.cpp(260): warning C4305: '=': truncation from '__int64' to 'float'
+d:\git\castlevania\castlevania\castlevania\game.cpp(270): warning C4305: '=': truncation from '__int64' to 'float'
+d:\git\castlevania\castlevania\castlevania\game.cpp(271): warning C4305: '=': truncation from '__int64' to 'float'
+  GameObject.cpp
+  Mario.cpp
+  Sprites.cpp
+  Textures.cpp
+  debug.cpp
+  main.cpp
+d:\git\castlevania\castlevania\castlevania\main.cpp(274): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\main.cpp(291): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\main.cpp(296): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\main.cpp(328): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

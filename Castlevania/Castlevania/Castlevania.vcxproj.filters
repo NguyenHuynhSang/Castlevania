@@ -13,60 +13,102 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{8965db3c-5983-4748-8e44-e4d6990aaefc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement">
+      <UniqueIdentifier>{1891c92d-360d-40be-97e4-2164b4a80918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\Player">
+      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\Npcs">
+      <UniqueIdentifier>{a75e11b1-51ac-4bbb-aa31-918cc911d2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\StaticObjects">
+      <UniqueIdentifier>{6e6c3d27-0bd8-4900-b5d7-0413a2acac00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{675db370-fc41-444d-aa13-b48e2948f3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\MapReader">
+      <UniqueIdentifier>{b6af4cd6-08e0-4f83-8f04-a7dd63857a36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\GameWorldCreator">
+      <UniqueIdentifier>{3f20b655-091b-4503-9420-eff04f1e2294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Controller">
+      <UniqueIdentifier>{8f257295-0b7b-4b93-b0e3-de4262a6e7cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Sprites.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ObjectsManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>ObjectsManagement\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="InputController.h">
+      <Filter>Framework\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManagement.h">
+      <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>ObjectsManagement</Filter>
+    </ClCompile>
     <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ObjectsManagement\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="InputController.cpp">
+      <Filter>Framework\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="define.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManagement.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

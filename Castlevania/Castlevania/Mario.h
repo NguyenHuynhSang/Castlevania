@@ -37,7 +37,6 @@
 
 #define MARIO_UNTOUCHABLE_TIME 5000
 
-
 class CMario : public CGameObject
 {
 	int level;

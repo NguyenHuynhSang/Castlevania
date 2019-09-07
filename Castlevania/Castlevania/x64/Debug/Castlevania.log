@@ -1,0 +1,20 @@
+﻿  Brick.cpp
+d:\git\castlevania\castlevania\castlevania\gameobject.h(4): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  debug.cpp
+d:\git\castlevania\castlevania\castlevania\debug.cpp(11): error C2664: 'void OutputDebugStringA(LPCSTR)': cannot convert argument 1 from 'wchar_t [4096]' to 'LPCSTR'
+  d:\git\castlevania\castlevania\castlevania\debug.cpp(11): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+  Game.cpp
+d:\git\castlevania\castlevania\castlevania\game.h(4): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  GameObject.cpp
+d:\git\castlevania\castlevania\castlevania\gameobject.cpp(1): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Goomba.cpp
+d:\git\castlevania\castlevania\castlevania\gameobject.h(4): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  main.cpp
+d:\git\castlevania\castlevania\castlevania\main.cpp(23): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Mario.cpp
+d:\git\castlevania\castlevania\castlevania\gameobject.h(4): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Sprites.cpp
+d:\git\castlevania\castlevania\castlevania\sprites.h(3): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Textures.cpp
+d:\git\castlevania\castlevania\castlevania\textures.cpp(4): fatal error C1083: Cannot open include file: 'd3dx9.h': No such file or directory
+  Generating Code...
