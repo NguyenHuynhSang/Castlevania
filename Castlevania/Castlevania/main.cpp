@@ -48,6 +48,7 @@ CGame *game;
 CMario *mario;
 CGoomba *goomba;
 
+TileMapReader* mapReader;
 vector<LPGAMEOBJECT> objects;
 
 class CSampleKeyHander: public InputController
@@ -61,7 +62,7 @@ CSampleKeyHander * keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
@@ -78,7 +79,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+//	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
 
 void CSampleKeyHander::KeyState(BYTE *states)
@@ -434,7 +435,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	LoadResources();
-
+	D3DXVECTOR2 vector(0, 0);
+	mapReader = TileMapReader::GetInstance();
+	mapReader->TestReadXML("Data/Map/Courtyard_map.tmx", vector);
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();

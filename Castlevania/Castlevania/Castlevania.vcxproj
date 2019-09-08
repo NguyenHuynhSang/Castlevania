@@ -25,10 +25,16 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="InputController.h" />
+    <ClInclude Include="Library\RapidXML\rapidxml.hpp" />
+    <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
+    <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
+    <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="TileMapReader.h" />
+    <ClInclude Include="TileObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -43,6 +49,13 @@
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Tile.h" />
+    <ClCompile Include="TileMapReader.cpp" />
+    <ClCompile Include="TileObjects.cpp" />
+    <ClCompile Include="TileSheet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Text.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

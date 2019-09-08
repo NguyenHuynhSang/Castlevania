@@ -11,6 +11,7 @@ CGame * CGame::__instance = NULL;
 */
 void CGame::Init(HWND hWnd)
 {
+
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
 	this->hWnd = hWnd;									
@@ -25,6 +26,7 @@ void CGame::Init(HWND hWnd)
 	d3dpp.BackBufferCount = 1;
 
 	RECT r;
+	
 	GetClientRect(hWnd, &r);	// retrieve Window width & height 
 
 	d3dpp.BackBufferHeight = r.bottom + 1;

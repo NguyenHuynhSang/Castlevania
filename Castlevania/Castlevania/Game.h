@@ -5,6 +5,7 @@
 #include "InputController.h"
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#include "TileMapReader.h"
 
 #define KEYBOARD_BUFFER_SIZE 1024
 /*
@@ -33,6 +34,7 @@ class CGame
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
+
 
 public:
 	void InitKeyboard(InputController* handler);

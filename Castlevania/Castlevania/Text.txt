@@ -1,0 +1,9 @@
+﻿
+Mẫu Flyweight chia sẽ các dữ liệu bị trùng.==>Tang hieu xuat
+https://vi.wikipedia.org/wiki/Flyweight_pattern
+
+shared_ptr: Đại diện cho quyền chia sẻ!
+
+Các đối tượng kiểu shared_ptr có khả năng chiếm quyền sở hữu của một con trỏ
+và chia sẻ quyền sở hữu đó. Khi chiếm quyền sở hữu, nhóm đối tượng sở hữu
+sẽ chịu trách nhiệm xóa nó bởi đối tượng cuối cùng sở hữu nó.

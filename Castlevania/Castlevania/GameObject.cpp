@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
-
+#include<string>
 CGameObject::CGameObject()
 {
 	x = y = 0;
@@ -133,7 +133,8 @@ void CGameObject::RenderBoundingBox()
 
 void CGameObject::AddAnimation(int aniId)
 {
-	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
+	
+	LPANIMATION ani = CAnimations::GetInstance()->Get(std::to_string(aniId));
 	animations.push_back(ani);
 }
 

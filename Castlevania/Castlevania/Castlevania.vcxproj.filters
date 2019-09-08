@@ -40,6 +40,15 @@
     <Filter Include="Framework\Controller">
       <UniqueIdentifier>{8f257295-0b7b-4b93-b0e3-de4262a6e7cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library">
+      <UniqueIdentifier>{a4eabc85-dc2a-4e9f-bbbe-fcb8d9f27f79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\RapidXML">
+      <UniqueIdentifier>{848aedba-5597-4c71-a442-8a0ed65308db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Documentation">
+      <UniqueIdentifier>{c266753f-fa9e-4ebf-a4d0-b64d8d362243}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -72,6 +81,24 @@
     <ClInclude Include="ResourceManagement.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Library\RapidXML\rapidxml.hpp">
+      <Filter>Library\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp">
+      <Filter>Library\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RapidXML\rapidxml_print.hpp">
+      <Filter>Library\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp">
+      <Filter>Library\RapidXML</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapReader.h">
+      <Filter>Utilities\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObjects.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -92,9 +119,6 @@
     <ClCompile Include="Brick.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -110,5 +134,25 @@
     <ClCompile Include="ResourceManagement.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.h">
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSheet.h">
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapReader.cpp">
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObjects.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Text.txt">
+      <Filter>Documentation</Filter>
+    </Text>
   </ItemGroup>
 </Project>
