@@ -6,6 +6,15 @@
 
 #include "Goomba.h"
 
+void CMario::Renderer(int ani)
+{
+	int alpha = 255;
+	if (untouchable) alpha = 128;
+	animations[ani]->Render(x, y, alpha);
+
+	RenderBoundingBox();
+}
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	// Calculate dx, dy 
@@ -94,6 +103,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 void CMario::Render()
 {
 	int ani;
+	if (state == MARIO_STATE_STAND_ATTACK) {
+		ani = MARIO_ANI_STAND_ATTACK;
+		Renderer(ani);
+		return;
+	}
+	if (state == MARIO_STATE_SIT) {
+		ani = MARIO_ANI_SITTING;
+		Renderer(ani);
+		return;
+	}
 	if (state == MARIO_STATE_DIE)
 		ani = MARIO_ANI_DIE;
 	else
@@ -120,11 +139,13 @@ void CMario::Render()
 		else ani = MARIO_ANI_SMALL_WALKING_LEFT;
 	}
 
-	int alpha = 255;
-	if (untouchable) alpha = 128;
-	animations[ani]->Render(x, y, alpha);
+	Renderer(ani);
+	return;
+}
 
-	RenderBoundingBox();
+void CMario::ResetFrame(int frameID)
+{
+	animations[frameID]->ResetAnimation();
 }
 
 void CMario::SetState(int state)
@@ -143,12 +164,14 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP: 
 		vy = -MARIO_JUMP_SPEED_Y;
+	case MARIO_STATE_SIT:
 	case MARIO_STATE_IDLE: 
 		vx = 0;
 		break;
 	case MARIO_STATE_DIE:
 		vy = -MARIO_DIE_DEFLECT_SPEED;
 		break;
+
 	}
 }
 
@@ -159,13 +182,20 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 
 	if (level==MARIO_LEVEL_BIG)
 	{
-		right = x + MARIO_BIG_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_BBOX_HEIGHT;
+	
+			right = x + MARIO_BIG_BBOX_WIDTH;
+			bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		
+	
 	}
 	else
 	{
-		right = x + MARIO_SMALL_BBOX_WIDTH;
-		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+	
+		
+			right = x + MARIO_SMALL_BBOX_WIDTH;
+			bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+		
+	
 	}
 }
 

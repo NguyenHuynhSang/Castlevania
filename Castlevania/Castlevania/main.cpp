@@ -69,8 +69,13 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_SPACE:
 		
 		mario->SetState(MARIO_STATE_JUMP);
-	
-		
+		break;
+	case DIK_F:
+		if (mario->GetActack_Time() == 0) {
+			mario->StartActack();
+			DebugOut(L"Start counting");
+		}
+		mario->SetState(MARIO_STATE_STAND_ATTACK);
 		break;
 	case DIK_A: // reset
 		mario->SetState(MARIO_STATE_IDLE);
@@ -84,6 +89,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
 //	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	
 }
 
 
@@ -91,11 +97,27 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	// disable control key when Mario die 
+	
 	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
+
+	if ((mario->GetActack_Time()!=0)&&(GetTickCount() - mario->GetActack_Time() > 3 * MARIO_ATTACK_TIME))
+	{
+	//	DebugOut(L"stop atack \n");
+		mario->SetState(MARIO_STATE_IDLE);
+		mario->ResetActack_Time();
+		mario->ResetFrame(MARIO_ANI_STAND_ATTACK);
+	}
+	if (mario->GetState() == MARIO_STATE_STAND_ATTACK) {
+		return;
+	}
+	if (game->IsKeyDown(DIK_DOWN)) {
+		mario->SetState(MARIO_STATE_SIT);
+		return;
+	}
+	else if (game->IsKeyDown(DIK_RIGHT))
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
+		mario->SetState(MARIO_STATE_WALKING_LEFT);	
 	else
 		mario->SetState(MARIO_STATE_IDLE);
 }
@@ -211,6 +233,17 @@ void LoadResources()
 	ani->Add("10033");
 	animations->Add("503", ani);
 
+	ani = new CAnimation(100);	// sit
+	ani->Add("SIMON_SIT");
+	animations->Add("504", ani);
+
+
+	ani = new CAnimation(MARIO_ATTACK_TIME);	// sit
+	ani->Add("SIMON_STAND_ATTACK_01");
+	ani->Add("SIMON_STAND_ATTACK_02");
+	ani->Add("SIMON_STAND_ATTACK_03");
+	animations->Add("505", ani);
+
 
 	ani = new CAnimation(100);		// Mario die
 	ani->Add("10099");
@@ -227,23 +260,26 @@ void LoadResources()
 	ani->Add("30002");
 	animations->Add("701", ani);
 
-	ani = new CAnimation(1000);		// Goomba dead
+	ani = new CAnimation(100);		// Goomba dead
 	ani->Add("30003");
 	animations->Add("702", ani);
 
+
+	
+
 	mario = new CMario();
-	mario->AddAnimation(400);		// idle right big
-	mario->AddAnimation(401);		// idle left big
-	mario->AddAnimation(402);		// idle right small
-	mario->AddAnimation(403);		// idle left small
+	mario->AddAnimation(400);		// idle right big 0
+	mario->AddAnimation(401);		// idle left big  1
+	mario->AddAnimation(402);		// idle right small  2
+	mario->AddAnimation(403);		// idle left small 3
 
-	mario->AddAnimation(500);		// walk right big
-	mario->AddAnimation(501);		// walk left big
-	mario->AddAnimation(502);		// walk right small
-	mario->AddAnimation(503);		// walk left big
-
-	mario->AddAnimation(599);		// die
-
+	mario->AddAnimation(500);		// walk right big  4
+	mario->AddAnimation(501);		// walk left big  5
+	mario->AddAnimation(502);		// walk right small  6
+	mario->AddAnimation(503);		// walk left big  7
+	mario->AddAnimation(599);		// die   8
+	mario->AddAnimation(504);       // sit   9
+	mario->AddAnimation(505);       // stand attack   10
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);
 
