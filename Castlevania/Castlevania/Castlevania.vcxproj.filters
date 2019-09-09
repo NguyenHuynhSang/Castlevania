@@ -143,11 +143,11 @@
     <ClCompile Include="TileMapReader.cpp">
       <Filter>Utilities\MapReader</Filter>
     </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Utilities\MapReader</Filter>
-    </ClCompile>
     <ClCompile Include="TileObjects.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

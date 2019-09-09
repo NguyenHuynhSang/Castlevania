@@ -1,4 +1,6 @@
 ﻿
+#ifndef MY_HEADER_FILE_
+#define MY_HEADER_FILE_
 #include <d3dx9.h>
 #include<memory>
 using namespace std;
@@ -13,7 +15,7 @@ struct CRectangle {
 	CRectangle(int t, int l, int r, int b) : top(t), left(l), right(r), button(b) {};
 };
 
-struct TileInfo
+struct TileInfo //share giua cac tile su dung shared_ptr
 {
 	TileInfo() :tileID(-1) {
 
@@ -39,3 +41,4 @@ struct Tile
 	int y;
 }; 
 
+#endif

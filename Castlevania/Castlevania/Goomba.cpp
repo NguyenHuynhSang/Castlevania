@@ -16,12 +16,22 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+	CalcPotentialCollisions(coObjects, coEvents);
 	//
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
-
-	x += dx;
-	y += dy;
+		// Simple fall down
+	vy += GOOMBA_GRAVITY * dt;
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	
 
 	if (vx < 0 && x < 0) {
 		x = 0; vx = -vx;

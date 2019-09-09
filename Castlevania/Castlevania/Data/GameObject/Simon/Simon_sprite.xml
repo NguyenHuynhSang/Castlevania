@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="Simon.png">
+		<sprite ID="SIMON_WALKING_01">
+			<frame x="0" y="0" width="60" height="66" />
+		</sprite>
+		<sprite ID="SIMON_WALKING_02">
+			<frame x="60" y="0" width="60" height="66" />
+		</sprite>
+		<sprite ID="SIMON_WALKING_03">
+			<frame x="120" y="0" width="60" height="66" />
+
+		</sprite>
+
+		<sprite ID="SIMON_IDLE">
+			<frame x="180" y="0" width="60" height="66" />
+
+		</sprite>
+
+		<sprite ID="SIMON_SITTING">
+			<frame x="240" y="0" width="60" height="66" />
+
+		</sprite>
+
+		<sprite ID="SIMON_SITTING_ATTACK_01">
+			<frame x="300" y="0" width="60" height="66" />
+
+		</sprite>
+		<sprite ID="SIMON_SITTING_ATTACK_02">
+			<frame x="360" y="0" width="60" height="66" />
+
+		</sprite>
+		<sprite ID="SIMON_SITTING_ATTACK_03">
+			<frame x="420" y="0" width="60" height="66" />
+
+		</sprite>
+
+		<sprite ID="SIMON_ENTER_CASTLE">
+			<frame x="0" y="0" width="60" height="66" />
+
+		</sprite>
+
+		<sprite ID="SIMON_UPSTAIR_01">
+			<frame x="0" y="0" width="60" height="66" />
+		</sprite>
+
+		<sprite ID="SIMON_UPSTAIR_02">
+			<frame x="0" y="0" width="60" height="66" />
+		</sprite>
+
+		<sprite ID="SIMON_DOWNSTAIR_01">
+			<frame x="0" y="0" width="60" height="66" />
+		</sprite>
+
+		<sprite ID="SIMON_DOWNSTAIR_02">
+			<frame x="0" y="0" width="60" height="66" />
+		</sprite>
+	</spritesheet>
+</resource>

@@ -29,13 +29,13 @@
 #include "Mario.h"
 #include "Brick.h"
 #include "Goomba.h"
-
+#include"ResourceManagement.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define SCREEN_WIDTH 640	
+#define SCREEN_HEIGHT 480
 
 #define MAX_FRAME_RATE 120
 
@@ -48,7 +48,7 @@ CGame *game;
 CMario *mario;
 CGoomba *goomba;
 
-TileMapReader* mapReader;
+ResourceManagement * resource;
 vector<LPGAMEOBJECT> objects;
 
 class CSampleKeyHander: public InputController
@@ -59,14 +59,18 @@ class CSampleKeyHander: public InputController
 };
 
 CSampleKeyHander * keyHandler; 
-
+bool isJumping = false;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
+		
 		mario->SetState(MARIO_STATE_JUMP);
+	
+		
 		break;
 	case DIK_A: // reset
 		mario->SetState(MARIO_STATE_IDLE);
@@ -81,6 +85,8 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
 //	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
+
+
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
@@ -117,14 +123,15 @@ void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_MARIO, L"textures\\mario.png",D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_MARIO, L"Data\\GameObject\\Simon\\SIMON.png",D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
-
+	resource = ResourceManagement::GetInstance();
+	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml");
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 	
@@ -164,7 +171,7 @@ void LoadResources()
 	LPANIMATION ani;
 
 	ani = new CAnimation(100);	// idle big right
-	ani->Add("10001");
+	ani->Add("SIMON_IDLE");
 	animations->Add("400", ani);
 
 	ani = new CAnimation(100);	// idle big left
@@ -180,9 +187,10 @@ void LoadResources()
 	animations->Add("403", ani);
 
 	ani = new CAnimation(100);	// walk right big
-	ani->Add("10001");
-	ani->Add("10002");
-	ani->Add("10003");
+	ani->Add("SIMON_WALKING_01");
+	ani->Add("SIMON_WALKING_02");
+	ani->Add("SIMON_WALKING_03");
+	ani->Add("SIMON_IDLE");
 	animations->Add("500", ani);
 
 	ani = new CAnimation(100);	// // walk left big
@@ -239,30 +247,13 @@ void LoadResources()
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);
 
-	for (int i = 0; i < 5; i++)
+	
+
+	for (int i = 0; i < 60; i++)
 	{
 		CBrick *brick = new CBrick();
 		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i*60.0f, 74.0f);
-		objects.push_back(brick);
-
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i*60.0f, 90.0f);
-		objects.push_back(brick);
-
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(84.0f + i*60.0f, 90.0f);
-		objects.push_back(brick);
-	}
-
-
-	for (int i = 0; i < 30; i++)
-	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(0 + i*16.0f, 150);
+		brick->SetPosition(0 + i*16.0f-640/2+60, 350);
 		objects.push_back(brick);
 	}
 
@@ -436,9 +427,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 	D3DXVECTOR2 vector(0, 0);
-	mapReader = TileMapReader::GetInstance();
-	mapReader->TestReadXML("Data/Map/Courtyard_map.tmx", vector);
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 

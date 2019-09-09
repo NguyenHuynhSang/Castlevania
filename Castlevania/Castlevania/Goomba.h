@@ -12,7 +12,7 @@
 
 #define GOOMBA_ANI_WALKING 0
 #define GOOMBA_ANI_DIE 1
-
+#define GOOMBA_GRAVITY 0.002f
 class CGoomba : public CGameObject
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
