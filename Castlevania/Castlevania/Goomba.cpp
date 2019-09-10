@@ -1,5 +1,5 @@
 #include "Goomba.h"
-
+#include"debug.h"
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
@@ -44,12 +44,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
+	
 	int ani = GOOMBA_ANI_WALKING;
 	if (state == GOOMBA_STATE_DIE) {
 		ani = GOOMBA_ANI_DIE;
 	}
 
-	animations[ani]->Render(x,y);
+	animations[ani]->Render(nx,x,y);
 	//RenderBoundingBox();
 }
 

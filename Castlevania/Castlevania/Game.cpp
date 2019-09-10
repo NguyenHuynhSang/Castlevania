@@ -1,10 +1,10 @@
-#include "Game.h"
+﻿#include "Game.h"
 #include "debug.h"
 
 CGame * CGame::__instance = NULL;
 
 /*
-	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for 
+	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
 	- hInst: Application instance handle
 	- hWnd: Application window handle
@@ -14,7 +14,7 @@ void CGame::Init(HWND hWnd)
 
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-	this->hWnd = hWnd;									
+	this->hWnd = hWnd;
 
 	D3DPRESENT_PARAMETERS d3dpp;
 
@@ -26,7 +26,7 @@ void CGame::Init(HWND hWnd)
 	d3dpp.BackBufferCount = 1;
 
 	RECT r;
-	
+
 	GetClientRect(hWnd, &r);	// retrieve Window width & height 
 
 	d3dpp.BackBufferHeight = r.bottom + 1;
@@ -55,17 +55,41 @@ void CGame::Init(HWND hWnd)
 }
 
 /*
-	Utility function to wrap LPD3DXSPRITE::Draw 
+	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
-	D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
-	RECT r; 
+
+
+
+	D3DXVECTOR3 p(x, y, 0);
+	RECT r;
 	r.left = left;
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
+
+
+	D3DXMATRIX oldTransform;
+	D3DXMATRIX newTransform;
+
+	spriteHandler->GetTransform(&oldTransform);
+
+	D3DXVECTOR2 center = D3DXVECTOR2(p.x + (right - left) / 2, p.y + (bottom - top) / 2);
+	D3DXVECTOR2 rotate = D3DXVECTOR2(nx < 0 ? -1 : 1, 1);
+
+	// Xây dựng một ma trận 2D lưu thông tin biến đổi (scale, rotate)
+	D3DXMatrixTransformation2D(&newTransform, &center, 0.0f, &rotate, NULL, 0.0f, NULL);
+
+	// Cần nhân với ma trận cũ để tính ma trận biến đổi cuối cùng
+	D3DXMATRIX finalTransform = newTransform * oldTransform;
+	spriteHandler->SetTransform(&finalTransform);
+
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+
+	spriteHandler->SetTransform(&oldTransform);
+
+
 }
 
 int CGame::IsKeyDown(int KeyCode)
@@ -78,7 +102,7 @@ void CGame::InitKeyboard(InputController* handler)
 	HRESULT
 		hr = DirectInput8Create
 		(
-			(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
+		(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
 			DIRECTINPUT_VERSION,
 			IID_IDirectInput8, (VOID**)&di, NULL
 		);
@@ -92,7 +116,7 @@ void CGame::InitKeyboard(InputController* handler)
 	hr = di->CreateDevice(GUID_SysKeyboard, &didv, NULL);
 
 	// TO-DO: put in exception handling
-	if (hr != DI_OK) 
+	if (hr != DI_OK)
 	{
 		DebugOut(L"[ERROR] CreateDevice failed!\n");
 		return;
@@ -144,7 +168,7 @@ void CGame::InitKeyboard(InputController* handler)
 
 void CGame::ProcessKeyboard()
 {
-	HRESULT hr; 
+	HRESULT hr;
 
 	// Collect all key states first
 	hr = didv->GetDeviceState(sizeof(keyStates), keyStates);
@@ -154,15 +178,15 @@ void CGame::ProcessKeyboard()
 		if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
 		{
 			HRESULT h = didv->Acquire();
-			if (h==DI_OK)
-			{ 
+			if (h == DI_OK)
+			{
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
 			else return;
 		}
 		else
 		{
-			//DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
+			DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
 			return;
 		}
 	}
@@ -201,11 +225,11 @@ CGame::~CGame()
 }
 
 /*
-	SweptAABB 
+	SweptAABB
 */
 void CGame::SweptAABB(
-	float ml, float mt,	float mr, float mb,			
-	float dx, float dy,			
+	float ml, float mt, float mr, float mb,
+	float dx, float dy,
 	float sl, float st, float sr, float sb,
 	float &t, float &nx, float &ny)
 {
@@ -213,8 +237,8 @@ void CGame::SweptAABB(
 	float dx_entry, dx_exit, tx_entry, tx_exit;
 	float dy_entry, dy_exit, ty_entry, ty_exit;
 
-	float t_entry; 
-	float t_exit; 
+	float t_entry;
+	float t_exit;
 
 	t = -1.0f;			// no collision
 	nx = ny = 0;
@@ -235,13 +259,13 @@ void CGame::SweptAABB(
 
 	if (dx > 0)
 	{
-		dx_entry = sl - mr; 
+		dx_entry = sl - mr;
 		dx_exit = sr - ml;
 	}
 	else if (dx < 0)
 	{
 		dx_entry = sr - ml;
-		dx_exit = sl- mr;
+		dx_exit = sl - mr;
 	}
 
 
@@ -266,7 +290,7 @@ void CGame::SweptAABB(
 		tx_entry = dx_entry / dx;
 		tx_exit = dx_exit / dx;
 	}
-	
+
 	if (dy == 0)
 	{
 		ty_entry = -99999999999;
@@ -277,26 +301,26 @@ void CGame::SweptAABB(
 		ty_entry = dy_entry / dy;
 		ty_exit = dy_exit / dy;
 	}
-	
 
-	if (  (tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
+
+	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
 
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
-	
-	if (t_entry > t_exit) return; 
 
-	t = t_entry; 
+	if (t_entry > t_exit) return;
+
+	t = t_entry;
 
 	if (tx_entry > ty_entry)
 	{
 		ny = 0.0f;
 		dx > 0 ? nx = -1.0f : nx = 1.0f;
 	}
-	else 
+	else
 	{
 		nx = 0.0f;
-		dy > 0?ny = -1.0f:ny = 1.0f;
+		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
 
 }

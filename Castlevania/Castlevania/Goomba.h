@@ -22,4 +22,8 @@ class CGoomba : public CGameObject
 
 public: 	
 	virtual void SetState(int state);
+	virtual void GetSpriteBox(float& width, float& height) {
+		width = GOOMBA_BBOX_WIDTH;
+		height = GOOMBA_BBOX_HEIGHT;
+	};
 };

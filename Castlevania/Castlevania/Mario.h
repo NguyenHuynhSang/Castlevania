@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Whip.h"
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f
 #define MARIO_JUMP_SPEED_Y		0.5f
@@ -36,11 +36,16 @@
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
 
-#define MARIO_BIG_BBOX_WIDTH  60
+#define MARIO_BIG_BBOX_WIDTH  40
 #define MARIO_BIG_BBOX_HEIGHT 64
+
+#define MARIO_SPRITE_BOX_WIDTH 60
+#define MARIO_SPRITE_BOX_HEIGHT 66
 
 #define MARIO_SMALL_BBOX_WIDTH  60
 #define MARIO_SMALL_BBOX_HEIGHT 64
+
+
 
 #define MARIO_UNTOUCHABLE_TIME 5000
 
@@ -53,8 +58,12 @@ class CMario : public CGameObject
 	DWORD untouchable_start;
 	DWORD actack_start=0;
 	void Renderer(int ani);
+	Whip* whip;
 public: 
 	bool isActack = false;
+	void SetWhip(Whip* whip) { this->whip = whip;
+	whip->SetPosition(x, y);
+	};
 	CMario() : CGameObject()
 	{
 		level = MARIO_LEVEL_BIG;
@@ -63,7 +72,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	
-	void ResetFrame(int frameID);
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	DWORD GetActack_Time() { return actack_start; }
@@ -71,4 +79,7 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartActack() { actack_start = GetTickCount(); };
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	virtual void GetSpriteBox(float &width, float &height) {
+		width = MARIO_SPRITE_BOX_WIDTH; height = MARIO_SPRITE_BOX_HEIGHT;
+	}
 };

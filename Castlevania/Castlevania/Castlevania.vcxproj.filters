@@ -99,6 +99,9 @@
     <ClInclude Include="TileObjects.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>ObjectsManagement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>ObjectsManagement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

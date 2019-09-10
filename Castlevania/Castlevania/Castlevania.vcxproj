@@ -35,6 +35,7 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMapReader.h" />
     <ClInclude Include="TileObjects.h" />
+    <ClInclude Include="Whip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
@@ -53,6 +54,7 @@
     <ClCompile Include="TileMapReader.cpp" />
     <ClCompile Include="TileObjects.cpp" />
     <ClCompile Include="TileSheet.h" />
+    <ClCompile Include="Whip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt" />

@@ -30,6 +30,7 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include"ResourceManagement.h"
+#include "Whip.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
@@ -42,12 +43,13 @@
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
+#define ID_TEX_WHIP 30
 
 CGame *game;
 
 CMario *mario;
 CGoomba *goomba;
-
+Whip* whip;
 ResourceManagement * resource;
 vector<LPGAMEOBJECT> objects;
 
@@ -73,7 +75,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_F:
 		if (mario->GetActack_Time() == 0) {
 			mario->StartActack();
-			DebugOut(L"Start counting");
+		//	DebugOut(L"Start counting");
 		}
 		mario->SetState(MARIO_STATE_STAND_ATTACK);
 		break;
@@ -97,7 +99,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	// disable control key when Mario die 
-	
+	//DebugOut(L"state=%d  \n", mario->GetState());
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 
 	if ((mario->GetActack_Time()!=0)&&(GetTickCount() - mario->GetActack_Time() > 3 * MARIO_ATTACK_TIME))
@@ -106,9 +108,14 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		mario->SetState(MARIO_STATE_IDLE);
 		mario->ResetActack_Time();
 		mario->ResetFrame(MARIO_ANI_STAND_ATTACK);
+		whip->ResetFrame(WHIP_ANI_LV1);
+	}
+	if ((mario->GetActack_Time() != 0)) {
+		return;
 	}
 	if (mario->GetState() == MARIO_STATE_STAND_ATTACK) {
 		return;
+	
 	}
 	if (game->IsKeyDown(DIK_DOWN)) {
 		mario->SetState(MARIO_STATE_SIT);
@@ -148,10 +155,10 @@ void LoadResources()
 	textures->Add(ID_TEX_MARIO, L"Data\\GameObject\\Simon\\SIMON.png",D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
-
+	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whip0.png", D3DCOLOR_XRGB(3, 26, 110));
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
+	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	resource = ResourceManagement::GetInstance();
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml");
 	CSprites * sprites = CSprites::GetInstance();
@@ -189,6 +196,18 @@ void LoadResources()
 	sprites->Add("30002", 25, 14, 41, 29, texEnemy);
 				 
 	sprites->Add("30003", 45, 21, 61, 29, texEnemy); // die sprite
+
+
+
+	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
+	sprites->Add("40001", 1, 7, 17, 56, texWhip);
+	sprites->Add("40002", 41, 1, 73, 39, texWhip);
+
+	sprites->Add("40003", 95, 5, 141, 21, texWhip); // die sprite
+
+
+
+
 
 	LPANIMATION ani;
 
@@ -265,6 +284,13 @@ void LoadResources()
 	animations->Add("702", ani);
 
 
+	ani = new CAnimation(MARIO_ATTACK_TIME);		// Goomba dead
+	ani->Add("40001");
+	ani->Add("40002");
+	ani->Add("40003");
+	animations->Add("800", ani);
+
+
 	
 
 	mario = new CMario();
@@ -283,8 +309,12 @@ void LoadResources()
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);
 
-	
 
+	whip = new Whip();
+	whip->AddAnimation(800);
+	
+	mario->SetWhip(whip);
+	objects.push_back(whip);
 	for (int i = 0; i < 60; i++)
 	{
 		CBrick *brick = new CBrick();
@@ -334,7 +364,7 @@ void Update(DWORD dt)
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
 }
 
 /*
@@ -363,6 +393,8 @@ void Render()
 	// Display back buffer content to the screen
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
+
+
 
 HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight)
 {

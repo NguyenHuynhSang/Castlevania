@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include "debug.h"
 
 #include "Mario.h"
@@ -10,13 +10,15 @@ void CMario::Renderer(int ani)
 {
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animations[ani]->Render(x, y, alpha);
-
-	RenderBoundingBox();
+	animations[ani]->Render(nx,x, y, alpha);
+	
+	//RenderBoundingBox();
+	RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -98,14 +100,19 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 }
 
 void CMario::Render()
 {
+	//DebugOut(L"Pos x=%f y=%f \n",x,y);
 	int ani;
 	if (state == MARIO_STATE_STAND_ATTACK) {
 		ani = MARIO_ANI_STAND_ATTACK;
 		Renderer(ani);
+		whip->SetPosition(x,y);
+		whip->RenderWhip(nx);
+		
 		return;
 	}
 	if (state == MARIO_STATE_SIT) {
@@ -121,11 +128,11 @@ void CMario::Render()
 		if (vx == 0)
 		{
 			if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-			else ani = MARIO_ANI_BIG_IDLE_LEFT;
+			else ani = MARIO_ANI_BIG_IDLE_RIGHT;
 		}
 		else if (vx > 0) 
 			ani = MARIO_ANI_BIG_WALKING_RIGHT; 
-		else ani = MARIO_ANI_BIG_WALKING_LEFT;
+		else ani = MARIO_ANI_BIG_WALKING_RIGHT;
 	}
 	else if (level == MARIO_LEVEL_SMALL)
 	{
@@ -140,13 +147,11 @@ void CMario::Render()
 	}
 
 	Renderer(ani);
+	//DebugOut(L"ani=%d", ani);
 	return;
 }
 
-void CMario::ResetFrame(int frameID)
-{
-	animations[frameID]->ResetAnimation();
-}
+
 
 void CMario::SetState(int state)
 {
@@ -155,15 +160,23 @@ void CMario::SetState(int state)
 	switch (state)
 	{
 	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
+		//vx = MARIO_WALKING_SPEED;
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
-		vx = -MARIO_WALKING_SPEED;
+	//	vx = -MARIO_WALKING_SPEED;
 		nx = -1;
 		break;
 	case MARIO_STATE_JUMP: 
 		vy = -MARIO_JUMP_SPEED_Y;
+	case MARIO_STATE_STAND_ATTACK:
+	{
+		if (vy==0 || vy==0.032) {
+			vx = 0;
+			DebugOut(L"Here");
+		}
+		break;
+	}
 	case MARIO_STATE_SIT:
 	case MARIO_STATE_IDLE: 
 		vx = 0;
@@ -177,14 +190,15 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x;
+	left = x+10;
+
 	top = y; 
 
 	if (level==MARIO_LEVEL_BIG)
 	{
 	
-			right = x + MARIO_BIG_BBOX_WIDTH;
-			bottom = y + MARIO_BIG_BBOX_HEIGHT;
+			right = left + MARIO_BIG_BBOX_WIDTH;
+			bottom = top + MARIO_BIG_BBOX_HEIGHT;
 		
 	
 	}
@@ -197,5 +211,10 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		
 	
 	}
+
+	/*left += 10;
+	top += 10;*/
+	
+//	DebugOut(L"BBOX l=%f t=%f r=%f b=%f \n ",left, top,right,bottom);
 }
 

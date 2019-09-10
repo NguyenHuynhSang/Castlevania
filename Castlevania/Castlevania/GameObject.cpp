@@ -1,4 +1,4 @@
-#include <d3dx9.h>
+﻿#include <d3dx9.h>
 #include <algorithm>
 
 
@@ -113,6 +113,11 @@ void CGameObject::FilterCollision(
 }
 
 
+void CGameObject::ResetFrame(int frameID)
+{
+	animations[frameID]->ResetAnimation();
+}
+
 void CGameObject::RenderBoundingBox()
 {
 	D3DXVECTOR3 p(x, y, 0);
@@ -121,14 +126,35 @@ void CGameObject::RenderBoundingBox()
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
 
 	float l,t,r,b; 
-
 	GetBoundingBox(l, t, r, b);
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+
+	// Vẽ lại vị  trí bouding box có tọa độ rõ ràng k vẽ từ tọa độ object
+	//==> tọa độ object sẽ khác với bouding box
+
+	CGame::GetInstance()->Draw(nx,l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+}
+
+void CGameObject::RenderSpriteBox()
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT rect;
+	LPDIRECT3DTEXTURE9 sbbox = CTextures::GetInstance()->Get(ID_TEX_SPRITE_BBOX);
+	float width,height,r,b;
+	GetSpriteBox(width, height);
+	r = x + width;
+	b = y + height;
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = (int)r - (int)x;
+	rect.bottom = (int)b - (int)y;
+	// Vẽ lại vị  trí bouding box có tọa độ rõ ràng k vẽ từ tọa độ object
+	//==> tọa độ object sẽ khác với bouding box
+	CGame::GetInstance()->Draw(nx, x, y, sbbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
 void CGameObject::AddAnimation(int aniId)
