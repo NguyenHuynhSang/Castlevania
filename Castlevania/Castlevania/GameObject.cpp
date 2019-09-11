@@ -136,7 +136,7 @@ void CGameObject::RenderBoundingBox()
 	// Vẽ lại vị  trí bouding box có tọa độ rõ ràng k vẽ từ tọa độ object
 	//==> tọa độ object sẽ khác với bouding box
 
-	CGame::GetInstance()->Draw(nx,l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(nx,l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 64);
 }
 
 void CGameObject::RenderSpriteBox()
@@ -157,10 +157,10 @@ void CGameObject::RenderSpriteBox()
 	CGame::GetInstance()->Draw(nx, x, y, sbbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
-void CGameObject::AddAnimation(int aniId)
+void CGameObject::AddAnimation(string aniId)
 {
 	
-	LPANIMATION ani = CAnimations::GetInstance()->Get(std::to_string(aniId));
+	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
 	animations.push_back(ani);
 }
 

@@ -181,6 +181,7 @@ void CGame::ProcessKeyboard()
 			if (h == DI_OK)
 			{
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
+				
 			}
 			else return;
 		}
@@ -190,7 +191,6 @@ void CGame::ProcessKeyboard()
 			return;
 		}
 	}
-
 	keyHandler->KeyState((BYTE *)&keyStates);
 
 

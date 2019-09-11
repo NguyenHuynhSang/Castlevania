@@ -26,7 +26,7 @@
 #include "GameObject.h"
 #include "Textures.h"
 
-#include "Mario.h"
+#include "Simon.h"
 #include "Brick.h"
 #include "Goomba.h"
 #include"ResourceManagement.h"
@@ -40,14 +40,14 @@
 
 #define MAX_FRAME_RATE 120
 
-#define ID_TEX_MARIO 0
+#define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
-#define ID_TEX_WHIP 30
+#define ID_TEX_WHIP 31
 
 CGame *game;
 
-CMario *mario;
+CSimon *mario;
 CGoomba *goomba;
 Whip* whip;
 ResourceManagement * resource;
@@ -69,19 +69,19 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		
-		mario->SetState(MARIO_STATE_JUMP);
+		if(!mario->IsJumping())
+		mario->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
 		if (mario->GetActack_Time() == 0) {
 			mario->StartActack();
 		//	DebugOut(L"Start counting");
 		}
-		mario->SetState(MARIO_STATE_STAND_ATTACK);
+		mario->SetState(SIMON_STATE_STAND_ATTACK);
 		break;
 	case DIK_A: // reset
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->SetLevel(MARIO_LEVEL_BIG);
+		mario->SetState(SIMON_STATE_IDLE);
+		mario->SetLevel(SIMON_LEVEL_BIG);
 		mario->SetPosition(50.0f,0.0f);
 		mario->SetSpeed(0, 0);
 		break;
@@ -98,35 +98,35 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	// disable control key when Mario die 
+	// disable control key when Simon die 
 	//DebugOut(L"state=%d  \n", mario->GetState());
-	if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (mario->GetState() == SIMON_STATE_DIE) return;
 
-	if ((mario->GetActack_Time()!=0)&&(GetTickCount() - mario->GetActack_Time() > 3 * MARIO_ATTACK_TIME))
+	if ((mario->GetActack_Time()!=0)&&(GetTickCount() - mario->GetActack_Time() > 3*SIMON_ATTACK_TIME))
 	{
-	//	DebugOut(L"stop atack \n");
-		mario->SetState(MARIO_STATE_IDLE);
+		DebugOut(L"stop atack \n");
+		mario->SetState(SIMON_STATE_IDLE);
 		mario->ResetActack_Time();
-		mario->ResetFrame(MARIO_ANI_STAND_ATTACK);
-		whip->ResetFrame(WHIP_ANI_LV1);
+		mario->ResetSpriteFrame();
+		
 	}
 	if ((mario->GetActack_Time() != 0)) {
 		return;
 	}
-	if (mario->GetState() == MARIO_STATE_STAND_ATTACK) {
+	if (mario->GetState() == SIMON_STATE_STAND_ATTACK) {
 		return;
 	
 	}
 	if (game->IsKeyDown(DIK_DOWN)) {
-		mario->SetState(MARIO_STATE_SIT);
+		mario->SetState(SIMON_STATE_SIT);
 		return;
 	}
 	else if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		mario->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);	
+		mario->SetState(SIMON_STATE_WALKING_LEFT);	
 	else
-		mario->SetState(MARIO_STATE_IDLE);
+		mario->SetState(SIMON_STATE_IDLE);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -152,10 +152,10 @@ void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_MARIO, L"Data\\GameObject\\Simon\\SIMON.png",D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png",D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
-	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whip0.png", D3DCOLOR_XRGB(3, 26, 110));
+	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whipedip.png", D3DCOLOR_XRGB(3, 26, 110));
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -164,29 +164,29 @@ void LoadResources()
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 	
-	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
+	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 
 	// big
-	sprites->Add("10001", 246, 154, 260, 181, texMario);		// idle right
+	sprites->Add("10001", 246, 154, 260, 181, texSimon);		// idle right
 
-	sprites->Add("10002", 275, 154, 290, 181, texMario);		// walk
-	sprites->Add("10003", 304, 154, 321, 181, texMario);
+	sprites->Add("10002", 275, 154, 290, 181, texSimon);		// walk
+	sprites->Add("10003", 304, 154, 321, 181, texSimon);
 
-	sprites->Add("10011", 186, 154, 200, 181, texMario);		// idle left
-	sprites->Add("10012", 155, 154, 170, 181, texMario);		// walk
-	sprites->Add("10013", 125, 154, 140, 181, texMario);
+	sprites->Add("10011", 186, 154, 200, 181, texSimon);		// idle left
+	sprites->Add("10012", 155, 154, 170, 181, texSimon);		// walk
+	sprites->Add("10013", 125, 154, 140, 181, texSimon);
 
-	sprites->Add("10099", 215, 120, 231, 135, texMario);		// die 
+	sprites->Add("10099", 215, 120, 231, 135, texSimon);		// die 
 
 	// small
-	sprites->Add("10021", 247, 0, 259, 15, texMario);			// idle small right
-	sprites->Add("10022", 275, 0, 291, 15, texMario);			// walk 
-	sprites->Add("10023", 306, 0, 320, 15, texMario);			// 
+	sprites->Add("10021", 247, 0, 259, 15, texSimon);			// idle small right
+	sprites->Add("10022", 275, 0, 291, 15, texSimon);			// walk 
+	sprites->Add("10023", 306, 0, 320, 15, texSimon);			// 
 				 
-	sprites->Add("10031", 187, 0, 198, 15, texMario);			// idle small left
+	sprites->Add("10031", 187, 0, 198, 15, texSimon);			// idle small left
 				 
-	sprites->Add("10032", 155, 0, 170, 15, texMario);			// walk
-	sprites->Add("10033", 125, 0, 139, 15, texMario);			// 
+	sprites->Add("10032", 155, 0, 170, 15, texSimon);			// walk
+	sprites->Add("10033", 125, 0, 139, 15, texSimon);			// 
 				
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
@@ -199,11 +199,10 @@ void LoadResources()
 
 
 
-	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
-	sprites->Add("40001", 1, 7, 17, 56, texWhip);
-	sprites->Add("40002", 41, 1, 73, 39, texWhip);
-
-	sprites->Add("40003", 95, 5, 141, 21, texWhip); // die sprite
+	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP); 
+	sprites->Add("WHIP_LEVEL1_01", 480, 0, 720, 66, texWhip);
+	sprites->Add("WHIP_LEVEL1_02", 240, 0, 480, 66, texWhip);
+	sprites->Add("WHIP_LEVEL1_03", 0, 0, 240, 66, texWhip); // die sprite
 
 
 
@@ -257,14 +256,14 @@ void LoadResources()
 	animations->Add("504", ani);
 
 
-	ani = new CAnimation(MARIO_ATTACK_TIME);	// sit
+	ani = new CAnimation(SIMON_ATTACK_TIME);	// sit
 	ani->Add("SIMON_STAND_ATTACK_01");
 	ani->Add("SIMON_STAND_ATTACK_02");
 	ani->Add("SIMON_STAND_ATTACK_03");
 	animations->Add("505", ani);
 
 
-	ani = new CAnimation(100);		// Mario die
+	ani = new CAnimation(100);		// Simon die
 	ani->Add("10099");
 	animations->Add("599", ani);
 
@@ -284,41 +283,39 @@ void LoadResources()
 	animations->Add("702", ani);
 
 
-	ani = new CAnimation(MARIO_ATTACK_TIME);		// Goomba dead
-	ani->Add("40001");
-	ani->Add("40002");
-	ani->Add("40003");
+	ani = new CAnimation(SIMON_ATTACK_TIME);		//whip
+	ani->Add("WHIP_LEVEL1_01");
+	ani->Add("WHIP_LEVEL1_02");
+	ani->Add("WHIP_LEVEL1_03");
 	animations->Add("800", ani);
 
 
 	
 
-	mario = new CMario();
-	mario->AddAnimation(400);		// idle right big 0
-	mario->AddAnimation(401);		// idle left big  1
-	mario->AddAnimation(402);		// idle right small  2
-	mario->AddAnimation(403);		// idle left small 3
+	mario = new CSimon();
+	mario->AddAnimation("400");		// idle right big 0
+	mario->AddAnimation("401");		// idle left big  1
+	mario->AddAnimation("402");		// idle right small  2
+	mario->AddAnimation("403");		// idle left small 3
 
-	mario->AddAnimation(500);		// walk right big  4
-	mario->AddAnimation(501);		// walk left big  5
-	mario->AddAnimation(502);		// walk right small  6
-	mario->AddAnimation(503);		// walk left big  7
-	mario->AddAnimation(599);		// die   8
-	mario->AddAnimation(504);       // sit   9
-	mario->AddAnimation(505);       // stand attack   10
+	mario->AddAnimation("500");		// walk right big  4
+	mario->AddAnimation("501");		// walk left big  5
+	mario->AddAnimation("502");		// walk right small  6
+	mario->AddAnimation("503");		// walk left big  7
+	mario->AddAnimation("599");		// die   8
+	mario->AddAnimation("504");       // sit   9
+	mario->AddAnimation("505");       // stand attack   10
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);
 
 
-	whip = new Whip();
-	whip->AddAnimation(800);
-	
-	mario->SetWhip(whip);
-	objects.push_back(whip);
+	whip = Whip::GetInstance();
+	whip->AddAnimation("800");
+//	objects.push_back(whip);
 	for (int i = 0; i < 60; i++)
 	{
 		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
+		brick->AddAnimation("601");
 		brick->SetPosition(0 + i*16.0f-640/2+60, 350);
 		objects.push_back(brick);
 	}
@@ -327,9 +324,9 @@ void LoadResources()
 	for (int i = 0; i < 4; i++)
 	{
 		goomba = new CGoomba();
-		goomba->AddAnimation(701);
-		goomba->AddAnimation(702);
-		goomba->SetPosition(200 + i*60, 135);
+		goomba->AddAnimation("701");
+		goomba->AddAnimation("702");
+		goomba->SetPosition(200 + i*60, 334);
 		goomba->SetState(GOOMBA_STATE_WALKING);
 		objects.push_back(goomba);
 	}
@@ -342,7 +339,7 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
+	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
 	vector<LPGAMEOBJECT> coObjects;

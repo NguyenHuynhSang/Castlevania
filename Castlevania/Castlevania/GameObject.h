@@ -71,7 +71,7 @@ public:
 		float &nx, 
 		float &ny);
 
-	void AddAnimation(int aniId);
+	void AddAnimation(string aniId);
 
 	CGameObject();
 

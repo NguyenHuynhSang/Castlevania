@@ -26,4 +26,5 @@ public:
 		width = GOOMBA_BBOX_WIDTH;
 		height = GOOMBA_BBOX_HEIGHT;
 	};
+	
 };

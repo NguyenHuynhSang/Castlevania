@@ -38,7 +38,7 @@ void ResourceManagement::LoadSprites(const std::string & filePath)
 	//DebugOut(L"Left=%d top=%d right=%d bottom=%d", l, t, r, b);
 	CTextures * textures = CTextures::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texMario = textures->Get(0);
+	LPDIRECT3DTEXTURE9 texSimon = textures->Get(0);
 	for (xml_node<> *child = spriteSheetNode->first_node(); child; child = child->next_sibling()) {
 		string id = std::string(child->first_attribute("ID")->value()); // lay ID
 		for (xml_node<> *smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
@@ -49,7 +49,7 @@ void ResourceManagement::LoadSprites(const std::string & filePath)
 			int height = std::atoi(smailchild->first_attribute("height")->value());
 			int r = l + width;
 			int b = t + height;
-			sprites->Add(id, l, t, r, b, texMario);
+			sprites->Add(id, l, t, r, b, texSimon);
 		}
 
 	}

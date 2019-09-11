@@ -29,7 +29,7 @@
     <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp" />
-    <ClInclude Include="Mario.h" />
+    <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
@@ -46,7 +46,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
