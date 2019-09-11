@@ -129,7 +129,7 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_SIT) {
+	if (state == SIMON_STATE_SIT ||state==SIMON_STATE_JUMP) {
 		ani = SIMON_ANI_SITTING;
 		Renderer(ani);
 		return;

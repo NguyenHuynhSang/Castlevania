@@ -25,6 +25,8 @@ void Whip::Render()
 {
 
 	animations[0]->Render(nx, x, y);
+	RenderBoundingBox();
+	RenderSpriteBox();
 	return;
 }
 
@@ -32,10 +34,17 @@ void Whip::Render()
 
 void Whip::GetBoundingBox(float & l, float & t, float & r, float & b)
 {
-	l = x;
-	t = y;
-	r = x + 10;
-	b = y + 10;
+	if (nx > 0) {
+		l = x + 60 * 2+2;
+		t = y + 12;
+	}
+	else {
+		l = x+55-2;
+		t = y + 12;
+	}
+
+	r = l +64;
+	b = t +20;
 }
 
 Whip::Whip()

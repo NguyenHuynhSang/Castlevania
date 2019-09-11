@@ -1,4 +1,4 @@
-/* =============================================================
+﻿/* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
 	
 	SAMPLE 04 - COLLISION
@@ -69,7 +69,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if(!mario->IsJumping() && mario->GetActack_Time()==0)
+		if(!mario->IsJumping() && mario->GetActack_Time()==0) // dùng atack time khỏi phải dùng state attack nhiều lần
 		mario->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
@@ -116,6 +116,12 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		return;
 	
 	}
+	if (mario->IsJumping() == true) {
+		return;
+
+	}
+
+
 	if (game->IsKeyDown(DIK_DOWN)) {
 		mario->SetState(SIMON_STATE_SIT);
 		return;
@@ -165,8 +171,7 @@ void LoadResources()
 	
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 
-	// big
-	sprites->Add("10001", 246, 154, 260, 181, texSimon);		// idle right
+	
 
 	sprites->Add("10002", 275, 154, 290, 181, texSimon);		// walk
 	sprites->Add("10003", 304, 154, 321, 181, texSimon);
