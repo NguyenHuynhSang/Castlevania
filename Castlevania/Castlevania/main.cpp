@@ -69,15 +69,16 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if(!mario->IsJumping())
+		if(!mario->IsJumping() && mario->GetActack_Time()==0)
 		mario->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
 		if (mario->GetActack_Time() == 0) {
 			mario->StartActack();
+			mario->SetState(SIMON_STATE_STAND_ATTACK);
 		//	DebugOut(L"Start counting");
 		}
-		mario->SetState(SIMON_STATE_STAND_ATTACK);
+	
 		break;
 	case DIK_A: // reset
 		mario->SetState(SIMON_STATE_IDLE);
@@ -110,9 +111,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		mario->ResetSpriteFrame();
 		
 	}
-	if ((mario->GetActack_Time() != 0)) {
-		return;
-	}
+
 	if (mario->GetState() == SIMON_STATE_STAND_ATTACK) {
 		return;
 	

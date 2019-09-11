@@ -69,7 +69,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CBrick *>(e->obj)) {
-				if (e->ny < 0) this->isJumping = false; // cham dat moi cho nhay tiep
+				if (e->ny < 0) {
+					this->isJumping = false; // cham dat moi cho nhay tiep
+					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
+						vx = 0;
+					}
+				
+				} 
+				
 			}
 			else if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba 
 			{
