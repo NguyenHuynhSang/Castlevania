@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Whip.h"
-#define SIMON_WALKING_SPEED		0.1f 
+#define SIMON_WALKING_SPEED		0.13f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_JUMP_DEFLECT_SPEED 0.2f
@@ -68,7 +68,19 @@ public:
 		level = SIMON_LEVEL_BIG;
 		untouchable = 0;
 		whip = Whip::GetInstance();
-		
+		this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
+		this->AddAnimation("401");		// idle left big  1
+		this->AddAnimation("402");		// idle right small  2
+		this->AddAnimation("403");		// idle left small 3
+
+		this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  4
+		this->AddAnimation("501");		// walk left big  5
+		this->AddAnimation("502");		// walk right small  6
+		this->AddAnimation("503");		// walk left big  7
+		this->AddAnimation("599");		// die   8
+		this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
+		this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
+		this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();	
@@ -88,5 +100,4 @@ public:
 		width = SIMON_SPRITE_BOX_WIDTH; height = SIMON_SPRITE_BOX_HEIGHT;
 	}
 
-	
-};
+	};

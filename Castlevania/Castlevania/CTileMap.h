@@ -24,3 +24,25 @@ public:
 	~CTileMap();
 };
 
+class TileObject {
+private:
+
+public:
+	int id;
+	string name;
+	string type;
+	std::unordered_map<string, int> properties;
+	int x;
+	int y;
+	unsigned int width;
+	unsigned int height;
+};
+
+class ObjectGroup {
+private:
+	int id;
+	string name;
+	string type;
+	std::unordered_map<int, std::shared_ptr<TileObject>> listobject;
+public:
+};

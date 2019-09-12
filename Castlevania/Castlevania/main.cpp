@@ -162,33 +162,15 @@ void LoadResources()
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	resource = ResourceManagement::GetInstance();
-	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml");
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 	cmap = new CTileMap();
 	cmap->LoadMap("Data\\Map\\Courtyard_map.tmx");
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
+	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml",texSimon);
+	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
 
 	
-
-	sprites->Add("10002", 275, 154, 290, 181, texSimon);		// walk
-	sprites->Add("10003", 304, 154, 321, 181, texSimon);
-
-	sprites->Add("10011", 186, 154, 200, 181, texSimon);		// idle left
-	sprites->Add("10012", 155, 154, 170, 181, texSimon);		// walk
-	sprites->Add("10013", 125, 154, 140, 181, texSimon);
-
-	sprites->Add("10099", 215, 120, 231, 135, texSimon);		// die 
-
-	// small
-	sprites->Add("10021", 247, 0, 259, 15, texSimon);			// idle small right
-	sprites->Add("10022", 275, 0, 291, 15, texSimon);			// walk 
-	sprites->Add("10023", 306, 0, 320, 15, texSimon);			// 
-				 
-	sprites->Add("10031", 187, 0, 198, 15, texSimon);			// idle small left
-				 
-	sprites->Add("10032", 155, 0, 170, 15, texSimon);			// walk
-	sprites->Add("10033", 125, 0, 139, 15, texSimon);			// 
 				
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
@@ -212,10 +194,7 @@ void LoadResources()
 
 	LPANIMATION ani;
 
-	ani = new CAnimation(100);	// idle big right
-	ani->Add("SIMON_IDLE");
-	animations->Add("400", ani);
-
+	
 	ani = new CAnimation(100);	// idle big left
 	ani->Add("10011");
 	animations->Add("401", ani);
@@ -228,12 +207,7 @@ void LoadResources()
 	ani->Add("10031");
 	animations->Add("403", ani);
 
-	ani = new CAnimation(100);	// walk right big
-	ani->Add("SIMON_WALKING_01");
-	ani->Add("SIMON_WALKING_02");
-	ani->Add("SIMON_WALKING_03");
-	ani->Add("SIMON_IDLE");
-	animations->Add("500", ani);
+
 
 	ani = new CAnimation(100);	// // walk left big
 	ani->Add("10011");
@@ -253,23 +227,9 @@ void LoadResources()
 	ani->Add("10033");
 	animations->Add("503", ani);
 
-	ani = new CAnimation(100);	// sit
-	ani->Add("SIMON_SIT");
-	animations->Add("504", ani);
+	
 
-
-	ani = new CAnimation(SIMON_ATTACK_TIME);	// sit
-	ani->Add("SIMON_STAND_ATTACK_01");
-	ani->Add("SIMON_STAND_ATTACK_02");
-	ani->Add("SIMON_STAND_ATTACK_03");
-	animations->Add("505", ani);
-
-	ani = new CAnimation(SIMON_ATTACK_TIME);	// sit
-	ani->Add("SIMON_SITTING_ATTACK_01");
-	ani->Add("SIMON_SITTING_ATTACK_02");
-	ani->Add("SIMON_SITTING_ATTACK_03");
-	animations->Add("506", ani);
-
+	
 
 	ani = new CAnimation(100);		// Simon die
 	ani->Add("10099");
@@ -301,19 +261,7 @@ void LoadResources()
 	
 
 	simon = new CSimon();
-	simon->AddAnimation("400");		// idle right big 0
-	simon->AddAnimation("401");		// idle left big  1
-	simon->AddAnimation("402");		// idle right small  2
-	simon->AddAnimation("403");		// idle left small 3
-
-	simon->AddAnimation("500");		// walk right big  4
-	simon->AddAnimation("501");		// walk left big  5
-	simon->AddAnimation("502");		// walk right small  6
-	simon->AddAnimation("503");		// walk left big  7
-	simon->AddAnimation("599");		// die   8
-	simon->AddAnimation("504");       // sit   9
-	simon->AddAnimation("505");       // stand attack   10
-	simon->AddAnimation("506");       // sit attack   11
+	
 	simon->SetPosition(20.0f, 0);
 	objects.push_back(simon);
 
@@ -321,17 +269,17 @@ void LoadResources()
 	whip = Whip::GetInstance();
 	whip->AddAnimation("800");
 //	objects.push_back(whip);
-	for (int i = 0; i < 180; i++)
+	/*for (int i = 0; i < 180; i++)
 	{
 		CBrick *brick = new CBrick();
 		brick->AddAnimation("601");
 		brick->SetPosition(0 + i*16.0f-640/2+60, 350);
 		objects.push_back(brick);
-	}
-	/*Ground* ground = new Ground();
-	ground->SetPosition(60.0f, (334.0f-32.0f));
-	ground->SetSize(180.0f, 32.0f);
-	objects.push_back(ground);*/
+	}*/
+	Ground* ground = new Ground();
+	ground->SetPosition(0, 350.0f);
+	ground->SetSize(1500.0f, 32.0f);
+	objects.push_back(ground);
 
 	// and Goombas 
 	/*for (int i = 0; i < 4; i++)

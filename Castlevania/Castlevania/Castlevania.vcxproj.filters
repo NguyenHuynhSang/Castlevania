@@ -111,6 +111,9 @@
     <ClInclude Include="CTileMap.h">
       <Filter>Utilities\SimpleTileMap</Filter>
     </ClInclude>
+    <ClInclude Include="Torch.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="define.h">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Torch.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

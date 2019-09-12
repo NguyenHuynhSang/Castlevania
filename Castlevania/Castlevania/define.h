@@ -1,8 +1,8 @@
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"04 - Collision"
+#define WINDOW_CLASS_NAME L"Castlevania"
+#define MAIN_WINDOW_TITLE L"Castlevania"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 640	
+#define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 480
 
 #define MAX_FRAME_RATE 120

@@ -6,6 +6,7 @@
 
 #include "Goomba.h"
 #include"Brick.h"
+#include"Ground.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -68,7 +69,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick *>(e->obj)) {
+			if (dynamic_cast<Ground *>(e->obj)) {
 				if (e->ny < 0) {
 					this->isJumping = false; // cham dat moi cho nhay tiep
 					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
