@@ -23,15 +23,15 @@
 		</sprite>
 
 		<sprite ID="SIMON_SITTING_ATTACK_01">
-			<frame x="300" y="0" width="60" height="66" />
+			<frame x="300" y="-11" width="60" height="66" />
 
 		</sprite>
 		<sprite ID="SIMON_SITTING_ATTACK_02">
-			<frame x="360" y="0" width="60" height="66" />
+			<frame x="360" y="-11" width="60" height="66" />
 
 		</sprite>
 		<sprite ID="SIMON_SITTING_ATTACK_03">
-			<frame x="420" y="0" width="60" height="66" />
+			<frame x="420" y="-11" width="60" height="66" />
 
 		</sprite>
 

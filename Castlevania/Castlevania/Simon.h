@@ -15,7 +15,7 @@
 #define SIMON_STATE_DIE				400
 #define SIMON_STATE_SIT             500
 #define SIMON_STATE_STAND_ATTACK    600
-
+#define SIMON_STATE_SIT_ATTACK 700
 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
@@ -27,10 +27,10 @@
 #define SIMON_ANI_SMALL_WALKING_RIGHT		6
 #define SIMON_ANI_SMALL_WALKING_LEFT		7
 
-
 #define SIMON_ANI_DIE				8
 #define SIMON_ANI_SITTING           9
 #define SIMON_ANI_STAND_ATTACK           10
+#define SIMON_ANI_SIT_ATTACK             11
 
 
 #define	SIMON_LEVEL_SMALL	1

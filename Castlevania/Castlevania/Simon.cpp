@@ -129,6 +129,14 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
+	if (state == SIMON_STATE_SIT_ATTACK) {
+		ani = SIMON_ANI_SIT_ATTACK;
+		whip->SetPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH,y+SIMON_SPRITE_BOX_HEIGHT/4);
+		whip->SetDirection(nx);
+		whip->Render();
+		Renderer(ani);
+		return;
+	}
 	if (state == SIMON_STATE_SIT ||state==SIMON_STATE_JUMP) {
 		ani = SIMON_ANI_SITTING;
 		Renderer(ani);
@@ -193,7 +201,8 @@ void CSimon::SetState(int state)
 		if (!this->isJumping) vx = 0;
 		break;
 	}
-	case SIMON_STATE_SIT:
+	case SIMON_STATE_SIT_ATTACK:
+	case SIMON_STATE_SIT: 
 	case SIMON_STATE_IDLE:
 		vx = 0;
 		break;

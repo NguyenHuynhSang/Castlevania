@@ -49,6 +49,9 @@
     <Filter Include="Documentation">
       <UniqueIdentifier>{c266753f-fa9e-4ebf-a4d0-b64d8d362243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities\SimpleTileMap">
+      <UniqueIdentifier>{ffd04354-74dc-46b5-9138-e89227e314c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -102,6 +105,12 @@
     <ClInclude Include="Simon.h">
       <Filter>ObjectsManagement\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileMap.h">
+      <Filter>Utilities\SimpleTileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -128,9 +137,6 @@
     <ClCompile Include="InputController.cpp">
       <Filter>Framework\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="define.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceManagement.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -154,6 +160,15 @@
     </ClCompile>
     <ClCompile Include="Simon.cpp">
       <Filter>ObjectsManagement\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileMap.cpp">
+      <Filter>Utilities\SimpleTileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="define.h">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

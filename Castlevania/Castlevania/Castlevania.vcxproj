@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="CTileMap.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="Library\RapidXML\rapidxml.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
@@ -39,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="debug.cpp" />
-    <ClCompile Include="define.cpp" />
+    <ClCompile Include="define.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simon.cpp" />

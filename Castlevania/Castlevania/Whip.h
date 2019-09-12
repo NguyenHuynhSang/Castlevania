@@ -23,7 +23,7 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {
-		width =200;
+		width =240;
 		height = 66;
 	};
 	

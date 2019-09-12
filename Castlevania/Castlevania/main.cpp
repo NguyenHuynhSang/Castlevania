@@ -31,28 +31,17 @@
 #include "Goomba.h"
 #include"ResourceManagement.h"
 #include "Whip.h"
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"04 - Collision"
-
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 640	
-#define SCREEN_HEIGHT 480
-
-#define MAX_FRAME_RATE 120
-
-#define ID_TEX_SIMON 0
-#define ID_TEX_ENEMY 10
-#define ID_TEX_MISC 20
-#define ID_TEX_WHIP 31
-
+#include"Ground.h"
+#include"CTileMap.h"
+#include"define.h"
 CGame *game;
 
-CSimon *mario;
+CSimon *simon;
 CGoomba *goomba;
 Whip* whip;
 ResourceManagement * resource;
 vector<LPGAMEOBJECT> objects;
-
+CTileMap* cmap;
 class CSampleKeyHander: public InputController
 {
 	virtual void KeyState(BYTE *states);
@@ -69,22 +58,29 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if(!mario->IsJumping() && mario->GetActack_Time()==0) // dùng atack time khỏi phải dùng state attack nhiều lần
-		mario->SetState(SIMON_STATE_JUMP);
+		if(!simon->IsJumping() && simon->GetState()!=SIMON_STATE_SIT &&simon->GetActack_Time()==0) // dùng atack time khỏi phải dùng state attack nhiều lần
+		simon->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
-		if (mario->GetActack_Time() == 0) {
-			mario->StartActack();
-			mario->SetState(SIMON_STATE_STAND_ATTACK);
+		if (simon->GetActack_Time() == 0) {
+			simon->StartActack();
+			if (simon->GetState() == SIMON_STATE_SIT)
+			{
+				simon->SetState(SIMON_STATE_SIT_ATTACK);
+				return;
+			}
+			else {
+				simon->SetState(SIMON_STATE_STAND_ATTACK);
+			}	
 		//	DebugOut(L"Start counting");
 		}
 	
 		break;
 	case DIK_A: // reset
-		mario->SetState(SIMON_STATE_IDLE);
-		mario->SetLevel(SIMON_LEVEL_BIG);
-		mario->SetPosition(50.0f,0.0f);
-		mario->SetSpeed(0, 0);
+		simon->SetState(SIMON_STATE_IDLE);
+		simon->SetLevel(SIMON_LEVEL_BIG);
+		simon->SetPosition(50.0f,0.0f);
+		simon->SetSpeed(0, 0);
 		break;
 	}
 }
@@ -99,39 +95,41 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
+	
+	
 	// disable control key when Simon die 
 	//DebugOut(L"state=%d  \n", mario->GetState());
-	if (mario->GetState() == SIMON_STATE_DIE) return;
+	if (simon->GetState() == SIMON_STATE_DIE) return;
 
-	if ((mario->GetActack_Time()!=0)&&(GetTickCount() - mario->GetActack_Time() > 3*SIMON_ATTACK_TIME))
+	if ((simon->GetActack_Time()!=0)&&(GetTickCount() - simon->GetActack_Time() > 3*SIMON_ATTACK_TIME))
 	{
 		DebugOut(L"stop atack \n");
-		mario->SetState(SIMON_STATE_IDLE);
-		mario->ResetActack_Time();
-		mario->ResetSpriteFrame();
+		simon->SetState(SIMON_STATE_IDLE);
+		simon->ResetActack_Time();
+		simon->ResetSpriteFrame();
 		
 	}
 
-	if (mario->GetState() == SIMON_STATE_STAND_ATTACK) {
+	if (simon->GetActack_Time() != 0 ) { // dùng attack time thay cho nhiều state attack
 		return;
 	
 	}
-	if (mario->IsJumping() == true) {
+	if (simon->IsJumping() == true) {
 		return;
 
 	}
 
 
 	if (game->IsKeyDown(DIK_DOWN)) {
-		mario->SetState(SIMON_STATE_SIT);
+		simon->SetState(SIMON_STATE_SIT);
 		return;
 	}
 	else if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(SIMON_STATE_WALKING_RIGHT);
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(SIMON_STATE_WALKING_LEFT);	
+		simon->SetState(SIMON_STATE_WALKING_LEFT);	
 	else
-		mario->SetState(SIMON_STATE_IDLE);
+		simon->SetState(SIMON_STATE_IDLE);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -156,19 +154,19 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
-
+	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png",D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whipedip.png", D3DCOLOR_XRGB(3, 26, 110));
-
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	resource = ResourceManagement::GetInstance();
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml");
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
-	
+	cmap = new CTileMap();
+	cmap->LoadMap("Data\\Map\\Courtyard_map.tmx");
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 
 	
@@ -266,6 +264,12 @@ void LoadResources()
 	ani->Add("SIMON_STAND_ATTACK_03");
 	animations->Add("505", ani);
 
+	ani = new CAnimation(SIMON_ATTACK_TIME);	// sit
+	ani->Add("SIMON_SITTING_ATTACK_01");
+	ani->Add("SIMON_SITTING_ATTACK_02");
+	ani->Add("SIMON_SITTING_ATTACK_03");
+	animations->Add("506", ani);
+
 
 	ani = new CAnimation(100);		// Simon die
 	ani->Add("10099");
@@ -296,36 +300,41 @@ void LoadResources()
 
 	
 
-	mario = new CSimon();
-	mario->AddAnimation("400");		// idle right big 0
-	mario->AddAnimation("401");		// idle left big  1
-	mario->AddAnimation("402");		// idle right small  2
-	mario->AddAnimation("403");		// idle left small 3
+	simon = new CSimon();
+	simon->AddAnimation("400");		// idle right big 0
+	simon->AddAnimation("401");		// idle left big  1
+	simon->AddAnimation("402");		// idle right small  2
+	simon->AddAnimation("403");		// idle left small 3
 
-	mario->AddAnimation("500");		// walk right big  4
-	mario->AddAnimation("501");		// walk left big  5
-	mario->AddAnimation("502");		// walk right small  6
-	mario->AddAnimation("503");		// walk left big  7
-	mario->AddAnimation("599");		// die   8
-	mario->AddAnimation("504");       // sit   9
-	mario->AddAnimation("505");       // stand attack   10
-	mario->SetPosition(50.0f, 0);
-	objects.push_back(mario);
+	simon->AddAnimation("500");		// walk right big  4
+	simon->AddAnimation("501");		// walk left big  5
+	simon->AddAnimation("502");		// walk right small  6
+	simon->AddAnimation("503");		// walk left big  7
+	simon->AddAnimation("599");		// die   8
+	simon->AddAnimation("504");       // sit   9
+	simon->AddAnimation("505");       // stand attack   10
+	simon->AddAnimation("506");       // sit attack   11
+	simon->SetPosition(20.0f, 0);
+	objects.push_back(simon);
 
 
 	whip = Whip::GetInstance();
 	whip->AddAnimation("800");
 //	objects.push_back(whip);
-	for (int i = 0; i < 60; i++)
+	for (int i = 0; i < 180; i++)
 	{
 		CBrick *brick = new CBrick();
 		brick->AddAnimation("601");
 		brick->SetPosition(0 + i*16.0f-640/2+60, 350);
 		objects.push_back(brick);
 	}
+	/*Ground* ground = new Ground();
+	ground->SetPosition(60.0f, (334.0f-32.0f));
+	ground->SetSize(180.0f, 32.0f);
+	objects.push_back(ground);*/
 
 	// and Goombas 
-	for (int i = 0; i < 4; i++)
+	/*for (int i = 0; i < 4; i++)
 	{
 		goomba = new CGoomba();
 		goomba->AddAnimation("701");
@@ -333,7 +342,7 @@ void LoadResources()
 		goomba->SetPosition(200 + i*60, 334);
 		goomba->SetState(GOOMBA_STATE_WALKING);
 		objects.push_back(goomba);
-	}
+	}*/
 
 }
 
@@ -360,12 +369,12 @@ void Update(DWORD dt)
 
 	// Update camera to follow mario
 	float cx, cy;
-	mario->GetPosition(cx, cy);
+	simon->GetPosition(cx, cy);
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-
-	CGame::GetInstance()->SetCamPos(0.0f, 0.0f /*cy*/);
+	if(cx> 0&&cx<47*32- SCREEN_WIDTH)
+	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 
 /*
@@ -383,7 +392,7 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
+		cmap->Render();
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
 
