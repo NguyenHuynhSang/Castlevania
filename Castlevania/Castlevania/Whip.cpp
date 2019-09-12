@@ -49,6 +49,7 @@ void Whip::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 Whip::Whip()
 {
+	AddAnimation("WHIP_ANI_LV1");
 }
 
 

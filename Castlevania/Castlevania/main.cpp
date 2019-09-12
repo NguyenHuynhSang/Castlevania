@@ -1,6 +1,6 @@
 ﻿/* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
-	
+
 	SAMPLE 04 - COLLISION
 
 	This sample illustrates how to:
@@ -8,14 +8,14 @@
 		1/ Implement SweptAABB algorithm between moving objects
 		2/ Implement a simple (yet effective) collision frame work
 
-	Key functions: 
+	Key functions:
 		CGame::SweptAABB
 		CGameObject::SweptAABBEx
 		CGameObject::CalcPotentialCollisions
 		CGameObject::FilterCollision
 
 		CGameObject::GetBoundingBox
-		
+
 ================================================================ */
 
 #include <windows.h>
@@ -42,24 +42,24 @@ Whip* whip;
 ResourceManagement * resource;
 vector<LPGAMEOBJECT> objects;
 CTileMap* cmap;
-class CSampleKeyHander: public InputController
+class CSampleKeyHander : public InputController
 {
 	virtual void KeyState(BYTE *states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 };
 
-CSampleKeyHander * keyHandler; 
+CSampleKeyHander * keyHandler;
 bool isJumping = false;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	
+
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if(!simon->IsJumping() && simon->GetState()!=SIMON_STATE_SIT &&simon->GetActack_Time()==0) // dùng atack time khỏi phải dùng state attack nhiều lần
-		simon->SetState(SIMON_STATE_JUMP);
+		if (!simon->IsJumping() && simon->GetState() != SIMON_STATE_SIT && simon->GetActack_Time() == 0) // dùng atack time khỏi phải dùng state attack nhiều lần
+			simon->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
 		if (simon->GetActack_Time() == 0) {
@@ -71,15 +71,15 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			}
 			else {
 				simon->SetState(SIMON_STATE_STAND_ATTACK);
-			}	
-		//	DebugOut(L"Start counting");
+			}
+			//	DebugOut(L"Start counting");
 		}
-	
+
 		break;
 	case DIK_A: // reset
 		simon->SetState(SIMON_STATE_IDLE);
 		simon->SetLevel(SIMON_LEVEL_BIG);
-		simon->SetPosition(50.0f,0.0f);
+		simon->SetPosition(50.0f, 0.0f);
 		simon->SetSpeed(0, 0);
 		break;
 	}
@@ -87,32 +87,32 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
-//	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-	
+	//	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+
 }
 
 
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	
-	
+
+
 	// disable control key when Simon die 
 	//DebugOut(L"state=%d  \n", mario->GetState());
 	if (simon->GetState() == SIMON_STATE_DIE) return;
 
-	if ((simon->GetActack_Time()!=0)&&(GetTickCount() - simon->GetActack_Time() > 3*SIMON_ATTACK_TIME))
+	if ((simon->GetActack_Time() != 0) && (GetTickCount() - simon->GetActack_Time() > 3 * SIMON_ATTACK_TIME))
 	{
 		DebugOut(L"stop atack \n");
 		simon->SetState(SIMON_STATE_IDLE);
 		simon->ResetActack_Time();
 		simon->ResetSpriteFrame();
-		
+
 	}
 
-	if (simon->GetActack_Time() != 0 ) { // dùng attack time thay cho nhiều state attack
+	if (simon->GetActack_Time() != 0) { // dùng attack time thay cho nhiều state attack
 		return;
-	
+
 	}
 	if (simon->IsJumping() == true) {
 		return;
@@ -127,7 +127,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	else if (game->IsKeyDown(DIK_RIGHT))
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		simon->SetState(SIMON_STATE_WALKING_LEFT);	
+		simon->SetState(SIMON_STATE_WALKING_LEFT);
 	else
 		simon->SetState(SIMON_STATE_IDLE);
 }
@@ -146,7 +146,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 /*
-	Load all game resources 
+	Load all game resources
 	In this example: load textures, sprites, animations and mario object
 
 	TO-DO: Improve this function by loading texture,sprite,animation,object from file
@@ -155,7 +155,7 @@ void LoadResources()
 {
 	CTextures * textures = CTextures::GetInstance();
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png",D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whipedip.png", D3DCOLOR_XRGB(3, 26, 110));
@@ -164,26 +164,28 @@ void LoadResources()
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
-	cmap = new CTileMap();
+	cmap = CTileMap::GetInstance();
 	cmap->LoadMap("Data\\Map\\Courtyard_map.tmx");
-	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
-	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml",texSimon);
-	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
+	cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 
-	
-				
+	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
+	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml", texSimon);
+	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
+	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
+	resource->LoadSprites("Data\\GameObject\\Weapons\\Whip_sprite.xml", texWhip);
+	resource->LoadAnimations("Data\\GameObject\\Weapons\\Whip_ani.xml", animations);
+
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
-				 
+
 	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
 	sprites->Add("30001", 5, 14, 21, 29, texEnemy);
 	sprites->Add("30002", 25, 14, 41, 29, texEnemy);
-				 
 	sprites->Add("30003", 45, 21, 61, 29, texEnemy); // die sprite
 
 
 
-	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP); 
+
 	sprites->Add("WHIP_LEVEL1_01", 480, 0, 720, 66, texWhip);
 	sprites->Add("WHIP_LEVEL1_02", 240, 0, 480, 66, texWhip);
 	sprites->Add("WHIP_LEVEL1_03", 0, 0, 240, 66, texWhip); // die sprite
@@ -194,48 +196,9 @@ void LoadResources()
 
 	LPANIMATION ani;
 
-	
-	ani = new CAnimation(100);	// idle big left
-	ani->Add("10011");
-	animations->Add("401", ani);
-
-	ani = new CAnimation(100);	// idle small right
-	ani->Add("10021");
-	animations->Add("402", ani);
-
-	ani = new CAnimation(100);	// idle small left
-	ani->Add("10031");
-	animations->Add("403", ani);
 
 
 
-	ani = new CAnimation(100);	// // walk left big
-	ani->Add("10011");
-	ani->Add("10012");
-	ani->Add("10013");
-	animations->Add("501", ani);
-
-	ani = new CAnimation(100);	// walk right small
-	ani->Add("10021");
-	ani->Add("10022");
-	ani->Add("10023");
-	animations->Add("502", ani);
-
-	ani = new CAnimation(100);	// walk left small
-	ani->Add("10031");
-	ani->Add("10032");
-	ani->Add("10033");
-	animations->Add("503", ani);
-
-	
-
-	
-
-	ani = new CAnimation(100);		// Simon die
-	ani->Add("10099");
-	animations->Add("599", ani);
-
-	
 
 	ani = new CAnimation(100);		// brick
 	ani->Add("20001");
@@ -257,25 +220,40 @@ void LoadResources()
 	ani->Add("WHIP_LEVEL1_03");
 	animations->Add("800", ani);
 
-
-	
+	for (const auto& entity : cmap->GetObjects()) {
+		DebugOut(L" ===============ID =%d \n", entity.first);
+		for (const auto& child : entity.second) {
+			DebugOut(L" ID =%d \n", child->GetId());
+		}
+	}
 
 	simon = new CSimon();
-	
-	simon->SetPosition(20.0f, 0);
+	auto simonPos = cmap->GetObjects().find(ID_TILEOBJECT_SIMON);
+
+	for (const auto& child : simonPos->second) {
+		simon->SetPosition(child->GetX(), child->GetY());
+		DebugOut(L"[Complete]Load Simon position in game world \n");
+	}
+
+
+
+
 	objects.push_back(simon);
+
+
+
 
 
 	whip = Whip::GetInstance();
 	whip->AddAnimation("800");
-//	objects.push_back(whip);
-	/*for (int i = 0; i < 180; i++)
-	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation("601");
-		brick->SetPosition(0 + i*16.0f-640/2+60, 350);
-		objects.push_back(brick);
-	}*/
+	//	objects.push_back(whip);
+		/*for (int i = 0; i < 180; i++)
+		{
+			CBrick *brick = new CBrick();
+			brick->AddAnimation("601");
+			brick->SetPosition(0 + i*16.0f-640/2+60, 350);
+			objects.push_back(brick);
+		}*/
 	Ground* ground = new Ground();
 	ground->SetPosition(0, 350.0f);
 	ground->SetSize(1500.0f, 32.0f);
@@ -311,7 +289,7 @@ void Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt,&coObjects);
+		objects[i]->Update(dt, &coObjects);
 	}
 
 
@@ -321,12 +299,12 @@ void Update(DWORD dt)
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-	if(cx> 0&&cx<47*32- SCREEN_WIDTH)
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	if (cx > 0 && cx < 47 * 32 - SCREEN_WIDTH)
+		CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 
 /*
-	Render a frame 
+	Render a frame
 */
 void Render()
 {
@@ -388,7 +366,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 			hInstance,
 			NULL);
 
-	if (!hWnd) 
+	if (!hWnd)
 	{
 		OutputDebugString(L"[ERROR] CreateWindow failed");
 		DWORD ErrCode = GetLastError();
@@ -429,12 +407,12 @@ int Run()
 			frameStart = now;
 
 			game->ProcessKeyboard();
-			
+
 			Update(dt);
 			Render();
 		}
 		else
-			Sleep(tickPerFrame - dt);	
+			Sleep(tickPerFrame - dt);
 	}
 
 	return 1;

@@ -83,5 +83,6 @@ public:
 	LPANIMATION Get(string id);
 
 	static CAnimations * GetInstance();
+
 };
 

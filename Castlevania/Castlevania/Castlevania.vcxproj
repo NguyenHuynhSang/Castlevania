@@ -36,7 +36,8 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMapReader.h" />
-    <ClInclude Include="TileObjects.h" />
+    <ClInclude Include="StaticObjects.h" />
+    <ClInclude Include="TileObject.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="Whip.h" />
   </ItemGroup>
@@ -57,7 +58,8 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Tile.h" />
     <ClCompile Include="TileMapReader.cpp" />
-    <ClCompile Include="TileObjects.cpp" />
+    <ClCompile Include="StaticObjects.cpp" />
+    <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="TileSheet.h" />
     <ClCompile Include="Torch.cpp" />
     <ClCompile Include="Whip.cpp" />

@@ -96,9 +96,6 @@
     <ClInclude Include="TileMapReader.h">
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
-    <ClInclude Include="TileObjects.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Whip.h">
       <Filter>ObjectsManagement</Filter>
     </ClInclude>
@@ -113,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="Torch.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticObjects.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObject.h">
+      <Filter>Utilities\SimpleTileMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +155,6 @@
     <ClCompile Include="TileMapReader.cpp">
       <Filter>Utilities\MapReader</Filter>
     </ClCompile>
-    <ClCompile Include="TileObjects.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
@@ -175,6 +175,12 @@
     </ClCompile>
     <ClCompile Include="Torch.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObjects.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObject.cpp">
+      <Filter>Utilities\SimpleTileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

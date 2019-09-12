@@ -1,6 +1,6 @@
 #pragma once
-#include"TileObjects.h"
-class Ground:public TileObjects
+#include"StaticObjects.h"
+class Ground:public StaticObject
 {
 public:
 	virtual void Render();

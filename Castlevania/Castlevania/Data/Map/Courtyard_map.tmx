@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="9">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="10">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
@@ -527,7 +527,6 @@
  <objectgroup id="2" name="BoundMap">
   <object id="1" name="Start" x="-24" y="-1" width="23" height="352"/>
   <object id="2" name="end" x="1505" y="0" width="24" height="353"/>
-  <object id="3" x="1107" y="510" height="2"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
   <object id="5" x="1" y="289" width="1502" height="29"/>
@@ -535,5 +534,8 @@
  <objectgroup id="4" name="Entry">
   <object id="6" name="camstart" x="307" y="262" width="28" height="26"/>
   <object id="7" name="camend" x="1186" y="260" width="29" height="28"/>
+ </objectgroup>
+ <objectgroup id="5" name="Simon">
+  <object id="9" name="SIMON" type="SIMON" x="120" y="221" width="60" height="66"/>
  </objectgroup>
 </map>

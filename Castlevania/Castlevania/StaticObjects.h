@@ -1,6 +1,6 @@
 #pragma once
 #include"GameObject.h"
-class TileObjects:public CGameObject
+class StaticObject:public CGameObject
 {
 protected:
 	float weight;
@@ -20,7 +20,7 @@ public:
 		this->weight = w;
 		this->height = h;
 	}
-	TileObjects();
-	~TileObjects();
+	StaticObject();
+	~StaticObject();
 };
 
