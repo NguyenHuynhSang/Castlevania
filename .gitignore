@@ -63,3 +63,5 @@ Castlevania/.vs/Castlevania/v15/ipch/AutoPCH/b3c2eb51c0fe7493/ZOMBIE.ipch
 Castlevania/.vs/Castlevania/v15/ipch/AutoPCH/a6073238b125519f/GHOUL.ipch
 Castlevania/.vs/Castlevania/v15/ipch/AutoPCH/3f808e49924d0087/HEART.ipch
 Castlevania/.vs/Castlevania/v15/ipch/AutoPCH/5741e7c651017b38/ITEM.ipch
+*.ipch
+*.tlog

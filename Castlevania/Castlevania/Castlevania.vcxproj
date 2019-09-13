@@ -35,6 +35,7 @@
     <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp" />
+    <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Sprites.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Sprites.cpp" />

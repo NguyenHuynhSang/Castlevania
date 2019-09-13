@@ -43,7 +43,7 @@ void Whip::Render()
 
 	animations[0]->Render(nx, x, y);
 	RenderBoundingBox();
-	RenderSpriteBox();
+	//RenderSpriteBox();
 	return;
 }
 

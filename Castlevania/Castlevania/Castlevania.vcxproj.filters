@@ -52,6 +52,9 @@
     <Filter Include="ObjectsManagement\Items">
       <UniqueIdentifier>{12762fe4-fb4d-4fa5-bedd-bbdafa689ca8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{bb7d3660-35bb-461c-bea8-b670734cf542}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -129,6 +132,9 @@
     <ClInclude Include="Heart.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManagement.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="Heart.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManagement.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
