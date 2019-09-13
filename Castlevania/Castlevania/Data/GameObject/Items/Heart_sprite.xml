@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="Heart.png">
+		<sprite ID="HEART_BIG">
+			<frame x="0" y="0" width="24" height="20" />
+		</sprite>
+		<sprite ID="HEART_SMALL">
+			<frame x="24" y="0" width="16" height="16" />
+		</sprite>
+		
+	</spritesheet>
+</resource>

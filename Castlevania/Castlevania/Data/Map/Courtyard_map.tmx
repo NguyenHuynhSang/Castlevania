@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="21">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="27">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
  <tileset firstgid="81" source="ObjectTile/Torch.tsx"/>
  <tileset firstgid="83" source="ObjectTile/SIMON.tsx"/>
+ <tileset firstgid="155" source="ObjectTile/Money_Bag.tsx"/>
  <layer id="1" name="background" width="47" height="11">
   <data>
    <tile gid="1"/>
@@ -531,19 +532,26 @@
   <object id="2" name="end" x="1502" y="-1" width="24" height="353"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
-  <object id="5" x="1" y="289" width="1502" height="29"/>
+  <object id="5" x="0" y="287.5" width="1502" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="Entry">
-  <object id="6" name="camstart" x="307" y="262" width="28" height="26"/>
-  <object id="7" name="camend" x="1186" y="260" width="29" height="28"/>
- </objectgroup>
+ <objectgroup id="4" name="Entry"/>
  <objectgroup id="5" name="Simon">
-  <object id="20" gid="86" x="146" y="287" width="60" height="64"/>
+  <object id="25" gid="86" x="58" y="288" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="6" name="Torch">
-  <object id="10" gid="81" x="367.25" y="287.5" width="32" height="64"/>
-  <object id="11" gid="81" x="642.5" y="287.25" width="32" height="64"/>
-  <object id="12" gid="81" x="1131.25" y="287.5" width="32" height="64"/>
-  <object id="13" gid="81" x="899.75" y="287.5" width="32" height="64"/>
+  <object id="10" name="Torch" type="Torch" gid="81" x="179.75" y="286" width="32" height="64"/>
+  <object id="11" name="Torch" type="Torch" gid="81" x="438.5" y="287.25" width="32" height="64"/>
+  <object id="12" name="Torch" type="Torch" gid="81" x="951.75" y="286.5" width="32" height="64"/>
+  <object id="13" name="Torch" type="Torch" gid="81" x="688.75" y="286.5" width="32" height="64"/>
+  <object id="21" gid="81" x="1199.5" y="287" width="32" height="64"/>
+ </objectgroup>
+ <objectgroup id="7" name="NextScene">
+  <object id="23" name="NextScene" x="1484" y="109.5" width="17" height="176.5"/>
+ </objectgroup>
+ <objectgroup id="8" name="AutoWalk">
+  <object id="24" name="EnterCastle" x="1312" y="275" width="36" height="11"/>
+ </objectgroup>
+ <objectgroup id="9" name="MoneyBag">
+  <object id="26" gid="155" x="1257.5" y="318" width="31" height="30"/>
  </objectgroup>
 </map>

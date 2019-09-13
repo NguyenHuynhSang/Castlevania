@@ -36,6 +36,7 @@
 #include"define.h"
 #include"Torch.h"
 #include"BoundMap.h"
+#include"Heart.h"
 CGame *game;
 CSimon *simon;
 Ghoul *goomba;
@@ -44,7 +45,7 @@ Torch * torch;
 Ground *ground;
 BoundMap *bound;
 ResourceManagement * resource;
-vector<LPGAMEOBJECT> objects;
+static vector<LPGAMEOBJECT> objects;
 CTileMap* cmap;
 class CSampleKeyHander : public InputController
 {
@@ -166,6 +167,7 @@ void LoadResources()
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -183,7 +185,10 @@ void LoadResources()
 	LPDIRECT3DTEXTURE9 texTorch = textures->Get(ID_TEX_TORCH);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Torch_sprite.xml", texTorch);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Torch_ani.xml", animations);
-
+	LPDIRECT3DTEXTURE9 texHeart = textures->Get(ID_TEX_ITEM_HEART);
+	resource->LoadSprites("Data\\GameObject\\Items\\Heart_sprite.xml", texHeart);
+	resource->LoadAnimations("Data\\GameObject\\Items\\Heart_ani.xml", animations);
+	
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
 
@@ -268,11 +273,18 @@ void LoadResources()
 
 
 	auto torchObject = cmap->GetObjects().find(ID_TILE_OBJECT_TORCH);
+	Item* citem;
 	for (const auto& child : torchObject->second) {
+		citem = new Heart();
+		
 		//DebugOut(L"[Complete]Load Torch position in game world \n");
 		torch = new Torch();
 		torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 		//DebugOut(L"[Complete]Load Simon position in game world \n");
+		citem->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+		citem->SetState(HEART_STATE_BIGHEART);
+		
+		objects.push_back(citem);
 		objects.push_back(torch);
 	}
 

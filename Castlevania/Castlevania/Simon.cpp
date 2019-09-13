@@ -8,6 +8,8 @@
 #include"Brick.h"
 #include"Ground.h"
 #include"Torch.h"
+#include"StaticObjects.h"
+#include"Item.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -123,7 +125,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 				}
 			}
-	
+			else if (dynamic_cast<Item *>(e->obj)) {
+				Item *item = dynamic_cast<Item *>(e->obj);
+				item->SetDestroy();
+			}
 		}
 	}
 

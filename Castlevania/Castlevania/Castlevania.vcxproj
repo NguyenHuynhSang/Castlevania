@@ -28,7 +28,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ghoul.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Heart.h" />
     <ClInclude Include="InputController.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Library\RapidXML\rapidxml.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
@@ -54,7 +56,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ghoul.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Heart.cpp" />
     <ClCompile Include="InputController.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />

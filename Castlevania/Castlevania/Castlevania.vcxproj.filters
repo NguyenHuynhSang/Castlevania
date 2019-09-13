@@ -49,6 +49,9 @@
     <Filter Include="Documentation">
       <UniqueIdentifier>{c266753f-fa9e-4ebf-a4d0-b64d8d362243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectsManagement\Items">
+      <UniqueIdentifier>{12762fe4-fb4d-4fa5-bedd-bbdafa689ca8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -87,9 +90,6 @@
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp">
       <Filter>Library\RapidXML</Filter>
     </ClInclude>
-    <ClInclude Include="Whip.h">
-      <Filter>ObjectsManagement</Filter>
-    </ClInclude>
     <ClInclude Include="Simon.h">
       <Filter>ObjectsManagement\Player</Filter>
     </ClInclude>
@@ -120,6 +120,15 @@
     <ClInclude Include="Ghoul.h">
       <Filter>ObjectsManagement\Npcs</Filter>
     </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>ObjectsManagement\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -148,9 +157,6 @@
     </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Whip.cpp">
-      <Filter>ObjectsManagement</Filter>
     </ClCompile>
     <ClCompile Include="Simon.cpp">
       <Filter>ObjectsManagement\Player</Filter>
@@ -184,6 +190,15 @@
     </ClCompile>
     <ClCompile Include="Ghoul.cpp">
       <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>ObjectsManagement\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

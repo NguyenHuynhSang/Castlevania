@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<animations AtlasPath="Heart_sprite.xml">
+		<animation ID="HEART_ANI_BIG" defaulttime="100">
+			<frame spriteID="HEART_BIG" />
+		</animation>
+		<animation ID="HEART_ANI_SMALL" defaulttime="100">
+			<frame spriteID="HEART_SMALL" />
+		</animation>
+	</animations>
+
+</resource>

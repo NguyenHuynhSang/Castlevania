@@ -1,0 +1,14 @@
+#pragma once
+#include"Item.h"
+#include"define.h"
+class Heart:public Item
+{
+public:
+	virtual void Render();
+	virtual void  GetBoundingBox(float &l, float &t, float &r, float &b);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
+	Heart() ;
+	Heart(int state);
+	~Heart();
+};
+
