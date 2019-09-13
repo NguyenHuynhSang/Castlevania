@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="20">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="21">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
  <tileset firstgid="81" source="ObjectTile/Torch.tsx"/>
+ <tileset firstgid="83" source="ObjectTile/SIMON.tsx"/>
  <layer id="1" name="background" width="47" height="11">
   <data>
    <tile gid="1"/>
@@ -537,7 +538,7 @@
   <object id="7" name="camend" x="1186" y="260" width="29" height="28"/>
  </objectgroup>
  <objectgroup id="5" name="Simon">
-  <object id="9" name="SIMON" type="SIMON" x="120" y="221" width="60" height="66"/>
+  <object id="20" gid="86" x="146" y="287" width="60" height="64"/>
  </objectgroup>
  <objectgroup id="6" name="Torch">
   <object id="10" gid="81" x="367.25" y="287.5" width="32" height="64"/>

@@ -63,9 +63,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>ObjectsManagement</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
-    </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
@@ -120,6 +117,9 @@
     <ClInclude Include="BoundMap.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Ghoul.h">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -130,9 +130,6 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>ObjectsManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
@@ -184,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="BoundMap.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghoul.cpp">
+      <Filter>ObjectsManagement\Npcs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

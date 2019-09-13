@@ -28,7 +28,7 @@
 
 #include "Simon.h"
 #include "Brick.h"
-#include "Goomba.h"
+#include "Ghoul.h"
 #include"ResourceManagement.h"
 #include "Whip.h"
 #include"Ground.h"
@@ -37,9 +37,8 @@
 #include"Torch.h"
 #include"BoundMap.h"
 CGame *game;
-
 CSimon *simon;
-CGoomba *goomba;
+Ghoul *goomba;
 Whip* whip;
 Torch * torch;
 Ground *ground;
@@ -108,7 +107,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 	if ((simon->GetActack_Time() != 0) && (GetTickCount() - simon->GetActack_Time() > 3 * SIMON_ATTACK_TIME))
 	{
-		DebugOut(L"stop atack \n");
+		//DebugOut(L"stop atack \n");
 		simon->SetState(SIMON_STATE_IDLE);
 		simon->ResetActack_Time();
 		simon->ResetSpriteFrame();
@@ -241,7 +240,7 @@ void LoadResources()
 	auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 
 	for (const auto& child : simonPos->second) {
-		simon->SetPosition(child->GetX(), child->GetY());
+		simon->SetPosition(child->GetX(), child->GetY()- child->GetHeight());
 		//	DebugOut(L"[Complete]Load Simon position in game world \n");
 	}
 	objects.push_back(simon);
@@ -322,10 +321,7 @@ void Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
-		if (dynamic_cast<Torch *>(objects.at(i))) {//test 
-			continue;
-
-		}
+	
 		coObjects.push_back(objects[i]);
 	}
 

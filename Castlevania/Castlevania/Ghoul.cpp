@@ -1,18 +1,18 @@
-#include "Goomba.h"
+#include "Ghoul.h"
 #include"debug.h"
-void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void Ghoul::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;
 	top = y;
-	right = x + GOOMBA_BBOX_WIDTH;
+	right = x + GHOUL_BBOX_WIDTH;
 
-	if (state == GOOMBA_STATE_DIE)
-		bottom = y + GOOMBA_BBOX_HEIGHT_DIE;
+	if (state == GHOUL_STATE_DIE)
+		bottom = y + GHOUL_BBOX_HEIGHT_DIE;
 	else 	
-		bottom = y + GOOMBA_BBOX_HEIGHT;
+		bottom = y + GHOUL_BBOX_HEIGHT;
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void Ghoul::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
@@ -38,7 +38,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		x += dx;
 		y += dy;
-		vy += GOOMBA_GRAVITY;
+		vy += GHOUL_GRAVITY;
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -52,12 +52,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CGoomba::Render()
+void Ghoul::Render()
 {
 	
-	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
-		ani = GOOMBA_ANI_DIE;
+	int ani = GHOUL_ANI_WALKING;
+	if (state == GHOUL_STATE_DIE) {
+		ani = GHOUL_ANI_DIE;
 	}
 
 	animations[ani]->Render(nx,x,y);
@@ -65,18 +65,18 @@ void CGoomba::Render()
 	//RenderSpriteBox();
 }
 
-void CGoomba::SetState(int state)
+void Ghoul::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
 	{
-		case GOOMBA_STATE_DIE:
-			y += GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE + 1;
+		case GHOUL_STATE_DIE:
+			y += GHOUL_BBOX_HEIGHT - GHOUL_BBOX_HEIGHT_DIE + 1;
 			vx = 0;
 			vy = 0;
 			break;
-		case GOOMBA_STATE_WALKING: 
-			vx = -GOOMBA_WALKING_SPEED;
+		case GHOUL_STATE_WALKING: 
+			vx = -GHOUL_WALKING_SPEED;
 	}
 
 }

@@ -1,6 +1,6 @@
 #include "Whip.h"
 #include"debug.h"
-
+#include"Torch.h"
 Whip * Whip::__instance = NULL;
 
 
@@ -16,10 +16,27 @@ Whip *Whip::GetInstance()
 }
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
+	if (animations[0]->GetCurrentFrame() != 2) return;
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-	
+	for (int i = 0; i < colliable_objects->size(); i++)
+	{
+
+		LPGAMEOBJECT e = colliable_objects->at(i);
+		if (dynamic_cast<Torch *>(e))
+		{
+			Torch * f = dynamic_cast<Torch*> (e);
+			if (CGameObject::isColliding(this, f) == true)
+			{	
+				f->SetState(TORCH_DESTROY);
+			}
+		
+		}
+	}
 }
+
+	
+
 
 void Whip::Render()
 {

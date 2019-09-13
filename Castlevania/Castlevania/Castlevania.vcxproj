@@ -26,7 +26,7 @@
     <ClInclude Include="EntryObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Ghoul.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="Library\RapidXML\rapidxml.hpp" />
@@ -52,7 +52,7 @@
     <ClCompile Include="EntryObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Ghoul.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="main.cpp" />

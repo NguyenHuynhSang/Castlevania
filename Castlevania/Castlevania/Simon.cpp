@@ -4,9 +4,10 @@
 #include "Simon.h"
 #include "Game.h"
 
-#include "Goomba.h"
+#include "Ghoul.h"
 #include"Brick.h"
 #include"Ground.h"
+#include"Torch.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -22,13 +23,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
+	
+	
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
-	if (state == SIMON_STATE_STAND_ATTACK) {
-		whip->Update(dt);
+	if (this->GetActack_Time()!=0) {
+		whip->Update(dt, coObjects);
 	}
 
+	// Bỏ những object không cần check va chạm với simon
+	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
+
+		if (dynamic_cast<Torch *>((*it)))
+		{
+			it = coObjects->erase(it);
+		}
+		else {
+			++it;
+		}
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -75,18 +88,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
 						vx = 0;
 					}
-				
-				} 
-				
+
+				}
+
 			}
-			else if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba 
+			else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
 			{
-				CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
+				Ghoul *zombie = dynamic_cast<Ghoul *>(e->obj);
 				//DebugOut(L"[col] SIMON ->Goomba \n");
 				// jump on top >> kill Goomba and deflect a bit 
 				if (e->ny < 0)
 				{
-					if (goomba->GetState() != GOOMBA_STATE_DIE)
+					if (zombie->GetState() != GHOUL_STATE_DIE)
 					{
 						//	goomba->SetState(GOOMBA_STATE_DIE);
 						vy = -SIMON_JUMP_DEFLECT_SPEED;
@@ -97,7 +110,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					if (untouchable == 0)
 					{
-						if (goomba->GetState() != GOOMBA_STATE_DIE)
+						if (zombie->GetState() != GHOUL_STATE_DIE)
 						{
 							if (level > SIMON_LEVEL_SMALL)
 							{
@@ -109,6 +122,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						}
 					}
 				}
+			}
+			else {
+				x += dx;
+				y += dy;
 			}
 		}
 	}
@@ -132,13 +149,13 @@ void CSimon::Render()
 	}
 	if (state == SIMON_STATE_SIT_ATTACK) {
 		ani = SIMON_ANI_SIT_ATTACK;
-		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH,y+SIMON_SPRITE_BOX_HEIGHT/4);
+		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
 		whip->SetDirection(nx);
 		whip->Render();
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_SIT ||state==SIMON_STATE_JUMP) {
+	if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP) {
 		ani = SIMON_ANI_SITTING;
 		Renderer(ani);
 		return;
@@ -203,7 +220,7 @@ void CSimon::SetState(int state)
 		break;
 	}
 	case SIMON_STATE_SIT_ATTACK:
-	case SIMON_STATE_SIT: 
+	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
 		vx = 0;
 		break;
