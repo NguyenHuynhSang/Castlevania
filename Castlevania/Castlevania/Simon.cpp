@@ -123,10 +123,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 				}
 			}
-			else {
-				x += dx;
-				y += dy;
-			}
+	
 		}
 	}
 
