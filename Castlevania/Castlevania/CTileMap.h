@@ -28,7 +28,7 @@ class CTileMap
 	
 public:
 	void LoadTileSets(const std::string& filePath);
-	void LoadMap(const std::string& filePath);
+	void LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
 	void Render();
 	void LoadObjects(const std::string& filePath);
 	std::map<unsigned int, LPTILESET>& GetTileSets() {

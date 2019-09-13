@@ -55,7 +55,7 @@ void CTileMap::LoadTileSets(const std::string & filePath)
 
 }
 
-void CTileMap::LoadMap(const std::string& filePath)
+void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet)
 {
 
 	char* fileLoc = new char[filePath.size() + 1]; // 1
@@ -122,7 +122,6 @@ void CTileMap::LoadMap(const std::string& filePath)
 	}
 	int id = 1;		// id of tileset
 	CTextures* tex = CTextures::GetInstance();
-	LPDIRECT3DTEXTURE9 texTileSet = tex->Get(1000);
 
 	for (int i = 0; i < this->tileSheetRow; i++)
 	{

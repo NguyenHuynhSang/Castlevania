@@ -1,5 +1,6 @@
 #pragma once
 #include<Windows.h>
+#include"define.h"
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
@@ -32,15 +33,20 @@ private:
 	static SceneManagement * __instance;
 	bool isNextScene;
 	void LoadResource();
+	int currentScene;
 public:
 	static SceneManagement * GetInstance();
 	void OnCreate();
 	CSimon* GetSimon() {
 		return this->simon;
 	};
+	int GetCurrentScene() { return this->currentScene; };
 	void Update(DWORD dt);
 	void Render();
+	void SceneUpdate();
 	void LoadScene();
+	void LoadObjects(int currentScene);
+	void SetScene(int currentScene);
 	SceneManagement();
 	~SceneManagement();
 };

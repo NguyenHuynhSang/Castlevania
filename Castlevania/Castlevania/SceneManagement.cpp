@@ -7,6 +7,7 @@ void SceneManagement::LoadResource()
 {
 	CTextures * textures = CTextures::GetInstance();
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
@@ -18,10 +19,7 @@ void SceneManagement::LoadResource()
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
-	cmap = CTileMap::GetInstance();
-	cmap->LoadMap("Data\\Map\\Courtyard_map.tmx");
-	cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
-
+	
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml", texSimon);
 	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
@@ -88,53 +86,6 @@ void SceneManagement::LoadResource()
 		}
 	}*/
 
-	simon = new CSimon();
-	auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
-
-	for (const auto& child : simonPos->second) {
-		simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-		//	DebugOut(L"[Complete]Load Simon position in game world \n");
-	}
-	objects.push_back(simon);
-
-
-	auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
-	for (const auto& child : groundObject->second) {
-		//DebugOut(L"[Complete]Load Torch position in game world \n");
-		ground = new Ground();
-		ground->SetSize(child->GetWidth(), child->GetHeight());
-		ground->SetPosition(child->GetX(), child->GetY());
-		//DebugOut(L"[Complete]Load Simon position in game world \n");
-		objects.push_back(ground);
-	}
-
-	auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
-	for (const auto& child : boundObject->second) {
-		//DebugOut(L"[Complete]Load Torch position in game world \n");
-		bound = new BoundMap();
-		bound->SetSize(child->GetWidth(), child->GetHeight());
-		bound->SetPosition(child->GetX(), child->GetY());
-		//DebugOut(L"[Complete]Load Simon position in game world \n");
-		objects.push_back(bound);
-	}
-
-
-	auto torchObject = cmap->GetObjects().find(ID_TILE_OBJECT_TORCH);
-	Item* citem;
-	for (const auto& child : torchObject->second) {
-		citem = new Heart();
-
-		//DebugOut(L"[Complete]Load Torch position in game world \n");
-		torch = new Torch();
-		torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-		//DebugOut(L"[Complete]Load Simon position in game world \n");
-		citem->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-		citem->SetState(HEART_STATE_BIGHEART);
-
-		objects.push_back(citem);
-		objects.push_back(torch);
-	}
-
 
 
 
@@ -177,12 +128,16 @@ void SceneManagement::OnCreate()
 {
 	game = CGame::GetInstance();
 	LoadResource();
+	LoadScene();
 }
 void SceneManagement::Update(DWORD dt)
 {
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
+	if (this->isNextScene) {
+		LoadScene();
+		this->isNextScene = false;
+	}
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
@@ -202,8 +157,16 @@ void SceneManagement::Update(DWORD dt)
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-	if (cx > 0 && cx < 47 * 32 - SCREEN_WIDTH)
-		CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	if (currentScene == GAME_STATE_01) {
+		if (cx > 0 && cx < 47 * 32 - SCREEN_WIDTH)
+			CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	}
+	else {
+		if (cx > 0 && cx < 176 * 32 - SCREEN_WIDTH)
+			CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	}
+	
+		
 }
 void SceneManagement::Render()
 {
@@ -214,8 +177,136 @@ void SceneManagement::Render()
 	objects[0]->Render();//SIMON test 
 
 }
+void SceneManagement::SceneUpdate()
+{
+}
+
+void SceneManagement::LoadScene()
+{
+	CTextures * textures = CTextures::GetInstance();
+	switch (this->currentScene)
+	{
+	case GAME_STATE_01:
+		cmap = CTileMap::GetInstance();
+		LPDIRECT3DTEXTURE9 texTileSet;
+		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
+		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
+		LoadObjects(GAME_STATE_01);
+		break;
+	case GAME_STATE_02:
+		cmap = CTileMap::GetInstance();
+		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
+		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		LoadObjects(GAME_STATE_02);
+		break;
+	case GAME_STATE_03:
+		break;
+
+	}
+}
+
+void SceneManagement::LoadObjects(int currentscene)
+{
+	switch (this->currentScene)
+	{
+	case GAME_STATE_01:
+	{
+		simon = new CSimon();
+		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
+
+		for (const auto& child : simonPos->second) {
+			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			//	DebugOut(L"[Complete]Load Simon position in game world \n");
+		}
+		objects.push_back(simon);
+
+
+		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
+		for (const auto& child : groundObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			ground = new Ground();
+			ground->SetSize(child->GetWidth(), child->GetHeight());
+			ground->SetPosition(child->GetX(), child->GetY());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(ground);
+		}
+
+		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
+		for (const auto& child : boundObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			bound = new BoundMap();
+			bound->SetSize(child->GetWidth(), child->GetHeight());
+			bound->SetPosition(child->GetX(), child->GetY());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(bound);
+		}
+
+
+		auto torchObject = cmap->GetObjects().find(ID_TILE_OBJECT_TORCH);
+		Item* citem;
+		for (const auto& child : torchObject->second) {
+			citem = new Heart();
+
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			torch = new Torch();
+			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			citem->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			citem->SetState(HEART_STATE_BIGHEART);
+
+			objects.push_back(citem);
+			objects.push_back(torch);
+		}
+		break;
+	}
+
+	case GAME_STATE_02:
+	{
+		simon = new CSimon();
+		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
+		for (const auto& child : simonPos->second) {
+			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			//	DebugOut(L"[Complete]Load Simon position in game world \n");
+		}
+		objects.push_back(simon);
+
+
+		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
+		for (const auto& child : groundObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			ground = new Ground();
+			ground->SetSize(child->GetWidth(), child->GetHeight());
+			ground->SetPosition(child->GetX(), child->GetY());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(ground);
+		}
+
+		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
+		for (const auto& child : boundObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			bound = new BoundMap();
+			bound->SetSize(child->GetWidth(), child->GetHeight());
+			bound->SetPosition(child->GetX(), child->GetY());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(bound);
+		}
+
+		break;
+	}
+		
+	case GAME_STATE_03:
+		break;
+
+	}
+
+
+}
+
 SceneManagement::SceneManagement()
 {
+	this->isNextScene = false;
+	this->currentScene = GAME_STATE_02;
+	
 }
 
 
