@@ -115,7 +115,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	whip->SetPosition(x, y);
+	//whip->SetWhipPosition(x, y);
 }
 
 void CSimon::Render()
@@ -124,7 +124,7 @@ void CSimon::Render()
 	int ani;
 	if (state == SIMON_STATE_STAND_ATTACK) {
 		ani = SIMON_ANI_STAND_ATTACK;
-		whip->SetPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
+		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
 		whip->SetDirection(nx);
 		whip->Render();
 		Renderer(ani);
@@ -132,7 +132,7 @@ void CSimon::Render()
 	}
 	if (state == SIMON_STATE_SIT_ATTACK) {
 		ani = SIMON_ANI_SIT_ATTACK;
-		whip->SetPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH,y+SIMON_SPRITE_BOX_HEIGHT/4);
+		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH,y+SIMON_SPRITE_BOX_HEIGHT/4);
 		whip->SetDirection(nx);
 		whip->Render();
 		Renderer(ani);

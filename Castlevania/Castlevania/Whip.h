@@ -18,6 +18,7 @@ public:
 	UINT GetDamage() { return damage; }
 	void Render(int nx);
 	void SetDirection(int nx) { this->nx = nx; }
+	void SetWhipPosition(float x, float y) { this->x = x; this->y = y; }
 	static Whip * GetInstance();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();

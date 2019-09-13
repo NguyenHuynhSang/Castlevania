@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
-
+#include"define.h"
 #include "Sprites.h"
 
 
@@ -52,7 +52,7 @@ public:
 	vector<LPANIMATION> animations;
 
 public: 
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
+	void SetPosition(float x, float y) { this->x = x, this->y = y+ GAME_WORLD_Y; }// cộng thêm phần board
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }

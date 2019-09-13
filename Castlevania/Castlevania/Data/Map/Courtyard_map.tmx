@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="10">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="20">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
+ <tileset firstgid="81" source="ObjectTile/Torch.tsx"/>
  <layer id="1" name="background" width="47" height="11">
   <data>
    <tile gid="1"/>
@@ -526,7 +527,7 @@
  </layer>
  <objectgroup id="2" name="BoundMap">
   <object id="1" name="Start" x="-24" y="-1" width="23" height="352"/>
-  <object id="2" name="end" x="1505" y="0" width="24" height="353"/>
+  <object id="2" name="end" x="1502" y="-1" width="24" height="353"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
   <object id="5" x="1" y="289" width="1502" height="29"/>
@@ -537,5 +538,11 @@
  </objectgroup>
  <objectgroup id="5" name="Simon">
   <object id="9" name="SIMON" type="SIMON" x="120" y="221" width="60" height="66"/>
+ </objectgroup>
+ <objectgroup id="6" name="Torch">
+  <object id="10" gid="81" x="367.25" y="287.5" width="32" height="64"/>
+  <object id="11" gid="81" x="642.5" y="287.25" width="32" height="64"/>
+  <object id="12" gid="81" x="1131.25" y="287.5" width="32" height="64"/>
+  <object id="13" gid="81" x="899.75" y="287.5" width="32" height="64"/>
  </objectgroup>
 </map>

@@ -2,9 +2,7 @@
 
 
 
-StaticObject::StaticObject()
-{
-}
+
 
 
 StaticObject::~StaticObject()

@@ -49,9 +49,6 @@
     <Filter Include="Documentation">
       <UniqueIdentifier>{c266753f-fa9e-4ebf-a4d0-b64d8d362243}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utilities\SimpleTileMap">
-      <UniqueIdentifier>{ffd04354-74dc-46b5-9138-e89227e314c0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -93,9 +90,6 @@
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp">
       <Filter>Library\RapidXML</Filter>
     </ClInclude>
-    <ClInclude Include="TileMapReader.h">
-      <Filter>Utilities\MapReader</Filter>
-    </ClInclude>
     <ClInclude Include="Whip.h">
       <Filter>ObjectsManagement</Filter>
     </ClInclude>
@@ -105,17 +99,26 @@
     <ClInclude Include="Ground.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
-    <ClInclude Include="CTileMap.h">
-      <Filter>Utilities\SimpleTileMap</Filter>
-    </ClInclude>
     <ClInclude Include="Torch.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
     <ClInclude Include="StaticObjects.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
+    <ClInclude Include="CTileMap.h">
+      <Filter>Utilities\MapReader</Filter>
+    </ClInclude>
     <ClInclude Include="TileObject.h">
-      <Filter>Utilities\SimpleTileMap</Filter>
+      <Filter>Utilities\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Utilities\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="EntryObject.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundMap.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,15 +149,6 @@
     <ClCompile Include="ResourceManagement.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.h">
-      <Filter>Utilities\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="TileSheet.h">
-      <Filter>Utilities\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMapReader.cpp">
-      <Filter>Utilities\MapReader</Filter>
-    </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
@@ -167,9 +161,6 @@
     <ClCompile Include="Ground.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
-    <ClCompile Include="CTileMap.cpp">
-      <Filter>Utilities\SimpleTileMap</Filter>
-    </ClCompile>
     <ClCompile Include="define.h">
       <Filter>Utilities</Filter>
     </ClCompile>
@@ -179,8 +170,20 @@
     <ClCompile Include="StaticObjects.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
+    <ClCompile Include="CTileMap.cpp">
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
     <ClCompile Include="TileObject.cpp">
-      <Filter>Utilities\SimpleTileMap</Filter>
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="EntryObject.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundMap.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

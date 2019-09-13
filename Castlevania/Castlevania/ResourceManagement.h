@@ -5,10 +5,10 @@
 #include<string>
 #include"Library/RapidXML/rapidxml.hpp"
 #include"Library/RapidXML/rapidxml_utils.hpp"
-#include"TileSheet.h"
 #include"Sprites.h"
 #include<string>
 #include"Textures.h"
+using namespace rapidxml;
 class ResourceManagement
 {
 	static ResourceManagement * __instance;

@@ -1,11 +1,11 @@
 #include "TileObject.h"
 
 
-ObjectGroup * ObjectGroup::__instance = NULL;
+ObjectLayer * ObjectLayer::__instance = NULL;
 
-ObjectGroup *ObjectGroup::GetInstance()
+ObjectLayer *ObjectLayer::GetInstance()
 {
-	if (__instance == NULL) __instance = new ObjectGroup();
+	if (__instance == NULL) __instance = new ObjectLayer();
 	return __instance;
 }
 

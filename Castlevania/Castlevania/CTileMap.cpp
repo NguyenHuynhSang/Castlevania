@@ -9,6 +9,51 @@ CTileMap *CTileMap::GetInstance()
 	return __instance;
 }
 
+// chủ yếu lấy ra cái background layer nếu muốn lấy thêm cần cập nhật sau
+void CTileMap::LoadTileSets(const std::string & filePath)
+{
+	char* fileLoc = new char[filePath.size() + 1]; // 1
+
+		   //TODO: make multi format version of string copy
+#ifdef MACOS
+	strlcpy(fileLoc, file.c_str(), file.size() + 1);
+#else
+	strcpy_s(fileLoc, filePath.size() + 1, filePath.c_str());
+#endif 
+
+	//TODO: error checking - check file exists before attempting open.
+	rapidxml::file<> xmlFile(fileLoc);
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(xmlFile.data());
+
+	xml_node<>* rootNode = doc.first_node("map");
+	LPTILESET tileSet;
+	//lấy toàn bộ thông tin tileset trong map
+	for (xml_node<> *child = rootNode->first_node("tileset"); child; child = child->next_sibling())
+	{
+		unsigned int firtGrid = 0, tilewidth = 0, tileheight = 0, tilecount = 0, columns = 0,
+			texwidth = 0, texheight = 0;
+		firtGrid = std::atoi(child->first_attribute("firstgid")->value());
+		string name = "", source = "";
+		xml_attribute<>* nameAttribute = child->first_attribute("name");
+		
+		if (nameAttribute == NULL) {
+			tileSet = new CTileSet(firtGrid, name, tilewidth, tileheight, tilecount, columns, source, texwidth, texheight);
+			this->listTileSet.insert(std::make_pair(firtGrid, tileSet));
+			continue; // bỏ qua những tileset thiếu thông tin
+		}
+
+		
+		name = std::string(child->first_attribute("name")->value());
+		tilewidth = std::atoi(child->first_attribute("tilewidth")->value());
+		tileheight = std::atoi(child->first_attribute("tileheight")->value());
+		tilecount = std::atoi(child->first_attribute("tilecount")->value());
+		columns = std::atoi(child->first_attribute("columns")->value());
+		tileSet = new CTileSet(firtGrid, name, tilewidth, tileheight, tilecount, columns, source, texwidth, texheight);
+		this->listTileSet.insert(std::make_pair(firtGrid, tileSet));
+	}
+
+}
 
 void CTileMap::LoadMap(const std::string& filePath)
 {
@@ -92,7 +137,6 @@ void CTileMap::LoadMap(const std::string& filePath)
 
 
 }
-bool istrue = true;
 void CTileMap::Render()
 {
 	float camX, camY;
@@ -134,7 +178,7 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	xml_node<>* rootNode = doc.first_node("map");
 	//xml_node<>* tileset = rootNode->first_node("tileset");
 	LPTILEOBJECT object;
-	ObjectGroup*listobject = ObjectGroup::GetInstance();
+	ObjectLayer*listobject = ObjectLayer::GetInstance();
 	for (xml_node<> *child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
 		int id = std::atoi(child->first_attribute("id")->value()); // lay ID
 		vector<LPTILEOBJECT> ObjectInGroup;
@@ -148,11 +192,11 @@ void CTileMap::LoadObjects(const std::string& filePath)
 			int scid = std::atoi(smailchild->first_attribute("id")->value()); // lay ID
 			object = new TileObject(scid, x, y, w, h);
 			listobject->Add(id, object);
-			ObjectInGroup.push_back(listobject->GetTileObject(id));	
+			ObjectInGroup.push_back(listobject->GetTileObject(id));
 		}
 		this->listObject.insert(std::make_pair(id, ObjectInGroup)); // 
 	}
-	
+
 	/*for (const auto& entity : this->listObject) {
 		DebugOut(L" ===============ID =%d \n", entity.first);
 		for (const auto& child : entity.second) {
@@ -162,9 +206,6 @@ void CTileMap::LoadObjects(const std::string& filePath)
 
 }
 
-CTileMap::CTileMap()
-{
-}
 
 
 CTileMap::~CTileMap()

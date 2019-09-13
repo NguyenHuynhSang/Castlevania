@@ -34,11 +34,16 @@
 #include"Ground.h"
 #include"CTileMap.h"
 #include"define.h"
+#include"Torch.h"
+#include"BoundMap.h"
 CGame *game;
 
 CSimon *simon;
 CGoomba *goomba;
 Whip* whip;
+Torch * torch;
+Ground *ground;
+BoundMap *bound;
 ResourceManagement * resource;
 vector<LPGAMEOBJECT> objects;
 CTileMap* cmap;
@@ -161,6 +166,7 @@ void LoadResources()
 	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whipedip.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -174,6 +180,10 @@ void LoadResources()
 	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
 	resource->LoadSprites("Data\\GameObject\\Weapons\\Whip_sprite.xml", texWhip);
 	resource->LoadAnimations("Data\\GameObject\\Weapons\\Whip_ani.xml", animations);
+
+	LPDIRECT3DTEXTURE9 texTorch = textures->Get(ID_TEX_TORCH);
+	resource->LoadSprites("Data\\GameObject\\Ground\\Torch_sprite.xml", texTorch);
+	resource->LoadAnimations("Data\\GameObject\\Ground\\Torch_ani.xml", animations);
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
@@ -220,25 +230,56 @@ void LoadResources()
 	ani->Add("WHIP_LEVEL1_03");
 	animations->Add("800", ani);
 
-	for (const auto& entity : cmap->GetObjects()) {
+	/*for (const auto& entity : cmap->GetObjects()) {
 		DebugOut(L" ===============ID =%d \n", entity.first);
 		for (const auto& child : entity.second) {
 			DebugOut(L" ID =%d \n", child->GetId());
 		}
-	}
+	}*/
 
 	simon = new CSimon();
-	auto simonPos = cmap->GetObjects().find(ID_TILEOBJECT_SIMON);
+	auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 
 	for (const auto& child : simonPos->second) {
 		simon->SetPosition(child->GetX(), child->GetY());
-		DebugOut(L"[Complete]Load Simon position in game world \n");
+		//	DebugOut(L"[Complete]Load Simon position in game world \n");
+	}
+	objects.push_back(simon);
+
+
+	auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
+	for (const auto& child : groundObject->second) {
+		//DebugOut(L"[Complete]Load Torch position in game world \n");
+		ground = new Ground();
+		ground->SetSize(child->GetWidth(), child->GetHeight());
+		ground->SetPosition(child->GetX(), child->GetY());
+		//DebugOut(L"[Complete]Load Simon position in game world \n");
+		objects.push_back(ground);
+	}
+
+	auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
+	for (const auto& child : boundObject->second) {
+		//DebugOut(L"[Complete]Load Torch position in game world \n");
+		bound = new BoundMap();
+		bound->SetSize(child->GetWidth(), child->GetHeight());
+		bound->SetPosition(child->GetX(), child->GetY());
+		//DebugOut(L"[Complete]Load Simon position in game world \n");
+		objects.push_back(bound);
+	}
+
+
+	auto torchObject = cmap->GetObjects().find(ID_TILE_OBJECT_TORCH);
+	for (const auto& child : torchObject->second) {
+		//DebugOut(L"[Complete]Load Torch position in game world \n");
+		torch = new Torch();
+		torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+		//DebugOut(L"[Complete]Load Simon position in game world \n");
+		objects.push_back(torch);
 	}
 
 
 
 
-	objects.push_back(simon);
 
 
 
@@ -254,21 +295,18 @@ void LoadResources()
 			brick->SetPosition(0 + i*16.0f-640/2+60, 350);
 			objects.push_back(brick);
 		}*/
-	Ground* ground = new Ground();
-	ground->SetPosition(0, 350.0f);
-	ground->SetSize(1500.0f, 32.0f);
-	objects.push_back(ground);
 
-	// and Goombas 
-	/*for (int i = 0; i < 4; i++)
-	{
-		goomba = new CGoomba();
-		goomba->AddAnimation("701");
-		goomba->AddAnimation("702");
-		goomba->SetPosition(200 + i*60, 334);
-		goomba->SetState(GOOMBA_STATE_WALKING);
-		objects.push_back(goomba);
-	}*/
+
+		// and Goombas 
+		/*for (int i = 0; i < 4; i++)
+		{
+			goomba = new CGoomba();
+			goomba->AddAnimation("701");
+			goomba->AddAnimation("702");
+			goomba->SetPosition(200 + i*60, 334);
+			goomba->SetState(GOOMBA_STATE_WALKING);
+			objects.push_back(goomba);
+		}*/
 
 }
 
@@ -284,6 +322,10 @@ void Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
+		if (dynamic_cast<Torch *>(objects.at(i))) {//test 
+			continue;
+
+		}
 		coObjects.push_back(objects[i]);
 	}
 
@@ -321,7 +363,7 @@ void Render()
 		cmap->Render();
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
-
+		objects[0]->Render();//SIMON test 
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
