@@ -16,6 +16,7 @@
 #define ID_TEX_TORCH 40
 #define ID_TEX_ZOMBIE 50
 #define ID_TEX_ITEM_HEART 500
+#define ID_TEX_EFFECT_FLAME 600
 #define ID_TEX_TILESET_1 1000
 #define ID_TEX_TILESET_2 1001
 
@@ -41,8 +42,6 @@
 #define HEART_GRAVITY			0.0002f
 
 
-#define GAME_STATE_01 100
-#define GAME_STATE_02 200
-#define GAME_STATE_03 300
-
-
+#define GAME_STATE_01 1
+#define GAME_STATE_02 2
+#define GAME_STATE_03 3

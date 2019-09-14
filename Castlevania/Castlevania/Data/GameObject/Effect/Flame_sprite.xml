@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="Flame.png">
+		<sprite ID="FLAME_BURNING_01">
+			<frame x="0" y="0" width="18" height="32" />
+		</sprite>
+		<sprite ID="FLAME_BURNING_02">
+			<frame x="18" y="0" width="18" height="32" />
+		</sprite>
+		<sprite ID="FLAME_BURNING_03">
+			<frame x="36" y="0" width="18" height="32" />
+		</sprite>
+	</spritesheet>
+</resource>

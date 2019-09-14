@@ -55,7 +55,7 @@ void Whip::Render()
 {
 
 	animations[0]->Render(nx, x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 	//RenderSpriteBox();
 	return;
 }

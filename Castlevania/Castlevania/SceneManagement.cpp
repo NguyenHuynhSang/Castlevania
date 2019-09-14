@@ -17,6 +17,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -39,6 +40,9 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
+	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
+	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
 
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
@@ -245,7 +249,6 @@ void SceneManagement::LoadScene()
 	{
 	case GAME_STATE_01:
 		cmap = CTileMap::GetInstance();
-		
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 		LoadObjects(GAME_STATE_01);
@@ -262,6 +265,20 @@ void SceneManagement::LoadScene()
 	}
 }
 
+void SceneManagement::NextScene()
+{
+	this->currentScene++;
+	if (this->currentScene > GAME_STATE_02) currentScene = GAME_STATE_02;
+	for (UINT i = 0; i < objects.size(); i++) delete objects[i];
+	for (UINT i = 0; i < items.size(); i++) delete items[i];
+	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
+	objects.clear();
+	items.clear();
+	effects.clear();
+	this->isNextScene = true;
+	
+}
+
 void SceneManagement::LoadObjects(int currentscene)
 {
 	switch (this->currentScene)
@@ -276,7 +293,6 @@ void SceneManagement::LoadObjects(int currentscene)
 			//	DebugOut(L"[Complete]Load Simon position in game world \n");
 		}
 		objects.push_back(simon);
-
 
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {

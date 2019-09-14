@@ -54,6 +54,7 @@ public:
 	void Render();
 	void SceneUpdate();
 	void LoadScene();
+	void NextScene();
 	void SpawnItem(Item* item) {
 		this->items.push_back(item);
 	}

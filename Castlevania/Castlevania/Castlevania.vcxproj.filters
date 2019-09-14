@@ -147,13 +147,13 @@
     <ClInclude Include="BlockingQueue.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Spark.h">
-      <Filter>Effects</Filter>
-    </ClInclude>
     <ClInclude Include="MorningStar.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
     <ClInclude Include="Effects.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Flame.h">
       <Filter>Effects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -236,13 +236,13 @@
     <ClCompile Include="Zombie.cpp">
       <Filter>ObjectsManagement\Npcs</Filter>
     </ClCompile>
-    <ClCompile Include="Spark.cpp">
-      <Filter>Effects</Filter>
-    </ClCompile>
     <ClCompile Include="MorningStar.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
     <ClCompile Include="Effects.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Flame.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>

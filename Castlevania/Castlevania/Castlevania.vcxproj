@@ -42,7 +42,7 @@
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
-    <ClInclude Include="Spark.h" />
+    <ClInclude Include="Flame.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="StaticObjects.h" />
@@ -73,7 +73,7 @@
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
-    <ClCompile Include="Spark.cpp" />
+    <ClCompile Include="Flame.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="StaticObjects.cpp" />

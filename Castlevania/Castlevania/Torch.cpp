@@ -1,14 +1,14 @@
 #include "Torch.h"
 #include"SceneManagement.h"
 #include"Effects.h"
-#include"Spark.h"
+#include"Flame.h"
 void Torch::Render()
 {
 	if (this->setDestroy) {
 		return;
 	}
 	animations[0]->Render(0, x, y);
-	RenderBoundingBox();
+//	RenderBoundingBox();
 
 }
 
@@ -19,11 +19,10 @@ void Torch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->setDestroy) {
 		this->TurnOffCollision();
-		Effects* effect = new Spark();
-		effect->SetPositionInWorld(this->x, this->y);
+		Effects* effect = new Flame();
+		effect->SetPositionInWorld(this->x+10, this->y+TORCH_BBOX_HEIGHT/4);
 		effect->AddItemDef(this->itemName);
 		SceneManagement::GetInstance()->SpawnEffect(effect);
-
 		isDestroyed = true;
 	}
 

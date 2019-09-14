@@ -16,8 +16,8 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	RenderBoundingBox();
-	RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
+	//RenderBoundingBox();
+	//RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

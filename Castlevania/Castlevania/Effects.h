@@ -1,7 +1,7 @@
 ﻿#pragma once
 #ifndef _EFFECT_CLASS
 #define _EFFECT_CLASS
-#define EFFECTS_LIFE_TIME 2000
+#define EFFECTS_LIFE_TIME 500
 #include"GameObject.h"
 class Effects :public CGameObject
 {
