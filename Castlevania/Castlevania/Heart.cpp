@@ -4,7 +4,7 @@
 
 void Heart::Render()
 {
-	if (this->isDestroy) return;
+	if (this->isDestroyed) return;
 	int ani;
 	if (state == ITEM_STATE_HIDING) {
 		return;
@@ -17,7 +17,7 @@ void Heart::Render()
 
 void Heart::GetBoundingBox(float & l, float & t, float & r, float & b)
 {
-	if (this->isDestroy) {
+	if (this->isDestroyed) {
 		l = t = r = b = 0;
 		return;
 	}
@@ -29,7 +29,11 @@ void Heart::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isDestroy) return;
+	if (this->setDestroy ) {
+		this->TurnOffCollision();
+		this->isDestroyed = true;
+		return;
+	}
 	// Bỏ những object không cần check va chạm với simon
 	CGameObject::Update(dt);
 
@@ -57,8 +61,7 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
+		y += min_ty * dy + ny * 0.1f;
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;

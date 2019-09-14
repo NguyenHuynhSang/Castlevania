@@ -55,6 +55,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{bb7d3660-35bb-461c-bea8-b670734cf542}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{7257fe3b-49e5-4ee9-aadd-a1c967f6f38a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -144,6 +147,15 @@
     <ClInclude Include="BlockingQueue.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Spark.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="MorningStar.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -223,6 +235,15 @@
     </ClCompile>
     <ClCompile Include="Zombie.cpp">
       <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="Spark.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="MorningStar.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

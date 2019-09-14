@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Whip.h"
 #define SIMON_WALKING_SPEED		0.13f 
+#define SIMON_AUTOWALKING_SPEED		0.05f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_JUMP_DEFLECT_SPEED 0.2f
@@ -60,7 +61,14 @@ class CSimon : public CGameObject
 	void Renderer(int ani);
 	Whip* whip;
 	bool isJumping=false;
+	bool isAutoWalk = false;
 public: 
+	void SetAutoWalk(bool flag) {
+		this->isAutoWalk = flag;
+	}
+	bool CheckAutoWalk() {
+		return this->isAutoWalk;
+	}
 	bool isActack = false;
 	bool IsJumping() { return this->isJumping; }
 	CSimon() : CGameObject()

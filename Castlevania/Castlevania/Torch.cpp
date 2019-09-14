@@ -1,10 +1,10 @@
 #include "Torch.h"
-#include"Item.h"
-#include"Heart.h"
 #include"SceneManagement.h"
+#include"Effects.h"
+#include"Spark.h"
 void Torch::Render()
 {
-	if (this->isDestroyed) {
+	if (this->setDestroy) {
 		return;
 	}
 	animations[0]->Render(0, x, y);
@@ -18,13 +18,12 @@ void Torch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 	if (this->setDestroy) {
-		Item *heart; 
-		if (this->itemName == "bigheart") {
-			heart = new Heart();
-			SceneManagement* scene = SceneManagement::GetInstance();
-			heart->SetPosition(this->x+ TORCH_BBOX_WIDTH/2, this->y - 64);
-			scene->SpawnItem(heart);
-		}
+		this->TurnOffCollision();
+		Effects* effect = new Spark();
+		effect->SetPositionInWorld(this->x, this->y);
+		effect->AddItemDef(this->itemName);
+		SceneManagement::GetInstance()->SpawnEffect(effect);
+
 		isDestroyed = true;
 	}
 

@@ -26,12 +26,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	
-	
+	if (this->isAutoWalk) {
+		vx = SIMON_AUTOWALKING_SPEED;
+	}
+
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 	if (this->GetActack_Time()!=0) {
 		whip->Update(dt, coObjects);
 	}
+
 
 	// Bỏ những object không cần check va chạm với simon
 	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
@@ -145,7 +149,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	//whip->SetWhipPosition(x, y);
+	
+
+	for (int i = 0; i < coObjects->size(); i++)
+	{
+
+		LPGAMEOBJECT e = coObjects->at(i);
+		if (dynamic_cast<Item *>(e))
+		{
+			Item * f = dynamic_cast<Item*> (e);
+			if (CGameObject::isColliding(this, f))
+			{
+				if (!f->CheckDestroyed()) {
+					f->SetDestroy();
+				}
+
+			}
+
+		}
+	}
 }
 
 void CSimon::Render()

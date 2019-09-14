@@ -5,8 +5,6 @@
 #define TORCH_BBOX_HEIGHT 64
 #define TORCH_DESTROY 1
 #define TORCH_BURNING 0
-#include"Item.h"
-#include"Heart.h"
 class Torch:public CGameObject
 {
 	

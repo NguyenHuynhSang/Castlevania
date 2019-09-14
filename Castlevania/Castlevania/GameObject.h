@@ -1,5 +1,6 @@
 ﻿#pragma once
-
+#ifndef _GAMEOBJECT_CLASS
+#define _GAMEOBJECT_CLASS
 #include <Windows.h>
 #include <d3dx9.h>
 #include <vector>
@@ -54,7 +55,7 @@ public:
 
 	bool setDestroy=false;
 	bool isDestroyed = false;
-
+	bool isCollide = true;
 public: 
 	void SetDestroy() {
 		this->setDestroy = true;
@@ -62,7 +63,11 @@ public:
 	bool CheckDestroyed() {
 		return this->isDestroyed;
 	}
+	void TurnOffCollision() {
+		this->isCollide = false;
+	}
 	void SetPosition(float x, float y) { this->x = x, this->y = y+ GAME_WORLD_Y; }// cộng thêm phần board
+	void SetPositionInWorld(float x, float y) { this->x = x, this->y = y; }// cộng thêm phần board
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
@@ -103,4 +108,4 @@ public:
 
 	~CGameObject();
 };
-
+#endif

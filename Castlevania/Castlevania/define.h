@@ -38,7 +38,7 @@
 #define HEART_ANI_BIG 1
 #define HEART_BBOX_HEIGHT 30
 #define HEART_BBOX_WIDTH 31
-#define HEART_GRAVITY			0.00002f
+#define HEART_GRAVITY			0.0002f
 
 
 #define GAME_STATE_01 100

@@ -36,9 +36,14 @@ bool isJumping = false;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
+	if (scene->GetSimon()->CheckAutoWalk()) {
+		return;
+	}
 	switch (KeyCode)
 	{
+	case DIK_H:
+		scene->GetSimon()->SetAutoWalk(true);
+		break;
 	case DIK_SPACE:
 		if (!scene->GetSimon()->IsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && scene->GetSimon()->GetActack_Time() == 0) // dùng atack time khỏi phải dùng state attack nhiều lần
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
@@ -78,7 +83,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 
-
+	if (scene->GetSimon()->CheckAutoWalk()) {
+		return;
+	}
 	// disable control key when Simon die 
 	//DebugOut(L"state=%d  \n", mario->GetState());
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;

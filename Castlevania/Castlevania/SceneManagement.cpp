@@ -156,15 +156,52 @@ void SceneManagement::Update(DWORD dt)
 
 		coObjects.push_back(objects[i]);
 	}
+	for (int i = 0; i < items.size(); i++)  //item
+	{
+		coObjects.push_back(items[i]);
+	}
 
-	for (int i = 0; i < objects.size(); i++)
+	//update object
+	for (int i = 0; i < objects.size(); i++) //object
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	//update efftects
+	for (int i = 0; i < effects.size(); i++) //effect
+	{
+		effects[i]->Update(dt, &coObjects);
+	}
+	//update items
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, &coObjects);
+	}
+
+	//clean object
+	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = objects.erase(it);
+			
+		}
+		else ++it;
+	}
+	//clean effects
+	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = effects.erase(it);
+		}
+		else ++it;
+	}
+	//clean item
+	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = items.erase(it);
+		}
+		else ++it;
 	}
 
 	// Update camera to follow mario
@@ -192,6 +229,8 @@ void SceneManagement::Render()
 		objects[i]->Render();
 	for (int i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
+	for (int i = 0; i < this->effects.size(); i++)
+		this->effects[i]->Render();
 	objects[0]->Render();//SIMON test 
 
 }
@@ -206,7 +245,7 @@ void SceneManagement::LoadScene()
 	{
 	case GAME_STATE_01:
 		cmap = CTileMap::GetInstance();
-		LPDIRECT3DTEXTURE9 texTileSet;
+		
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 		LoadObjects(GAME_STATE_01);

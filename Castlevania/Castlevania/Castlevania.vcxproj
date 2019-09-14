@@ -24,6 +24,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="CTileMap.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Effects.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EntryObject.h" />
     <ClInclude Include="Game.h" />
@@ -37,9 +38,11 @@
     <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp" />
+    <ClInclude Include="MorningStar.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
+    <ClInclude Include="Spark.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="StaticObjects.h" />
@@ -55,6 +58,7 @@
     <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="define.h" />
+    <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EntryObject.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -65,9 +69,11 @@
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
+    <ClCompile Include="Spark.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="StaticObjects.cpp" />
