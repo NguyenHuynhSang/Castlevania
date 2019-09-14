@@ -26,11 +26,19 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		if (dynamic_cast<Torch *>(e))
 		{
 			Torch * f = dynamic_cast<Torch*> (e);
-			if (CGameObject::isColliding(this, f) == true)
+			if (CGameObject::isColliding(this, f) )
 			{	
 				f->SetState(TORCH_DESTROY);
 			}
 		
+		}
+		else if (dynamic_cast<Enemy *>(e)) {
+			Enemy * f = dynamic_cast<Enemy*> (e);
+			if (CGameObject::isColliding(this, f) &&!f->GetRespawn()) {
+				f->StartRespawn();
+				DebugOut(L"Start respawn\n");
+			}
+
 		}
 	}
 }

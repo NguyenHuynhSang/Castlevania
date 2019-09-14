@@ -17,6 +17,7 @@
 #include"Torch.h"
 #include"BoundMap.h"
 #include"Heart.h"
+#include"Zombie.h"
 class SceneManagement
 {
 private:
@@ -27,6 +28,7 @@ private:
 	Torch * torch;
 	Ground *ground;
 	BoundMap *bound;
+	Zombie* zombie;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	CTileMap* cmap;

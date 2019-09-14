@@ -14,8 +14,7 @@ void Ghoul::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 
 void Ghoul::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	CGameObject::Update(dt, coObjects);
-
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 

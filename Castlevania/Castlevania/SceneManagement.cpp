@@ -16,6 +16,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -33,6 +34,12 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texHeart = textures->Get(ID_TEX_ITEM_HEART);
 	resource->LoadSprites("Data\\GameObject\\Items\\Heart_sprite.xml", texHeart);
 	resource->LoadAnimations("Data\\GameObject\\Items\\Heart_ani.xml", animations);
+
+	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
+	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
+	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
+
+
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
@@ -289,6 +296,16 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound->SetPosition(child->GetX(), child->GetY());
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(bound);
+		}
+
+		auto zombieObject = cmap->GetObjects().find(ID_TILE_OBJECT_ZOMBIE);
+		for (const auto& child : zombieObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			zombie = new Zombie();
+			zombie->SetRespawnPosition(child->GetX(), child->GetY()-child->GetHeight());
+			zombie->SetPosition(child->GetX(), child->GetY() -child->GetHeight());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(zombie);
 		}
 
 		break;

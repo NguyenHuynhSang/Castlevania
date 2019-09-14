@@ -5,8 +5,7 @@
 #include "InputController.h"
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-#include "TileMapReader.h"
-
+#include"define.h"
 #define KEYBOARD_BUFFER_SIZE 1024
 /*
 Abstract class to define keyboard event handlers
@@ -66,6 +65,11 @@ public:
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 	void GetCamera(float& camx, float& camy) { camx = this->cam_x; camy = this->cam_y; }
+	RECT GetCamera() {
+		RECT rec;
+		rec = { (long)this->cam_x,(long)this->cam_y,(long)this->cam_x + SCREEN_WIDTH,(long)this->cam_y + SCREEN_HEIGHT };
+		return rec;
+	}
 	static CGame * GetInstance();
 
 	~CGame();

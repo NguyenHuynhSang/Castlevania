@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include"Enemy.h"
 #define WHIP_STATE_LV1 0
 #define WHIP_STATE_LV2 100
 #define WHIP_STATE_LV3 200

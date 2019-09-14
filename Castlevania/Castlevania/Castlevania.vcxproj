@@ -23,6 +23,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="CTileMap.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EntryObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -45,6 +46,7 @@
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="Whip.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundMap.cpp" />
@@ -52,6 +54,7 @@
     <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="define.h" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EntryObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -71,6 +74,7 @@
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Torch.cpp" />
     <ClCompile Include="Whip.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt" />

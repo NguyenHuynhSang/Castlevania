@@ -120,9 +120,6 @@
     <ClInclude Include="BoundMap.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Ghoul.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
-    </ClInclude>
     <ClInclude Include="Whip.h">
       <Filter>ObjectsManagement\Player</Filter>
     </ClInclude>
@@ -134,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="SceneManagement.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghoul.h">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>ObjectsManagement\Npcs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,9 +200,6 @@
     <ClCompile Include="BoundMap.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Ghoul.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
-    </ClCompile>
     <ClCompile Include="Whip.cpp">
       <Filter>ObjectsManagement\Player</Filter>
     </ClCompile>
@@ -208,6 +211,15 @@
     </ClCompile>
     <ClCompile Include="SceneManagement.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghoul.cpp">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>ObjectsManagement\Npcs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

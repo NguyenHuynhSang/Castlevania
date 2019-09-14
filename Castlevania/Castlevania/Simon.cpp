@@ -40,6 +40,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			it = coObjects->erase(it);
 		}
+		else if (dynamic_cast<Enemy *>((*it)))
+		{
+			Enemy *enemy = dynamic_cast<Enemy *>((*it));
+			if(enemy->GetRespawn())
+				it = coObjects->erase(it);
+			else {
+				++it;
+			}
+		}
 		else {
 			++it;
 		}
@@ -85,23 +94,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
+				//DebugOut(L"[Simon]nx=%f ny=%f \n",nx,ny);
+				//DebugOut(L"[Ground]nx=%f ny=%f \n", e->nx, e->ny);
 				if (e->ny < 0) {
 					this->isJumping = false; // cham dat moi cho nhay tiep
 					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
 						vx = 0;
+					
 					}
-
 				}
 
 			}
 			else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
 			{
-				Ghoul *zombie = dynamic_cast<Ghoul *>(e->obj);
+				Ghoul *ghoul = dynamic_cast<Ghoul *>(e->obj);
 				//DebugOut(L"[col] SIMON ->Goomba \n");
 				// jump on top >> kill Goomba and deflect a bit 
 				if (e->ny < 0)
 				{
-					if (zombie->GetState() != GHOUL_STATE_DIE)
+					if (ghoul->GetState() != GHOUL_STATE_DIE)
 					{
 						//	goomba->SetState(GOOMBA_STATE_DIE);
 						vy = -SIMON_JUMP_DEFLECT_SPEED;
@@ -112,7 +123,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					if (untouchable == 0)
 					{
-						if (zombie->GetState() != GHOUL_STATE_DIE)
+						if (ghoul->GetState() != GHOUL_STATE_DIE)
 						{
 							if (level > SIMON_LEVEL_SMALL)
 							{

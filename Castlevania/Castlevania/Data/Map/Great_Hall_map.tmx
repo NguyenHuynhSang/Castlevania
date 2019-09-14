@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="6">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="34">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
  <tileset firstgid="109" source="ObjectTile/SIMON.tsx"/>
+ <tileset firstgid="181" source="ObjectTile/ZOMBIE.tsx"/>
  <layer id="1" name="background" width="176" height="12">
   <data>
    <tile gid="1"/>
@@ -2122,14 +2123,28 @@
  </layer>
  <objectgroup id="2" name="BoundMap">
   <object id="1" x="-25" y="0" width="25" height="383"/>
-  <object id="2" x="3055" y="130" width="34" height="189"/>
   <object id="3" x="5633" y="-1" width="15" height="384"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
   <object id="4" x="2" y="320" width="5628" height="31"/>
+  <object id="6" x="1377" y="194" width="95" height="29"/>
+  <object id="7" x="1505.5" y="129.5" width="318.5" height="30"/>
+  <object id="8" x="1856" y="193.5" width="160" height="29"/>
+  <object id="9" x="2485" y="256" width="120.5" height="29"/>
+  <object id="10" x="2634" y="197" width="84" height="29.5"/>
+  <object id="11" x="2726.5" y="157.5" width="53" height="26.5"/>
+  <object id="12" x="2785" y="130.5" width="542" height="28"/>
+  <object id="13" x="3327.5" y="194" width="96" height="28"/>
  </objectgroup>
  <objectgroup id="4" name="Entry"/>
  <objectgroup id="5" name="Simon">
   <object id="5" gid="112" x="87" y="316" width="60" height="66"/>
+ </objectgroup>
+ <objectgroup id="6" name="Zombie">
+  <object id="26" gid="181" x="347" y="310" width="34" height="64"/>
+  <object id="33" gid="181" x="476" y="308" width="34" height="64"/>
+ </objectgroup>
+ <objectgroup id="7" name="NextScene">
+  <object id="14" x="3012" y="106" width="45" height="22"/>
  </objectgroup>
 </map>
