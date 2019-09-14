@@ -31,21 +31,10 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (this->isDestroy) return;
 	// Bỏ những object không cần check va chạm với simon
-	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
-
-		if (dynamic_cast<Torch *>((*it)))
-		{
-			it = coObjects->erase(it);
-		}
-		else {
-			++it;
-		}
-	}
 	CGameObject::Update(dt);
-	if (state == HEART_STATE_BIGHEART) {
-		// Simple fall down
-		vy += HEART_GRAVITY * dt;
-	}
+
+	vy += HEART_GRAVITY * dt;
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -83,6 +72,7 @@ Heart::Heart()
 {
 	AddAnimation("HEART_ANI_BIG");
 	AddAnimation("HEART_ANI_SMALL");
+	SetState(HEART_BIG);
 }
 
 Heart::Heart(int state)

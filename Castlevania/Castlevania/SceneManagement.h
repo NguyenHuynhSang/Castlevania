@@ -18,6 +18,7 @@
 #include"BoundMap.h"
 #include"Heart.h"
 #include"Zombie.h"
+#include"BlockingQueue.h"
 class SceneManagement
 {
 private:
@@ -31,11 +32,14 @@ private:
 	Zombie* zombie;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> items;
+	Queue<LPGAMEOBJECT> itemtoSpawn;
 	CTileMap* cmap;
 	static SceneManagement * __instance;
 	bool isNextScene;
 	void LoadResource();
 	int currentScene;
+	void HandleSpawningItem();
 public:
 	static SceneManagement * GetInstance();
 	void OnCreate();
@@ -47,6 +51,9 @@ public:
 	void Render();
 	void SceneUpdate();
 	void LoadScene();
+	void SpawnItem(Item* item) {
+		this->items.push_back(item);
+	}
 	void LoadObjects(int currentScene);
 	void SetScene(int currentScene);
 	SceneManagement();

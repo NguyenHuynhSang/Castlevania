@@ -184,12 +184,25 @@ void CTileMap::LoadObjects(const std::string& filePath)
 		object = new TileObject();
 		for (xml_node<> *smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
 			int x = 0, y = 0, w = 0, h = 0;
+			string proName = "";
 			x = std::atoi(smailchild->first_attribute("x")->value());
 			y = std::atoi(smailchild->first_attribute("y")->value());
 			w = std::atoi(smailchild->first_attribute("width")->value());
 			h = std::atoi(smailchild->first_attribute("height")->value());
 			int scid = std::atoi(smailchild->first_attribute("id")->value()); // lay ID
-			object = new TileObject(scid, x, y, w, h);
+			// [Note]đọc chỉ 1 property
+			xml_node<>* propertiesNode = smailchild->first_node("properties");
+			if (propertiesNode == NULL) {
+				object = new TileObject(scid, x, y, w, h, proName);
+				listobject->Add(id, object);
+				ObjectInGroup.push_back(listobject->GetTileObject(id));
+				continue;
+			}
+			xml_node<>* property = propertiesNode->first_node("property");
+			if (property != NULL) {
+				proName = std::string(property->first_attribute("name")->value());
+			}
+			object = new TileObject(scid, x, y, w, h, proName);
 			listobject->Add(id, object);
 			ObjectInGroup.push_back(listobject->GetTileObject(id));
 		}

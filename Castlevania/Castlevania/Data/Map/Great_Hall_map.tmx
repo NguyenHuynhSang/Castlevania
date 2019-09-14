@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="48">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="51">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
  <tileset firstgid="109" source="ObjectTile/SIMON.tsx"/>
  <tileset firstgid="181" source="ObjectTile/ZOMBIE.tsx"/>
+ <tileset firstgid="183" source="ObjectTile/PANTHER.tsx"/>
  <layer id="1" name="background" width="176" height="12">
   <data>
    <tile gid="1"/>
@@ -2142,22 +2143,27 @@
  </objectgroup>
  <objectgroup id="6" name="Zombie">
   <object id="26" gid="181" x="443" y="317" width="34" height="64"/>
-  <object id="33" gid="181" x="484" y="318" width="34" height="64"/>
-  <object id="34" gid="181" x="527" y="317" width="34" height="64"/>
-  <object id="35" gid="181" x="953" y="317" width="34" height="64"/>
+  <object id="33" gid="181" x="505" y="318" width="34" height="64"/>
+  <object id="34" gid="181" x="574" y="318" width="34" height="64"/>
+  <object id="35" gid="181" x="916" y="317" width="34" height="64"/>
   <object id="36" gid="181" x="991" y="318" width="34" height="64"/>
-  <object id="37" gid="181" x="1031" y="315" width="34" height="64"/>
-  <object id="38" gid="181" x="1587" y="319" width="34" height="64"/>
-  <object id="39" gid="181" x="1641" y="316" width="34" height="64"/>
-  <object id="40" gid="181" x="1707" y="317" width="34" height="64"/>
-  <object id="41" gid="181" x="2229" y="316" width="34" height="64"/>
-  <object id="42" gid="181" x="2275" y="316" width="34" height="64"/>
-  <object id="43" gid="181" x="2325" y="316" width="34" height="64"/>
-  <object id="45" gid="181" x="2921" y="315" width="34" height="64"/>
-  <object id="46" gid="181" x="2965" y="315" width="34" height="64"/>
-  <object id="47" gid="181" x="3000" y="313" width="34" height="64"/>
+  <object id="37" gid="181" x="1060" y="316" width="34" height="64"/>
+  <object id="38" gid="181" x="1575" y="318" width="34" height="64"/>
+  <object id="39" gid="181" x="1657" y="318" width="34" height="64"/>
+  <object id="40" gid="181" x="1723" y="317" width="34" height="64"/>
+  <object id="41" gid="181" x="2191" y="316" width="34" height="64"/>
+  <object id="42" gid="181" x="2260" y="317" width="34" height="64"/>
+  <object id="43" gid="181" x="2333" y="315" width="34" height="64"/>
+  <object id="45" gid="181" x="2849" y="316" width="34" height="64"/>
+  <object id="46" gid="181" x="2923" y="315" width="34" height="64"/>
+  <object id="47" gid="181" x="3008" y="316" width="34" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="NextScene">
   <object id="14" x="3012" y="106" width="45" height="22"/>
+ </objectgroup>
+ <objectgroup id="8" name="panther">
+  <object id="48" gid="183" x="1385" y="190.5" width="64" height="32"/>
+  <object id="49" gid="183" x="1756" y="127" width="64" height="32"/>
+  <object id="50" gid="183" x="1880.5" y="191" width="64" height="32"/>
  </objectgroup>
 </map>

@@ -4,7 +4,7 @@ class Item:public CGameObject
 {
 protected:
 	unsigned int score;
-	unsigned int heart;
+	unsigned int heart	;
 	bool isDestroy = false;
 public:
 	virtual void GetSpriteBox(float& _width, float& _height) {

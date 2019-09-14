@@ -126,6 +126,11 @@ void SceneManagement::LoadResource()
 
 }
 
+void SceneManagement::HandleSpawningItem()
+{
+	//if(itemtoSpawn.push)
+}
+
 SceneManagement *SceneManagement::GetInstance()
 {
 	if (__instance == NULL) __instance = new SceneManagement();
@@ -157,6 +162,10 @@ void SceneManagement::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt, &coObjects);
+	}
 
 	// Update camera to follow mario
 	float cx, cy;
@@ -181,6 +190,8 @@ void SceneManagement::Render()
 	cmap->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	for (int i = 0; i < this->items.size(); i++)
+		this->items[i]->Render();
 	objects[0]->Render();//SIMON test 
 
 }
@@ -250,18 +261,10 @@ void SceneManagement::LoadObjects(int currentscene)
 
 
 		auto torchObject = cmap->GetObjects().find(ID_TILE_OBJECT_TORCH);
-		Item* citem;
 		for (const auto& child : torchObject->second) {
-			citem = new Heart();
-
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			torch = new Torch();
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			//DebugOut(L"[Complete]Load Simon position in game world \n");
-			citem->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			citem->SetState(HEART_STATE_BIGHEART);
-
-			objects.push_back(citem);
+			torch->SetItem(child->GetPropertyName());
 			objects.push_back(torch);
 		}
 		break;
@@ -280,11 +283,9 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(ground);
 		}
 
@@ -300,11 +301,9 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto zombieObject = cmap->GetObjects().find(ID_TILE_OBJECT_ZOMBIE);
 		for (const auto& child : zombieObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			zombie = new Zombie();
 			zombie->SetRespawnPosition(child->GetX(), child->GetY()-child->GetHeight()+GAME_WORLD_Y);
 			zombie->SetPosition(child->GetX(), child->GetY() -child->GetHeight());
-			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(zombie);
 		}
 
@@ -322,7 +321,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GAME_STATE_02;
+	this->currentScene = GAME_STATE_01;
 	
 }
 

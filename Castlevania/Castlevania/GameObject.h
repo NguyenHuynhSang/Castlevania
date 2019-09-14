@@ -51,7 +51,17 @@ public:
 
 	vector<LPANIMATION> animations;
 
+
+	bool setDestroy=false;
+	bool isDestroyed = false;
+
 public: 
+	void SetDestroy() {
+		this->setDestroy = true;
+	}
+	bool CheckDestroyed() {
+		return this->isDestroyed;
+	}
 	void SetPosition(float x, float y) { this->x = x, this->y = y+ GAME_WORLD_Y; }// cộng thêm phần board
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }

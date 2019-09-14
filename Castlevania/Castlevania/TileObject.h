@@ -12,7 +12,7 @@ private:
 	int y;
 	unsigned int width;
 	unsigned int height;
-
+	std::string propertyName; // chỉ load 1 cần update thêm
 public:
 	~TileObject();
 	TileObject() {
@@ -23,8 +23,10 @@ public:
 	int GetY() { return this->y; } 
 	unsigned int GetHeight() { return this->height; }
 	unsigned int GetWidth() { return this->width; }
-
-	TileObject(int id, int x, int y, int w, int h) :id(id), x(x), y(y), width(w), height(h) {};
+	std::string GetPropertyName(){
+		return this->propertyName;
+	}
+	TileObject(int id, int x, int y, int w, int h,std::string propertyName ) :id(id), x(x), y(y), width(w), height(h), propertyName(propertyName){};
 };
 
 typedef TileObject *LPTILEOBJECT;

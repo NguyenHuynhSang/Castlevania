@@ -1,3 +1,4 @@
+
 #define WINDOW_CLASS_NAME L"Castlevania"
 #define MAIN_WINDOW_TITLE L"Castlevania"
 
@@ -31,7 +32,7 @@
 #define ITEM_STATE_HIDING 100
 #define HEART_STATE_BIGHEART 200
 #define HEART_STATE_SMALLHEART 300
-#define HEART_BIG 1;
+#define HEART_BIG 1
 #define HEART_SMALL 0;
 #define HEART_ANI_SMAIL 0
 #define HEART_ANI_BIG 1
@@ -43,3 +44,5 @@
 #define GAME_STATE_01 100
 #define GAME_STATE_02 200
 #define GAME_STATE_03 300
+
+

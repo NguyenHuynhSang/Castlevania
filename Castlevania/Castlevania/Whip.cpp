@@ -2,6 +2,7 @@
 #include"debug.h"
 #include"Torch.h"
 #include"Zombie.h"
+#include"SceneManagement.h"	
 Whip * Whip::__instance = NULL;
 
 
@@ -29,7 +30,11 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			Torch * f = dynamic_cast<Torch*> (e);
 			if (CGameObject::isColliding(this, f) )
 			{	
-				f->SetState(TORCH_DESTROY);
+				if (!f->CheckDestroyed()) {
+					f->SetDestroy();
+					DebugOut(L"Set destroy object \n");
+				}
+			
 			}
 		
 		}

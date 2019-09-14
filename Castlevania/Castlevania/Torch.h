@@ -9,19 +9,21 @@
 #include"Heart.h"
 class Torch:public CGameObject
 {
-	Item* item;
+	
+	string itemName="";
 public:
 	virtual void Render();
-	
+	void SetItem(string item) {
+		this->itemName = item;
+	}
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {
 		width = TORCH_BBOX_WIDTH;
 		height = TORCH_BBOX_HEIGHT;
 	};
 	Torch();
-	Torch(Item* item) {
-		
-	};
+
 	~Torch();
 };
 

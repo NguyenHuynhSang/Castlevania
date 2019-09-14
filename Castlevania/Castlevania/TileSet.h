@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef CTileSet_
 #define CTileSet_
 #include<string>

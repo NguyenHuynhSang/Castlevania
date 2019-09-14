@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="CTileMap.h" />

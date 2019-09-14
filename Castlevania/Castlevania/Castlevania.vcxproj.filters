@@ -141,6 +141,9 @@
     <ClInclude Include="Zombie.h">
       <Filter>ObjectsManagement\Npcs</Filter>
     </ClInclude>
+    <ClInclude Include="BlockingQueue.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

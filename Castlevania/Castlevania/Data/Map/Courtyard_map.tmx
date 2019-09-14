@@ -539,11 +539,31 @@
   <object id="25" gid="86" x="58" y="288" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="6" name="Torch">
-  <object id="10" name="Torch" type="Torch" gid="81" x="179.75" y="286" width="32" height="64"/>
-  <object id="11" name="Torch" type="Torch" gid="81" x="438.5" y="287.25" width="32" height="64"/>
-  <object id="12" name="Torch" type="Torch" gid="81" x="951.75" y="286.5" width="32" height="64"/>
-  <object id="13" name="Torch" type="Torch" gid="81" x="688.75" y="286.5" width="32" height="64"/>
-  <object id="21" gid="81" x="1199.5" y="287" width="32" height="64"/>
+  <object id="10" name="Torch" type="Torch" gid="81" x="179.75" y="286" width="32" height="64">
+   <properties>
+    <property name="bigheart" value=""/>
+   </properties>
+  </object>
+  <object id="11" name="Torch" type="Torch" gid="81" x="438.5" y="287.25" width="32" height="64">
+   <properties>
+    <property name="whip" value=""/>
+   </properties>
+  </object>
+  <object id="12" name="Torch" type="Torch" gid="81" x="951.75" y="286.5" width="32" height="64">
+   <properties>
+    <property name="bigheart" value=""/>
+   </properties>
+  </object>
+  <object id="13" name="Torch" type="Torch" gid="81" x="688.75" y="286.5" width="32" height="64">
+   <properties>
+    <property name="whip" value=""/>
+   </properties>
+  </object>
+  <object id="21" gid="81" x="1199.5" y="287" width="32" height="64">
+   <properties>
+    <property name="dagger" value=""/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="NextScene">
   <object id="23" name="NextScene" x="1484" y="109.5" width="17" height="176.5"/>
