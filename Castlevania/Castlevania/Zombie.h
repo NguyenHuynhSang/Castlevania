@@ -18,6 +18,8 @@ public:
 
 	Zombie() :Enemy() {
 		AddAnimation("ZOMBIE_ANI_WALKING");
+		enermyBBoxWidth = ZOMBIE_BBOX_WIDTH;
+		enermyBBoxHeight = ZOMBIE_BBOX_HEIGHT;
 	};
 	~Zombie();
 };

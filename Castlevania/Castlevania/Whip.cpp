@@ -1,6 +1,7 @@
 #include "Whip.h"
 #include"debug.h"
 #include"Torch.h"
+#include"Zombie.h"
 Whip * Whip::__instance = NULL;
 
 
@@ -36,7 +37,6 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			Enemy * f = dynamic_cast<Enemy*> (e);
 			if (CGameObject::isColliding(this, f) &&!f->GetRespawn()) {
 				f->StartRespawn();
-				DebugOut(L"Start respawn\n");
 			}
 
 		}

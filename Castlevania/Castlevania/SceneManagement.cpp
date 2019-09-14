@@ -302,7 +302,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		for (const auto& child : zombieObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			zombie = new Zombie();
-			zombie->SetRespawnPosition(child->GetX(), child->GetY()-child->GetHeight());
+			zombie->SetRespawnPosition(child->GetX(), child->GetY()-child->GetHeight()+GAME_WORLD_Y);
 			zombie->SetPosition(child->GetX(), child->GetY() -child->GetHeight());
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(zombie);
