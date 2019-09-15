@@ -1,8 +1,10 @@
+#include<string>
+#include<map>
 
 #define WINDOW_CLASS_NAME L"Castlevania"
 #define MAIN_WINDOW_TITLE L"Castlevania"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 480
 #define GAME_WORLD_Y 64
@@ -16,6 +18,7 @@
 #define ID_TEX_TORCH 40
 #define ID_TEX_ZOMBIE 50
 #define ID_TEX_ITEM_HEART 500
+#define ID_TEX_ITEM_MORNINGSTAR 501
 #define ID_TEX_EFFECT_FLAME 600
 #define ID_TEX_TILESET_1 1000
 #define ID_TEX_TILESET_2 1001
@@ -45,3 +48,6 @@
 #define GAME_STATE_01 1
 #define GAME_STATE_02 2
 #define GAME_STATE_03 3
+
+
+

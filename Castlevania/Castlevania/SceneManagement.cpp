@@ -245,6 +245,10 @@ void SceneManagement::SceneUpdate()
 void SceneManagement::LoadScene()
 {
 	CTextures * textures = CTextures::GetInstance();
+	for (std::map<int, vector<LPTILEOBJECT>> it = cmap->GetObjects().begin(); it != cmap->GetObjects().end(); ++it) {
+		delete (*it).second;
+	}
+	cmap->GetObjects().clear();
 	switch (this->currentScene)
 	{
 	case GAME_STATE_01:
@@ -269,37 +273,37 @@ void SceneManagement::NextScene()
 {
 	this->currentScene++;
 	if (this->currentScene > GAME_STATE_02) currentScene = GAME_STATE_02;
-	for (UINT i = 0; i < objects.size(); i++) delete objects[i];
-	for (UINT i = 0; i < items.size(); i++) delete items[i];
-	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
-	objects.clear();
-	items.clear();
-	effects.clear();
+	
 	this->isNextScene = true;
 	
 }
 
 void SceneManagement::LoadObjects(int currentscene)
 {
+	for (UINT i = 0; i < objects.size(); i++) delete objects[i];
+	for (UINT i = 0; i < items.size(); i++) delete items[i];
+	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
+	objects.clear();
+	items.clear();
+	effects.clear();
 	switch (this->currentScene)
 	{
 	case GAME_STATE_01:
 	{
 		simon = new CSimon();
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
-
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			//	DebugOut(L"[Complete]Load Simon position in game world \n");
 		}
 		objects.push_back(simon);
-
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
+			DebugOut(L"Ground state 1 x=%f y=%f",ground->x,ground->y);
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(ground);
 		}
@@ -341,6 +345,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
+			DebugOut(L"Ground state 1 x=%f y=%f", ground->x, ground->y);
 			objects.push_back(ground);
 		}
 
