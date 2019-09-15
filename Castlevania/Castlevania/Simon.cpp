@@ -28,6 +28,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	CGameObject::Update(dt);
 	
 	if (this->isAutoWalk) {
+		
 		vx = SIMON_AUTOWALKING_SPEED;
 	}
 
@@ -44,15 +45,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (dynamic_cast<Torch *>((*it)))
 		{
 			it = coObjects->erase(it);
-		}
-		else if (dynamic_cast<Enemy *>((*it)))
-		{
-			Enemy *enemy = dynamic_cast<Enemy *>((*it));
-			if(enemy->GetRespawn())
-				it = coObjects->erase(it);
-			else {
-				++it;
-			}
 		}
 		else {
 			++it;
@@ -145,22 +137,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				Item *item = dynamic_cast<Item *>(e->obj);
 				item->SetDestroy();
 			}
+			else if (dynamic_cast<Entry *>(e->obj)) {
+				if (e->ny != 0) y += dy;
+				(e->obj)->isDestroyed = true;
+				x += dx;
+
+				this->SetAutoWalk(true);
+			}
 			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
 				MoneyBagTrigger *trigger = dynamic_cast<MoneyBagTrigger *>(e->obj);
+				trigger->isDestroyed=true;
+				if (this->isAutoWalk) return;
 				if (e->ny != 0) y += dy;
 				x += dx;
-				trigger->SetDestroy();
 				trigger->SpawnMoneyBag();
 				DebugOut(L"spawn money bag");
 					
-			}
-			else if (dynamic_cast<Entry *>(e->obj)) {
-				if (e->ny != 0) y += dy;
-				x += dx;
-				this->SetAutoWalk(true);
-			}
-
+			}	
 			else if (dynamic_cast<NextScene*>(e->obj)) {
+				if (!this->isAutoWalk) return;
 				(e->obj)->SetDestroy();
 				// clean up collision events
 				SceneManagement::GetInstance()->GoNextScene();
@@ -292,9 +287,8 @@ void CSimon::SetState(int state)
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x + 10;
-
+	this->body_x = left;
 	top = y;
-
 
 	right = left + SIMON_BIG_BBOX_WIDTH;
 	bottom = top + SIMON_BIG_BBOX_HEIGHT;

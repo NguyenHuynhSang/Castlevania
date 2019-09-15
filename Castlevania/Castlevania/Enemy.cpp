@@ -1,7 +1,7 @@
 #include "Enemy.h"
-
-
-
+#include"Effects.h"
+#include"Flame.h"
+#include"SceneManagement.h"
 void Enemy::UpdateEnemy()
 {
 
@@ -15,20 +15,30 @@ void Enemy::UpdateEnemy()
 		return;
 	}
 
-	CGame *game = CGame::GetInstance();
-	RECT camBox = game->GetCamera();
-	if (CGameObject::AABB(this->respawnX, this->respawnY, this->respawnX + this->enermyBBoxWidth, this->respawnY + this->enermyBBoxHeight, camBox.left,
-		camBox.top, camBox.right, camBox.bottom
-	)) {
-		this->ResetSpawnStart();
-		//DebugOut(L"Zombie Reset spawn start \n");
+	if (this->isDestroyed) {
+		return;
 	}
-	if (((this->respawnX) - (float)camBox.left) > 0) {
-		nx = 1;
+	if (this->setDestroy) {
+		this->TurnOffCollision();
+		Effects* effect = new Flame();
+		effect->SetPositionInWorld(this->x + 10, this->y + 32 / 4);
+		SceneManagement::GetInstance()->SpawnEffect(effect);
+		isDestroyed = true;
 	}
-	else if (((this->respawnX) - (float)camBox.left) < 0) {
-		nx = -1;
-	}
+	//CGame *game = CGame::GetInstance();
+	//RECT camBox = game->GetCamera();
+	//if (CGameObject::AABB(this->respawnX, this->respawnY, this->respawnX + this->enermyBBoxWidth, this->respawnY + this->enermyBBoxHeight, camBox.left,
+	//	camBox.top, camBox.right, camBox.bottom
+	//)) {
+	//	this->ResetSpawnStart();
+	//	//DebugOut(L"Zombie Reset spawn start \n");
+	//}
+	//if (((this->respawnX) - (float)camBox.left) > 0) {
+	//	nx = 1;
+	//}
+	//else if (((this->respawnX) - (float)camBox.left) < 0) {
+	//	nx = -1;
+	//}
 
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Whip.h"
-#define SIMON_WALKING_SPEED		0.13f 
+#define SIMON_WALKING_SPEED		0.135f 
 #define SIMON_AUTOWALKING_SPEED		0.05f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.6f
@@ -62,10 +62,12 @@ class CSimon : public CGameObject
 	Whip* whip;
 	bool isJumping=false;
 	bool isAutoWalk = false;
+	float body_x;
 public: 
 	void SetAutoWalk(bool flag) {
-		state = SIMON_STATE_WALKING_RIGHT;
 		this->isAutoWalk = flag;
+		state = SIMON_STATE_WALKING_RIGHT;
+		
 	}
 	bool CheckAutoWalk() {
 		return this->isAutoWalk;

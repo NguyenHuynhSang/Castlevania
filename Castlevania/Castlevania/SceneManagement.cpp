@@ -66,13 +66,6 @@ void SceneManagement::LoadResource()
 
 
 
-	sprites->Add("WHIP_LEVEL1_01", 480, 0, 720, 66, texWhip);
-	sprites->Add("WHIP_LEVEL1_02", 240, 0, 480, 66, texWhip);
-	sprites->Add("WHIP_LEVEL1_03", 0, 0, 240, 66, texWhip); // die sprite
-
-
-
-
 
 	LPANIMATION ani;
 
@@ -94,11 +87,6 @@ void SceneManagement::LoadResource()
 	animations->Add("702", ani);
 
 
-	ani = new CAnimation(SIMON_ATTACK_TIME);		//whip
-	ani->Add("WHIP_LEVEL1_01");
-	ani->Add("WHIP_LEVEL1_02");
-	ani->Add("WHIP_LEVEL1_03");
-	animations->Add("800", ani);
 
 	/*for (const auto& entity : cmap->GetObjects()) {
 		DebugOut(L" ===============ID =%d \n", entity.first);

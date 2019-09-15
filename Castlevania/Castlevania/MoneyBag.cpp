@@ -1,7 +1,8 @@
 ﻿#include "MoneyBag.h"
 #include"Ground.h"
-
-
+#include"Effects.h"
+#include"Flame.h"
+#include"SceneManagement.h"
 void MoneyBag::Render()
 {
 	int ani = 0;
@@ -20,6 +21,10 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (this->setDestroy) {
 		this->TurnOffCollision();
+		Effects *effct = new Flame;
+		effct->SetPositionInWorld(this->x+ MONEYBAG_BBOX_WIDTH,this->y);
+		SceneManagement::GetInstance()->SpawnEffect(effct);
+
 		this->isDestroyed = true;
 		return;
 	}
