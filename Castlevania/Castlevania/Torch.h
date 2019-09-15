@@ -7,7 +7,7 @@
 #define TORCH_BURNING 0
 class Torch:public CGameObject
 {
-	
+
 	string itemName="";
 public:
 	virtual void Render();

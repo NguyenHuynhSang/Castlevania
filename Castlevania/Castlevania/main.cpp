@@ -42,7 +42,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_Q:
-		scene->NextScene();
+		scene->GoNextScene();
 		break;
 	case DIK_H:
 		scene->GetSimon()->SetAutoWalk(true);
@@ -85,7 +85,6 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}

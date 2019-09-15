@@ -64,6 +64,7 @@ class CSimon : public CGameObject
 	bool isAutoWalk = false;
 public: 
 	void SetAutoWalk(bool flag) {
+		state = SIMON_STATE_WALKING_RIGHT;
 		this->isAutoWalk = flag;
 	}
 	bool CheckAutoWalk() {

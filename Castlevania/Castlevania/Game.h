@@ -70,6 +70,7 @@ public:
 		rec = { (long)this->cam_x,(long)this->cam_y,(long)this->cam_x + SCREEN_WIDTH,(long)this->cam_y + SCREEN_HEIGHT };
 		return rec;
 	}
+
 	static CGame * GetInstance();
 
 	~CGame();

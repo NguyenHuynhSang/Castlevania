@@ -26,6 +26,7 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entry.h" />
     <ClInclude Include="EntryObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -39,13 +40,14 @@
     <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp" />
     <ClInclude Include="MorningStar.h" />
+    <ClInclude Include="NextScene.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Flame.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
-    <ClInclude Include="StaticObjects.h" />
+    <ClInclude Include="BBoxObjects.h" />
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Torch.h" />
@@ -60,6 +62,7 @@
     <ClCompile Include="define.h" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entry.cpp" />
     <ClCompile Include="EntryObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -70,13 +73,14 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MorningStar.cpp" />
+    <ClCompile Include="NextScene.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Flame.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="StaticObjects.cpp" />
+    <ClCompile Include="BBoxObjects.cpp" />
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Torch.cpp" />

@@ -3,6 +3,7 @@
 #define _EFFECT_CLASS
 #define EFFECTS_LIFE_TIME 500
 #include"GameObject.h"
+#include"define.h"
 class Effects :public CGameObject
 {
 protected:

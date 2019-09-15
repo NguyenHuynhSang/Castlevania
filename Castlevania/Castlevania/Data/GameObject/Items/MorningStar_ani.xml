@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<animations AtlasPath="MorningStar_sprite.xml">
+		<animation ID="MORNING_STAR_ANI" defaulttime="100">
+			<frame spriteID="MORNING_STAR_01" />
+		</animation>
+	</animations>
+
+</resource>

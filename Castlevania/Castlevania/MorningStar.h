@@ -1,5 +1,6 @@
 #pragma once
 #include"Item.h"
+#define MORNING_STAR_BBOX 32
 class MorningStar:public Item
 {
 public:

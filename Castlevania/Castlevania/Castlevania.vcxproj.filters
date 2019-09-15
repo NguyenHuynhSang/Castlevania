@@ -105,9 +105,6 @@
     <ClInclude Include="Torch.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
-    <ClInclude Include="StaticObjects.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
     <ClInclude Include="CTileMap.h">
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
@@ -156,6 +153,15 @@
     <ClInclude Include="Flame.h">
       <Filter>Effects</Filter>
     </ClInclude>
+    <ClInclude Include="NextScene.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Entry.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BBoxObjects.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -195,9 +201,6 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Torch.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticObjects.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
     <ClCompile Include="CTileMap.cpp">
@@ -244,6 +247,15 @@
     </ClCompile>
     <ClCompile Include="Flame.cpp">
       <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="NextScene.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Entry.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BBoxObjects.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

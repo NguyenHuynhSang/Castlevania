@@ -529,7 +529,7 @@
  </layer>
  <objectgroup id="2" name="BoundMap">
   <object id="1" name="Start" x="-24" y="-1" width="23" height="352"/>
-  <object id="2" name="end" x="1502" y="-1" width="24" height="353"/>
+  <object id="2" name="end" x="1503.5" y="-1" width="24" height="353"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
   <object id="5" x="0" y="287.5" width="1502" height="32"/>
@@ -566,10 +566,10 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="NextScene">
-  <object id="23" name="NextScene" x="1484" y="109.5" width="17" height="176.5"/>
+  <object id="23" name="NextScene" x="1500" y="109" width="8" height="176.5"/>
  </objectgroup>
  <objectgroup id="8" name="AutoWalk">
-  <object id="24" name="EnterCastle" x="1312" y="275" width="36" height="11"/>
+  <object id="24" name="EnterCastle" x="1355.5" y="265.5" width="36" height="11"/>
  </objectgroup>
  <objectgroup id="9" name="MoneyBag">
   <object id="26" gid="155" x="1257.5" y="318" width="31" height="30"/>

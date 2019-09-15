@@ -1,10 +1,9 @@
 #pragma once
-#include"StaticObjects.h"
-class Ground:public StaticObject
+#include"BBoxObjects.h"
+class Ground:public BBoxObject
 {
 public:
 	virtual void Render();
-	virtual void  GetBoundingBox(float &l, float &t, float &r, float &b);
 	Ground();
 	~Ground();
 };

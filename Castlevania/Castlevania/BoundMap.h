@@ -1,10 +1,9 @@
 #pragma once
-#include"StaticObjects.h"
-class BoundMap:public StaticObject
+#include"BBoxObjects.h"
+class BoundMap:public BBoxObject
 {
 public:
 	virtual void Render();
-	virtual void  GetBoundingBox(float &l, float &t, float &r, float &b);
 	BoundMap();
 	~BoundMap();
 };

@@ -1,15 +1,15 @@
 ﻿#include <algorithm>
 #include "debug.h"
-
 #include "Simon.h"
 #include "Game.h"
-
 #include "Ghoul.h"
 #include"Brick.h"
 #include"Ground.h"
 #include"Torch.h"
-#include"StaticObjects.h"
 #include"Item.h"
+#include"Entry.h"
+#include"NextScene.h"
+#include"SceneManagement.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -144,6 +144,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				Item *item = dynamic_cast<Item *>(e->obj);
 				item->SetDestroy();
 			}
+			else if (dynamic_cast<Entry *>(e->obj)) {
+				if(e->ny!=0) y += dy;
+				x += dx;
+				this->SetAutoWalk(true);
+			}
+			else if (dynamic_cast<NextScene*>(e->obj)) {
+				(e->obj)->SetDestroy();
+				// clean up collision events
+				SceneManagement::GetInstance()->GoNextScene();
+				return;
+			}
+			
 		}
 	}
 

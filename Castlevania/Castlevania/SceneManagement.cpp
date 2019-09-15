@@ -16,6 +16,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
@@ -36,6 +37,9 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Items\\Heart_sprite.xml", texHeart);
 	resource->LoadAnimations("Data\\GameObject\\Items\\Heart_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texMorningStar = textures->Get(ID_TEX_ITEM_MORNINGSTAR);
+	resource->LoadSprites("Data\\GameObject\\Items\\MorningStar_sprite.xml", texMorningStar);
+	resource->LoadAnimations("Data\\GameObject\\Items\\MorningStar_ani.xml", animations);
 	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
@@ -97,37 +101,9 @@ void SceneManagement::LoadResource()
 		}
 	}*/
 
-
-
-
-
-
-
-
-
 	whip = Whip::GetInstance();
 	whip->AddAnimation("800");
-	//	objects.push_back(whip);
-		/*for (int i = 0; i < 180; i++)
-		{
-			CBrick *brick = new CBrick();
-			brick->AddAnimation("601");
-			brick->SetPosition(0 + i*16.0f-640/2+60, 350);
-			objects.push_back(brick);
-		}*/
-
-
-		// and Goombas 
-		/*for (int i = 0; i < 4; i++)
-		{
-			goomba = new CGoomba();
-			goomba->AddAnimation("701");
-			goomba->AddAnimation("702");
-			goomba->SetPosition(200 + i*60, 334);
-			goomba->SetState(GOOMBA_STATE_WALKING);
-			objects.push_back(goomba);
-		}*/
-
+	
 }
 
 void SceneManagement::HandleSpawningItem()
@@ -154,6 +130,32 @@ void SceneManagement::Update(DWORD dt)
 		LoadScene();
 		this->isNextScene = false;
 	}
+	//clean object
+	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = objects.erase(it);
+
+		}
+		else ++it;
+	}
+	//clean effects
+	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = effects.erase(it);
+		}
+		else ++it;
+	}
+	//clean item
+	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = items.erase(it);
+		}
+		else ++it;
+	}
+
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
@@ -182,31 +184,6 @@ void SceneManagement::Update(DWORD dt)
 		items[i]->Update(dt, &coObjects);
 	}
 
-	//clean object
-	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = objects.erase(it);
-			
-		}
-		else ++it;
-	}
-	//clean effects
-	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = effects.erase(it);
-		}
-		else ++it;
-	}
-	//clean item
-	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = items.erase(it);
-		}
-		else ++it;
-	}
 
 	// Update camera to follow mario
 	float cx, cy;
@@ -227,7 +204,7 @@ void SceneManagement::Update(DWORD dt)
 }
 void SceneManagement::Render()
 {
-
+	if (this->isNextScene) return;
 	cmap->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
@@ -245,19 +222,17 @@ void SceneManagement::SceneUpdate()
 void SceneManagement::LoadScene()
 {
 	CTextures * textures = CTextures::GetInstance();
-	for (std::map<int, vector<LPTILEOBJECT>> it = cmap->GetObjects().begin(); it != cmap->GetObjects().end(); ++it) {
-		delete (*it).second;
-	}
 	cmap->GetObjects().clear();
 	switch (this->currentScene)
 	{
 	case GAME_STATE_01:
-		cmap = CTileMap::GetInstance();
+		
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 		LoadObjects(GAME_STATE_01);
 		break;
 	case GAME_STATE_02:
+		
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
@@ -269,7 +244,7 @@ void SceneManagement::LoadScene()
 	}
 }
 
-void SceneManagement::NextScene()
+void SceneManagement::GoNextScene()
 {
 	this->currentScene++;
 	if (this->currentScene > GAME_STATE_02) currentScene = GAME_STATE_02;
@@ -297,6 +272,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			//	DebugOut(L"[Complete]Load Simon position in game world \n");
 		}
 		objects.push_back(simon);
+
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
@@ -308,6 +284,26 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(ground);
 		}
 
+
+		
+		auto entryObject = cmap->GetObjects().find(ID_TILE_OBJECT_ENTRY);
+		for (const auto& child : entryObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			entry = new Entry();
+			entry->SetSize(child->GetWidth(), child->GetHeight());
+			entry->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(entry);
+		}
+
+		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
+		for (const auto& child : nextsceneObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			nextScene = new NextScene();
+			nextScene->SetSize(child->GetWidth(), child->GetHeight());
+			nextScene->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(nextScene);
+		}
+		
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
 		for (const auto& child : boundObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
@@ -382,7 +378,8 @@ SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
 	this->currentScene = GAME_STATE_01;
-	
+
+	cmap = CTileMap::GetInstance();
 }
 
 
