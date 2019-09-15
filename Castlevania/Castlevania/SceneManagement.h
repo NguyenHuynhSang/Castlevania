@@ -23,6 +23,7 @@
 #include"Effects.h"
 #include"Item.h"
 #include"Entry.h"
+#include"MoneyBagTrigger.h"
 class SceneManagement
 {
 private:
@@ -36,6 +37,7 @@ private:
 	NextScene * nextScene;
 	BoundMap *bound;
 	Zombie* zombie;
+	MoneyBagTrigger* trigger;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
@@ -46,6 +48,7 @@ private:
 	void LoadResource();
 	int currentScene;
 	void HandleSpawningItem();
+	
 public:
 
 	static SceneManagement * GetInstance();

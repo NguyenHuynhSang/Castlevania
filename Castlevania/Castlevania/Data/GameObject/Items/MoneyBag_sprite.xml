@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="Money_Bag.png">
+		<sprite ID="MONEYBAG_RED">
+			<frame x="0" y="0" width="31" height="30" />
+		</sprite>
+				<sprite ID="MONEYBAG_BLUE">
+			<frame x="31" y="0" width="31" height="30" />
+		</sprite>
+		<sprite ID="MONEYBAG_WHITE">
+			<frame x="62" y="0" width="31" height="30" />
+		</sprite>
+	</spritesheet>
+</resource>

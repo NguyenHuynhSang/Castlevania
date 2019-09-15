@@ -87,7 +87,7 @@ public:
 		float &ny);
 
 	void AddAnimation(string aniId);
-	bool isColliding(CGameObject *a, CGameObject *b) {
+	bool IsColliding(CGameObject *a, CGameObject *b) {
 		float top, left, right, button;
 		a->GetBoundingBox(left, top, right, button);
 		float l, t, r, bt;

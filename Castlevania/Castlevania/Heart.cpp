@@ -34,7 +34,7 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->isDestroyed = true;
 		return;
 	}
-	// Bỏ những object không cần check va chạm với simon
+
 	CGameObject::Update(dt);
 
 	vy += HEART_GRAVITY * dt;

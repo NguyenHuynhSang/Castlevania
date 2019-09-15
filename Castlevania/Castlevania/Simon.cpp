@@ -10,6 +10,7 @@
 #include"Entry.h"
 #include"NextScene.h"
 #include"SceneManagement.h"
+#include"MoneyBagTrigger.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -104,7 +105,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					this->isJumping = false; // cham dat moi cho nhay tiep
 					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
 						vx = 0;
-					
+
 					}
 				}
 
@@ -144,11 +145,21 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				Item *item = dynamic_cast<Item *>(e->obj);
 				item->SetDestroy();
 			}
+			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
+				MoneyBagTrigger *trigger = dynamic_cast<MoneyBagTrigger *>(e->obj);
+				if (e->ny != 0) y += dy;
+				x += dx;
+				trigger->SetDestroy();
+				trigger->SpawnMoneyBag();
+				DebugOut(L"spawn money bag");
+					
+			}
 			else if (dynamic_cast<Entry *>(e->obj)) {
-				if(e->ny!=0) y += dy;
+				if (e->ny != 0) y += dy;
 				x += dx;
 				this->SetAutoWalk(true);
 			}
+
 			else if (dynamic_cast<NextScene*>(e->obj)) {
 				(e->obj)->SetDestroy();
 				// clean up collision events
@@ -170,7 +181,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (dynamic_cast<Item *>(e))
 		{
 			Item * f = dynamic_cast<Item*> (e);
-			if (CGameObject::isColliding(this, f))
+			if (CGameObject::IsColliding(this, f))
 			{
 				if (!f->CheckDestroyed()) {
 					f->SetDestroy();

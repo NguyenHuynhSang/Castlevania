@@ -17,6 +17,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
@@ -40,6 +41,11 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texMorningStar = textures->Get(ID_TEX_ITEM_MORNINGSTAR);
 	resource->LoadSprites("Data\\GameObject\\Items\\MorningStar_sprite.xml", texMorningStar);
 	resource->LoadAnimations("Data\\GameObject\\Items\\MorningStar_ani.xml", animations);
+
+	LPDIRECT3DTEXTURE9 texMoneyBag = textures->Get(ID_TEX_ITEM_MONEYBAG);
+	resource->LoadSprites("Data\\GameObject\\Items\\MoneyBag_sprite.xml", texMoneyBag);
+	resource->LoadAnimations("Data\\GameObject\\Items\\MoneyBag_ani.xml", animations);
+
 	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
@@ -294,6 +300,24 @@ void SceneManagement::LoadObjects(int currentscene)
 			entry->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(entry);
 		}
+
+
+		auto triggerObject = cmap->GetObjects().find(ID_TILE_OBJECT_TRIGGER);
+		for (const auto& child : triggerObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			trigger = new MoneyBagTrigger();
+			trigger->SetSize(child->GetWidth(), child->GetHeight());
+			trigger->SetPosition(child->GetX(), child->GetY());
+			auto moneyBagObject = cmap->GetObjects().find(ID_TILE_OBJECT_MONEY_BAG);
+			for (const auto& smallchild : moneyBagObject->second) {
+				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY()- smallchild->GetHeight());
+			}
+			objects.push_back(trigger);
+		}
+
+		
+
+
 
 		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
 		for (const auto& child : nextsceneObject->second) {

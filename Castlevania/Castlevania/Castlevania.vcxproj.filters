@@ -162,6 +162,12 @@
     <ClInclude Include="BBoxObjects.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
+    <ClInclude Include="MoneyBagTrigger.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBag.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -256,6 +262,12 @@
     </ClCompile>
     <ClCompile Include="BBoxObjects.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBagTrigger.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBag.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

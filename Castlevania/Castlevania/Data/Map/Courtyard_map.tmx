@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="28">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="31">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
  <tileset firstgid="81" source="ObjectTile/Torch.tsx"/>
  <tileset firstgid="83" source="ObjectTile/SIMON.tsx"/>
  <tileset firstgid="155" source="ObjectTile/Money_Bag.tsx"/>
+ <tileset firstgid="158" source="ObjectTile/Castle.tsx"/>
  <layer id="1" name="background" width="47" height="11">
   <data>
    <tile gid="1"/>
@@ -534,9 +535,11 @@
  <objectgroup id="3" name="Ground">
   <object id="5" x="0" y="287.5" width="1502" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="Entry"/>
  <objectgroup id="5" name="Simon">
   <object id="25" gid="86" x="58" y="288" width="60" height="66"/>
+ </objectgroup>
+ <objectgroup id="4" name="MoneyBagTrigger">
+  <object id="30" name="Money Bag" type="Money Bag" x="1426" y="270" width="62" height="9.5"/>
  </objectgroup>
  <objectgroup id="6" name="Torch">
   <object id="10" name="Torch" type="Torch" gid="81" x="179.75" y="286" width="32" height="64">
@@ -569,9 +572,12 @@
   <object id="23" name="NextScene" x="1500" y="109" width="8" height="176.5"/>
  </objectgroup>
  <objectgroup id="8" name="AutoWalk">
-  <object id="24" name="EnterCastle" x="1355.5" y="265.5" width="36" height="11"/>
+  <object id="24" name="EnterCastle" x="1360" y="268" width="25.5" height="11"/>
  </objectgroup>
  <objectgroup id="9" name="MoneyBag">
   <object id="26" gid="155" x="1257.5" y="318" width="31" height="30"/>
+ </objectgroup>
+ <objectgroup id="10" name="Castle" visible="0">
+  <object id="28" gid="158" x="1408" y="289" width="96" height="288"/>
  </objectgroup>
 </map>
