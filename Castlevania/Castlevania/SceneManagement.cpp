@@ -123,6 +123,7 @@ void SceneManagement::Update(DWORD dt)
 	if (this->isNextScene) {
 		LoadScene();
 		this->isNextScene = false;
+		return;
 	}
 	//clean object
 	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
@@ -273,7 +274,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			DebugOut(L"Ground state 1 x=%f y=%f",ground->x,ground->y);
+		//	DebugOut(L"Ground state 1 x=%f y=%f",ground->x,ground->y);
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(ground);
 		}
@@ -353,7 +354,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			DebugOut(L"Ground state 1 x=%f y=%f", ground->x, ground->y);
+			//DebugOut(L"Ground state 2 x=%f y=%f \n", ground->x, ground->y);
 			objects.push_back(ground);
 		}
 

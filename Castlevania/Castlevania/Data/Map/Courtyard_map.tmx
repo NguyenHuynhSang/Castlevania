@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="31">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="33">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
@@ -534,6 +534,8 @@
  </objectgroup>
  <objectgroup id="3" name="Ground">
   <object id="5" x="0" y="287.5" width="1502" height="32"/>
+  <object id="31" x="543" y="223" width="105.5" height="25"/>
+  <object id="32" x="268" y="166.5" width="111.5" height="28"/>
  </objectgroup>
  <objectgroup id="5" name="Simon">
   <object id="25" gid="86" x="58" y="288" width="60" height="66"/>

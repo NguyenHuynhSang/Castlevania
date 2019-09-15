@@ -37,7 +37,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (this->GetActack_Time()!=0) {
 		whip->Update(dt, coObjects);
 	}
-
+	bool revy = vy;
 
 	// Bỏ những object không cần check va chạm với simon
 	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
@@ -80,11 +80,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		// block 
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + nx * 0.1f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		y += min_ty * dy + ny * 0.1f;
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		//if (nx != 0) vx = 0;
+		//if (ny != 0) vy = 0;
 		//	DebugOut(L"SIMON ny=%f", ny);
 			// Collision logic with Goombas
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -94,12 +94,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				//DebugOut(L"[Simon]nx=%f ny=%f \n",nx,ny);
 				//DebugOut(L"[Ground]nx=%f ny=%f \n", e->nx, e->ny);
 				if (e->ny < 0) {
+					//DebugOut(L"e->ny < 0");
 					this->isJumping = false; // cham dat moi cho nhay tiep
 					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
 						vx = 0;
-
 					}
+					if (ny != 0) vy = 0;
 				}
+				else if(e->ny>0&& this->vy<0){
+					y += dy;
+					if (nx != 0) vx = 0;
+				}
+			
 
 			}
 			else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
@@ -282,6 +288,10 @@ void CSimon::SetState(int state)
 		break;
 
 	}
+}
+
+void CSimon::SimonUseSubWeapon()
+{
 }
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)

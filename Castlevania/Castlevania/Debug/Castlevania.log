@@ -1,5 +1,1 @@
-﻿  Simon.cpp
-d:\git\castlevania\castlevania\castlevania\simon.cpp(172): warning C4018: '<': signed/unsigned mismatch
-d:\git\castlevania\castlevania\castlevania\simon.cpp(197): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\git\castlevania\castlevania\castlevania\simon.cpp(205): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe
+﻿

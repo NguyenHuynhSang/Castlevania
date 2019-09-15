@@ -17,7 +17,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->UpdateEnemy();
 
-	if (reSpawn) return;
+//	if (reSpawn) return;
 	//DebugOut(L"update \n");
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;

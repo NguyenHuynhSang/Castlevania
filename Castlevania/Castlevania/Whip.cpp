@@ -40,8 +40,8 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		}
 		else if (dynamic_cast<Enemy *>(e)) {
 			Enemy * f = dynamic_cast<Enemy*> (e);
-			if (CGameObject::IsColliding(this, f) &&!f->GetRespawn()) {
-				f->StartRespawn();
+			if (CGameObject::IsColliding(this, f)) {
+				f->SetDestroy();
 			}
 
 		}

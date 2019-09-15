@@ -4,16 +4,15 @@
 #include"SceneManagement.h"
 void Enemy::UpdateEnemy()
 {
-
-	if (!this->reSpawn) {
+	/*if (!this->reSpawn) {
 		return;
-	}
+	}*/
 
-	if (GetTickCount() - this->spawn_start > ENEMY_SPWAWN_TIME) {
+	/*if (GetTickCount() - this->spawn_start > ENEMY_SPWAWN_TIME) {
 		DebugOut(L"Zombie back to worlk \n");
 		this->reSpawn = false;
 		return;
-	}
+	}*/
 
 	if (this->isDestroyed) {
 		return;

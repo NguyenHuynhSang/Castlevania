@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Whip.h"
-#define SIMON_WALKING_SPEED		0.135f 
+#define SIMON_WALKING_SPEED		0.13f 
 #define SIMON_AUTOWALKING_SPEED		0.05f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.6f
@@ -63,6 +63,7 @@ class CSimon : public CGameObject
 	bool isJumping=false;
 	bool isAutoWalk = false;
 	float body_x;
+	int subWeapon;
 public: 
 	void SetAutoWalk(bool flag) {
 		this->isAutoWalk = flag;
@@ -98,6 +99,7 @@ public:
 	
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
+	void SimonUseSubWeapon();
 	DWORD GetActack_Time() { return actack_start; }
 	void ResetActack_Time() { actack_start = 0; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
