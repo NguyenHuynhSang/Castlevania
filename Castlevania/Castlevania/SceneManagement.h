@@ -24,6 +24,7 @@
 #include"Item.h"
 #include"Entry.h"
 #include"MoneyBagTrigger.h"
+#include"Panther.h"
 class SceneManagement
 {
 private:
@@ -34,6 +35,7 @@ private:
 	Torch * torch;
 	Ground *ground;
 	Entry* entry;
+	Panther *panther;
 	NextScene * nextScene;
 	BoundMap *bound;
 	Zombie* zombie;

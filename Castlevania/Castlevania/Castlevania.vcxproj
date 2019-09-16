@@ -43,6 +43,7 @@
     <ClInclude Include="MoneyBagTrigger.h" />
     <ClInclude Include="MorningStar.h" />
     <ClInclude Include="NextScene.h" />
+    <ClInclude Include="Panther.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="MoneyBagTrigger.cpp" />
     <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="NextScene.cpp" />
+    <ClCompile Include="Panther.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />

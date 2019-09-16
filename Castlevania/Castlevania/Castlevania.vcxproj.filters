@@ -58,6 +58,9 @@
     <Filter Include="Effects">
       <UniqueIdentifier>{7257fe3b-49e5-4ee9-aadd-a1c967f6f38a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectsManagement\Player\Weapons">
+      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -120,9 +123,6 @@
     <ClInclude Include="BoundMap.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Whip.h">
-      <Filter>ObjectsManagement\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
@@ -167,6 +167,12 @@
     </ClInclude>
     <ClInclude Include="MoneyBag.h">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>ObjectsManagement\Player\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Panther.h">
+      <Filter>ObjectsManagement\Npcs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +230,6 @@
     <ClCompile Include="BoundMap.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Whip.cpp">
-      <Filter>ObjectsManagement\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
@@ -268,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="MoneyBag.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Panther.cpp">
+      <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>ObjectsManagement\Player\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

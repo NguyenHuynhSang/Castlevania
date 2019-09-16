@@ -19,6 +19,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -50,6 +51,10 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texPanther = textures->Get(ID_TEX_PANTHER);
+	resource->LoadSprites("Data\\GameObject\\Enemies\\Panther_sprite.xml", texPanther);
+	resource->LoadAnimations("Data\\GameObject\\Enemies\\Panther_ani.xml", animations);
+	
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
@@ -378,6 +383,16 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(zombie);
 		}
 
+		auto pantherObject = cmap->GetObjects().find(ID_TILE_OBJECT_PANTHER);
+		for (const auto& child : pantherObject->second) {
+			panther = new Panther();
+			panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
+			panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			objects.push_back(panther);
+		}
+
+
+		
 		break;
 	}
 		
