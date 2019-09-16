@@ -26,21 +26,22 @@ void CSimon::Renderer(int ani)
 int CountEnymy = 0;
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-	
+
 	if (this->isAutoWalk) {
-		
+
 		vx = SIMON_AUTOWALKING_SPEED;
 	}
 
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
-	if (this->GetActack_Time()!=0) {
+	if (this->GetActack_Time() != 0) {
 		whip->Update(dt, coObjects);
 	}
-		
-	
+
+
 	// Bỏ những object không cần check va chạm với simon
 	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
 
@@ -82,8 +83,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		// block 
-		x += min_tx * dx + nx * 0.1f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.1f;
+		x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		y += min_ty * dy + ny * 0.2f;
 
 		//if (nx != 0) vx = 0;
 		//if (ny != 0) vy = 0;
@@ -93,97 +94,101 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
-			//	DebugOut(L" simon ny %f \n",ny);
+				DebugOut(L" simon vx=%f, vy=%f \n", vx, vy);
 				//DebugOut(L"[Simon]nx=%f ny=%f \n",nx,ny);
 				//DebugOut(L"[Ground]nx=%f ny=%f \n", e->nx, e->ny);
 				if (e->ny < 0) {
-					
-					DebugOut(L" Simon vy=%f \n", this->vy);
-					if (this->state == SIMON_STATE_DEFLECT &&this->vy>0) {
+
+
+					if (this->state == SIMON_STATE_DEFLECT && this->vy > 0) {
 						this->state = SIMON_STATE_IDLE;
-					//	DebugOut(L"abc \n");
-						
+						DebugOut(L"SIMON_STATE_IDLE vy=%f vx=%f \n", this->vy, this->vx);
+
 					}
 					else {
-						
+
 						//DebugOut(L"e->ny < 0");
 						this->isJumping = false; // cham dat moi cho nhay tiep
-						if (ny <0) vy = 0;
+						if (this->untouchable_start == 0) {
+							if (ny != 0) vy = 0;
+							if (nx != 0) vx = 0;
+						}
+
 						if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
 							vx = 0;
 
 						}
 					}
-					
-				
+
+
 				}
-				else if(e->ny>0&& this->vy<0){
+				else if (e->ny > 0 && this->vy < 0) {
 					y += dy;
-					if (nx != 0) vx = 0;	
-				
+					if (nx != 0) vx = 0;
+
 				}
-			
+
 
 			}
-			else if (dynamic_cast<Enemy *>(e->obj) ) {
-				CountEnymy++;
-				DebugOut(L"Va cham %d \n", CountEnymy);
-				if (this->state != SIMON_STATE_DEFLECT && untouchable!=1) {
-				
+			else if (dynamic_cast<Enemy *>(e->obj)) {
+				if (untouchable_start == 0) {
+					CountEnymy++;
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
-					this->vy = -SIMON_DEFLECT_SPEED_Y;
-					this->vx = -SIMON_DEFLECT_SPEED_X;
-					this->state = SIMON_STATE_DEFLECT;
-					StartUntouchable();
-				}
-				else if (this->untouchable == 0) {
-					
-				}
-			}
-			else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
-			{
-				Ghoul *ghoul = dynamic_cast<Ghoul *>(e->obj);
-				//DebugOut(L"[col] SIMON ->Goomba \n");
-				// jump on top >> kill Goomba and deflect a bit 
-				if (e->ny < 0)
-				{
-					if (ghoul->GetState() != GHOUL_STATE_DIE)
-					{
-						//	goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -SIMON_DEFLECT_SPEED_X;
-					}
-					if (untouchable == 0)
-					{
-						if (ghoul->GetState() != GHOUL_STATE_DIE)
-						{
-							if (level > SIMON_LEVEL_SMALL)
-							{
-								level = SIMON_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-								SetState(SIMON_STATE_DIE);
-						}
-					}
-				}
-				else if (e->nx != 0)
-				{
 
-					if (untouchable == 0)
-					{
-						if (ghoul->GetState() != GHOUL_STATE_DIE)
-						{
-							if (level > SIMON_LEVEL_SMALL)
-							{
-								level = SIMON_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-								SetState(SIMON_STATE_DIE);
-						}
-					}
+					this->SetState(SIMON_STATE_DEFLECT);
+					if (untouchable != 1)
+						StartUntouchable();
+
+					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
+
 				}
+
+
 			}
+			//else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
+			//{
+			//	Ghoul *ghoul = dynamic_cast<Ghoul *>(e->obj);
+			//	//DebugOut(L"[col] SIMON ->Goomba \n");
+			//	// jump on top >> kill Goomba and deflect a bit 
+			//	if (e->ny < 0)
+			//	{
+			//		if (ghoul->GetState() != GHOUL_STATE_DIE)
+			//		{
+			//			//	goomba->SetState(GOOMBA_STATE_DIE);
+			//			vy = -SIMON_DEFLECT_SPEED_X;
+			//		}
+			//		if (untouchable == 0)
+			//		{
+			//			if (ghoul->GetState() != GHOUL_STATE_DIE)
+			//			{
+			//				if (level > SIMON_LEVEL_SMALL)
+			//				{
+			//					level = SIMON_LEVEL_SMALL;
+			//					StartUntouchable();
+			//				}
+			//				else
+			//					SetState(SIMON_STATE_DIE);
+			//			}
+			//		}
+			//	}
+			//	else if (e->nx != 0)
+			//	{
+
+			//		if (untouchable == 0)
+			//		{
+			//			if (ghoul->GetState() != GHOUL_STATE_DIE)
+			//			{
+			//				if (level > SIMON_LEVEL_SMALL)
+			//				{
+			//					level = SIMON_LEVEL_SMALL;
+			//					StartUntouchable();
+			//				}
+			//				else
+			//					SetState(SIMON_STATE_DIE);
+			//			}
+			//		}
+			//	}
+			//}
 			else if (dynamic_cast<Item *>(e->obj)) {
 				Item *item = dynamic_cast<Item *>(e->obj);
 				item->SetDestroy();
@@ -197,14 +202,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
 				MoneyBagTrigger *trigger = dynamic_cast<MoneyBagTrigger *>(e->obj);
-				trigger->isDestroyed=true;
+				trigger->isDestroyed = true;
 				if (this->isAutoWalk) return;
 				if (e->ny != 0) y += dy;
 				x += dx;
 				trigger->SpawnMoneyBag();
 				DebugOut(L"spawn money bag");
-					
-			}	
+
+			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
 				if (!this->isAutoWalk) return;
 				(e->obj)->SetDestroy();
@@ -212,13 +217,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				SceneManagement::GetInstance()->GoNextScene();
 				return;
 			}
-			
+
 		}
 	}
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	
+
 
 	for (int i = 0; i < coObjects->size(); i++)
 	{
@@ -237,7 +242,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		}
 	}
-	
+
 }
 
 void CSimon::Render()
@@ -327,6 +332,13 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_STAND_ATTACK:
 	{
 		if (!this->isJumping) vx = 0;
+		break;
+	}
+	case SIMON_STATE_DEFLECT:
+	{
+		this->vy = -SIMON_DEFLECT_SPEED_Y;
+		this->vx = -SIMON_DEFLECT_SPEED_X;
+
 		break;
 	}
 	case SIMON_STATE_SIT_ATTACK:
