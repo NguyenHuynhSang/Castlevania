@@ -2142,20 +2142,10 @@
   <object id="5" gid="112" x="87" y="316" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="6" name="Zombie">
-  <object id="26" gid="181" x="443" y="317" width="34" height="64"/>
-  <object id="33" gid="181" x="505" y="318" width="34" height="64"/>
-  <object id="34" gid="181" x="574" y="318" width="34" height="64"/>
-  <object id="35" gid="181" x="916" y="317" width="34" height="64"/>
-  <object id="36" gid="181" x="991" y="318" width="34" height="64"/>
-  <object id="37" gid="181" x="1060" y="316" width="34" height="64"/>
-  <object id="38" gid="181" x="1575" y="318" width="34" height="64"/>
-  <object id="39" gid="181" x="1657" y="318" width="34" height="64"/>
+  <object id="34" gid="181" x="465" y="315" width="34" height="64"/>
+  <object id="35" gid="181" x="920" y="314" width="34" height="64"/>
   <object id="40" gid="181" x="1723" y="317" width="34" height="64"/>
-  <object id="41" gid="181" x="2191" y="316" width="34" height="64"/>
-  <object id="42" gid="181" x="2260" y="317" width="34" height="64"/>
   <object id="43" gid="181" x="2333" y="315" width="34" height="64"/>
-  <object id="45" gid="181" x="2849" y="316" width="34" height="64"/>
-  <object id="46" gid="181" x="2923" y="315" width="34" height="64"/>
   <object id="47" gid="181" x="3008" y="316" width="34" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="NextScene">

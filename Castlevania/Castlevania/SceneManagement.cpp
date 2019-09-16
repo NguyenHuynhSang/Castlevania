@@ -245,6 +245,7 @@ void SceneManagement::GoNextScene()
 	if (this->currentScene > GAME_STATE_02) currentScene = GAME_STATE_02;
 	
 	this->isNextScene = true;
+	game->SetCamPos(0, 0); //reset cam
 	
 }
 

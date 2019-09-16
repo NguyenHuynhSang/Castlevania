@@ -11,6 +11,7 @@
 #include"NextScene.h"
 #include"SceneManagement.h"
 #include"MoneyBagTrigger.h"
+#include"Enemy.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -21,9 +22,10 @@ void CSimon::Renderer(int ani)
 	//RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
 }
 
+
+int CountEnymy = 0;
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 	
@@ -37,8 +39,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (this->GetActack_Time()!=0) {
 		whip->Update(dt, coObjects);
 	}
-	bool revy = vy;
-
+		
+	
 	// Bỏ những object không cần check va chạm với simon
 	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
 
@@ -91,22 +93,52 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
+			//	DebugOut(L" simon ny %f \n",ny);
 				//DebugOut(L"[Simon]nx=%f ny=%f \n",nx,ny);
 				//DebugOut(L"[Ground]nx=%f ny=%f \n", e->nx, e->ny);
 				if (e->ny < 0) {
-					//DebugOut(L"e->ny < 0");
-					this->isJumping = false; // cham dat moi cho nhay tiep
-					if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
-						vx = 0;
+					
+					DebugOut(L" Simon vy=%f \n", this->vy);
+					if (this->state == SIMON_STATE_DEFLECT &&this->vy>0) {
+						this->state = SIMON_STATE_IDLE;
+					//	DebugOut(L"abc \n");
+						
 					}
-					if (ny != 0) vy = 0;
+					else {
+						
+						//DebugOut(L"e->ny < 0");
+						this->isJumping = false; // cham dat moi cho nhay tiep
+						if (ny <0) vy = 0;
+						if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
+							vx = 0;
+
+						}
+					}
+					
+				
 				}
 				else if(e->ny>0&& this->vy<0){
 					y += dy;
-					if (nx != 0) vx = 0;
+					if (nx != 0) vx = 0;	
+				
 				}
 			
 
+			}
+			else if (dynamic_cast<Enemy *>(e->obj) ) {
+				CountEnymy++;
+				DebugOut(L"Va cham %d \n", CountEnymy);
+				if (this->state != SIMON_STATE_DEFLECT && untouchable!=1) {
+				
+					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
+					this->vy = -SIMON_DEFLECT_SPEED_Y;
+					this->vx = -SIMON_DEFLECT_SPEED_X;
+					this->state = SIMON_STATE_DEFLECT;
+					StartUntouchable();
+				}
+				else if (this->untouchable == 0) {
+					
+				}
 			}
 			else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
 			{
@@ -118,7 +150,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (ghoul->GetState() != GHOUL_STATE_DIE)
 					{
 						//	goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -SIMON_JUMP_DEFLECT_SPEED;
+						vy = -SIMON_DEFLECT_SPEED_X;
+					}
+					if (untouchable == 0)
+					{
+						if (ghoul->GetState() != GHOUL_STATE_DIE)
+						{
+							if (level > SIMON_LEVEL_SMALL)
+							{
+								level = SIMON_LEVEL_SMALL;
+								StartUntouchable();
+							}
+							else
+								SetState(SIMON_STATE_DIE);
+						}
 					}
 				}
 				else if (e->nx != 0)
@@ -192,12 +237,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		}
 	}
+	
 }
 
 void CSimon::Render()
 {
 	//DebugOut(L"Pos x=%f y=%f \n",x,y);
 	int ani;
+	if (state == SIMON_STATE_DEFLECT) {
+		ani = SIMON_ANI_DEFLECT;
+		Renderer(ani);
+		return;
+	}
 	if (state == SIMON_STATE_STAND_ATTACK) {
 		ani = SIMON_ANI_STAND_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);

@@ -39,6 +39,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
+	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
+		return;
+	}
 	switch (KeyCode)
 	{
 	case DIK_Q:
@@ -85,13 +88,16 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
+	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
 	// disable control key when Simon die 
 	//DebugOut(L"state=%d  \n", mario->GetState());
-	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
-
+	
+	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
+		return;
+	}
 	if ((scene->GetSimon()->GetActack_Time() != 0) && (GetTickCount() - scene->GetSimon()->GetActack_Time() > 3 * SIMON_ATTACK_TIME))
 	{
 		//DebugOut(L"stop atack \n");

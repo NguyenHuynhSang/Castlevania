@@ -5,7 +5,8 @@
 #define SIMON_AUTOWALKING_SPEED		0.05f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.6f
-#define SIMON_JUMP_DEFLECT_SPEED 0.2f
+#define SIMON_DEFLECT_SPEED_X 0.3f
+#define SIMON_DEFLECT_SPEED_Y 0.6f
 #define SIMON_GRAVITY			0.002f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
 
@@ -17,6 +18,8 @@
 #define SIMON_STATE_SIT             500
 #define SIMON_STATE_STAND_ATTACK    600
 #define SIMON_STATE_SIT_ATTACK 700
+#define SIMON_STATE_DEFLECT 800
+
 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
@@ -32,7 +35,7 @@
 #define SIMON_ANI_SITTING           9
 #define SIMON_ANI_STAND_ATTACK           10
 #define SIMON_ANI_SIT_ATTACK             11
-
+#define SIMON_ANI_DEFLECT                12
 
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
@@ -93,6 +96,8 @@ public:
 		this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
 		this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
 		this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
+		this->AddAnimation("SIMON_ANI_DEFLECT");    //12
+		
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();	

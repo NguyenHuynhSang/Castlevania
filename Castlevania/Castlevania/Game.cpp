@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 #include "debug.h"
+#include<math.h>
 CGame * CGame::__instance = NULL;
 
 /*
@@ -59,9 +60,8 @@ void CGame::Init(HWND hWnd)
 void CGame::Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 
-
-
-	D3DXVECTOR3 p((int)(x-cam_x), (int)(y-cam_y), 0);
+	
+	D3DXVECTOR3 p(std::floor(x-cam_x), floor(y-cam_y), 0);
 	RECT r;
 	r.left = left;
 	r.top = top;

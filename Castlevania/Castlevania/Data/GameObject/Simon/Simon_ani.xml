@@ -24,6 +24,9 @@
 			<frame spriteID="SIMON_SITTING_ATTACK_03" />
 		</animation>
 
+	<animation ID="SIMON_ANI_DEFLECT" defaulttime="100">
+			<frame spriteID="SIMON_STAND_DEFLECT" />
+		</animation>
 
 	</animations>
 

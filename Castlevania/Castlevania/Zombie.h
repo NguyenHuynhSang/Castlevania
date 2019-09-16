@@ -4,7 +4,7 @@
 #define ZOMBIE_BBOX_HEIGHT 64
 
 #define ZOMBIE_GRAVITY			0.002f
-#define ZOMBIE_WALKING_SPEED			0.05f
+#define ZOMBIE_WALKING_SPEED			0.10f
 class Zombie:public Enemy
 {
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
