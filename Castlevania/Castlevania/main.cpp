@@ -32,13 +32,24 @@ class CSampleKeyHander : public InputController
 };
 
 CSampleKeyHander * keyHandler;
-bool isJumping = false;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
+	if ((scene->GetSimon()->GetPowerUpTime() != 0) &&GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
+	{
+		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
+		scene->GetSimon()->ResetPowerUpTime();
+	}
+	if (scene->GetSimon()->GetPowerUpTime() != 0)
+	{
+		return;
+	}
+	
+
+
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
 		return;
 	}
@@ -89,12 +100,19 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
+	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
+	{
+		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
+		scene->GetSimon()->ResetPowerUpTime();
+	}
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
-	// disable control key when Simon die 
-	//DebugOut(L"state=%d  \n", mario->GetState());
-	
+
+	if (scene->GetSimon()->GetPowerUpTime() != 0)
+	{
+		return;
+	}
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
 		return;
 	}
@@ -156,7 +174,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void Update(DWORD dt)
 {
-	
+
 }
 
 /*

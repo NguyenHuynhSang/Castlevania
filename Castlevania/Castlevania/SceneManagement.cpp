@@ -122,6 +122,7 @@ void SceneManagement::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	if (this->isNextScene) {
 		LoadScene();
+		game->SetCamPos(0, 0); //reset cam
 		this->isNextScene = false;
 		return;
 	}
@@ -245,7 +246,7 @@ void SceneManagement::GoNextScene()
 	if (this->currentScene > GAME_STATE_02) currentScene = GAME_STATE_02;
 	
 	this->isNextScene = true;
-	game->SetCamPos(0, 0); //reset cam
+	
 	
 }
 

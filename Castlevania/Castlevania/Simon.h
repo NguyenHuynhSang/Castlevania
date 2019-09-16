@@ -19,7 +19,7 @@
 #define SIMON_STATE_STAND_ATTACK    600
 #define SIMON_STATE_SIT_ATTACK 700
 #define SIMON_STATE_DEFLECT 800
-
+#define SIMON_STATE_POWERUP 900
 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
@@ -36,6 +36,7 @@
 #define SIMON_ANI_STAND_ATTACK           10
 #define SIMON_ANI_SIT_ATTACK             11
 #define SIMON_ANI_DEFLECT                12
+#define SIMON_ANI_IDLE_UPWHIP                13
 
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
@@ -53,18 +54,20 @@
 
 #define SIMON_UNTOUCHABLE_TIME 5000
 
-#define SIMON_ATTACK_TIME 250
-
+#define SIMON_ATTACK_TIME 200
+#define SIMON_POWERUP_TIME 600
 class CSimon : public CGameObject
 {
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD actack_start=0;
+	DWORD upwhip_start = 0;;
 	void Renderer(int ani);
 	Whip* whip;
 	bool isJumping=false;
 	bool isAutoWalk = false;
+	bool sleepControl = false;
 	float body_x;
 	int subWeapon;
 public: 
@@ -73,6 +76,12 @@ public:
 		state = SIMON_STATE_WALKING_RIGHT;
 		
 	}
+	DWORD GetPowerUpTime() {
+		return this->upwhip_start;
+	}
+	void StartPowerUp() {
+		this->upwhip_start = GetTickCount();
+	};
 	bool CheckAutoWalk() {
 		return this->isAutoWalk;
 	}
@@ -97,11 +106,15 @@ public:
 		this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
 		this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
 		this->AddAnimation("SIMON_ANI_DEFLECT");    //12
+		this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //12
+		
 		
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();	
-	
+	void ResetPowerUpTime() {
+		this->upwhip_start = 0;
+	}
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void SimonUseSubWeapon();

@@ -13,21 +13,26 @@
 		<animation ID="SIMON_ANI_SITTING" defaulttime="100">
 			<frame spriteID="SIMON_SIT" />
 		</animation>
-		<animation ID="SIMON_ANI_STAND_ATTACK" defaulttime="250">
+		<animation ID="SIMON_ANI_STAND_ATTACK" defaulttime="200">
 			<frame spriteID="SIMON_STAND_ATTACK_01" />
 			<frame spriteID="SIMON_STAND_ATTACK_02" />
 			<frame spriteID="SIMON_STAND_ATTACK_03" />
 		</animation>
-		<animation ID="SIMON_ANI_SIT_ATTACK" defaulttime="250">
+		<animation ID="SIMON_ANI_SIT_ATTACK" defaulttime="200">
 			<frame spriteID="SIMON_SITTING_ATTACK_01" />
 			<frame spriteID="SIMON_SITTING_ATTACK_02" />
 			<frame spriteID="SIMON_SITTING_ATTACK_03" />
 		</animation>
 
-	<animation ID="SIMON_ANI_DEFLECT" defaulttime="100">
+		<animation ID="SIMON_ANI_DEFLECT" defaulttime="100">
 			<frame spriteID="SIMON_STAND_DEFLECT" />
 		</animation>
 
+		<animation ID="SIMON_ANI_IDLE_UPWHIP" defaulttime="100">
+			<frame spriteID="SIMON_IDLE_UPWHIP_01" />
+			<frame spriteID="SIMON_IDLE_UPWHIP_02" />
+			<frame spriteID="SIMON_IDLE_UPWHIP_03" />
+		</animation>
 	</animations>
 
 </resource>

@@ -12,6 +12,7 @@
 #include"SceneManagement.h"
 #include"MoneyBagTrigger.h"
 #include"Enemy.h"
+#include"MorningStar.h"
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -21,6 +22,8 @@ void CSimon::Renderer(int ani)
 	//RenderBoundingBox();
 	//RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
 }
+
+
 
 
 int CountEnymy = 0;
@@ -94,15 +97,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
-				DebugOut(L" simon vx=%f, vy=%f \n", vx, vy);
-				//DebugOut(L"[Simon]nx=%f ny=%f \n",nx,ny);
-				//DebugOut(L"[Ground]nx=%f ny=%f \n", e->nx, e->ny);
+				//DebugOut(L" simon vx=%f, vy=%f \n", vx, vy);
 				if (e->ny < 0) {
 
 
 					if (this->state == SIMON_STATE_DEFLECT && this->vy > 0) {
 						this->state = SIMON_STATE_IDLE;
-						DebugOut(L"SIMON_STATE_IDLE vy=%f vx=%f \n", this->vy, this->vx);
+						//DebugOut(L"SIMON_STATE_IDLE vy=%f vx=%f \n", this->vy, this->vx);
 
 					}
 					else {
@@ -141,6 +142,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
 
+				}
+				else if (e->nx == 0) {
+					y += dy;
 				}
 
 
@@ -190,14 +194,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			//	}
 			//}
 			else if (dynamic_cast<Item *>(e->obj)) {
+				if (dynamic_cast<MorningStar *>(e->obj)) {
+					DebugOut(L"Morning star logic \n");
+					SetState(SIMON_STATE_POWERUP);
+					StartPowerUp();
+				}
 				Item *item = dynamic_cast<Item *>(e->obj);
 				item->SetDestroy();
 			}
 			else if (dynamic_cast<Entry *>(e->obj)) {
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
 				if (e->ny != 0) y += dy;
 				(e->obj)->isDestroyed = true;
 				x += dx;
-
 				this->SetAutoWalk(true);
 			}
 			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
@@ -211,7 +221,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-				if (!this->isAutoWalk) return;
+				if (!this->isAutoWalk) {}
+
 				(e->obj)->SetDestroy();
 				// clean up collision events
 				SceneManagement::GetInstance()->GoNextScene();
@@ -232,8 +243,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		if (dynamic_cast<Item *>(e))
 		{
 			Item * f = dynamic_cast<Item*> (e);
+
 			if (CGameObject::IsColliding(this, f))
 			{
+				if (dynamic_cast<MorningStar *>(e)) {
+					DebugOut(L"Morning star logic \n");
+					SetState(SIMON_STATE_POWERUP);
+					StartPowerUp();
+				}
+				//DebugOut(L"aabb \n");
 				if (!f->CheckDestroyed()) {
 					f->SetDestroy();
 				}
@@ -249,6 +267,11 @@ void CSimon::Render()
 {
 	//DebugOut(L"Pos x=%f y=%f \n",x,y);
 	int ani;
+	if (state == SIMON_STATE_POWERUP) {
+		ani = SIMON_ANI_IDLE_UPWHIP;
+		Renderer(ani);
+		return;
+	}
 	if (state == SIMON_STATE_DEFLECT) {
 		ani = SIMON_ANI_DEFLECT;
 		Renderer(ani);
@@ -328,7 +351,11 @@ void CSimon::SetState(int state)
 		isJumping = true;
 		break;
 	}
-
+	case SIMON_STATE_POWERUP: {
+		vx = 0;
+		vy = 0;
+		break;
+	}
 	case SIMON_STATE_STAND_ATTACK:
 	{
 		if (!this->isJumping) vx = 0;
