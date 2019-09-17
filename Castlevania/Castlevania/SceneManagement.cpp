@@ -386,13 +386,12 @@ void SceneManagement::LoadObjects(int currentscene)
 		auto pantherObject = cmap->GetObjects().find(ID_TILE_OBJECT_PANTHER);
 		for (const auto& child : pantherObject->second) {
 			panther = new Panther();
-			panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
+			//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
 			panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			objects.push_back(panther);
 		}
 
 
-		
 		break;
 	}
 		

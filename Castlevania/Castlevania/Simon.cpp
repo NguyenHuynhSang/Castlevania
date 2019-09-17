@@ -43,7 +43,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (this->GetActack_Time() != 0) {
 		whip->Update(dt, coObjects);
 	}
-
+	
 
 	// Bỏ những object không cần check va chạm với simon
 	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
@@ -117,7 +117,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 						if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
 							vx = 0;
-
 						}
 					}
 
@@ -203,14 +202,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				item->SetDestroy();
 			}
 			else if (dynamic_cast<Entry *>(e->obj)) {
+				DebugOut(L"Entry \n");
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
-				if (e->ny != 0) y += dy;
+			
 				(e->obj)->isDestroyed = true;
-				x += dx;
+				
 				this->SetAutoWalk(true);
 			}
 			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
+			DebugOut(L"Money bag \n");
 				MoneyBagTrigger *trigger = dynamic_cast<MoneyBagTrigger *>(e->obj);
 				trigger->isDestroyed = true;
 				if (this->isAutoWalk) return;
@@ -221,12 +222,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-				if (!this->isAutoWalk) {}
-
-				(e->obj)->SetDestroy();
+				if (this->isAutoWalk) {
+					(e->obj)->SetDestroy();
 				// clean up collision events
 				SceneManagement::GetInstance()->GoNextScene();
-				return;
+				}
+			
+
+			
 			}
 
 		}

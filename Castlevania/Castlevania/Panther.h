@@ -21,16 +21,16 @@ public:
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
-	virtual void SetState(int state);
+	 void SetState(int state);
 	virtual void GetSpriteBox(float& _width, float& _height) {
 		_width = PANTHER_BBOX_WIDTH;
 		_height = PANTHER_BBOX_HEIGHT;
 	};
-	Panther() {
+	Panther():Enemy() {
 		AddAnimation("PANTHER_ANI_LIEDOWN");
 		AddAnimation("PANTHER_ANI_JUMP");
 		AddAnimation("PANTHER_ANI_RUNNING");
-		SetState(PANTHER_STATE_LIEDOWN);
+	
 
 	};
 	~Panther();

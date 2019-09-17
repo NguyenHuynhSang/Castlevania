@@ -1,6 +1,6 @@
-#include "Panther.h"
+﻿#include "Panther.h"
 #include"Game.h"
-
+#include"Ground.h"
 
 
 
@@ -15,11 +15,14 @@ void Panther::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	DebugOut(L"this->nx=%d \n", this->nx);
 	CGameObject::Update(dt);
-
-	if (!isJumping && this->x < CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2) {
+	// TO-DO: make sure Goomba can interact with the world and to each of them too!
+// 
+	// Simple fall down
+	vy += PANTHER_GRAVITY * dt;
+	if (state==PANTHER_STATE_LIEDOWN && this->x < CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2) {
 		SetState(PANTHER_STATE_RUNNING);
-		this->isJumping = true;
 	}
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -27,17 +30,16 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
 	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
-		// Simple fall down
-	vy += PANTHER_GRAVITY * dt;
+
 
 	if (coEvents.size() == 0)
 	{
 		x += dx;
 		y += dy;
-		if(this->isJumping && state==PANTHER_STATE_RUNNING)
-		SetState(PANTHER_STATE_JUMP);
+		if (state == PANTHER_STATE_RUNNING) {
+			SetState(PANTHER_STATE_JUMP);
+		}
+		
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -47,8 +49,21 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		// block 
 		x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.2f;
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<Ground *>(e->obj)) {
+				if (e->ny == -1 &&state==PANTHER_STATE_JUMP) {
+					this->nx = -this->nx; // đổi hướng
+					this->SetState(PANTHER_STATE_RUNNING);
+					//vx = -PANTHER_RUNNING_SPEED;
+				}
+				if (e->nx != 0) {
+					x += dx;
+				}
+			}
+		}
+		
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -61,12 +76,12 @@ void Panther::Render()
 		animations[ani]->Render(nx, x, y);
 		return;
 	}
-	if (state == PANTHER_STATE_JUMP) {
+	else if (state == PANTHER_STATE_JUMP) {
 		ani = PANTHER_ANI_JUMP;
 		animations[ani]->Render(nx, x, y);
 		return;
 	}
-	if (state == PANTHER_STATE_RUNNING) {
+	else if (state == PANTHER_STATE_RUNNING) {
 		ani = PANTHER_ANI_RUNNING;
 		animations[ani]->Render(nx, x, y);
 		return;
@@ -75,24 +90,24 @@ void Panther::Render()
 
 void Panther::SetState(int state)
 {
+	CGameObject::SetState(state);
 	switch (state)
 	{
 	case PANTHER_STATE_LIEDOWN: 
-	{
+	
 		vx = 0;
 		vy = 0;
 		break;
-	}
 	case PANTHER_STATE_JUMP:
-	{
 		vy = -PANTHER_JUMPING_SPEED;
 		break;
-	}
 	case PANTHER_STATE_RUNNING: 
-	{
-		vx = -nx*PANTHER_RUNNING_SPEED;
+		vx = nx > 0 ? -PANTHER_RUNNING_SPEED : PANTHER_RUNNING_SPEED;
+		// truyền vy vào để xét va chạm theo trục y tức là nó vẫn sẽ
+		//trả về va chạm khi đang trên ground
+		//dùng để check k còn trên ground => jump
+		vy = PANTHER_JUMPING_SPEED; 
 		break;
-	}
 	}
 }
 
