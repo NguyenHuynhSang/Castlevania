@@ -41,9 +41,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
-	if (this->actack_start != 0) {
+	if (this->isActack) {
 		if ((GetTickCount() - actack_start > 3 * SIMON_ATTACK_TIME)) {
 			this->isActack = false;
+			SetState(SIMON_STATE_IDLE);
+			ResetActack_Time();
+			ResetSpriteFrame();
 		}
 		
 	}
@@ -204,6 +207,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (dynamic_cast<MorningStar *>(e->obj)) {
 					DebugOut(L"Morning star logic \n");
 					SetState(SIMON_STATE_POWERUP);
+					if (isActack) {
+						ResetActack_Time();
+						isActack = false;
+					}
 					StartPowerUp();
 				}
 				Item *item = dynamic_cast<Item *>(e->obj);
@@ -260,6 +267,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (dynamic_cast<MorningStar *>(e)) {
 					DebugOut(L"Morning star logic \n");
 					SetState(SIMON_STATE_POWERUP);
+					if (isActack) {
+						ResetActack_Time();
+						isActack = false;
+					}
 					StartPowerUp();
 				}
 				//DebugOut(L"aabb \n");
@@ -283,12 +294,12 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_DEFLECT) {
+	else if (state == SIMON_STATE_DEFLECT) {
 		ani = SIMON_ANI_DEFLECT;
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_STAND_ATTACK) {
+	else if (state == SIMON_STATE_STAND_ATTACK) {
 	
 		ani = SIMON_ANI_STAND_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
@@ -300,7 +311,7 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_SIT_ATTACK) {
+	else if (state == SIMON_STATE_SIT_ATTACK) {
 	
 		ani = SIMON_ANI_SIT_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
@@ -312,12 +323,12 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP) {
+	else if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP) {
 		ani = SIMON_ANI_SITTING;
 		Renderer(ani);
 		return;
 	}
-	if (state == SIMON_STATE_DIE)
+	else if (state == SIMON_STATE_DIE)
 		ani = SIMON_ANI_DIE;
 	else
 		if (level == SIMON_LEVEL_BIG)

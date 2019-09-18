@@ -55,7 +55,7 @@
 #define SIMON_UNTOUCHABLE_TIME 5000
 
 #define SIMON_ATTACK_TIME 100
-#define SIMON_POWERUP_TIME 600
+#define SIMON_POWERUP_TIME 1000
 class CSimon : public CGameObject
 {
 	int level;
