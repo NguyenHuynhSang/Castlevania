@@ -33,6 +33,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
+	
 	if (this->isAutoWalk) {
 
 		vx = SIMON_AUTOWALKING_SPEED;
@@ -40,6 +41,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
+	if (this->actack_start != 0) {
+		if ((GetTickCount() - actack_start > 3 * SIMON_ATTACK_TIME)) {
+			this->isActack = false;
+		}
+		
+	}
+	
 	if (this->GetActack_Time() != 0) {
 		whip->Update(dt, coObjects);
 	}
@@ -134,7 +142,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (untouchable_start == 0) {
 					CountEnymy++;
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
-
+					
 					this->SetState(SIMON_STATE_DEFLECT);
 					if (untouchable != 1)
 						StartUntouchable();
@@ -281,18 +289,26 @@ void CSimon::Render()
 		return;
 	}
 	if (state == SIMON_STATE_STAND_ATTACK) {
+	
 		ani = SIMON_ANI_STAND_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
-		whip->SetDirection(nx);
-		whip->Render();
+		if (this->isActack){
+			whip->SetDirection(nx);
+			whip->Render();
+		}
+		
 		Renderer(ani);
 		return;
 	}
 	if (state == SIMON_STATE_SIT_ATTACK) {
+	
 		ani = SIMON_ANI_SIT_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
 		whip->SetDirection(nx);
-		whip->Render();
+		if (this->isActack) {
+			whip->SetDirection(nx);
+			whip->Render();
+		}
 		Renderer(ani);
 		return;
 	}
@@ -374,6 +390,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_SIT_ATTACK:
 	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
+		ResetSpriteFrame();
 		vx = 0;
 		break;
 	case SIMON_STATE_DIE:

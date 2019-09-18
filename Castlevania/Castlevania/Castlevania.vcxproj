@@ -32,6 +32,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ghoul.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="HanleSpawnEnemy.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="Item.h" />
@@ -54,6 +55,7 @@
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Torch.h" />
+    <ClInclude Include="VampieBat.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
@@ -71,6 +73,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ghoul.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HanleSpawnEnemy.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -90,6 +93,7 @@
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Torch.cpp" />
+    <ClCompile Include="VampieBat.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>

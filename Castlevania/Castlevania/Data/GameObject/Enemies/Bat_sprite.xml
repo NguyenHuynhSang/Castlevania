@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="BAT.png">
+		<sprite ID="BAT_SPRITE_IDLE">
+			<frame x="0" y="0" width="32" height="32" />
+		</sprite>
+		<sprite ID="BAT_SPITE_FLYING_01">
+			<frame x="32" y="0" width="32" height="32" />
+		</sprite>
+			<sprite ID="BAT_SPITE_FLYING_02">
+			<frame x="64" y="0" width="32" height="32" />
+		</sprite>
+			<sprite ID="BAT_SPITE_FLYING_03">
+			<frame x="96" y="0" width="32" height="32" />
+		</sprite>
+	</spritesheet>
+</resource>

@@ -67,6 +67,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		break;
 	case DIK_F:
 		if (scene->GetSimon()->GetActack_Time() == 0) {
+			scene->GetSimon()->ResetSpriteFrame();
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
 			{
@@ -100,6 +101,16 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
+	if ((scene->GetSimon()->GetActack_Time() != 0) &&!scene->GetSimon()->CheckAttack())
+	{
+		//DebugOut(L"stop atack \n");
+		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
+		scene->GetSimon()->ResetActack_Time();
+		scene->GetSimon()->ResetSpriteFrame();
+
+	}
+
+	
 	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
 	{
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
@@ -115,14 +126,6 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	}
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
 		return;
-	}
-	if ((scene->GetSimon()->GetActack_Time() != 0) && (GetTickCount() - scene->GetSimon()->GetActack_Time() > 3 * SIMON_ATTACK_TIME))
-	{
-		//DebugOut(L"stop atack \n");
-		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
-		scene->GetSimon()->ResetActack_Time();
-		scene->GetSimon()->ResetSpriteFrame();
-
 	}
 
 	if (scene->GetSimon()->GetActack_Time() != 0) { // dùng attack time thay cho nhiều state attack

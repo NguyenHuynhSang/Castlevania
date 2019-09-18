@@ -54,7 +54,7 @@
 
 #define SIMON_UNTOUCHABLE_TIME 5000
 
-#define SIMON_ATTACK_TIME 200
+#define SIMON_ATTACK_TIME 100
 #define SIMON_POWERUP_TIME 600
 class CSimon : public CGameObject
 {
@@ -67,6 +67,7 @@ class CSimon : public CGameObject
 	Whip* whip;
 	bool isJumping=false;
 	bool isAutoWalk = false;
+	bool isActack = false;
 	bool sleepControl = false;
 	float body_x;
 	int subWeapon;
@@ -85,7 +86,7 @@ public:
 	bool CheckAutoWalk() {
 		return this->isAutoWalk;
 	}
-	bool isActack = false;
+
 	bool IsJumping() { return this->isJumping; }
 	CSimon() : CGameObject()
 	{
@@ -120,8 +121,13 @@ public:
 	void SimonUseSubWeapon();
 	DWORD GetActack_Time() { return actack_start; }
 	void ResetActack_Time() { actack_start = 0; }
+	bool CheckAttack() {
+		return this->isActack;
+	}
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartActack() { actack_start = GetTickCount(); };
+	void StartActack() { actack_start = GetTickCount();
+	this->isActack = true;
+	};
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetSpriteFrame() {
 		this->ResetFrame(SIMON_ANI_STAND_ATTACK);

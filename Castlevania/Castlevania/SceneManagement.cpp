@@ -20,6 +20,8 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
+
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -28,6 +30,7 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml", texSimon);
 	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
+
 	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
 	resource->LoadSprites("Data\\GameObject\\Weapons\\Whip_sprite.xml", texWhip);
 	resource->LoadAnimations("Data\\GameObject\\Weapons\\Whip_ani.xml", animations);
@@ -35,6 +38,7 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texTorch = textures->Get(ID_TEX_TORCH);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Torch_sprite.xml", texTorch);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Torch_ani.xml", animations);
+
 	LPDIRECT3DTEXTURE9 texHeart = textures->Get(ID_TEX_ITEM_HEART);
 	resource->LoadSprites("Data\\GameObject\\Items\\Heart_sprite.xml", texHeart);
 	resource->LoadAnimations("Data\\GameObject\\Items\\Heart_ani.xml", animations);
@@ -55,6 +59,12 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Panther_sprite.xml", texPanther);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Panther_ani.xml", animations);
 	
+
+	LPDIRECT3DTEXTURE9 texBAT = textures->Get(ID_TEX_BAT);
+	resource->LoadSprites("Data\\GameObject\\Enemies\\Bat_sprite.xml", texBAT);
+	resource->LoadAnimations("Data\\GameObject\\Enemies\\Bat_ani.xml", animations);
+
+
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
@@ -277,12 +287,9 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-		//	DebugOut(L"Ground state 1 x=%f y=%f",ground->x,ground->y);
-			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(ground);
 		}
 
@@ -312,9 +319,6 @@ void SceneManagement::LoadObjects(int currentscene)
 		}
 
 		
-
-
-
 		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
 		for (const auto& child : nextsceneObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
@@ -385,10 +389,11 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto pantherObject = cmap->GetObjects().find(ID_TILE_OBJECT_PANTHER);
 		for (const auto& child : pantherObject->second) {
-			panther = new Panther();
+			bat = new VampieBat();
 			//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
-			panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			objects.push_back(panther);
+			bat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			bat->SetOy();
+			objects.push_back(bat);
 		}
 
 

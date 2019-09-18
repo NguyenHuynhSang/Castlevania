@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resource>
 	<animations AtlasPath="Whip_sprite.xml">
-		<animation ID="WHIP_ANI_LV1" defaulttime="200">
+		<animation ID="WHIP_ANI_LV1" defaulttime="100">
 			<frame spriteID="WHIP_LV1_01" />
 			<frame spriteID="WHIP_LV1_02" />
 			<frame spriteID="WHIP_LV1_03" />

@@ -70,6 +70,7 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Panther::Render()
 {
+	RenderBoundingBox();
 	int ani = 0;
 	if (state == PANTHER_STATE_LIEDOWN) {
 		ani = PANTHER_ANI_LIEDOWN;
