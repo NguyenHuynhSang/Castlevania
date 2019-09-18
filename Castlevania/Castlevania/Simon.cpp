@@ -42,11 +42,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 	if (this->isActack) {
-		if ((GetTickCount() - actack_start > 3 * SIMON_ATTACK_TIME)) {
+		if ((GetTickCount() - actack_start >= 3 * SIMON_ATTACK_TIME)) {
 			this->isActack = false;
 			SetState(SIMON_STATE_IDLE);
-			ResetActack_Time();
 			ResetSpriteFrame();
+			ResetActack_Time();
 		}
 		
 	}
@@ -401,7 +401,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_SIT_ATTACK:
 	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
-		ResetSpriteFrame();
+		
 		vx = 0;
 		break;
 	case SIMON_STATE_DIE:

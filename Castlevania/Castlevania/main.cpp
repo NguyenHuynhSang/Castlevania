@@ -66,8 +66,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
-		if (scene->GetSimon()->GetActack_Time() == 0) {
-			scene->GetSimon()->ResetSpriteFrame();
+		if (scene->GetSimon()->GetActack_Time() == 0) {	
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
 			{

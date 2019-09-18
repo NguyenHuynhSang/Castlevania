@@ -128,6 +128,12 @@ void CGameObject::ResetFrame(int frameID)
 	animations[frameID]->ResetAnimation();
 }
 
+void CGameObject::ResetAnimation()
+{
+	for (auto ani : animations)
+		ani->ResetAnimation();
+}
+
 void CGameObject::RenderBoundingBox()
 {
 	D3DXVECTOR3 p(x, y, 0);

@@ -72,6 +72,7 @@ public:
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	void ResetFrame(int frameID);
+	void ResetAnimation();
 	int GetState() { return this->state; }
 
 	void RenderBoundingBox(); // dùng check va chạm
@@ -104,7 +105,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
-
+	
 
 	~CGameObject();
 };

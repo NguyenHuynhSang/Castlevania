@@ -16,7 +16,6 @@ private:
 public:
 	void SetDamage(int damage) { this->damage = damage; }
 	UINT GetDamage() { return damage; }
-	void Render(int nx);
 	void SetDirection(int nx) { this->nx = nx; }
 	void SetWhipPosition(float x, float y) { this->x = x; this->y = y; }
 	static Whip * GetInstance();

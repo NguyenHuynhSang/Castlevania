@@ -6,10 +6,7 @@
 Whip * Whip::__instance = NULL;
 
 
-void Whip::Render(int nx)
-{
 
-}
 
 Whip *Whip::GetInstance()
 {
