@@ -62,11 +62,13 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		scene->GetSimon()->SetAutoWalk(true);
 		break;
 	case DIK_SPACE:
-		if (!scene->GetSimon()->IsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && scene->GetSimon()->GetActack_Time() == 0) // dùng atack time khỏi phải dùng state attack nhiều lần
+		if (!scene->GetSimon()->IsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && !scene->GetSimon()->CheckAttack()) // dùng atack time khỏi phải dùng state attack nhiều lần
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
-		if (scene->GetSimon()->GetActack_Time() == 0) {	
+		DebugOut(L"Press F \n");
+		DebugOut(L"state=%d \n", scene->GetSimon()->GetState());
+		if (!scene->GetSimon()->CheckAttack()) {	
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
 			{
@@ -107,11 +109,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
 		scene->GetSimon()->ResetPowerUpTime();
 	}
-	if ((scene->GetSimon()->GetActack_Time() != 0) &&!scene->GetSimon()->CheckAttack())
-	{
-	
 
-	}
 
 	
 	
@@ -127,7 +125,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		return;
 	}
 
-	if (scene->GetSimon()->GetActack_Time() != 0) { // dùng attack time thay cho nhiều state attack
+	if (scene->GetSimon()->CheckAttack()) { // dùng attack time thay cho nhiều state attack
 		return;
 
 	}

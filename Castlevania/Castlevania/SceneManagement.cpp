@@ -168,18 +168,18 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
+	for (std::size_t  i = 1; i < objects.size(); i++)
 	{
 
 		coObjects.push_back(objects[i]);
 	}
-	for (int i = 0; i < items.size(); i++)  //item
+	for (std::size_t  i = 0; i < items.size(); i++)  //item
 	{
 		coObjects.push_back(items[i]);
 	}
 
 	//update object
-	for (int i = 0; i < objects.size(); i++) //object
+	for (std::size_t  i = 0; i < objects.size(); i++) //object
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
@@ -217,13 +217,14 @@ void SceneManagement::Render()
 {
 	if (this->isNextScene) return;
 	cmap->Render();
-	for (int i = 0; i < objects.size(); i++)
+	for (std::size_t  i = 1; i < objects.size(); i++)
 		objects[i]->Render();
-	for (int i = 0; i < this->items.size(); i++)
+	for (std::size_t  i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
-	for (int i = 0; i < this->effects.size(); i++)
+	for (std::size_t  i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
-	objects[0]->Render();//SIMON test 
+	objects[0]->Render();
+
 
 }
 void SceneManagement::SceneUpdate()

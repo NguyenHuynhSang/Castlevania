@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <d3dx9.h>
 #include <unordered_map>
-
+#include"debug.h"
 using namespace std;
 
 class CSprite
@@ -62,12 +62,29 @@ class CAnimation
 	int defaultTime;
 	int currentFrame;
 	vector<LPANIMATION_FRAME> frames;
+	bool isDone;
+	bool isLoop;
 public:
-	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; this->isLoop = true; }
 	void Add(string spriteId, DWORD time = 0);
 	void Render(int nx,float x, float y, int alpha=255);
 	void ResetAnimation(){ lastFrameTime = -1; currentFrame = -1; }
 	int GetCurrentFrame() { return currentFrame; };
+	void SetAnimationLoop(bool isLoop) {
+		this->isLoop = isLoop;
+	}
+	bool CheckAnimationDone() {
+		return this->isDone;
+	};
+	void ResetLastFrame() {
+		this->isDone = false;
+	}
+	DWORD GetDefaultTime() {
+		return this->defaultTime;
+	}
+	int GetLastFrame() {
+		return frames.size() - 1;
+	}
 };
 
 typedef CAnimation *LPANIMATION;

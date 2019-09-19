@@ -26,14 +26,13 @@ void CSimon::Renderer(int ani)
 
 
 
-int CountEnymy = 0;
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
+	
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	
+
 	if (this->isAutoWalk) {
 
 		vx = SIMON_AUTOWALKING_SPEED;
@@ -42,19 +41,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// Simple fall down
 	vy += SIMON_GRAVITY * dt;
 	if (this->isActack) {
-		if ((GetTickCount() - actack_start >= 3 * SIMON_ATTACK_TIME)) {
+		if (whip->CheckLastFrame()) {
+		
+			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
 			this->isActack = false;
 			SetState(SIMON_STATE_IDLE);
+			whip->ResetLastFrame();
 			ResetSpriteFrame();
 			ResetActack_Time();
+			this->animations[SIMON_ANI_STAND_ATTACK]->ResetLastFrame();
 		}
-		
-	}
-	
-	if (this->GetActack_Time() != 0) {
 		whip->Update(dt, coObjects);
 	}
-	
+
+
 
 	// Bỏ những object không cần check va chạm với simon
 	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
@@ -126,7 +126,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 							if (nx != 0) vx = 0;
 						}
 
-						if (GetActack_Time() != 0) { // còn đang đánh thì dừng lại
+						if (this->isActack) { // còn đang đánh thì dừng lại
 							vx = 0;
 						}
 					}
@@ -143,9 +143,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {
-					CountEnymy++;
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
-					
+
 					this->SetState(SIMON_STATE_DEFLECT);
 					if (untouchable != 1)
 						StartUntouchable();
@@ -220,17 +219,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				DebugOut(L"Entry \n");
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
-			
+
 				(e->obj)->isDestroyed = true;
-				
+
 				this->SetAutoWalk(true);
 			}
 			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
-			DebugOut(L"Money bag \n");
+				DebugOut(L"Money bag \n");
 				MoneyBagTrigger *trigger = dynamic_cast<MoneyBagTrigger *>(e->obj);
 				trigger->isDestroyed = true;
 				if (this->isAutoWalk) return;
-				if (e->ny != 0) y += dy;
+				if (e->ny != 0) vy = 0;
 				x += dx;
 				trigger->SpawnMoneyBag();
 				DebugOut(L"spawn money bag");
@@ -239,12 +238,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<NextScene*>(e->obj)) {
 				if (this->isAutoWalk) {
 					(e->obj)->SetDestroy();
-				// clean up collision events
-				SceneManagement::GetInstance()->GoNextScene();
+					// clean up collision events
+					SceneManagement::GetInstance()->GoNextScene();
 				}
-			
 
-			
+
+
 			}
 
 		}
@@ -300,19 +299,19 @@ void CSimon::Render()
 		return;
 	}
 	else if (state == SIMON_STATE_STAND_ATTACK) {
-	
+
 		ani = SIMON_ANI_STAND_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
-		if (this->isActack){
-			whip->SetDirection(nx);
-			whip->Render();
-		}
-		
+
+		whip->SetDirection(nx);
+		whip->Render();
+
+
 		Renderer(ani);
 		return;
 	}
 	else if (state == SIMON_STATE_SIT_ATTACK) {
-	
+
 		ani = SIMON_ANI_SIT_ATTACK;
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
 		whip->SetDirection(nx);
@@ -401,7 +400,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_SIT_ATTACK:
 	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
-		
+
 		vx = 0;
 		break;
 	case SIMON_STATE_DIE:

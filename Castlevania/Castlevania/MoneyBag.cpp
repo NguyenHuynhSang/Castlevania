@@ -35,7 +35,7 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	y += dy;
 	x += dx;
-	for (int i = 0; i < coObjects->size();i++) {
+	for (std::size_t  i = 0; i < coObjects->size();i++) {
 		{
 			if (dynamic_cast<Ground *>(coObjects->at(i)))
 			{

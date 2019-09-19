@@ -54,7 +54,7 @@
 
 #define SIMON_UNTOUCHABLE_TIME 5000
 
-#define SIMON_ATTACK_TIME 100
+#define SIMON_ATTACK_TIME 300
 #define SIMON_POWERUP_TIME 1000
 class CSimon : public CGameObject
 {
@@ -109,7 +109,7 @@ public:
 		this->AddAnimation("SIMON_ANI_DEFLECT");    //12
 		this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //12
 		
-		
+		this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();	
@@ -125,7 +125,7 @@ public:
 		return this->isActack;
 	}
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartActack() { actack_start = GetTickCount();
+	void StartActack() { 
 	this->isActack = true;
 	};
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);

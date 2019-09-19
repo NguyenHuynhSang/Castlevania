@@ -51,24 +51,38 @@ void CAnimation::Add(string spriteId, DWORD time)
 
 void CAnimation::Render(int nx,float x, float y, int alpha)
 {
+
 	DWORD now = GetTickCount();
+	if (isDone) {
+		return;
+	}
 	if (currentFrame == -1) 
 	{
+		this->isDone = false;
 		currentFrame = 0; 
 		lastFrameTime = now;
 	}
 	else
 	{
 		DWORD t = frames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t)
+		if (now - lastFrameTime >= t)
 		{
 			currentFrame++;
 			lastFrameTime = now;
-			if (currentFrame == frames.size()) currentFrame = 0;
+			if (currentFrame == frames.size()) {
+				currentFrame = 0;
+				
+			
+				if (!this->isLoop) {
+					DebugOut(L"Animation done \n");
+					this->isDone = true;
+					return;
+				}
+				
+			}
 		}
 		
 	}
-
 	frames[currentFrame]->GetSprite()->Draw(nx,x, y, alpha);
 }
 

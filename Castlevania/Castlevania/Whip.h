@@ -21,6 +21,10 @@ public:
 	static Whip * GetInstance();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
+	bool CheckLastFrame();
+	void ResetLastFrame() {
+		animations[0]->ResetLastFrame();
+	}
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {
 		width =240;

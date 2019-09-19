@@ -15,8 +15,11 @@ Whip *Whip::GetInstance()
 }
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
-	if (animations[0]->GetCurrentFrame() != 2) return;
 	// Calculate dx, dy 
+	if (animations[WHIP_ANI_LV1]->GetCurrentFrame()
+		!= animations[WHIP_ANI_LV1]->GetLastFrame()) {
+		return;
+	}
 	CGameObject::Update(dt);
 	for (int i = 0; i < colliable_objects->size(); i++)
 	{
@@ -52,9 +55,18 @@ void Whip::Render()
 {
 
 	animations[0]->Render(nx, x, y);
-	//RenderBoundingBox();
+	if (animations[WHIP_ANI_LV1]->GetCurrentFrame()
+		== animations[WHIP_ANI_LV1]->GetLastFrame()) {
+		RenderBoundingBox();
+	}
+	DebugOut(L"Whip current frame =%d \n", animations[WHIP_ANI_LV1]->GetCurrentFrame());
 	//RenderSpriteBox();
 	return;
+}
+
+bool Whip::CheckLastFrame()
+{
+	return animations[WHIP_ANI_LV1]->CheckAnimationDone();
 }
 
 
@@ -78,6 +90,7 @@ Whip::Whip()
 {
 	AddAnimation("WHIP_ANI_MORNINGSTAR");
 	AddAnimation("WHIP_ANI_LV1");
+	this->animations[0]->SetAnimationLoop(false);
 }
 
 

@@ -17,6 +17,8 @@
 			<frame spriteID="SIMON_STAND_ATTACK_01" />
 			<frame spriteID="SIMON_STAND_ATTACK_02" />
 			<frame spriteID="SIMON_STAND_ATTACK_03" />
+			<frame spriteID="SIMON_STAND_ATTACK_03" />	
+				<frame spriteID="SIMON_STAND_ATTACK_03" />	
 		</animation>
 		<animation ID="SIMON_ANI_SIT_ATTACK" defaulttime="100">
 			<frame spriteID="SIMON_SITTING_ATTACK_01" />

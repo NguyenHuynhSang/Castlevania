@@ -123,9 +123,9 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 	int id = 1;		// id of tileset
 	CTextures* tex = CTextures::GetInstance();
 
-	for (int i = 0; i < this->tileSheetRow; i++)
+	for (std::size_t i = 0; i < this->tileSheetRow; i++)
 	{
-		for (int j = 0; j < this->tileSheetCol; j++)
+		for (std::size_t j = 0; j < this->tileSheetCol; j++)
 		{
 
 			CSprites::GetInstance()->Add(std::to_string(id), j*this->tileHeight, i*this->tileHeight, j*this->tileHeight + this->tileHeight, i*this->tileHeight + this->tileHeight, texTileSet);
