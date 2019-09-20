@@ -84,7 +84,7 @@ namespace rapidxml
         template<class OutIt, class Ch>
         inline OutIt fill_chars(OutIt out, int n, Ch ch)
         {
-            for (int i = 0; i < n; ++i)
+            for (std::size_t i = 0; i < n; ++i)
                 *out++ = ch;
             return out;
         }

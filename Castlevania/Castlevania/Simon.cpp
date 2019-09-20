@@ -12,6 +12,7 @@
 #include"SceneManagement.h"
 #include"MoneyBagTrigger.h"
 #include"Enemy.h"
+#include"StairTrigger.h"
 #include"MorningStar.h"
 void CSimon::Renderer(int ani)
 {
@@ -19,8 +20,22 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	//RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
+}
+
+void CSimon::HandleUpStairLogic()
+{
+	if (this->nx == 1) {
+		if (stairPos.x - this->x > SIMON_UPSTAIR_OFFSET) {
+			this->isAutoWalk = true;
+			return;
+		}
+		else {
+			this->isAutoWalk = false;
+			this->SetState(SIMON_STATE_UPSTAIR_STEPUP);
+		}
+	}
 }
 
 
@@ -28,21 +43,36 @@ void CSimon::Renderer(int ani)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	
+
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
 
 	if (this->isAutoWalk) {
 
 		vx = SIMON_AUTOWALKING_SPEED;
 	}
-
+	DebugOut(L"x=%f y=%f \n", this->x, floor(this->y));
+	if (this->startOnStair &&!this->isOnStair) {
+		HandleUpStairLogic();
+	
+	}
+	if (this->state == SIMON_STATE_UPSTAIR_STEPUP) {
+		if (this->x - stairPos.x>7) {		
+			if (stairPos.y-this->y > 18) {
+				this->y = stairPos.y - 18-32;
+				this->x = stairPos.x + 7;
+				SetState(SIMON_STATE_UPSTAIR_IDLE);
+				this->isOnStair = true;
+			}
+			
+		}
+	}
 	// Simple fall down
-	vy += SIMON_GRAVITY * dt;
+	if(!this->startOnStair &&state!= SIMON_STATE_UPSTAIR_IDLE)
+	  vy += SIMON_GRAVITY * dt;
 	if (this->isActack) {
 		if (whip->CheckLastFrame()) {
-		
+
 			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
 			this->isActack = false;
 			SetState(SIMON_STATE_IDLE);
@@ -108,20 +138,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
-				//DebugOut(L" simon vx=%f, vy=%f \n", vx, vy);
 				if (e->ny < 0) {
-
-
 					if (this->state == SIMON_STATE_DEFLECT && this->vy > 0) {
-						this->state = SIMON_STATE_IDLE;
-						//DebugOut(L"SIMON_STATE_IDLE vy=%f vx=%f \n", this->vy, this->vx);
-
+						this->state = SIMON_STATE_IDLE;	
 					}
 					else {
-
-						//DebugOut(L"e->ny < 0");
-						this->isJumping = false; // cham dat moi cho nhay tiep
+						this->isJumping = false; 
 						if (this->untouchable_start == 0) {
+						
 							if (ny != 0) vy = 0;
 							if (nx != 0) vx = 0;
 						}
@@ -130,16 +154,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 							vx = 0;
 						}
 					}
-
-
 				}
 				else if (e->ny > 0 && this->vy < 0) {
 					y += dy;
 					if (nx != 0) vx = 0;
 
 				}
+				if (e->nx != 0 &&this->startOnStair) {
+					x += dx;
+					y += dy;
+				}
 
-
+			}
+			else if (dynamic_cast<StairTrigger *>(e->obj)) {
+				/*if (this->startOnStair) {
+					SetState(SIMON_STATE_IDLE);
+					this->startOnStair = false;
+					
+				}*/
+				if (e->nx != 0)
+					x += dx;
+				else if (e->ny !=0)
+					y += dy;
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {
@@ -253,7 +289,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 
-	for (int i = 0; i < coObjects->size(); i++)
+	for (std::size_t i = 0; i < coObjects->size(); i++)
 	{
 
 		LPGAMEOBJECT e = coObjects->at(i);
@@ -280,6 +316,31 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 
 		}
+		else if (dynamic_cast<StairTrigger*>(e)) {
+			StairTrigger * f = dynamic_cast<StairTrigger*> (e);
+
+			if (CGameObject::IsColliding(this, f))
+			{
+				if (!this->isColliceWithStair) {
+					if (this->startOnStair) {
+						SetState(SIMON_STATE_IDLE);
+						this->startOnStair = false;
+						return;
+					}
+					this->isColliceWithStair = true;
+					DebugOut(L"ColliceWithStair \n");
+					this->stairPos = { f->x,f->y };
+					f->SetActive(true);
+					return;
+				}
+			}
+			else if (f->CheckActive())
+			{
+				f->SetActive(false);
+				this->isColliceWithStair = false;
+				DebugOut(L"stop collice \n");
+			}
+		}
 	}
 
 }
@@ -290,6 +351,16 @@ void CSimon::Render()
 	int ani;
 	if (state == SIMON_STATE_POWERUP) {
 		ani = SIMON_ANI_IDLE_UPWHIP;
+		Renderer(ani);
+		return;
+	}
+	else if (state == SIMON_STATE_UPSTAIR_IDLE) {
+		ani = SIMON_ANI_IDLE_UPSTAIR;
+		Renderer(ani);
+		return;
+	}
+	else if (state == SIMON_STATE_UPSTAIR_STEPUP) {
+		ani = SIMON_ANI_STEP_UPSTAIR;
 		Renderer(ani);
 		return;
 	}
@@ -380,6 +451,12 @@ void CSimon::SetState(int state)
 		isJumping = true;
 		break;
 	}
+	case SIMON_STATE_UPSTAIR_STEPUP: {
+		vy = -SIMON_UPSTAIR_VELOCITY;
+		vx = SIMON_UPSTAIR_VELOCITY;
+		break;
+	}
+	case SIMON_STATE_UPSTAIR_IDLE:
 	case SIMON_STATE_POWERUP: {
 		vx = 0;
 		vy = 0;
@@ -392,7 +469,7 @@ void CSimon::SetState(int state)
 	}
 	case SIMON_STATE_DEFLECT:
 	{
-		this->vy = -SIMON_DEFLECT_SPEED_Y;
+		this->vy = -SIMON_DEFLECT_SPEED_X;
 		this->vx = -SIMON_DEFLECT_SPEED_X;
 
 		break;

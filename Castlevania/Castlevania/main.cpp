@@ -55,6 +55,12 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	}
 	switch (KeyCode)
 	{
+	case DIK_UP: {
+		if (scene->GetSimon()->CheckCollideWithStair()) {
+			scene->GetSimon()->SetStartStepOnStair();
+		}
+		break;
+	}
 	case DIK_Q:
 		scene->GoNextScene();
 		break;
@@ -102,7 +108,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
-
+	if (scene->GetSimon()->CheckOnStair()) {
+		return;
+	}
 
 	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
 	{

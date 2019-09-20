@@ -52,7 +52,7 @@ public:
 
 	vector<LPANIMATION> animations;
 
-
+	
 	bool setDestroy=false;
 	bool isDestroyed = false;
 	bool isCollide = true;

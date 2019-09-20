@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="51">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="67">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2122,12 +2122,12 @@
    <tile gid="38"/>
   </data>
  </layer>
- <objectgroup id="2" name="BoundMap">
-  <object id="1" x="-25" y="0" width="25" height="383"/>
-  <object id="3" x="5633" y="-1" width="15" height="384"/>
+ <objectgroup color="#ff0000" id="2" name="BoundMap">
+  <object id="1" name="Bound" x="-25" y="0" width="25" height="383"/>
+  <object id="3" name="Bound" x="5633" y="-1" width="15" height="384"/>
  </objectgroup>
- <objectgroup id="3" name="Ground">
-  <object id="4" x="2" y="320" width="5628" height="31"/>
+ <objectgroup color="#5500ff" id="3" name="Ground">
+  <object id="4" x="2" y="321.167" width="5628" height="29.5"/>
   <object id="6" x="1377" y="194" width="95" height="29"/>
   <object id="7" x="1505.5" y="129.5" width="318.5" height="30"/>
   <object id="8" x="1856" y="193.5" width="160" height="29"/>
@@ -2138,22 +2138,55 @@
   <object id="13" x="3327.5" y="194" width="96" height="28"/>
  </objectgroup>
  <objectgroup id="4" name="Entry"/>
- <objectgroup id="5" name="Simon">
-  <object id="5" gid="112" x="87" y="316" width="60" height="66"/>
+ <objectgroup color="#ff0000" id="5" name="Simon">
+  <object id="5" name="Simon" type="Simon" gid="112" x="1122.33" y="316.667" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="6" name="Zombie">
-  <object id="34" gid="181" x="465" y="315" width="34" height="64"/>
-  <object id="35" gid="181" x="920" y="314" width="34" height="64"/>
-  <object id="40" gid="181" x="1723" y="317" width="34" height="64"/>
-  <object id="43" gid="181" x="2333" y="315" width="34" height="64"/>
   <object id="47" gid="181" x="3008" y="316" width="34" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="NextScene">
   <object id="14" x="3012" y="106" width="45" height="22"/>
  </objectgroup>
  <objectgroup id="8" name="panther">
-  <object id="48" gid="183" x="1385" y="190.5" width="64" height="32"/>
-  <object id="49" gid="183" x="1756" y="127" width="64" height="32"/>
-  <object id="50" gid="183" x="1880.5" y="191" width="64" height="32"/>
+  <object id="48" gid="183" x="1013.83" y="48.1667" width="64" height="32"/>
+  <object id="49" gid="183" x="1021.5" y="184.5" width="64" height="32"/>
+  <object id="50" gid="183" x="1017.5" y="109.5" width="64" height="32"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="9" name="stair">
+  <object id="51" name="StairBottom" type="Stair" x="1232" y="288" width="32" height="32">
+   <properties>
+    <property name="UpRight" value=""/>
+   </properties>
+  </object>
+  <object id="60" name="StairTop" type="Stair" x="1360.17" y="99.6667" width="32" height="32">
+   <properties>
+    <property name="DownLeft" value=""/>
+   </properties>
+  </object>
+  <object id="63" name="StairBottom" type="Stair" x="1427.67" y="161.333" width="32" height="32">
+   <properties>
+    <property name="UpRight" value=""/>
+   </properties>
+  </object>
+  <object id="64" name="StairTop" type="Stair" x="1488" y="34" width="32" height="32">
+   <properties>
+    <property name="DownLeft" value=""/>
+   </properties>
+  </object>
+  <object id="65" name="StairTop" type="Stair" x="1808" y="34.5" width="32" height="32">
+   <properties>
+    <property name="DownRight" value=""/>
+   </properties>
+  </object>
+  <object id="66" name="StairBottom" type="Stair" x="1870" y="161.5" width="32" height="32">
+   <properties>
+    <property name="UpLeft" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" visible="0">
+  <object id="57" gid="151" x="1216" y="322" width="60" height="66"/>
+  <object id="58" gid="119" x="1239" y="306" width="60" height="66"/>
+  <object id="59" gid="119" x="1255" y="290" width="60" height="66"/>
  </objectgroup>
 </map>

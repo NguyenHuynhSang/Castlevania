@@ -26,6 +26,7 @@
 #include"MoneyBagTrigger.h"
 #include"Panther.h"
 #include"VampieBat.h"
+#include"StairTrigger.h"
 class SceneManagement
 {
 private:
@@ -42,6 +43,7 @@ private:
 	VampieBat *bat;
 	Zombie* zombie;
 	MoneyBagTrigger* trigger;
+	StairTrigger *stair;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;

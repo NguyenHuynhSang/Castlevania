@@ -180,6 +180,9 @@
     <ClInclude Include="HanleSpawnEnemy.h">
       <Filter>ObjectsManagement\Npcs</Filter>
     </ClInclude>
+    <ClInclude Include="StairTrigger.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -289,6 +292,9 @@
     </ClCompile>
     <ClCompile Include="HanleSpawnEnemy.cpp">
       <Filter>ObjectsManagement\Npcs</Filter>
+    </ClCompile>
+    <ClCompile Include="StairTrigger.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

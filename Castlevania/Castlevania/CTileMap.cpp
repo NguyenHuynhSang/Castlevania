@@ -95,7 +95,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 
 
 	matrix = new int*[mapRow];
-	for (int i = 0; i < mapRow; i++)
+	for (std::size_t i = 0; i < mapRow; i++)
 	{
 		matrix[i] = new int[mapCol];
 	}

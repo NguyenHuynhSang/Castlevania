@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Whip.h"
 #define SIMON_WALKING_SPEED		0.13f 
@@ -9,7 +9,7 @@
 #define SIMON_DEFLECT_SPEED_Y 0.45f
 #define SIMON_GRAVITY			0.002f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
-
+#define SIMON_UPSTAIR_VELOCITY 0.02f
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
 #define SIMON_STATE_WALKING_LEFT	200
@@ -20,6 +20,8 @@
 #define SIMON_STATE_SIT_ATTACK 700
 #define SIMON_STATE_DEFLECT 800
 #define SIMON_STATE_POWERUP 900
+#define SIMON_STATE_UPSTAIR_IDLE 1000
+#define SIMON_STATE_UPSTAIR_STEPUP 1100
 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
@@ -27,28 +29,36 @@
 #define SIMON_ANI_SMALL_IDLE_LEFT			3
 
 #define SIMON_ANI_BIG_WALKING_RIGHT			4
-#define SIMON_ANI_BIG_WALKING_LEFT			5
+#define SIMON_ANI_BIG_WALKING_LEFT	    5
 #define SIMON_ANI_SMALL_WALKING_RIGHT		6
-#define SIMON_ANI_SMALL_WALKING_LEFT		7
+#define SIMON_ANI_SMALL_WALKING_LEFT   7
 
-#define SIMON_ANI_DIE				8
-#define SIMON_ANI_SITTING           9
+#define SIMON_ANI_DIE				     8
+#define SIMON_ANI_SITTING                  9
 #define SIMON_ANI_STAND_ATTACK           10
-#define SIMON_ANI_SIT_ATTACK             11
-#define SIMON_ANI_DEFLECT                12
-#define SIMON_ANI_IDLE_UPWHIP                13
+#define SIMON_ANI_SIT_ATTACK           11
+#define SIMON_ANI_DEFLECT               12
+#define SIMON_ANI_IDLE_UPWHIP              13
+#define SIMON_ANI_IDLE_UPSTAIR          14
+#define SIMON_ANI_STEP_UPSTAIR            15
 
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
 
-#define SIMON_BIG_BBOX_WIDTH  40
-#define SIMON_BIG_BBOX_HEIGHT 64
+#define SIMON_BIG_BBOX_WIDTH  38
+#define SIMON_BIG_BBOX_HEIGHT 62
 
 #define SIMON_SPRITE_BOX_WIDTH 60
 #define SIMON_SPRITE_BOX_HEIGHT 66
 
 #define SIMON_SMALL_BBOX_WIDTH  60
 #define SIMON_SMALL_BBOX_HEIGHT 64
+
+#define SIMON_UPSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên 1 bậc cầu thang
+#define SIMON_UPSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên 1 bậc cầu thang
+
+#define SIMON_UPSTAIR_OFFSET  16 
+
 
 
 
@@ -71,12 +81,31 @@ class CSimon : public CGameObject
 	bool sleepControl = false;
 	float body_x;
 	int subWeapon;
+	bool isOnStair = false;
+	bool startOnStair = false;
+	bool isColliceWithStair = false;
+	D3DXVECTOR2 stairPos;
+	D3DXVECTOR2 LastStepOnStairPos;
 public: 
+	void HandleUpStairLogic();
+	void StartOnStair(bool flag) {
+		this->startOnStair = flag;
+	}
+	bool CheckOnStair() {
+		return this->startOnStair;
+	}
+	bool CheckCollideWithStair() {
+		return this->isColliceWithStair;
+	}
+	void SetStartStepOnStair() {
+		this->startOnStair = true;
+	}
 	void SetAutoWalk(bool flag) {
 		this->isAutoWalk = flag;
 		state = SIMON_STATE_WALKING_RIGHT;
 		
 	}
+	
 	DWORD GetPowerUpTime() {
 		return this->upwhip_start;
 	}
@@ -94,22 +123,23 @@ public:
 		untouchable = 0;
 		whip = Whip::GetInstance();
 		this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
-		this->AddAnimation("401");		// idle left big  1
-		this->AddAnimation("402");		// idle right small  2
-		this->AddAnimation("403");		// idle left small 3
-
+		this->AddAnimation("SIMON_ANI_IDLE");		// idle left big  1
+		this->AddAnimation("SIMON_ANI_IDLE");		// idle right small  2
+		this->AddAnimation("SIMON_ANI_IDLE");		// idle left small 3
 		this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  4
-		this->AddAnimation("501");		// walk left big  5
-		this->AddAnimation("502");		// walk right small  6
-		this->AddAnimation("503");		// walk left big  7
-		this->AddAnimation("599");		// die   8
+		this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  5
+		this->AddAnimation("SIMON_ANI_IDLE");		// walk right small  6
+		this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  7
+		this->AddAnimation("SIMON_ANI_IDLE");		// die   8
 		this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
 		this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
 		this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
 		this->AddAnimation("SIMON_ANI_DEFLECT");    //12
-		this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //12
-		
-		this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
+		this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //13
+		this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //14
+		this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //15
+
+		//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();	

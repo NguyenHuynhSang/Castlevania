@@ -50,6 +50,7 @@
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Flame.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="StairTrigger.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="BBoxObjects.h" />
     <ClInclude Include="TileObject.h" />
@@ -88,6 +89,7 @@
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Flame.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="StairTrigger.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="BBoxObjects.cpp" />
     <ClCompile Include="TileObject.cpp" />

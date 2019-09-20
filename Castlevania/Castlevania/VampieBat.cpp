@@ -34,7 +34,7 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		y = BAT_OY_HEIGHT * sin(x*BAT_FLY_SPEED_Y) + oy; 
 	}
 	// clean up collision events
-	for (int i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	for (std::size_t i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void VampieBat::Render()

@@ -38,6 +38,7 @@
 #define ID_TILE_OBJECT_NEXTSCENE 7
 #define ID_TILE_OBJECT_ZOMBIE 6 
 #define ID_TILE_OBJECT_PANTHER 8 
+#define ID_TILE_OBJECT_STAIR 9
 ///
 ///ITEM
 ///
@@ -56,6 +57,4 @@
 #define GAME_STATE_01 1
 #define GAME_STATE_02 2
 #define GAME_STATE_03 3
-
-
 

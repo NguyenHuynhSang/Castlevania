@@ -40,11 +40,11 @@
 		</sprite>
 
 		<sprite ID="SIMON_UPSTAIR_01">
-			<frame x="0" y="0" width="60" height="66" />
+			<frame x="60" y="66" width="60" height="66" />
 		</sprite>
 
 		<sprite ID="SIMON_UPSTAIR_02">
-			<frame x="0" y="0" width="60" height="66" />
+			<frame x="120" y="66" width="60" height="66" />
 		</sprite>
 		<sprite ID="SIMON_DOWNSTAIR_01">
 			<frame x="0" y="0" width="60" height="66" />

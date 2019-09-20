@@ -18,7 +18,7 @@
 			<frame spriteID="SIMON_STAND_ATTACK_02" />
 			<frame spriteID="SIMON_STAND_ATTACK_03" />
 			<frame spriteID="SIMON_STAND_ATTACK_03" />	
-				<frame spriteID="SIMON_STAND_ATTACK_03" />	
+			<frame spriteID="SIMON_STAND_ATTACK_03" />	
 		</animation>
 		<animation ID="SIMON_ANI_SIT_ATTACK" defaulttime="110">
 			<frame spriteID="SIMON_SITTING_ATTACK_01" />
@@ -35,6 +35,19 @@
 			<frame spriteID="SIMON_IDLE_UPWHIP_01" />
 			<frame spriteID="SIMON_IDLE_UPWHIP_02" />
 			<frame spriteID="SIMON_IDLE_UPWHIP_03" />
+		</animation>
+		
+		<animation ID="SIMON_ANI_ENTER_CASTLE" defaulttime="100">
+			<frame spriteID="SIMON_ENTER_CASTLE" />
+		</animation>
+		
+		<animation ID="SIMON_ANI_IDLE_UPSTAIR" defaulttime="100">
+			<frame spriteID="SIMON_UPSTAIR_02" />
+		</animation>
+		
+		<animation ID="SIMON_ANI_STEP_UPSTAIR" defaulttime="100">
+			<frame spriteID="SIMON_UPSTAIR_01" />
+			<frame spriteID="SIMON_UPSTAIR_02" />
 		</animation>
 	</animations>
 

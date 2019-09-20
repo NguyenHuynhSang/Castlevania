@@ -185,12 +185,12 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 	//update efftects
-	for (int i = 0; i < effects.size(); i++) //effect
+	for (std::size_t i = 0; i < effects.size(); i++) //effect
 	{
 		effects[i]->Update(dt, &coObjects);
 	}
 	//update items
-	for (int i = 0; i < items.size(); i++)
+	for (std::size_t i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, &coObjects);
 	}
@@ -398,6 +398,15 @@ void SceneManagement::LoadObjects(int currentscene)
 		}
 
 
+		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
+		for (const auto& child : stairObject->second) {
+			stair = new StairTrigger();
+			stair->SetSize(child->GetWidth(), child->GetHeight());
+			stair->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(stair);
+		
+		}
+
 		break;
 	}
 		
@@ -412,7 +421,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GAME_STATE_01;
+	this->currentScene = GAME_STATE_02;
 
 	cmap = CTileMap::GetInstance();
 }

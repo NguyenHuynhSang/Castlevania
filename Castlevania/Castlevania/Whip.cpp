@@ -21,7 +21,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		return;
 	}
 	CGameObject::Update(dt);
-	for (int i = 0; i < colliable_objects->size(); i++)
+	for (std::size_t i = 0; i < colliable_objects->size(); i++)
 	{
 
 		LPGAMEOBJECT e = colliable_objects->at(i);
