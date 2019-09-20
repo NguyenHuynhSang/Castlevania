@@ -1,4 +1,4 @@
-#include "SceneManagement.h"
+﻿#include "SceneManagement.h"
 
 
 SceneManagement * SceneManagement::__instance = NULL;
@@ -110,9 +110,8 @@ void SceneManagement::LoadResource()
 		}
 	}*/
 
-	whip = Whip::GetInstance();
-	whip->AddAnimation("800");
-	
+	simon = new CSimon();
+	objects.push_back(simon);
 }
 
 void SceneManagement::HandleSpawningItem()
@@ -268,17 +267,18 @@ void SceneManagement::GoNextScene()
 
 void SceneManagement::LoadObjects(int currentscene)
 {
-	for (UINT i = 0; i < objects.size(); i++) delete objects[i];
+	for (UINT i = 1; i < objects.size(); i++) delete objects[i]; // mặc định object[0] là Simon 
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
 	objects.clear();
 	items.clear();
 	effects.clear();
+	simon->ResetState();
 	switch (this->currentScene)
 	{
 	case GAME_STATE_01:
 	{
-		simon = new CSimon();
+		
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -352,7 +352,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 	case GAME_STATE_02:
 	{
-		simon = new CSimon();
+		
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -421,7 +421,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GAME_STATE_02;
+	this->currentScene = GAME_STATE_01;
 
 	cmap = CTileMap::GetInstance();
 }

@@ -9,7 +9,7 @@
 #define SIMON_DEFLECT_SPEED_Y 0.45f
 #define SIMON_GRAVITY			0.002f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
-#define SIMON_UPSTAIR_VELOCITY 0.02f
+#define SIMON_UPSTAIR_VELOCITY 0.04f
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
 #define SIMON_STATE_WALKING_LEFT	200
@@ -87,6 +87,11 @@ class CSimon : public CGameObject
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 public: 
+	void ResetState() {
+		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
+			= sleepControl = isActack = isAutoWalk = isJumping = false;
+
+	}
 	void HandleFirstStepOnStair();
 	void StartOnStair(bool flag) {
 		this->startOnStair = flag;
@@ -114,6 +119,7 @@ public:
 	}
 	void StartPowerUp() {
 		this->upwhip_start = GetTickCount();
+		whip->UpWhip();
 	};
 	bool CheckAutoWalk() {
 		return this->isAutoWalk;
@@ -124,7 +130,7 @@ public:
 	{
 		level = SIMON_LEVEL_BIG;
 		untouchable = 0;
-		whip = Whip::GetInstance();
+		whip = new Whip();
 		this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
 		this->AddAnimation("SIMON_ANI_IDLE");		// idle left big  1
 		this->AddAnimation("SIMON_ANI_IDLE");		// idle right small  2
@@ -163,8 +169,8 @@ public:
 	};
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetSpriteFrame() {
-		this->ResetFrame(SIMON_ANI_STAND_ATTACK);
-		whip->ResetFrame(WHIP_ANI_LV1);
+		this->ResetFrame(SIMON_ANI_STAND_ATTACK);	
+		whip->ResetAnimationFrame();
 	}
 	virtual void GetSpriteBox(float &width, float &height) {
 		width = SIMON_SPRITE_BOX_WIDTH; height = SIMON_SPRITE_BOX_HEIGHT;

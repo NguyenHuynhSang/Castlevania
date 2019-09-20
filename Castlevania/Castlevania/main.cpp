@@ -38,7 +38,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
-	if ((scene->GetSimon()->GetPowerUpTime() != 0) &&GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
+	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
 	{
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
 		scene->GetSimon()->ResetPowerUpTime();
@@ -47,7 +47,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	{
 		return;
 	}
-	
+
 
 
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
@@ -55,15 +55,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	}
 	switch (KeyCode)
 	{
-	case DIK_UP: {
-		if (scene->GetSimon()->CheckCollideWithStair()) {
-			scene->GetSimon()->SetStartStepOnStair();
-		}
-		if (!scene->GetSimon()->CheckStairOnStair()) {
-			scene->GetSimon()->SetStartStepOnStair();
-		}
-		break;
-	}
+
 	case DIK_Q:
 		scene->GoNextScene();
 		break;
@@ -77,7 +69,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_F:
 		DebugOut(L"Press F \n");
 		DebugOut(L"state=%d \n", scene->GetSimon()->GetState());
-		if (!scene->GetSimon()->CheckAttack()) {	
+		if (!scene->GetSimon()->CheckAttack()) {
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
 			{
@@ -111,10 +103,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
-	if (scene->GetSimon()->CheckIsOnStair() || scene->GetSimon()->CheckStairOnStair()) {
-		return;
-	}
-
+	
 	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
 	{
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
@@ -122,8 +111,8 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	}
 
 
-	
-	
+
+
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
@@ -144,7 +133,18 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		return;
 
 	}
-
+	if (game->IsKeyDown(DIK_UP))
+	{
+		if (!scene->GetSimon()->CheckIsOnStair() && scene->GetSimon()->CheckCollideWithStair()) {
+			scene->GetSimon()->SetStartStepOnStair();
+		}
+		else if (scene->GetSimon()->GetState() == SIMON_STATE_UPSTAIR_IDLE) {
+			scene->GetSimon()->SetStartStepOnStair();
+		}
+	}
+	if (scene->GetSimon()->CheckIsOnStair() || scene->GetSimon()->CheckStairOnStair()) {
+		return;
+	}
 
 	if (game->IsKeyDown(DIK_DOWN)) {
 		scene->GetSimon()->SetState(SIMON_STATE_SIT);

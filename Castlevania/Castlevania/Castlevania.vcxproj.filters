@@ -129,9 +129,6 @@
     <ClInclude Include="Heart.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManagement.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>ObjectsManagement\Npcs</Filter>
     </ClInclude>
@@ -182,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="StairTrigger.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManagement.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

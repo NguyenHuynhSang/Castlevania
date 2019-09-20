@@ -26,6 +26,7 @@ void CSimon::Renderer(int ani)
 
 void CSimon::HandleFirstStepOnStair()
 {
+	//up right first step
 	if (this->nx == 1) {
 		if (stairPos.x - this->x >= SIMON_UPSTAIR_OFFSET) {
 			this->isAutoWalk = true;
@@ -175,11 +176,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<StairTrigger *>(e->obj)) {
-				/*if (this->startOnStair) {
-					SetState(SIMON_STATE_IDLE);
-					this->startOnStair = false;
-
-				}*/
 				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0)

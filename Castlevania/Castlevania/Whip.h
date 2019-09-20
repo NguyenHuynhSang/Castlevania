@@ -1,29 +1,51 @@
 #pragma once
 #include "GameObject.h"
 #include"Enemy.h"
-#define WHIP_STATE_LV1 0
-#define WHIP_STATE_LV2 100
-#define WHIP_STATE_LV3 200
 
-#define WHIP_ANI_LV1 0
 
+#define WHIP_STATE_NORMAL      0
+#define WHIP_STATE_CHAIN       1
+#define WHIP_STATE_MORNINGSTAR 2
+
+#define WHIP_ANI_NORMAL      0
+#define WHIP_ANI_CHAIN       1
+#define WHIP_ANI_MORNINGSTAR 2
+
+#define WHIP_BBOX_NORMAL_WIDTH 55
+#define WHIP_BBOX_NORMAL_HEIGHT 15
+
+#define WHIP_BBOX_CHAIN_WIDTH 55
+#define WHIP_BBOX_CHAIN_HEIGHT 15
+
+#define WHIP_BBOX_MORNINGSTAR_WIDTH 85
+#define WHIP_BBOX_MORNINGSTAR_HEIGHT 15
 
 class Whip:public CGameObject
 {
 private:
-	static Whip * __instance;
 	UINT  damage=1;
+	int currentAnimation = 0;
 public:
 	void SetDamage(int damage) { this->damage = damage; }
 	UINT GetDamage() { return damage; }
 	void SetDirection(int nx) { this->nx = nx; }
+	void UpWhip() {
+		this->state++;
+		//this->state = WHIP_STATE_CHAIN;
+		if (this->state >= 2) {
+			this->state = WHIP_STATE_MORNINGSTAR;
+		}
+		DebugOut(L"Whip state=%d",this->state);
+	}
 	void SetWhipPosition(float x, float y) { this->x = x; this->y = y; }
-	static Whip * GetInstance();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	bool CheckLastFrame();
 	void ResetLastFrame() {
-		animations[0]->ResetLastFrame();
+		animations[currentAnimation]->ResetLastFrame();
+	}
+	void ResetAnimationFrame() {
+		animations[currentAnimation]->ResetAnimation();
 	}
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {

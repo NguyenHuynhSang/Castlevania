@@ -1,23 +1,21 @@
-#include "Whip.h"
+﻿#include "Whip.h"
 #include"debug.h"
 #include"Torch.h"
 #include"Zombie.h"
 #include"SceneManagement.h"	
-Whip * Whip::__instance = NULL;
 
 
 
 
-Whip *Whip::GetInstance()
-{
-	if (__instance == NULL) __instance = new Whip();
-	return __instance;
-}
+
+
+
+
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	// Calculate dx, dy 
-	if (animations[WHIP_ANI_LV1]->GetCurrentFrame()
-		!= animations[WHIP_ANI_LV1]->GetLastFrame()) {
+	if (animations[currentAnimation]->GetCurrentFrame()
+		!= animations[currentAnimation]->GetLastFrame()) {
 		return;
 	}
 	CGameObject::Update(dt);
@@ -53,20 +51,31 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 
 void Whip::Render()
 {
-
-	animations[0]->Render(nx, x, y);
-	if (animations[WHIP_ANI_LV1]->GetCurrentFrame()
-		== animations[WHIP_ANI_LV1]->GetLastFrame()) {
-		RenderBoundingBox();
+	switch (this->state)
+	{
+	case WHIP_STATE_NORMAL: {
+		currentAnimation = WHIP_ANI_NORMAL;
+		break;
 	}
-	DebugOut(L"Whip current frame =%d \n", animations[WHIP_ANI_LV1]->GetCurrentFrame());
-	//RenderSpriteBox();
+	case WHIP_STATE_CHAIN: {
+		currentAnimation = WHIP_ANI_CHAIN;
+		break;
+		
+	}
+	case WHIP_STATE_MORNINGSTAR: {
+		currentAnimation = WHIP_ANI_MORNINGSTAR;
+		break;
+	}
+	}
+	animations[currentAnimation]->Render(nx, x, y);
+	if(animations[currentAnimation]->GetCurrentFrame()==animations[currentAnimation]->GetLastFrame())
+	RenderBoundingBox();
 	return;
 }
 
 bool Whip::CheckLastFrame()
 {
-	return animations[WHIP_ANI_LV1]->CheckAnimationDone();
+	return animations[currentAnimation]->CheckAnimationDone();
 }
 
 
@@ -74,23 +83,46 @@ bool Whip::CheckLastFrame()
 void Whip::GetBoundingBox(float & l, float & t, float & r, float & b)
 {
 	if (nx > 0) {
-		l = x + 60 * 2+2;
+		l = x + 60 * 2 + 12;
 		t = y + 12;
 	}
 	else {
-		l = x+55-2;
+		l = x + 55 - 4;
 		t = y + 12;
 	}
 
-	r = l +64;
-	b = t +20;
+
+	switch (this->state)
+	{
+	case WHIP_STATE_NORMAL: {
+		r = l + WHIP_BBOX_NORMAL_WIDTH;
+		b = t + WHIP_BBOX_NORMAL_HEIGHT;
+		break;
+	}
+	case WHIP_STATE_CHAIN: {
+		r = l + WHIP_BBOX_CHAIN_WIDTH;
+		b = t + WHIP_BBOX_CHAIN_HEIGHT;
+		break;
+
+	}
+	case WHIP_STATE_MORNINGSTAR: {
+		r = l + WHIP_BBOX_MORNINGSTAR_WIDTH;
+		b = t + WHIP_BBOX_MORNINGSTAR_HEIGHT;
+		break;
+	}
+	}
+
 }
 
 Whip::Whip()
 {
+	AddAnimation("WHIP_ANI_NORMAL");
+	AddAnimation("WHIP_ANI_CHAIN");
 	AddAnimation("WHIP_ANI_MORNINGSTAR");
-	AddAnimation("WHIP_ANI_LV1");
-	this->animations[0]->SetAnimationLoop(false);
+	// set loop để khi render hết frame cuối k render lại frame 0
+	this->animations[WHIP_ANI_NORMAL]->SetAnimationLoop(false);
+	this->animations[WHIP_ANI_CHAIN]->SetAnimationLoop(false);
+	this->animations[WHIP_ANI_MORNINGSTAR]->SetAnimationLoop(false);
 }
 
 

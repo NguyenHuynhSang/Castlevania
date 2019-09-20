@@ -11,7 +11,6 @@
 #include "Brick.h"
 #include "Ghoul.h"
 #include"ResourceManagement.h"
-#include "Whip.h"
 #include"Ground.h"
 #include"NextScene.h"
 #include"CTileMap.h"
