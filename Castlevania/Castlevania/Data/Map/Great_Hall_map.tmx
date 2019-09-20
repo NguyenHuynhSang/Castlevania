@@ -2152,7 +2152,7 @@
   <object id="49" gid="183" x="1021.5" y="184.5" width="64" height="32"/>
   <object id="50" gid="183" x="1017.5" y="109.5" width="64" height="32"/>
  </objectgroup>
- <objectgroup color="#ffff00" id="9" name="stair">
+ <objectgroup color="#ffff00" id="9" name="stair" visible="0" locked="1">
   <object id="51" name="StairBottom" type="Stair" x="1232" y="288" width="32" height="32">
    <properties>
     <property name="UpRight" value=""/>
@@ -2184,8 +2184,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" visible="0">
-  <object id="57" gid="151" x="1216" y="322" width="60" height="66"/>
+ <objectgroup color="#ffc3ae" id="10" name="SimonstairTest">
+  <object id="57" gid="151" x="1223" y="322" width="60" height="66"/>
   <object id="58" gid="119" x="1239" y="306" width="60" height="66"/>
   <object id="59" gid="119" x="1255" y="290" width="60" height="66"/>
  </objectgroup>

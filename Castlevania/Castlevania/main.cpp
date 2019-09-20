@@ -59,6 +59,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		if (scene->GetSimon()->CheckCollideWithStair()) {
 			scene->GetSimon()->SetStartStepOnStair();
 		}
+		if (!scene->GetSimon()->CheckStairOnStair()) {
+			scene->GetSimon()->SetStartStepOnStair();
+		}
 		break;
 	}
 	case DIK_Q:
@@ -108,7 +111,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
-	if (scene->GetSimon()->CheckOnStair()) {
+	if (scene->GetSimon()->CheckIsOnStair() || scene->GetSimon()->CheckStairOnStair()) {
 		return;
 	}
 

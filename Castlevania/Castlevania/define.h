@@ -9,7 +9,7 @@
 #define SCREEN_HEIGHT 480
 #define GAME_WORLD_Y 64
 
-#define MAX_FRAME_RATE 60
+#define MAX_FRAME_RATE 120
 
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10

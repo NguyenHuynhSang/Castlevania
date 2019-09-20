@@ -57,8 +57,7 @@
 #define SIMON_UPSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên 1 bậc cầu thang
 #define SIMON_UPSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên 1 bậc cầu thang
 
-#define SIMON_UPSTAIR_OFFSET  16 
-
+#define SIMON_UPSTAIR_OFFSET  9
 
 
 
@@ -84,15 +83,19 @@ class CSimon : public CGameObject
 	bool isOnStair = false;
 	bool startOnStair = false;
 	bool isColliceWithStair = false;
+	bool isFirstStepOnStair = false;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 public: 
-	void HandleUpStairLogic();
+	void HandleFirstStepOnStair();
 	void StartOnStair(bool flag) {
 		this->startOnStair = flag;
 	}
-	bool CheckOnStair() {
+	bool CheckStairOnStair() {
 		return this->startOnStair;
+	}
+	bool CheckIsOnStair() {
+		return this->isOnStair;
 	}
 	bool CheckCollideWithStair() {
 		return this->isColliceWithStair;
