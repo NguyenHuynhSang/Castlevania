@@ -28,3 +28,5 @@ public:
 };
 typedef CTileSet* LPTILESET;
 #endif
+
+

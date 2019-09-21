@@ -44,6 +44,7 @@
     <ClInclude Include="MoneyBagTrigger.h" />
     <ClInclude Include="MorningStar.h" />
     <ClInclude Include="NextScene.h" />
+    <ClInclude Include="ObjectProperty.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="Simon.h" />
@@ -83,6 +84,7 @@
     <ClCompile Include="MoneyBagTrigger.cpp" />
     <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="NextScene.cpp" />
+    <ClCompile Include="ObjectProperty.cpp" />
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="Simon.cpp" />

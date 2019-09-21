@@ -57,7 +57,7 @@
 #define SIMON_UPSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên 1 bậc cầu thang
 #define SIMON_UPSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên 1 bậc cầu thang
 
-#define SIMON_UPSTAIR_OFFSET  9
+#define SIMON_UPSTAIR_OFFSET  12
 
 
 

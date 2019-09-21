@@ -12,6 +12,7 @@ private:
 	int y;
 	unsigned int width;
 	unsigned int height;
+	std::pair<std::string, int> property;
 	std::string propertyName; // chỉ load 1 cần update thêm
 public:
 	~TileObject();
@@ -21,6 +22,9 @@ public:
 	int GetId(){return this->id;}
 	int GetX() { return this->x; }
 	int GetY() { return this->y; } 
+	std::pair<std::string, int> GetProperty() {
+		return this->property;
+	}
 	unsigned int GetHeight() { return this->height; }
 	unsigned int GetWidth() { return this->width; }
 	std::string GetPropertyName(){
