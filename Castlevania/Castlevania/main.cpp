@@ -63,7 +63,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		scene->GetSimon()->SetAutoWalk(true);
 		break;
 	case DIK_SPACE:
-		if (!scene->GetSimon()->IsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && !scene->GetSimon()->CheckAttack()) // dùng atack time khỏi phải dùng state attack nhiều lần
+		if (!scene->GetSimon()->CheckIsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && !scene->GetSimon()->CheckAttack()) // dùng atack time khỏi phải dùng state attack nhiều lần
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_F:
@@ -109,10 +109,6 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
 		scene->GetSimon()->ResetPowerUpTime();
 	}
-
-
-
-
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
@@ -129,12 +125,13 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		return;
 
 	}
-	if (scene->GetSimon()->IsJumping() == true) {
+	if (scene->GetSimon()->CheckIsJumping() == true) {
 		return;
 
 	}
 	if (game->IsKeyDown(DIK_UP))
 	{
+		if (!scene->GetSimon()->CheckCanStepUp()) return;
 		if (!scene->GetSimon()->CheckIsOnStair() && scene->GetSimon()->CheckCollideWithStair()) {
 			scene->GetSimon()->SetStartStepOnStair();
 		}

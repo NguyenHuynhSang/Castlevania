@@ -1,6 +1,7 @@
 ﻿#include "CTileMap.h"
 #include"define.h"
-
+#include"debug.h"
+#include"Game.h"
 CTileMap * CTileMap::__instance = NULL;
 
 CTileMap *CTileMap::GetInstance()
@@ -82,7 +83,10 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 	this->mapRow = mapRow;
 	this->tileWidth = tilewidth;
 	this->tileHeight = tileheight;
+	this->mapHeight = this->mapRow*this->tileWidth;
+	this->mapWidth = this->mapCol*this->tileHeight;
 	//lấy thông tin tilesheet
+	// chỉ lấy cái tileset đầu tiên
 	xml_node<>* tilesetNode = rootNode->first_node("tileset");
 	string tilesetName = std::string(tilesetNode->first_attribute("name")->value());
 	int columns = std::atoi(tilesetNode->first_attribute("columns")->value());
@@ -91,7 +95,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 	this->tileSheetCol = columns;
 	this->tileSheetRow = tilesetrow;
 
-
+	
 
 
 	matrix = new int*[mapRow];
@@ -121,7 +125,6 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 		}
 	}
 	int id = 1;		// id of tileset
-	CTextures* tex = CTextures::GetInstance();
 
 	for (std::size_t i = 0; i < this->tileSheetRow; i++)
 	{
@@ -191,20 +194,25 @@ void CTileMap::LoadObjects(const std::string& filePath)
 			h = std::atoi(smailchild->first_attribute("height")->value());
 			int scid = std::atoi(smailchild->first_attribute("id")->value()); // lay ID
 			// [Note]đọc chỉ 1 property
+			object = new TileObject(scid, x, y, w, h);
 			xml_node<>* propertiesNode = smailchild->first_node("properties");
 			if (propertiesNode == NULL) {
-				object = new TileObject(scid, x, y, w, h, proName);
 				listobject->Add(id, object);
 				ObjectInGroup.push_back(listobject->GetTileObject(id));
 				continue;
 			}
-			xml_node<>* property = propertiesNode->first_node("property");
-			if (property != NULL) {
-				proName = std::string(property->first_attribute("name")->value());
+			else {
+				for (xml_node<> *prochild = propertiesNode->first_node(); prochild; prochild = prochild->next_sibling())
+				{
+					string name = std::string(prochild->first_attribute("name")->value());
+					int value= std::atoi(prochild->first_attribute("value")->value());
+					DebugOut(L"Value =%d \n", value);
+					object->AddProperty(name, value);
+					listobject->Add(id, object);
+					ObjectInGroup.push_back(listobject->GetTileObject(id));
+				}
 			}
-			object = new TileObject(scid, x, y, w, h, proName);
-			listobject->Add(id, object);
-			ObjectInGroup.push_back(listobject->GetTileObject(id));
+			
 		}
 		this->listObject.insert(std::make_pair(id, ObjectInGroup)); // 
 	}

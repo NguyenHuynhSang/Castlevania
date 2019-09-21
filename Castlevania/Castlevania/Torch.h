@@ -8,11 +8,11 @@
 class Torch:public CGameObject
 {
 
-	string itemName="";
+	int itemDef;
 public:
 	virtual void Render();
-	void SetItem(string item) {
-		this->itemName = item;
+	void SetItem(int item) {
+		this->itemDef = item;
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);

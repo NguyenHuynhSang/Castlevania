@@ -1,3 +1,6 @@
+#pragma once
+#ifndef _DEFINE_CLASS
+#define _DEFINE_CLASS
 #include<string>
 #include<map>
 
@@ -58,3 +61,23 @@
 #define GAME_STATE_02 2
 #define GAME_STATE_03 3
 
+
+const enum GameState {
+	STATE_01,
+	STATE_02,
+	STATE_03
+};
+
+const enum ItemID {
+	IDHeart,
+	IDLargeHeart,
+	IDWhip
+};
+
+const enum StairDir {
+	DIR_UPRIGHT,
+	DIR_UPLEFT,
+	DIR_DOWNRIGHT,
+	DIR_DOWNLEFT
+};
+#endif

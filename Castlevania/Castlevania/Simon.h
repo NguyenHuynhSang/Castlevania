@@ -21,8 +21,8 @@
 #define SIMON_STATE_DEFLECT 800
 #define SIMON_STATE_POWERUP 900
 #define SIMON_STATE_UPSTAIR_IDLE 1000
-#define SIMON_STATE_UPSTAIR_STEPUP 1100
-
+#define SIMON_STATE_UPSTAIR_RIGHT 1100
+#define SIMON_STATE_UPSTAIR_LEFT 1200
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
 #define SIMON_ANI_SMALL_IDLE_RIGHT		2
@@ -57,7 +57,8 @@
 #define SIMON_UPSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên 1 bậc cầu thang
 #define SIMON_UPSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên 1 bậc cầu thang
 
-#define SIMON_UPSTAIR_OFFSET  12
+#define SIMON_UPSTAIR_RIGHT_OFFSET  12
+#define SIMON_UPSTAIR_LEFT_OFFSET 16 // da giam 3px
 
 
 
@@ -84,6 +85,7 @@ class CSimon : public CGameObject
 	bool startOnStair = false;
 	bool isColliceWithStair = false;
 	bool isFirstStepOnStair = false;
+	int stepOnStairDirection=-1;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 public: 
@@ -98,6 +100,12 @@ public:
 	}
 	bool CheckStairOnStair() {
 		return this->startOnStair;
+	}
+
+	bool CheckCanStepUp() {
+		if (this->stepOnStairDirection == DIR_UPLEFT || this->stepOnStairDirection == DIR_UPRIGHT)
+			return true;
+		return false;
 	}
 	bool CheckIsOnStair() {
 		return this->isOnStair;
@@ -125,31 +133,9 @@ public:
 		return this->isAutoWalk;
 	}
 
-	bool IsJumping() { return this->isJumping; }
-	CSimon() : CGameObject()
-	{
-		level = SIMON_LEVEL_BIG;
-		untouchable = 0;
-		whip = new Whip();
-		this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
-		this->AddAnimation("SIMON_ANI_IDLE");		// idle left big  1
-		this->AddAnimation("SIMON_ANI_IDLE");		// idle right small  2
-		this->AddAnimation("SIMON_ANI_IDLE");		// idle left small 3
-		this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  4
-		this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  5
-		this->AddAnimation("SIMON_ANI_IDLE");		// walk right small  6
-		this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  7
-		this->AddAnimation("SIMON_ANI_IDLE");		// die   8
-		this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
-		this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
-		this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
-		this->AddAnimation("SIMON_ANI_DEFLECT");    //12
-		this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //13
-		this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //14
-		this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //15
-
-		//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
-	}
+	bool CheckIsJumping() { return this->isJumping; }
+	CSimon();
+	~CSimon();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();	
 	void ResetPowerUpTime() {

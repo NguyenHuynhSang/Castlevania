@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="74">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="76">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2136,7 +2136,7 @@
  </objectgroup>
  <objectgroup id="4" name="Entry"/>
  <objectgroup color="#ff0000" id="5" name="Simon">
-  <object id="5" name="Simon" type="Simon" gid="112" x="1122.33" y="316.667" width="60" height="66"/>
+  <object id="5" name="Simon" type="Simon" gid="112" x="1934.08" y="188.417" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="6" name="Zombie">
   <object id="47" gid="181" x="3008" y="316" width="34" height="64"/>
@@ -2152,46 +2152,46 @@
  <objectgroup color="#ffff00" id="9" name="stair">
   <object id="51" name="StairBottom" type="Stair" x="1232" y="288" width="32" height="32">
    <properties>
-    <property name="UpRight" value=""/>
+    <property name="dir" value="0"/>
    </properties>
   </object>
-  <object id="60" name="StairTop" type="Stair" x="1360.67" y="100.667" width="32" height="32">
+  <object id="60" name="StairTop" type="Stair" x="1360" y="100.667" width="32" height="32">
    <properties>
-    <property name="DownLeft" value=""/>
+    <property name="dir" type="int" value="3"/>
    </properties>
   </object>
   <object id="63" name="StairBottom" type="Stair" x="1424" y="160" width="32" height="32">
    <properties>
-    <property name="UpRight" value=""/>
+    <property name="dir" type="int" value="0"/>
    </properties>
   </object>
   <object id="64" name="StairTop" type="Stair" x="1489.5" y="35" width="32" height="32">
    <properties>
-    <property name="DownLeft" value=""/>
+    <property name="dir" type="int" value="3"/>
    </properties>
   </object>
   <object id="65" name="StairTop" type="Stair" x="1808" y="34.5" width="32" height="32">
    <properties>
-    <property name="DownRight" value=""/>
+    <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="66" name="StairBottom" type="Stair" x="1870" y="161.5" width="32" height="32">
+  <object id="66" name="StairBottom" type="Stair" x="1872" y="160" width="32" height="32">
    <properties>
-    <property name="UpLeft" value=""/>
+    <property name="dir" type="int" value="1"/>
    </properties>
   </object>
   <object id="68" name="StairBottom" type="Stair" x="2576" y="287.667" width="32" height="32">
    <properties>
-    <property name="UpRight" value=""/>
+    <property name="dir" type="int" value="0"/>
    </properties>
   </object>
   <object id="69" name="StairTop" type="Stair" x="2769" y="35.5" width="32" height="32">
    <properties>
-    <property name="DownLeft" value=""/>
+    <property name="dir" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" locked="1">
+ <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" visible="0" locked="1">
   <object id="57" gid="151" x="1223" y="322" width="60" height="66"/>
   <object id="58" gid="119" x="1239" y="306" width="60" height="66"/>
   <object id="59" gid="119" x="1255" y="290" width="60" height="66"/>
@@ -2199,5 +2199,7 @@
   <object id="71" gid="2147483769" x="2615" y="274" width="60" height="66"/>
   <object id="72" gid="2147483769" x="2743" y="146" width="60" height="66"/>
   <object id="73" gid="2147483798" x="2758" y="130" width="60" height="66"/>
+  <object id="74" gid="2147483767" x="1837" y="178" width="60" height="66"/>
+  <object id="75" gid="2147483798" x="1853" y="194" width="60" height="66"/>
  </objectgroup>
 </map>

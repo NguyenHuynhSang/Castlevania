@@ -21,7 +21,7 @@ void Torch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->TurnOffCollision();
 		Effects* effect = new Flame();
 		effect->SetPositionInWorld(this->x+10, this->y+TORCH_BBOX_HEIGHT/4);
-		effect->AddItemDef(this->itemName);
+		effect->AddItemDef(this->itemDef);
 		SceneManagement::GetInstance()->SpawnEffect(effect);
 		isDestroyed = true;
 	}

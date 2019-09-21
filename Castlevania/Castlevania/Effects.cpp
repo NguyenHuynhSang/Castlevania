@@ -7,17 +7,21 @@ void Effects::SpawnItem()
 {
 	SceneManagement *scene = SceneManagement::GetInstance();
 	Item * item;
-	if (itemName == "bigheart") {
-		
+	switch (this->itemDef)
+	{
+	case IDLargeHeart: {
 		item = new Heart();
 		item->SetPositionInWorld(x, y);
 		scene->SpawnItem(item);
+		break;
 	}
-	else if (itemName == "whip") {
+	case IDWhip: {
 		item = new MorningStar();
 		item->SetPositionInWorld(x, y);
 		scene->SpawnItem(item);
 	}
+	}
+
 }
 
 Effects::Effects()

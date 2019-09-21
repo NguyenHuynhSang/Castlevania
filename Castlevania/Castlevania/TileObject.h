@@ -12,8 +12,7 @@ private:
 	int y;
 	unsigned int width;
 	unsigned int height;
-	std::pair<std::string, int> property;
-	std::string propertyName; // chỉ load 1 cần update thêm
+	std::map<std::string, int> properties;
 public:
 	~TileObject();
 	TileObject() {
@@ -22,18 +21,18 @@ public:
 	int GetId(){return this->id;}
 	int GetX() { return this->x; }
 	int GetY() { return this->y; } 
-	std::pair<std::string, int> GetProperty() {
-		return this->property;
+	int  GetPropertyByKey(std::string key) {
+		if (this->properties.empty())
+			return -1;
+		return this->properties.find(key)->second;
 	}
+	void AddProperty(std::string name, int value);
 	unsigned int GetHeight() { return this->height; }
 	unsigned int GetWidth() { return this->width; }
-	std::string GetPropertyName(){
-		return this->propertyName;
-	}
-	TileObject(int id, int x, int y, int w, int h,std::string propertyName ) :id(id), x(x), y(y), width(w), height(h), propertyName(propertyName){};
+	TileObject(int id, int x, int y, int w, int h):id(id), x(x), y(y), width(w), height(h){};
 };
 
-typedef TileObject *LPTILEOBJECT;
+typedef TileObject* LPTILEOBJECT;
 
 class ObjectLayer {
 private:

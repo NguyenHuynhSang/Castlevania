@@ -7,7 +7,7 @@
 class Effects :public CGameObject
 {
 protected:
-	string itemName; // hiện item khi effect kết thúc
+	int itemDef; // hiện item khi effect kết thúc
 	float objectPosX;
 	float objectPosY;
 	void SpawnItem();
@@ -24,8 +24,8 @@ public:
 		this->objectPosX = x;
 		this->objectPosY = y;
 	}
-	void AddItemDef(string itemName) {
-		this->itemName = itemName;
+	void AddItemDef(int itemName) {
+		this->itemDef = itemName;
 	}
 	Effects();
 	~Effects();

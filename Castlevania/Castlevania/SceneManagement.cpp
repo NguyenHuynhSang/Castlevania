@@ -26,7 +26,7 @@ void SceneManagement::LoadResource()
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
-	
+
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml", texSimon);
 	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
@@ -58,7 +58,7 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texPanther = textures->Get(ID_TEX_PANTHER);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Panther_sprite.xml", texPanther);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Panther_ani.xml", animations);
-	
+
 
 	LPDIRECT3DTEXTURE9 texBAT = textures->Get(ID_TEX_BAT);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Bat_sprite.xml", texBAT);
@@ -167,18 +167,18 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (std::size_t  i = 1; i < objects.size(); i++)
+	for (std::size_t i = 1; i < objects.size(); i++)
 	{
 
 		coObjects.push_back(objects[i]);
 	}
-	for (std::size_t  i = 0; i < items.size(); i++)  //item
+	for (std::size_t i = 0; i < items.size(); i++)  //item
 	{
 		coObjects.push_back(items[i]);
 	}
 
 	//update object
-	for (std::size_t  i = 0; i < objects.size(); i++) //object
+	for (std::size_t i = 0; i < objects.size(); i++) //object
 	{
 		objects[i]->Update(dt, &coObjects);
 	}
@@ -201,26 +201,21 @@ void SceneManagement::Update(DWORD dt)
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-	if (currentScene == GAME_STATE_01) {
-		if (cx > 0 && cx < 47 * 32 - SCREEN_WIDTH)
-			CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
-	}
-	else {
-		if (cx > 0 && cx < 176 * 32 - SCREEN_WIDTH)
-			CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
-	}
-	
-		
+
+	if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
+		CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+
+
 }
 void SceneManagement::Render()
 {
 	if (this->isNextScene) return;
 	cmap->Render();
-	for (std::size_t  i = 1; i < objects.size(); i++)
+	for (std::size_t i = 1; i < objects.size(); i++)
 		objects[i]->Render();
-	for (std::size_t  i = 0; i < this->items.size(); i++)
+	for (std::size_t i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
-	for (std::size_t  i = 0; i < this->effects.size(); i++)
+	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
 	objects[0]->Render();
 
@@ -236,20 +231,20 @@ void SceneManagement::LoadScene()
 	cmap->GetObjects().clear();
 	switch (this->currentScene)
 	{
-	case GAME_STATE_01:
-		
+	case STATE_01:
+
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
-		LoadObjects(GAME_STATE_01);
+		LoadObjects(STATE_01);
 		break;
-	case GAME_STATE_02:
-		
+	case STATE_02:
+
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
-		LoadObjects(GAME_STATE_02);
+		LoadObjects(STATE_02);
 		break;
-	case GAME_STATE_03:
+	case STATE_03:
 		break;
 
 	}
@@ -258,11 +253,11 @@ void SceneManagement::LoadScene()
 void SceneManagement::GoNextScene()
 {
 	this->currentScene++;
-	if (this->currentScene > GAME_STATE_02) currentScene = GAME_STATE_02;
-	
+	if (this->currentScene > STATE_02) currentScene = STATE_02;
+
 	this->isNextScene = true;
-	
-	
+
+
 }
 
 void SceneManagement::LoadObjects(int currentscene)
@@ -276,9 +271,9 @@ void SceneManagement::LoadObjects(int currentscene)
 	simon->ResetState();
 	switch (this->currentScene)
 	{
-	case GAME_STATE_01:
+	case STATE_01:
 	{
-		
+
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -295,7 +290,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		}
 
 
-		
+
 		auto entryObject = cmap->GetObjects().find(ID_TILE_OBJECT_ENTRY);
 		for (const auto& child : entryObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
@@ -314,12 +309,12 @@ void SceneManagement::LoadObjects(int currentscene)
 			trigger->SetPosition(child->GetX(), child->GetY());
 			auto moneyBagObject = cmap->GetObjects().find(ID_TILE_OBJECT_MONEY_BAG);
 			for (const auto& smallchild : moneyBagObject->second) {
-				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY()- smallchild->GetHeight());
+				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
 			}
 			objects.push_back(trigger);
 		}
 
-		
+
 		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
 		for (const auto& child : nextsceneObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
@@ -328,7 +323,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(nextScene);
 		}
-		
+
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
 		for (const auto& child : boundObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
@@ -344,15 +339,15 @@ void SceneManagement::LoadObjects(int currentscene)
 		for (const auto& child : torchObject->second) {
 			torch = new Torch();
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			torch->SetItem(child->GetPropertyName());
+			torch->SetItem(child->GetPropertyByKey("item"));
 			objects.push_back(torch);
 		}
 		break;
 	}
 
-	case GAME_STATE_02:
+	case STATE_02:
 	{
-		
+
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -383,8 +378,8 @@ void SceneManagement::LoadObjects(int currentscene)
 		auto zombieObject = cmap->GetObjects().find(ID_TILE_OBJECT_ZOMBIE);
 		for (const auto& child : zombieObject->second) {
 			zombie = new Zombie();
-			zombie->SetRespawnPosition(child->GetX(), child->GetY()-child->GetHeight()+GAME_WORLD_Y);
-			zombie->SetPosition(child->GetX(), child->GetY() -child->GetHeight());
+			zombie->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
+			zombie->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			objects.push_back(zombie);
 		}
 
@@ -401,16 +396,16 @@ void SceneManagement::LoadObjects(int currentscene)
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
 			stair = new StairTrigger();
+			stair->SetDirection(child->GetPropertyByKey("dir"));
 			stair->SetSize(child->GetWidth(), child->GetHeight());
 			stair->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(stair);
-		
 		}
 
 		break;
 	}
-		
-	case GAME_STATE_03:
+
+	case STATE_03:
 		break;
 
 	}
@@ -421,7 +416,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GAME_STATE_01;
+	this->currentScene = STATE_01;
 
 	cmap = CTileMap::GetInstance();
 }
