@@ -23,6 +23,12 @@
 #define SIMON_STATE_UPSTAIR_IDLE 1000
 #define SIMON_STATE_UPSTAIR_RIGHT 1100
 #define SIMON_STATE_UPSTAIR_LEFT 1200
+#define SIMON_STATE_DOWNSTAIR_IDLE 1300
+#define SIMON_STATE_DOWNSTAIR_RIGHT 1400
+#define SIMON_STATE_DOWNSTAIR_LEFT 1500
+
+
+
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
 #define SIMON_ANI_SMALL_IDLE_RIGHT		2
@@ -32,7 +38,6 @@
 #define SIMON_ANI_BIG_WALKING_LEFT	    5
 #define SIMON_ANI_SMALL_WALKING_RIGHT		6
 #define SIMON_ANI_SMALL_WALKING_LEFT   7
-
 #define SIMON_ANI_DIE				     8
 #define SIMON_ANI_SITTING                  9
 #define SIMON_ANI_STAND_ATTACK           10
@@ -41,6 +46,9 @@
 #define SIMON_ANI_IDLE_UPWHIP              13
 #define SIMON_ANI_IDLE_UPSTAIR          14
 #define SIMON_ANI_STEP_UPSTAIR            15
+#define SIMON_ANI_IDLE_DOWNSTAIR         16
+#define SIMON_ANI_STEP_DOWNSTAIR            17
+
 
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
@@ -54,11 +62,13 @@
 #define SIMON_SMALL_BBOX_WIDTH  60
 #define SIMON_SMALL_BBOX_HEIGHT 64
 
-#define SIMON_UPSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên 1 bậc cầu thang
-#define SIMON_UPSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên 1 bậc cầu thang
+#define SIMON_ONSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên xuống 1 bậc cầu thang
+#define SIMON_ONSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên xuống 1 bậc cầu thang
 
 #define SIMON_UPSTAIR_RIGHT_OFFSET  12
 #define SIMON_UPSTAIR_LEFT_OFFSET 16 // da giam 3px
+
+#define SIMON_DOWNSTAIR_LEFT_OFFSET 10
 
 
 
@@ -79,7 +89,6 @@ class CSimon : public CGameObject
 	bool isAutoWalk = false;
 	bool isActack = false;
 	bool sleepControl = false;
-	float body_x;
 	int subWeapon;
 	bool isOnStair = false;
 	bool startOnStair = false;
@@ -88,13 +97,19 @@ class CSimon : public CGameObject
 	int stepOnStairDirection=-1;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
+	void HandleFirstStepOnStair();
 public: 
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
 			= sleepControl = isActack = isAutoWalk = isJumping = false;
+		this->stepOnStairDirection = -1;
 
 	}
-	void HandleFirstStepOnStair();
+
+	void SetStepOnStairDirection(int dir) {
+		this->stepOnStairDirection = dir;
+	}
+	
 	void StartOnStair(bool flag) {
 		this->startOnStair = flag;
 	}
@@ -104,6 +119,11 @@ public:
 
 	bool CheckCanStepUp() {
 		if (this->stepOnStairDirection == DIR_UPLEFT || this->stepOnStairDirection == DIR_UPRIGHT)
+			return true;
+		return false;
+	}
+	bool CheckCanStepDown() {
+		if (this->stepOnStairDirection == DIR_DOWNLEFT || this->stepOnStairDirection == DIR_DOWNRIGHT)
 			return true;
 		return false;
 	}

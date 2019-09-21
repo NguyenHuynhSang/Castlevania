@@ -186,6 +186,9 @@
     <ClInclude Include="ObjectProperty.h">
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
+    <ClInclude Include="Candle.h">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -301,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="ObjectProperty.cpp">
       <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="Candle.cpp">
+      <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

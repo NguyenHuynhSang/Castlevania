@@ -47,10 +47,10 @@
 			<frame x="120" y="66" width="60" height="66" />
 		</sprite>
 		<sprite ID="SIMON_DOWNSTAIR_01">
-			<frame x="0" y="0" width="60" height="66" />
+			<frame x="180" y="66" width="60" height="66" />
 		</sprite>
 		<sprite ID="SIMON_DOWNSTAIR_02">
-			<frame x="0" y="0" width="60" height="66" />
+			<frame x="240" y="66" width="60" height="66" />
 		</sprite>
 
 		<sprite ID="SIMON_STAND_ATTACK_01">

@@ -22,6 +22,7 @@
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Candle.h" />
     <ClInclude Include="CTileMap.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Effects.h" />
@@ -64,6 +65,7 @@
   <ItemGroup>
     <ClCompile Include="BoundMap.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="define.h" />
