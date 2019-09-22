@@ -51,6 +51,7 @@
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Flame.h" />
+    <ClInclude Include="SpawnZone.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StairTrigger.h" />
     <ClInclude Include="Textures.h" />
@@ -92,6 +93,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Flame.cpp" />
+    <ClCompile Include="SpawnZone.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StairTrigger.cpp" />
     <ClCompile Include="Textures.cpp" />

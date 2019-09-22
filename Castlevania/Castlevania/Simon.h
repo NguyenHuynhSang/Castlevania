@@ -99,6 +99,7 @@ class CSimon : public CGameObject
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 	void HandleFirstStepOnStair();
+	void HandlePerStepOnStair();
 public: 
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair

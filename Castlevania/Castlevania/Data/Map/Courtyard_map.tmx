@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="33">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="35">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
@@ -7,6 +7,7 @@
  <tileset firstgid="83" source="ObjectTile/SIMON.tsx"/>
  <tileset firstgid="155" source="ObjectTile/Money_Bag.tsx"/>
  <tileset firstgid="158" source="ObjectTile/Castle.tsx"/>
+ <tileset firstgid="159" source="ObjectTile/camBlock.tsx"/>
  <layer id="1" name="background" width="47" height="11">
   <data>
    <tile gid="1"/>
@@ -575,5 +576,17 @@
  </objectgroup>
  <objectgroup id="10" name="Castle" visible="0">
   <object id="28" gid="158" x="1408" y="289" width="96" height="288"/>
+ </objectgroup>
+ <objectgroup color="#550000" id="11" name="CamBox">
+  <object id="33" name="CamBox" type="CamBox" gid="159" x="0" y="64" width="64" height="64">
+   <properties>
+    <property name="camstate" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="34" name="CamBox" type="CamBox" gid="159" x="1023" y="64" width="64" height="64">
+   <properties>
+    <property name="camstate" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

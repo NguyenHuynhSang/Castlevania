@@ -1,7 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include"Enemy.h"
-
 
 #define WHIP_STATE_NORMAL      0
 #define WHIP_STATE_CHAIN       1

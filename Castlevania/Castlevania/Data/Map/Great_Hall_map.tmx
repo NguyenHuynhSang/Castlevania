@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="112">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="142">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -7,7 +7,7 @@
  <tileset firstgid="181" source="ObjectTile/ZOMBIE.tsx"/>
  <tileset firstgid="183" source="ObjectTile/PANTHER.tsx"/>
  <tileset firstgid="187" source="ObjectTile/Candle.tsx"/>
- <layer id="1" name="background" width="176" height="12">
+ <layer id="1" name="background" width="176" height="12" locked="1">
   <data>
    <tile gid="1"/>
    <tile gid="2"/>
@@ -2123,7 +2123,7 @@
    <tile gid="38"/>
   </data>
  </layer>
- <objectgroup color="#ff0000" id="2" name="BoundMap">
+ <objectgroup color="#ff0000" id="2" name="BoundMap" locked="1">
   <object id="1" name="Bound" x="-25" y="0" width="25" height="383"/>
   <object id="3" name="Bound" x="5633" y="-1" width="15" height="384"/>
   <object id="95" x="3056.5" y="159" width="31.5" height="160.5"/>
@@ -2137,8 +2137,7 @@
   <object id="8" x="1856" y="193.5" width="160" height="29"/>
   <object id="12" x="2785" y="130.5" width="542" height="28"/>
   <object id="13" x="3327.5" y="194" width="96" height="28"/>
-  <object id="98" x="3583.5" y="159.5" width="129.5" height="95.5"/>
-  <object id="99" x="3616.5" y="256" width="96.5" height="61.5"/>
+  <object id="98" x="3583.5" y="159.5" width="129.5" height="160.167"/>
   <object id="101" x="3713" y="161" width="62.5" height="29"/>
   <object id="102" x="3776.5" y="193.5" width="96" height="28.5"/>
   <object id="103" x="3903.5" y="128" width="416.5" height="30.5"/>
@@ -2150,18 +2149,31 @@
  </objectgroup>
  <objectgroup id="4" name="Entry"/>
  <objectgroup color="#ff0000" id="5" name="Simon">
-  <object id="5" name="Simon" type="Simon" gid="112" x="1729.75" y="127.084" width="60" height="66"/>
+  <object id="122" name="Simon" type="Simon" gid="112" x="80" y="319" width="60" height="66"/>
  </objectgroup>
- <objectgroup id="6" name="Zombie">
-  <object id="47" gid="181" x="3008" y="316" width="34" height="64"/>
+ <objectgroup color="#aa55ff" id="6" name="SpawnZone">
+  <object id="116" name="SpawnZone" x="490.667" y="222" width="386.667" height="95.6667">
+   <properties>
+    <property name="enemydef" type="int" value="0"/>
+    <property name="num" type="int" value="3"/>
+    <property name="respawntime" type="int" value="3000"/>
+   </properties>
+  </object>
+  <object id="117" name="SpawnZone" x="2668.67" y="238" width="386.667" height="81.333">
+   <properties>
+    <property name="enemydef" type="int" value="0"/>
+    <property name="num" type="int" value="3"/>
+    <property name="respawntime" type="int" value="3000"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="NextScene">
   <object id="14" x="3012" y="106" width="45" height="22"/>
  </objectgroup>
  <objectgroup id="8" name="panther">
-  <object id="48" gid="183" x="1013.83" y="48.1667" width="64" height="32"/>
-  <object id="49" gid="183" x="1021.5" y="184.5" width="64" height="32"/>
-  <object id="50" gid="183" x="1017.5" y="109.5" width="64" height="32"/>
+  <object id="48" gid="183" x="1943.83" y="191.5" width="64" height="32"/>
+  <object id="49" gid="183" x="1382.17" y="191.833" width="64" height="32"/>
+  <object id="50" gid="183" x="1738.83" y="127.5" width="64" height="32"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="stair">
   <object id="51" name="StairBottom" type="Stair" x="1232" y="308" width="32" height="12">
@@ -2194,7 +2206,7 @@
     <property name="dir" type="int" value="1"/>
    </properties>
   </object>
-  <object id="68" name="StairBottom" type="Stair" x="2576" y="304" width="32" height="15.6667">
+  <object id="68" name="StairBottom" type="Stair" x="2576" y="308" width="32" height="9.6667">
    <properties>
     <property name="dir" type="int" value="0"/>
    </properties>
@@ -2204,8 +2216,23 @@
     <property name="dir" type="int" value="3"/>
    </properties>
   </object>
+  <object id="118" name="StairTop" type="Stair" x="3408.5" y="100.25" width="32" height="32">
+   <properties>
+    <property name="dir" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="119" name="StairBottom" type="Stair" x="3536" y="306.833" width="32" height="11.6667">
+   <properties>
+    <property name="dir" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="121" name="StairTop" type="Stair" x="3152" y="228.5" width="32" height="32">
+   <properties>
+    <property name="dir" type="int" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#ffc3ae" id="10" name="SimonstairTest">
+ <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" locked="1">
   <object id="57" gid="151" x="1223" y="322" width="60" height="66"/>
   <object id="58" gid="119" x="1239" y="306" width="60" height="66"/>
   <object id="59" gid="119" x="1255" y="290" width="60" height="66"/>
@@ -2216,15 +2243,26 @@
   <object id="110" gid="121" x="1822" y="162" width="60" height="66"/>
   <object id="111" gid="151" x="1790" y="130" width="60" height="66"/>
  </objectgroup>
- <objectgroup color="#ffaa00" id="11" name="Candle" locked="1">
-  <object id="83" name="Candle" type="Candle" gid="187" x="114.667" y="206.667" width="16" height="32"/>
-  <object id="85" name="Candle" type="Candle" gid="187" x="218" y="268" width="16" height="32"/>
-  <object id="86" name="Candle" type="Candle" gid="187" x="311.333" y="215.333" width="16" height="32"/>
-  <object id="87" name="Candle" type="Candle" gid="187" x="414" y="265.333" width="16" height="32"/>
-  <object id="88" name="Candle" type="Candle" gid="187" x="517.333" y="208" width="16" height="32"/>
-  <object id="91" name="Candle" type="Candle" gid="187" x="687.333" y="271.333" width="16" height="32"/>
-  <object id="92" name="Candle" type="Candle" gid="187" x="827.333" y="175.333" width="16" height="32"/>
-  <object id="93" name="Candle" type="Candle" gid="187" x="1046" y="258" width="16" height="32"/>
-  <object id="94" name="Candle" type="Candle" gid="187" x="1279.33" y="160.667" width="16" height="32"/>
+ <objectgroup color="#ffaa00" id="11" name="Candle">
+  <object id="83" name="Candle" type="Candle" gid="187" x="154.167" y="206.167" width="16" height="32"/>
+  <object id="123" name="Candle" type="Candle" gid="187" x="269.5" y="264" width="16" height="32"/>
+  <object id="124" name="Candle" type="Candle" gid="187" x="371.5" y="209.5" width="16" height="32"/>
+  <object id="125" name="Candle" type="Candle" gid="187" x="524" y="277" width="16" height="32"/>
+  <object id="126" name="Candle" type="Candle" gid="187" x="614" y="196" width="16" height="32"/>
+  <object id="127" name="Candle" type="Candle" gid="187" x="770.5" y="261.5" width="16" height="32"/>
+  <object id="128" name="Candle" type="Candle" gid="187" x="903.5" y="183" width="16" height="32"/>
+  <object id="129" name="Candle" type="Candle" gid="187" x="1030.5" y="254.5" width="16" height="32"/>
+  <object id="130" name="Candle" type="Candle" gid="187" x="1307.5" y="264" width="16" height="32"/>
+  <object id="131" name="Candle" type="Candle" gid="187" x="1293" y="107" width="16" height="32"/>
+  <object id="132" name="Candle" type="Candle" gid="187" x="1564.5" y="53.5" width="16" height="32"/>
+  <object id="133" name="Candle" type="Candle" gid="187" x="1753.5" y="54" width="16" height="32"/>
+  <object id="134" name="Candle" type="Candle" gid="187" x="1991.5" y="120.5" width="16" height="32"/>
+  <object id="135" name="Candle" type="Candle" gid="187" x="2199.5" y="281" width="16" height="32"/>
+  <object id="136" name="Candle" type="Candle" gid="187" x="2330.5" y="281" width="16" height="32"/>
+  <object id="137" name="Candle" type="Candle" gid="187" x="2458" y="283.5" width="16" height="32"/>
+  <object id="138" name="Candle" type="Candle" gid="187" x="2072.5" y="275" width="16" height="32"/>
+  <object id="139" name="Candle" type="Candle" gid="187" x="2652" y="269" width="16" height="32"/>
+  <object id="140" name="Candle" type="Candle" gid="187" x="2849" y="58.5" width="16" height="32"/>
+  <object id="141" name="Candle" type="Candle" gid="187" x="2956.5" y="65.5" width="16" height="32"/>
  </objectgroup>
 </map>

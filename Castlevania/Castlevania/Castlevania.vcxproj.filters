@@ -22,9 +22,6 @@
     <Filter Include="ObjectsManagement\Player">
       <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement\Npcs">
-      <UniqueIdentifier>{a75e11b1-51ac-4bbb-aa31-918cc911d2dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ObjectsManagement\StaticObjects">
       <UniqueIdentifier>{6e6c3d27-0bd8-4900-b5d7-0413a2acac00}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,12 @@
     </Filter>
     <Filter Include="ObjectsManagement\Player\SubWeapons">
       <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\Enemy">
+      <UniqueIdentifier>{a75e11b1-51ac-4bbb-aa31-918cc911d2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\StaticObjects\Hidden">
+      <UniqueIdentifier>{b570a370-9a47-4a1a-9f11-b12cc236d0c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +108,6 @@
     <ClInclude Include="Simon.h">
       <Filter>ObjectsManagement\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Torch.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
@@ -120,12 +120,6 @@
     <ClInclude Include="TileSet.h">
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
-    <ClInclude Include="EntryObject.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="BoundMap.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
@@ -133,13 +127,13 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Ghoul.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Zombie.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="BlockingQueue.h">
       <Filter>Utilities</Filter>
@@ -153,18 +147,6 @@
     <ClInclude Include="Flame.h">
       <Filter>Effects</Filter>
     </ClInclude>
-    <ClInclude Include="NextScene.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Entry.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="BBoxObjects.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MoneyBagTrigger.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClInclude>
     <ClInclude Include="MoneyBag.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
@@ -172,16 +154,13 @@
       <Filter>ObjectsManagement\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Panther.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="VampieBat.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="HanleSpawnEnemy.h">
-      <Filter>ObjectsManagement\Npcs</Filter>
-    </ClInclude>
-    <ClInclude Include="StairTrigger.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="SceneManagement.h">
       <Filter>Scenes</Filter>
@@ -191,6 +170,33 @@
     </ClInclude>
     <ClInclude Include="Candle.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BBoxObjects.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundMap.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="Entry.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="EntryObject.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyBagTrigger.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="NextScene.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnZone.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
+    <ClInclude Include="StairTrigger.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +230,6 @@
     <ClCompile Include="Simon.cpp">
       <Filter>ObjectsManagement\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
     <ClCompile Include="define.h">
       <Filter>Utilities</Filter>
     </ClCompile>
@@ -242,12 +245,6 @@
     <ClCompile Include="TileSet.cpp">
       <Filter>Utilities\MapReader</Filter>
     </ClCompile>
-    <ClCompile Include="EntryObject.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BoundMap.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
@@ -258,13 +255,13 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Ghoul.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Zombie.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="MorningStar.cpp">
       <Filter>ObjectsManagement\Items</Filter>
@@ -275,41 +272,53 @@
     <ClCompile Include="Flame.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
-    <ClCompile Include="NextScene.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Entry.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BBoxObjects.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MoneyBagTrigger.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
-    </ClCompile>
     <ClCompile Include="MoneyBag.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
     <ClCompile Include="Panther.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Whip.cpp">
       <Filter>ObjectsManagement\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="VampieBat.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="HanleSpawnEnemy.cpp">
-      <Filter>ObjectsManagement\Npcs</Filter>
-    </ClCompile>
-    <ClCompile Include="StairTrigger.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ObjectProperty.cpp">
       <Filter>Utilities\MapReader</Filter>
     </ClCompile>
     <ClCompile Include="Candle.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BBoxObjects.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundMap.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="Entry.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="EntryObject.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyBagTrigger.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="NextScene.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="StairTrigger.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnZone.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

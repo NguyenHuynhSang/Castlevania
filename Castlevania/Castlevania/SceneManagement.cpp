@@ -15,13 +15,15 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_CANDLE, L"Data\\GameObject\\Ground\\Candle.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
-
+	
+	
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -69,14 +71,14 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texCandle = textures->Get(ID_TEX_CANDLE);
+	resource->LoadSprites("Data\\GameObject\\Ground\\Candle_sprite.xml", texCandle);
+	resource->LoadAnimations("Data\\GameObject\\Ground\\Candle_ani.xml", animations);
+
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
 
-	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
-	sprites->Add("30001", 5, 14, 21, 29, texEnemy);
-	sprites->Add("30002", 25, 14, 41, 29, texEnemy);
-	sprites->Add("30003", 45, 21, 61, 29, texEnemy); // die sprite
 
 
 
@@ -375,21 +377,20 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(bound);
 		}
 
-		auto zombieObject = cmap->GetObjects().find(ID_TILE_OBJECT_ZOMBIE);
-		for (const auto& child : zombieObject->second) {
-			zombie = new Zombie();
-			zombie->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
-			zombie->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			objects.push_back(zombie);
+		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNONE);
+		for (const auto& child : spawnObject->second) {
+			spawnZone = new SpawnZone();
+			spawnZone->SetSize(child->GetWidth(), child->GetHeight());
+			spawnZone->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(spawnZone);
 		}
 
 		auto pantherObject = cmap->GetObjects().find(ID_TILE_OBJECT_PANTHER);
 		for (const auto& child : pantherObject->second) {
-			bat = new VampieBat();
+			panther = new Panther();
 			//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
-			bat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			bat->SetOy();
-			objects.push_back(bat);
+			panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			objects.push_back(panther);
 		}
 
 
@@ -400,6 +401,14 @@ void SceneManagement::LoadObjects(int currentscene)
 			stair->SetSize(child->GetWidth(), child->GetHeight());
 			stair->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(stair);
+		}
+
+
+		auto candleObject = cmap->GetObjects().find(ID_TILE_OBJECT_CANDLE);
+		for (const auto& child : candleObject->second) {
+			candle = new Candle();
+			candle->SetPosition(child->GetX(), child->GetY()- child->GetHeight());
+			objects.push_back(candle);
 		}
 
 		break;

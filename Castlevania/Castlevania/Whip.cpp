@@ -1,9 +1,9 @@
 ﻿#include "Whip.h"
 #include"debug.h"
 #include"Torch.h"
-#include"Zombie.h"
+#include"Candle.h"
+#include"Enemy.h"
 #include"SceneManagement.h"	
-
 
 
 
@@ -26,15 +26,28 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		if (dynamic_cast<Torch *>(e))
 		{
 			Torch * f = dynamic_cast<Torch*> (e);
-			if (CGameObject::IsColliding(this, f) )
-			{	
+			if (CGameObject::IsColliding(this, f))
+			{
 				if (!f->CheckDestroyed()) {
 					f->SetDestroy();
-				//	DebugOut(L"Set destroy object \n");
+					//	DebugOut(L"Set destroy object \n");
 				}
-			
+
 			}
-		
+
+		}
+		else if (dynamic_cast<Candle *>(e))
+		{
+			Candle * f = dynamic_cast<Candle*> (e);
+			if (CGameObject::IsColliding(this, f))
+			{
+				if (!f->CheckDestroyed()) {
+					f->SetDestroy();
+					//	DebugOut(L"Set destroy object \n");
+				}
+
+			}
+
 		}
 		else if (dynamic_cast<Enemy *>(e)) {
 			Enemy * f = dynamic_cast<Enemy*> (e);
@@ -46,7 +59,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 	}
 }
 
-	
+
 
 
 void Whip::Render()
@@ -60,7 +73,7 @@ void Whip::Render()
 	case WHIP_STATE_CHAIN: {
 		currentAnimation = WHIP_ANI_CHAIN;
 		break;
-		
+
 	}
 	case WHIP_STATE_MORNINGSTAR: {
 		currentAnimation = WHIP_ANI_MORNINGSTAR;
@@ -68,8 +81,8 @@ void Whip::Render()
 	}
 	}
 	animations[currentAnimation]->Render(nx, x, y);
-	if(animations[currentAnimation]->GetCurrentFrame()==animations[currentAnimation]->GetLastFrame())
-	RenderBoundingBox();
+	if (animations[currentAnimation]->GetCurrentFrame() == animations[currentAnimation]->GetLastFrame())
+		RenderBoundingBox();
 	return;
 }
 
@@ -87,7 +100,10 @@ void Whip::GetBoundingBox(float & l, float & t, float & r, float & b)
 		t = y + 12;
 	}
 	else {
-		l = x + 55 - 4;
+		if (state != WHIP_STATE_MORNINGSTAR)
+			l = x + 55 - 4;
+		else
+			l = x + 55 - 30;
 		t = y + 12;
 	}
 

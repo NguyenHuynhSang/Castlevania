@@ -1,6 +1,6 @@
 #include "Zombie.h"
 #include"Debug.h"
-
+#include"Ground.h"
 
 
 
@@ -9,7 +9,7 @@ void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bo
 {
 	left = x;
 	top = y;
-	right = left+ ZOMBIE_BBOX_WIDTH;
+	right = left + ZOMBIE_BBOX_WIDTH;
 	bottom = top + ZOMBIE_BBOX_HEIGHT;
 }
 
@@ -17,8 +17,8 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->UpdateEnemy();
 
-//	if (reSpawn) return;
-	//DebugOut(L"update \n");
+	//	if (reSpawn) return;
+		//DebugOut(L"update \n");
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -29,8 +29,8 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
 		// Simple fall down
-	vy += ZOMBIE_GRAVITY*dt;
-	vx = ZOMBIE_WALKING_SPEED*-nx;
+	vy += ZOMBIE_GRAVITY * dt;
+	vx = ZOMBIE_WALKING_SPEED * -nx;
 
 	if (coEvents.size() == 0)
 	{
@@ -45,8 +45,24 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		// block 
 		x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.2f;
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<Ground *>(e->obj)) {
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+			}
+			else {
+				if(e->nx!=0)
+				x += dx;
+				else if (e->ny < 0) {
+					y += dy;
+				}
+				
+			}
+		}
+
+
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -54,7 +70,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Zombie::Render()
 {
 	if (reSpawn) return;
-	animations[0]->Render(nx,x,y);
+	animations[0]->Render(nx, x, y);
 	RenderBoundingBox();
 }
 

@@ -17,7 +17,6 @@
 #include"define.h"
 #include"Torch.h"
 #include"BoundMap.h"
-#include"Zombie.h"
 #include"BlockingQueue.h"
 #include"Effects.h"
 #include"Item.h"
@@ -26,6 +25,8 @@
 #include"Panther.h"
 #include"VampieBat.h"
 #include"StairTrigger.h"
+#include"SpawnZone.h"
+#include"Candle.h"
 class SceneManagement
 {
 private:
@@ -39,10 +40,10 @@ private:
 	Panther *panther;
 	NextScene * nextScene;
 	BoundMap *bound;
-	VampieBat *bat;
-	Zombie* zombie;
 	MoneyBagTrigger* trigger;
 	StairTrigger *stair;
+	Candle * candle;
+	SpawnZone *spawnZone;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;

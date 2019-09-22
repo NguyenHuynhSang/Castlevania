@@ -14,6 +14,38 @@
 #include"Enemy.h"
 #include"StairTrigger.h"
 #include"MorningStar.h"
+#include"SpawnZone.h"
+#include "Candle.h"
+CSimon::CSimon() :CGameObject()
+{
+	level = SIMON_LEVEL_BIG;
+	untouchable = 0;
+	whip = new Whip();
+	this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
+	this->AddAnimation("SIMON_ANI_IDLE");		// idle left big  1
+	this->AddAnimation("SIMON_ANI_IDLE");		// idle right small  2
+	this->AddAnimation("SIMON_ANI_IDLE");		// idle left small 3
+	this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  4
+	this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  5
+	this->AddAnimation("SIMON_ANI_IDLE");		// walk right small  6
+	this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  7
+	this->AddAnimation("SIMON_ANI_IDLE");		// die   8
+	this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
+	this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
+	this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
+	this->AddAnimation("SIMON_ANI_DEFLECT");    //12
+	this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //13
+	this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //14
+	this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //15
+	this->AddAnimation("SIMON_ANI_IDLE_DOWNSTAIR");    //16
+	this->AddAnimation("SIMON_ANI_STEP_DOWNSTAIR");    //17
+	//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
+}
+
+CSimon::~CSimon()
+{
+	delete whip;
+}
 void CSimon::Renderer(int ani)
 {
 	int alpha = 255;
@@ -129,39 +161,62 @@ void CSimon::HandleFirstStepOnStair()
 	}
 }
 
-
-
-
-CSimon::CSimon() :CGameObject()
+void CSimon::HandlePerStepOnStair()
 {
-	level = SIMON_LEVEL_BIG;
-	untouchable = 0;
-	whip = new Whip();
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle left big  1
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle right small  2
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle left small 3
-	this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  4
-	this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  5
-	this->AddAnimation("SIMON_ANI_IDLE");		// walk right small  6
-	this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  7
-	this->AddAnimation("SIMON_ANI_IDLE");		// die   8
-	this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
-	this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
-	this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
-	this->AddAnimation("SIMON_ANI_DEFLECT");    //12
-	this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //13
-	this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //14
-	this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //15
-	this->AddAnimation("SIMON_ANI_IDLE_DOWNSTAIR");    //16
-	this->AddAnimation("SIMON_ANI_STEP_DOWNSTAIR");    //17
-	//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
+	if (this->state == SIMON_STATE_UPSTAIR_RIGHT) {
+		DebugOut(L"Up right \n ");
+		if (this->x - LastStepOnStairPos.x > SIMON_ONSTAIR_DISTANCE_X) {
+			if (LastStepOnStairPos.y - this->y > SIMON_ONSTAIR_DISTANCE_Y) {
+				this->y = LastStepOnStairPos.y - SIMON_ONSTAIR_DISTANCE_Y;
+				this->x = LastStepOnStairPos.x + SIMON_ONSTAIR_DISTANCE_X;
+				SetState(SIMON_STATE_UPSTAIR_IDLE);
+				this->isOnStair = true;
+				DebugOut(L"Up right \n ");
+			}
+
+		}
+	}
+	else if (this->state == SIMON_STATE_UPSTAIR_LEFT) {
+		if (this->x - LastStepOnStairPos.x < SIMON_ONSTAIR_DISTANCE_X) {
+			if (LastStepOnStairPos.y - this->y > SIMON_ONSTAIR_DISTANCE_Y) {
+				this->y = LastStepOnStairPos.y - SIMON_ONSTAIR_DISTANCE_Y;
+				this->x = LastStepOnStairPos.x - SIMON_ONSTAIR_DISTANCE_X;
+				SetState(SIMON_STATE_UPSTAIR_IDLE);
+				this->isOnStair = true;
+				//	DebugOut(L" x=%f y=%f \n", this->x, this->y);
+			}
+
+		}
+	}
+	else if (this->state == SIMON_STATE_DOWNSTAIR_LEFT)
+	{
+		if (LastStepOnStairPos.x - this->x > SIMON_ONSTAIR_DISTANCE_X) {
+			if (LastStepOnStairPos.y - this->y < SIMON_ONSTAIR_DISTANCE_Y) {
+				this->y = LastStepOnStairPos.y + SIMON_ONSTAIR_DISTANCE_Y;
+				this->x = LastStepOnStairPos.x - SIMON_ONSTAIR_DISTANCE_X;
+				SetState(SIMON_STATE_DOWNSTAIR_IDLE);
+				this->isOnStair = true;
+				DebugOut(L" DOWN left x=%f y=%f \n", this->x, this->y);
+			}
+
+		}
+	}
+	else if (this->state == SIMON_STATE_DOWNSTAIR_RIGHT)
+	{
+		if (this->x - LastStepOnStairPos.x > SIMON_ONSTAIR_DISTANCE_X) {
+			if (LastStepOnStairPos.y - this->y < SIMON_ONSTAIR_DISTANCE_Y) {
+				this->y = LastStepOnStairPos.y + SIMON_ONSTAIR_DISTANCE_Y;
+				this->x = LastStepOnStairPos.x + SIMON_ONSTAIR_DISTANCE_X;
+				SetState(SIMON_STATE_DOWNSTAIR_IDLE);
+				this->isOnStair = true;
+				DebugOut(L" DOWN Right x=%f y=%f \n", this->x, this->y);
+			}
+
+		}
+	}
 }
 
-CSimon::~CSimon()
-{
-	delete whip;
-}
+
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -190,57 +245,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-	if (this->state == SIMON_STATE_UPSTAIR_RIGHT) {
-		DebugOut(L"Up right \n ");
-		if (this->x - LastStepOnStairPos.x > SIMON_ONSTAIR_DISTANCE_X) {
-			if (LastStepOnStairPos.y - this->y > SIMON_ONSTAIR_DISTANCE_Y) {
-				this->y = LastStepOnStairPos.y - SIMON_ONSTAIR_DISTANCE_Y;
-				this->x = LastStepOnStairPos.x + SIMON_ONSTAIR_DISTANCE_X;
-				SetState(SIMON_STATE_UPSTAIR_IDLE);
-				this->isOnStair = true;
-				DebugOut(L"Up right \n ");
-			}
-
-		}
-	}
-	else if (this->state == SIMON_STATE_UPSTAIR_LEFT) {
-		if (this->x - LastStepOnStairPos.x < SIMON_ONSTAIR_DISTANCE_X) {
-			if (LastStepOnStairPos.y - this->y > SIMON_ONSTAIR_DISTANCE_Y) {
-				this->y = LastStepOnStairPos.y - SIMON_ONSTAIR_DISTANCE_Y;
-				this->x = LastStepOnStairPos.x - SIMON_ONSTAIR_DISTANCE_X;
-				SetState(SIMON_STATE_UPSTAIR_IDLE);
-				this->isOnStair = true;
-			//	DebugOut(L" x=%f y=%f \n", this->x, this->y);
-			}
-
-		}
-	}
-	else if (this->state == SIMON_STATE_DOWNSTAIR_LEFT)
-	{
-		if (LastStepOnStairPos.x -this->x> SIMON_ONSTAIR_DISTANCE_X) {
-			if (LastStepOnStairPos.y - this->y < SIMON_ONSTAIR_DISTANCE_Y) {
-				this->y = LastStepOnStairPos.y + SIMON_ONSTAIR_DISTANCE_Y;
-				this->x = LastStepOnStairPos.x - SIMON_ONSTAIR_DISTANCE_X;
-				SetState(SIMON_STATE_DOWNSTAIR_IDLE);
-				this->isOnStair = true;
-				DebugOut(L" DOWN left x=%f y=%f \n", this->x, this->y);
-			}
-
-		}
-	}
-	else if (this->state == SIMON_STATE_DOWNSTAIR_RIGHT) 
-	{
-		if (this->x-LastStepOnStairPos.x  > SIMON_ONSTAIR_DISTANCE_X) {
-			if (LastStepOnStairPos.y - this->y < SIMON_ONSTAIR_DISTANCE_Y) {
-				this->y = LastStepOnStairPos.y + SIMON_ONSTAIR_DISTANCE_Y;
-				this->x = LastStepOnStairPos.x + SIMON_ONSTAIR_DISTANCE_X;
-				SetState(SIMON_STATE_DOWNSTAIR_IDLE);
-				this->isOnStair = true;
-				DebugOut(L" DOWN Right x=%f y=%f \n", this->x, this->y);
-			}
-
-		}
-	}
+	this->HandlePerStepOnStair();
 	// Simple fall down
 	if (!this->startOnStair &&state != SIMON_STATE_UPSTAIR_IDLE && state != SIMON_STATE_DOWNSTAIR_IDLE) {
 
@@ -267,7 +272,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 	// Bỏ những object không cần check va chạm với simon
-	for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
+	/*for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
 
 		if (dynamic_cast<Torch *>((*it)))
 		{
@@ -277,7 +282,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			++it;
 		}
 	}
-
+*/
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -360,6 +365,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 
 
+			}
+			else if (dynamic_cast<Torch *>(e->obj)) {
+				if (e->nx != 0)	
+					x += dx;
+				else if (e->ny != 0)
+					y += dy;
+			}
+			else if (dynamic_cast<Candle *>(e->obj)) {
+				if (e->nx != 0)
+					x += dx;
+				else if (e->ny != 0)
+					y += dy;
+			}
+			else if (dynamic_cast<SpawnZone *>(e->obj))
+			{
+				if (e->nx != 0)
+					x += dx;
+				else if (e->ny != 0)
+					y += dy;
 			}
 			else if (dynamic_cast<StairTrigger *>(e->obj)) {
 				if (e->nx != 0)
