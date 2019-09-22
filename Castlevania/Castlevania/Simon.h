@@ -143,8 +143,6 @@ public:
 	}
 	void SetAutoWalk(bool flag) {
 		this->isAutoWalk = flag;
-		state = SIMON_STATE_WALKING_RIGHT;
-		
 	}
 	
 	DWORD GetPowerUpTime() {

@@ -57,7 +57,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	{
 
 	case DIK_Q:
-		scene->GoNextScene();
+		scene->JumpToState(GSTATE_01);
+		break;
+	case DIK_W:
+		scene->JumpToState(GSTATE_02);
 		break;
 	case DIK_H:
 		scene->GetSimon()->SetAutoWalk(true);
@@ -103,15 +106,15 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE *states)
 {
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DIE) return;
-
+	if (scene->GetSimon()->CheckAutoWalk()) {
+		return;
+	}
 	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
 	{
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
 		scene->GetSimon()->ResetPowerUpTime();
 	}
-	if (scene->GetSimon()->CheckAutoWalk()) {
-		return;
-	}
+
 
 	if (scene->GetSimon()->GetPowerUpTime() != 0)
 	{

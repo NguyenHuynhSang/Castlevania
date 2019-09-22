@@ -22,8 +22,8 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
-	
-	
+
+
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -83,28 +83,6 @@ void SceneManagement::LoadResource()
 
 
 
-
-	LPANIMATION ani;
-
-
-
-
-
-	ani = new CAnimation(100);		// brick
-	ani->Add("20001");
-	animations->Add("601", ani);
-
-	ani = new CAnimation(300);		// Goomba walk
-	ani->Add("30001");
-	ani->Add("30002");
-	animations->Add("701", ani);
-
-	ani = new CAnimation(100);		// Goomba dead
-	ani->Add("30003");
-	animations->Add("702", ani);
-
-
-
 	/*for (const auto& entity : cmap->GetObjects()) {
 		DebugOut(L" ===============ID =%d \n", entity.first);
 		for (const auto& child : entity.second) {
@@ -142,11 +120,30 @@ void SceneManagement::Update(DWORD dt)
 		this->isNextScene = false;
 		return;
 	}
+
+	// Update camera to follow mario
+	float cx, cy;
+	simon->GetPosition(cx, cy);
+
+	cx -= SCREEN_WIDTH / 2;
+	cy -= SCREEN_HEIGHT / 2;
+
+
 	//clean object
 	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
 
 		if ((*it)->isDestroyed) {
+			delete (*it);
 			it = objects.erase(it);
+
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = enemies.erase(it);
 
 		}
 		else ++it;
@@ -155,6 +152,7 @@ void SceneManagement::Update(DWORD dt)
 	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
 
 		if ((*it)->isDestroyed) {
+			delete (*it);
 			it = effects.erase(it);
 		}
 		else ++it;
@@ -163,16 +161,33 @@ void SceneManagement::Update(DWORD dt)
 	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
 
 		if ((*it)->isDestroyed) {
+			delete (*it);
 			it = items.erase(it);
 		}
 		else ++it;
 	}
 
+
 	vector<LPGAMEOBJECT> coObjects;
 	for (std::size_t i = 1; i < objects.size(); i++)
 	{
+		if (dynamic_cast<Ground *>(objects[i]))
+		{
+			coObjects.push_back(objects[i]);
+			continue;
+		}
+		else if (objects[i]->x > cx && objects[i]->x < cx+SCREEN_WIDTH)
+		{
+			coObjects.push_back(objects[i]);
+		}
 
-		coObjects.push_back(objects[i]);
+	}
+	for (std::size_t i = 0; i < enemies.size(); i++)
+	{
+		if (enemies[i]->x > cx && enemies[i]->x < cx + SCREEN_WIDTH)
+		{
+			coObjects.push_back(enemies[i]);
+		}
 	}
 	for (std::size_t i = 0; i < items.size(); i++)  //item
 	{
@@ -183,6 +198,15 @@ void SceneManagement::Update(DWORD dt)
 	for (std::size_t i = 0; i < objects.size(); i++) //object
 	{
 		objects[i]->Update(dt, &coObjects);
+	}
+	//update enemies
+	for (std::size_t i = 0; i < enemies.size(); i++) //object
+	{
+		if (enemies[i]->x<0 || enemies[i]->x>cmap->GetMapWidth() || enemies[i]->y > SCREEN_HEIGHT)
+		{
+			enemies[i]->SetDestroy();
+		}
+		enemies[i]->Update(dt, &coObjects);
 	}
 
 	//update efftects
@@ -197,12 +221,7 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 
-	// Update camera to follow mario
-	float cx, cy;
-	simon->GetPosition(cx, cy);
-
-	cx -= SCREEN_WIDTH / 2;
-	cy -= SCREEN_HEIGHT / 2;
+	
 
 	if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
 		CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
@@ -211,10 +230,25 @@ void SceneManagement::Update(DWORD dt)
 }
 void SceneManagement::Render()
 {
+	float cx, cy;
+	game->GetCamera(cx, cy);
 	if (this->isNextScene) return;
 	cmap->Render();
 	for (std::size_t i = 1; i < objects.size(); i++)
-		objects[i]->Render();
+	{
+		if (objects[i]->x > cx&&objects[i]->x < cx + SCREEN_WIDTH)
+		{
+			objects[i]->Render();
+		}
+	}
+
+	for (std::size_t i = 1; i < enemies.size(); i++) {
+		if (enemies[i]->x > cx&&enemies[i]->x < cx + SCREEN_WIDTH)
+		{
+			enemies[i]->Render();
+		}
+	}
+
 	for (std::size_t i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
 	for (std::size_t i = 0; i < this->effects.size(); i++)
@@ -233,20 +267,20 @@ void SceneManagement::LoadScene()
 	cmap->GetObjects().clear();
 	switch (this->currentScene)
 	{
-	case STATE_01:
+	case GSTATE_01:
 
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
-		LoadObjects(STATE_01);
+		LoadObjects(GSTATE_01);
 		break;
-	case STATE_02:
+	case GSTATE_02:
 
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
-		LoadObjects(STATE_02);
+		LoadObjects(GSTATE_02);
 		break;
-	case STATE_03:
+	case GSTATE_03:
 		break;
 
 	}
@@ -255,25 +289,33 @@ void SceneManagement::LoadScene()
 void SceneManagement::GoNextScene()
 {
 	this->currentScene++;
-	if (this->currentScene > STATE_02) currentScene = STATE_02;
+	if (this->currentScene > GSTATE_02) currentScene = GSTATE_02;
 
 	this->isNextScene = true;
 
 
 }
 
+void SceneManagement::JumpToState(int state)
+{
+	this->currentScene = state;
+	this->isNextScene = true;
+}
+
 void SceneManagement::LoadObjects(int currentscene)
 {
 	for (UINT i = 1; i < objects.size(); i++) delete objects[i]; // mặc định object[0] là Simon 
+	for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
 	objects.clear();
+	enemies.clear();
 	items.clear();
 	effects.clear();
 	simon->ResetState();
 	switch (this->currentScene)
 	{
-	case STATE_01:
+	case GSTATE_01:
 	{
 
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
@@ -347,7 +389,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		break;
 	}
 
-	case STATE_02:
+	case GSTATE_02:
 	{
 
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
@@ -379,7 +421,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNONE);
 		for (const auto& child : spawnObject->second) {
-			spawnZone = new SpawnZone();
+			spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 			spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 			spawnZone->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(spawnZone);
@@ -407,14 +449,14 @@ void SceneManagement::LoadObjects(int currentscene)
 		auto candleObject = cmap->GetObjects().find(ID_TILE_OBJECT_CANDLE);
 		for (const auto& child : candleObject->second) {
 			candle = new Candle();
-			candle->SetPosition(child->GetX(), child->GetY()- child->GetHeight());
+			candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			objects.push_back(candle);
 		}
 
 		break;
 	}
 
-	case STATE_03:
+	case GSTATE_03:
 		break;
 
 	}
@@ -425,7 +467,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = STATE_01;
+	this->currentScene = GSTATE_01;
 
 	cmap = CTileMap::GetInstance();
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="142">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="144">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2152,18 +2152,18 @@
   <object id="122" name="Simon" type="Simon" gid="112" x="80" y="319" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="SpawnZone">
-  <object id="116" name="SpawnZone" x="490.667" y="222" width="386.667" height="95.6667">
+  <object id="116" name="SpawnZone" x="261.167" y="253" width="162" height="64">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="respawntime" type="int" value="3000"/>
+    <property name="respawntime" type="int" value="8000"/>
    </properties>
   </object>
-  <object id="117" name="SpawnZone" x="2668.67" y="238" width="386.667" height="81.333">
+  <object id="143" name="SpawnZone" x="2879" y="253.5" width="162" height="64">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="respawntime" type="int" value="3000"/>
+    <property name="respawntime" type="int" value="8000"/>
    </properties>
   </object>
  </objectgroup>
@@ -2171,7 +2171,7 @@
   <object id="14" x="3012" y="106" width="45" height="22"/>
  </objectgroup>
  <objectgroup id="8" name="panther">
-  <object id="48" gid="183" x="1943.83" y="191.5" width="64" height="32"/>
+  <object id="48" gid="183" x="1958.83" y="190" width="64" height="32"/>
   <object id="49" gid="183" x="1382.17" y="191.833" width="64" height="32"/>
   <object id="50" gid="183" x="1738.83" y="127.5" width="64" height="32"/>
  </objectgroup>

@@ -48,6 +48,7 @@ private:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
 	vector<LPGAMEOBJECT> effects;
+	vector<LPGAMEOBJECT> enemies;
 	CTileMap* cmap;
 	static SceneManagement * __instance;
 	bool isNextScene;
@@ -71,11 +72,15 @@ public:
 	}
 	void LoadScene();
 	void GoNextScene();
+	void JumpToState(int state);
 	bool CheckNextScene() {
 		return this->isNextScene;
 	}
 	void SpawnItem(Item* item) {
 		this->items.push_back(item);
+	}
+	void SpawnEnemy(LPGAMEOBJECT enemy) {
+		this->enemies.push_back(enemy);
 	}
 	void SpawnEffect(Effects* eff) {
 		this->effects.push_back(eff);

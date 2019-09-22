@@ -2,6 +2,10 @@
 
 
 
+void HanleSpawnEnemy::StartSpawnCounter()
+{
+}
+
 HanleSpawnEnemy::HanleSpawnEnemy()
 {
 }

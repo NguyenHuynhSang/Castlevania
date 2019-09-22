@@ -65,9 +65,9 @@
 
 
 const enum GameState {
-	STATE_01,
-	STATE_02,
-	STATE_03
+	GSTATE_01,
+	GSTATE_02,
+	GSTATE_03
 };
 
 const enum ItemID {
@@ -81,5 +81,11 @@ const enum StairDir {
 	DIR_UPLEFT,
 	DIR_DOWNRIGHT,
 	DIR_DOWNLEFT
+};
+
+const enum EnemyDef {
+	EDZOMBIE,
+	EDPANTHER,
+	EDBAT
 };
 #endif

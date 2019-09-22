@@ -135,7 +135,7 @@ void CSimon::HandleFirstStepOnStair()
 			this->SetState(SIMON_STATE_DOWNSTAIR_LEFT);
 		}
 	}
-	else if (stepOnStairDirection == DIR_DOWNRIGHT) 
+	else if (stepOnStairDirection == DIR_DOWNRIGHT)
 	{
 		if (stairPos.x - this->x > SIMON_DOWNSTAIR_RIGHT_OFFET) {
 			this->isAutoWalk = true;
@@ -223,7 +223,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
 	if (this->startOnStair) {
 		DebugOut(L"trigger \n");
 		if (!this->isFirstStepOnStair)
@@ -261,12 +260,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			ResetActack_Time();
 			this->animations[SIMON_ANI_STAND_ATTACK]->ResetLastFrame();
 		}
-		if (state != SIMON_STATE_SIT_ATTACK)
-			whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
-		else
-			whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
-		whip->SetDirection(nx);
 		whip->Update(dt, coObjects);
+		whip->SetDirection(nx);
 	}
 
 
@@ -336,9 +331,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						else {
 							this->isJumping = false;
 							if (this->untouchable_start == 0) {
-
 								if (ny != 0) vy = 0;
-								if (nx != 0) vx = 0;
+								if (!isAutoWalk)
+								{
+									if (nx != 0) vx = 0;
+								}
+								
+							
 							}
 
 							if (this->isActack) { // còn đang đánh thì dừng lại
@@ -351,7 +350,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (nx != 0) vx = 0;
 				}
 				else if (e->nx != 0) {
-					if (this->startOnStair ||this->isOnStair)
+					if (this->startOnStair || this->isOnStair)
 					{
 						x += dx;
 						y += dy;
@@ -367,7 +366,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<Torch *>(e->obj)) {
-				if (e->nx != 0)	
+				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0)
 					y += dy;
@@ -564,6 +563,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
+
+	if (state == SIMON_STATE_STAND_ATTACK) {
+
+		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
+	}
+
+	else if (state == SIMON_STATE_SIT_ATTACK)
+	{
+		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
+	}
+
+
+
+
 }
 
 void CSimon::Render()
@@ -622,28 +635,17 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_DIE)
 		ani = SIMON_ANI_DIE;
 	else
-		if (level == SIMON_LEVEL_BIG)
+	{
+		if (vx == 0)
 		{
-			if (vx == 0)
-			{
-				if (nx > 0) ani = SIMON_ANI_BIG_IDLE_RIGHT;
-				else ani = SIMON_ANI_BIG_IDLE_RIGHT;
-			}
-			else if (vx > 0)
-				ani = SIMON_ANI_BIG_WALKING_RIGHT;
-			else ani = SIMON_ANI_BIG_WALKING_RIGHT;
+			if (nx > 0) ani = SIMON_ANI_BIG_IDLE_RIGHT;
+			else ani = SIMON_ANI_BIG_IDLE_RIGHT;
 		}
-		else if (level == SIMON_LEVEL_SMALL)
-		{
-			if (vx == 0)
-			{
-				if (nx > 0) ani = SIMON_ANI_BIG_IDLE_RIGHT;
-				else ani = SIMON_ANI_BIG_IDLE_RIGHT;
-			}
-			else if (vx > 0)
-				ani = SIMON_ANI_BIG_WALKING_RIGHT;
-			else ani = SIMON_ANI_BIG_WALKING_RIGHT;
-		}
+		else if (vx > 0)
+			ani = SIMON_ANI_BIG_WALKING_RIGHT;
+		else ani = SIMON_ANI_BIG_WALKING_RIGHT;
+	}
+
 
 	Renderer(ani);
 	//DebugOut(L"ani=%d", ani);
@@ -705,7 +707,7 @@ void CSimon::SetState(int state)
 		vx = -SIMON_UPSTAIR_VELOCITY;
 		break;
 	}
-	case SIMON_STATE_DOWNSTAIR_IDLE: 
+	case SIMON_STATE_DOWNSTAIR_IDLE:
 	{
 		DebugOut(L"State SIMON_STATE_DOWNSTAIR_IDLE \n");
 		this->startOnStair = false; // cho phép nhấn tiếp
@@ -725,6 +727,12 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_POWERUP: {
 		vx = 0;
 		vy = 0;
+		if (this->isActack)
+		{
+			this->isActack = false;
+			ResetSpriteFrame();
+			ResetActack_Time();
+		}
 		break;
 	}
 	case SIMON_STATE_STAND_ATTACK:
@@ -734,6 +742,12 @@ void CSimon::SetState(int state)
 	}
 	case SIMON_STATE_DEFLECT:
 	{
+		if (this->isActack)
+		{
+			this->isActack = false;
+			ResetSpriteFrame();
+			ResetActack_Time();
+		}
 		this->vy = -SIMON_DEFLECT_SPEED_X;
 		this->vx = -SIMON_DEFLECT_SPEED_X;
 

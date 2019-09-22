@@ -2,7 +2,7 @@
 #include"Enemy.h"
 #define PANTHER_GRAVITY 0.001f
 #define PANTHER_RUNNING_SPEED 0.3f
-#define PANTHER_JUMPING_SPEED 0.2f
+#define PANTHER_JUMPING_SPEED 0.3f
 
 #define PANTHER_STATE_LIEDOWN 0
 #define PANTHER_STATE_JUMP 100
@@ -17,6 +17,7 @@
 class Panther:public Enemy
 {
 	bool isJumping = false;
+	bool isActive;
 public:
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
@@ -30,7 +31,7 @@ public:
 		AddAnimation("PANTHER_ANI_LIEDOWN");
 		AddAnimation("PANTHER_ANI_JUMP");
 		AddAnimation("PANTHER_ANI_RUNNING");
-	
+		this->isActive = false;
 
 	};
 	~Panther();

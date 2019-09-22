@@ -22,9 +22,15 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 // 
 	// Simple fall down
 	vy += PANTHER_GRAVITY * dt;
-	if (state==PANTHER_STATE_LIEDOWN && this->x < CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2+150) {
-		SetState(PANTHER_STATE_RUNNING);
+	if (!this->isActive)
+	{
+		if (state == PANTHER_STATE_LIEDOWN && this->x < CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2 + 150) {
+			SetState(PANTHER_STATE_RUNNING);
+			this->isActive = true;
+		}
+	
 	}
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -40,7 +46,7 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (state == PANTHER_STATE_RUNNING) {
 			SetState(PANTHER_STATE_JUMP);
 		}
-		
+
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -54,25 +60,38 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
-				if (e->ny == -1 &&state==PANTHER_STATE_JUMP) {
-					this->nx = -this->nx; // đổi hướng
-					this->SetState(PANTHER_STATE_RUNNING);
-					//vx = -PANTHER_RUNNING_SPEED;
+				if (e->ny == -1) {
+					if (state  == PANTHER_STATE_JUMP)
+					{
+						this->nx = -this->nx; // đổi hướng
+						this->SetState(PANTHER_STATE_RUNNING);
+						//vx = -PANTHER_RUNNING_SPEED;
+					}
+					else if (state == PANTHER_STATE_LIEDOWN)
+					{
+						//nếu đang nằm set lại vy để frame tiếp theo
+						//k va chạm với object khác
+						if (ny != 0) vy = 0;
+					}
+
 				}
 				else if (e->nx != 0) {
 					x += dx;
+					if (nx != 0) vx = 0;
+					if (ny != 0) vy = 0;
 				}
-			}else
+			}
+			else
 			{
-				if (e->nx!=0)
+				if (e->nx != 0)
 					x += dx;
-				else if (e->ny!=0)
+				else if (e->ny != 0)
 				{
 					y += dy;
 				}
 			}
 		}
-		
+
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
@@ -103,20 +122,19 @@ void Panther::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case PANTHER_STATE_LIEDOWN: 
-	
+	case PANTHER_STATE_LIEDOWN:
 		vx = 0;
 		vy = 0;
 		break;
 	case PANTHER_STATE_JUMP:
 		vy = -PANTHER_JUMPING_SPEED;
 		break;
-	case PANTHER_STATE_RUNNING: 
+	case PANTHER_STATE_RUNNING:
 		vx = nx > 0 ? -PANTHER_RUNNING_SPEED : PANTHER_RUNNING_SPEED;
 		// truyền vy vào để xét va chạm theo trục y tức là nó vẫn sẽ
 		//trả về va chạm khi đang trên ground
 		//dùng để check k còn trên ground => jump
-		vy = PANTHER_JUMPING_SPEED; 
+		vy = PANTHER_JUMPING_SPEED;
 		break;
 	}
 }
