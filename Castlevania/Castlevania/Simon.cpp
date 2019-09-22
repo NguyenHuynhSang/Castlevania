@@ -105,7 +105,27 @@ void CSimon::HandleFirstStepOnStair()
 	}
 	else if (stepOnStairDirection == DIR_DOWNRIGHT) 
 	{
-
+		if (stairPos.x - this->x > SIMON_DOWNSTAIR_RIGHT_OFFET) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_RIGHT);
+			return;
+		}
+		else if (stairPos.x - this->x < SIMON_DOWNSTAIR_RIGHT_OFFET - 5) {
+			this->isAutoWalk = true;
+			SetState(SIMON_STATE_WALKING_LEFT);
+			return;
+		}
+		else {
+			if (state == SIMON_STATE_WALKING_LEFT) {
+				nx = -nx; // đảo hướng simon
+			}
+			this->isAutoWalk = false;
+			this->isOnStair = true;
+			this->isFirstStepOnStair = true;
+			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
+			DebugOut(L"First Step x=%f y=%f \n", this->LastStepOnStairPos.x, this->LastStepOnStairPos.y);
+			this->SetState(SIMON_STATE_DOWNSTAIR_RIGHT);
+		}
 	}
 }
 
@@ -148,10 +168,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
-	if (this->vy != 0) {
-		DebugOut(L"vy=%f \n",this->vy);
-	}
 
 	if (this->startOnStair) {
 		DebugOut(L"trigger \n");
@@ -207,7 +223,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				this->x = LastStepOnStairPos.x - SIMON_ONSTAIR_DISTANCE_X;
 				SetState(SIMON_STATE_DOWNSTAIR_IDLE);
 				this->isOnStair = true;
-				DebugOut(L" DOWN x=%f y=%f \n", this->x, this->y);
+				DebugOut(L" DOWN left x=%f y=%f \n", this->x, this->y);
+			}
+
+		}
+	}
+	else if (this->state == SIMON_STATE_DOWNSTAIR_RIGHT) 
+	{
+		if (this->x-LastStepOnStairPos.x  > SIMON_ONSTAIR_DISTANCE_X) {
+			if (LastStepOnStairPos.y - this->y < SIMON_ONSTAIR_DISTANCE_Y) {
+				this->y = LastStepOnStairPos.y + SIMON_ONSTAIR_DISTANCE_Y;
+				this->x = LastStepOnStairPos.x + SIMON_ONSTAIR_DISTANCE_X;
+				SetState(SIMON_STATE_DOWNSTAIR_IDLE);
+				this->isOnStair = true;
+				DebugOut(L" DOWN Right x=%f y=%f \n", this->x, this->y);
 			}
 
 		}

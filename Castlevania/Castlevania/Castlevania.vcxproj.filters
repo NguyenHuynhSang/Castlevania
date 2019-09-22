@@ -61,6 +61,9 @@
     <Filter Include="ObjectsManagement\Player\Weapons">
       <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectsManagement\Player\SubWeapons">
+      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

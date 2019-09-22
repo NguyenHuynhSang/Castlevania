@@ -65,11 +65,12 @@
 #define SIMON_ONSTAIR_DISTANCE_X 16 // quãng đường theo trục x mỗi lần lên xuống 1 bậc cầu thang
 #define SIMON_ONSTAIR_DISTANCE_Y 16 // quãng đường theo trục y mỗi lần lên xuống 1 bậc cầu thang
 
+
+// Hiệu số vị trí của stair trigger và vị trí simon khi bắt đầu bước lên
 #define SIMON_UPSTAIR_RIGHT_OFFSET  12
 #define SIMON_UPSTAIR_LEFT_OFFSET 16 // da giam 3px
-
 #define SIMON_DOWNSTAIR_LEFT_OFFSET 10
-
+#define SIMON_DOWNSTAIR_RIGHT_OFFET 18
 
 
 #define SIMON_UNTOUCHABLE_TIME 5000
@@ -108,6 +109,9 @@ public:
 
 	void SetStepOnStairDirection(int dir) {
 		this->stepOnStairDirection = dir;
+	}
+	int CheckStepOnStairDirection() {
+		return this->stepOnStairDirection;
 	}
 	
 	void StartOnStair(bool flag) {

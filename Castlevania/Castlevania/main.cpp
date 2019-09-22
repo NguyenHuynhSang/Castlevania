@@ -133,7 +133,10 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	{
 
 		if (scene->GetSimon()->GetState() == SIMON_STATE_DOWNSTAIR_IDLE) {
-			scene->GetSimon()->SetStepOnStairDirection(DIR_UPRIGHT);
+			if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_DOWNLEFT)
+				scene->GetSimon()->SetStepOnStairDirection(DIR_UPRIGHT);
+			else if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_DOWNRIGHT)
+				scene->GetSimon()->SetStepOnStairDirection(DIR_UPLEFT);
 			scene->GetSimon()->SetStartStepOnStair();
 			DebugOut(L"Simon up to down \n");
 			return;
@@ -153,7 +156,11 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	else if (game->IsKeyDown(DIK_DOWN))
 	{
 		if (scene->GetSimon()->GetState() == SIMON_STATE_UPSTAIR_IDLE) {
-			scene->GetSimon()->SetStepOnStairDirection(DIR_DOWNLEFT);
+			if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPRIGHT)
+				scene->GetSimon()->SetStepOnStairDirection(DIR_DOWNLEFT);
+			else if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPLEFT) {
+				scene->GetSimon()->SetStepOnStairDirection(DIR_DOWNRIGHT);
+			}
 			scene->GetSimon()->SetStartStepOnStair();
 			DebugOut(L"Simon up to down \n");
 			return;
