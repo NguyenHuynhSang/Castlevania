@@ -389,7 +389,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					y += dy;
 			}
 			else if (dynamic_cast<StairTrigger *>(e->obj)) {
-				if (e->nx != 0) 
+				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0)
 					y += dy;
@@ -397,8 +397,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
-
-					this->SetState(SIMON_STATE_DEFLECT);
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_DEFLECT);
+					}			
 					if (untouchable != 1)
 						StartUntouchable();
 
@@ -541,11 +543,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				if (!this->isColliceWithStair) {
 					if (this->isOnStair) {
+
 						SetState(SIMON_STATE_IDLE);
 						this->isOnStair = false;
 						this->startOnStair = false;
 						this->isFirstStepOnStair = false;
 						return;
+
+
 					}
 					this->isColliceWithStair = true;
 					this->stepOnStairDirection = f->GetDirection();

@@ -20,6 +20,13 @@ public:
 		this->width = w;
 		this->height = h;
 	}
+
+	float GetHeight() {
+		return this->height;
+	}
+	float GetWidth() {
+		return this->width;
+	}
 	BBoxObject() {
 		width = height = 0;
 	};
