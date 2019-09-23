@@ -27,7 +27,7 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		DebugOut(L"Spawn \n");
+		//DebugOut(L"Spawn \n");
 		switch (this->enemyDef)
 		{
 		case EDZOMBIE:

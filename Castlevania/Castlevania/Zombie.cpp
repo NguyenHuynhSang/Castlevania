@@ -51,6 +51,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<Ground *>(e->obj)) {
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
+				
 			}
 			else {
 				if(e->nx!=0)
@@ -71,7 +72,7 @@ void Zombie::Render()
 {
 	if (reSpawn) return;
 	animations[0]->Render(nx, x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 Zombie::~Zombie()

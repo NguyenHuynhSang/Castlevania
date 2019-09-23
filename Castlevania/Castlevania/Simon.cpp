@@ -58,6 +58,9 @@ void CSimon::Renderer(int ani)
 
 void CSimon::HandleFirstStepOnStair()
 {
+	//reset vx vy remain from last state
+	this->vx = 0;
+	this->vy = 0;
 	DebugOut(L"HandleFirstStepOnStair \n");
 	//up right first step
 	if (stepOnStairDirection == -1) return;
@@ -308,8 +311,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		// block 
-		x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.2f;
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		y += min_ty * dy + ny * 0.4f;
 
 		//if (nx != 0) vx = 0;
 		//if (ny != 0) vy = 0;
@@ -323,6 +326,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					if (this->isOnStair) {
 						x += dx;
 						y += dy;
+
 					}
 					else
 						if (this->state == SIMON_STATE_DEFLECT && this->vy > 0) {
@@ -336,8 +340,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 								{
 									if (nx != 0) vx = 0;
 								}
-								
-							
+
+
 							}
 
 							if (this->isActack) { // còn đang đánh thì dừng lại
@@ -357,7 +361,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					else {
 
-						if (nx != 0) vx = 0;
+						//if (nx != 0) vx = 0;
 						if (ny != 0) vy = 0;
 					}
 
@@ -385,7 +389,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					y += dy;
 			}
 			else if (dynamic_cast<StairTrigger *>(e->obj)) {
-				if (e->nx != 0)
+				if (e->nx != 0) 
 					x += dx;
 				else if (e->ny != 0)
 					y += dy;
