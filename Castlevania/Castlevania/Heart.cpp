@@ -29,6 +29,11 @@ void Heart::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (this->isDestroyed)
+	{
+		return;
+	}
+	this->UpdateItem();
 	if (this->setDestroy ) {
 		this->TurnOffCollision();
 		this->isDestroyed = true;
@@ -67,11 +72,13 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (ny != 0) vy = 0;
 		
 	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 
 
-Heart::Heart()
+Heart::Heart() :Item()
 {
 	AddAnimation("HEART_ANI_BIG");
 	AddAnimation("HEART_ANI_SMALL");

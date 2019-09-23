@@ -17,6 +17,11 @@ void MorningStar::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MorningStar::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (this->isDestroyed)
+	{
+		return;
+	}
+	this->UpdateItem();
 	if (this->setDestroy) {
 		this->TurnOffCollision();
 		this->isDestroyed = true;
@@ -55,9 +60,11 @@ void MorningStar::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (ny != 0) vy = 0;
 
 	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-MorningStar::MorningStar()
+MorningStar::MorningStar() :Item()
 {
 	AddAnimation("MORNING_STAR_ANI");
 }

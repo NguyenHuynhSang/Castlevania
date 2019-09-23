@@ -19,6 +19,10 @@ void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (this->isDestroyed)
+	{
+		return;
+	}
 	if (this->setDestroy) {
 		this->TurnOffCollision();
 		Effects *effct = new Flame;

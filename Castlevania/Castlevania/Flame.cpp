@@ -16,7 +16,7 @@ void Flame::GetBoundingBox(float & l, float & t, float & r, float & b)
 void Flame::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	if (this->isDestroyed) return;
-	UpdateEffect();
+		UpdateEffect();
 	if (this->setDestroy) {
 		SpawnItem();
 		this->isDestroyed = true;

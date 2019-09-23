@@ -18,7 +18,6 @@ public:
 	static ResourceManagement * GetInstance();
 	void LoadSprites(const std::string& filePath, LPDIRECT3DTEXTURE9 tex);
 	void LoadAnimations(const std::string& filePath, CAnimations* animations);
-	void oldWayLoadResource();
 	ResourceManagement();
 	~ResourceManagement();
 };

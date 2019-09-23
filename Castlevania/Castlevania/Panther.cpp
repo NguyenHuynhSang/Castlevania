@@ -16,12 +16,7 @@ void Panther::GetBoundingBox(float & l, float & t, float & r, float & b)
 void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->UpdateEnemy();
-	//DebugOut(L"this->nx=%d \n", this->nx);
-	CGameObject::Update(dt);
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-// 
-	// Simple fall down
-	vy += PANTHER_GRAVITY * dt;
+
 	if (!this->isActive)
 	{
 		if (state == PANTHER_STATE_LIEDOWN && this->x < CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2 + 150) {
@@ -30,7 +25,12 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	
 	}
-	
+	//DebugOut(L"this->nx=%d \n", this->nx);
+	CGameObject::Update(dt);
+	// TO-DO: make sure Goomba can interact with the world and to each of them too!
+// 
+	// Simple fall down
+	vy += PANTHER_GRAVITY * dt;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -75,10 +75,11 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 
 				}
-				else if (e->nx != 0) {
+				else {
 					x += dx;
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
+					y += dy;
+					//if (nx != 0) vx = 0;
+				//	if (ny != 0) vy = 0;
 				}
 			}
 			else
