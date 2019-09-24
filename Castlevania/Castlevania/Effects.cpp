@@ -3,14 +3,21 @@
 #include"Heart.h"
 #include"MorningStar.h"
 #include"SceneManagement.h"
+#include"LargeHeart.h"
 void Effects::SpawnItem()
 {
 	SceneManagement *scene = SceneManagement::GetInstance();
 	Item * item;
 	switch (this->itemDef)
 	{
+	case IDHeart: {
+		item = new Heart(this->x);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+		break;
+	}
 	case IDLargeHeart: {
-		item = new Heart();
+		item = new LargeHeart();
 		item->SetPositionInWorld(x, y);
 		scene->SpawnItem(item);
 		break;

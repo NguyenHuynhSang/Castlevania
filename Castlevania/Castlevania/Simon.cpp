@@ -393,8 +393,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<StairTrigger *>(e->obj)) {
 				if (e->nx != 0)
 					x += dx;
-				else if (e->ny != 0)
+				else if (e->ny != 0) {
+					if (e->ny<0)
+					{
+						this->vy = 0.1f;
+						this->dy = this->vy*dt;
+					}	
 					y += dy;
+				}
+				
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {

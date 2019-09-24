@@ -2206,7 +2206,7 @@
     <property name="dir" type="int" value="1"/>
    </properties>
   </object>
-  <object id="68" name="StairBottom" type="Stair" x="2576" y="308" width="32" height="9.6667">
+  <object id="68" name="StairBottom" type="Stair" x="2577.33" y="310.667" width="32" height="10">
    <properties>
     <property name="dir" type="int" value="0"/>
    </properties>

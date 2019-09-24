@@ -12,6 +12,10 @@ void VampieBat::GetBoundingBox(float & left, float & top, float & right, float &
 
 void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (this->isDestroyed)
+	{
+		return;
+	}
 	if (this->x > CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2) {
 		return;
 	}

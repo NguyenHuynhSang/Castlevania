@@ -1,17 +1,10 @@
 ﻿#include "Heart.h"
 #include"Torch.h"
 #include"debug.h"
-
+#include"Ground.h"
 void Heart::Render()
 {
-	if (this->isDestroyed) return;
-	int ani;
-	if (state == ITEM_STATE_HIDING) {
-		return;
-	}
-
-	ani = HEART_ANI_BIG;
-	animations[ani]->Render(0, x, y);
+	animations[0]->Render(0, x, y);
 
 }
 
@@ -29,36 +22,26 @@ void Heart::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isDestroyed)
-	{
-		return;
-	}
+
 	this->UpdateItem();
-	if (this->setDestroy ) {
+	if (this->setDestroy) {
 		this->TurnOffCollision();
 		this->isDestroyed = true;
 		return;
 	}
-
+	
 	CGameObject::Update(dt);
-
-	vy += HEART_GRAVITY * dt;
-
+	this->vy = HEART_MOVING_VY;
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-
+	coEventsResult.clear();
 	coEvents.clear();
-
-	// turn off collision when die 
-
 	CalcPotentialCollisions(coObjects, coEvents);
 
-
-	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		x += dx;
 		y += dy;
+		x = HEART_OX_HEIGHT * sin(y*HEART_MOVING_VX) + ox;
 	}
 	else
 	{
@@ -66,28 +49,43 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		y += min_ty * dy + ny * 0.1f;
+		// block 
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-		
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<Ground *>(e->obj)) {
+				this->isTourchGround = true;
+				x += min_tx * dx + nx * 0.1f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				y += min_ty * dy + ny * 0.1f;
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+			}
+			else {
+				if (!this->isTourchGround)
+				{
+					y += dy;
+					x = HEART_OX_HEIGHT * sin(y*HEART_MOVING_VX) + ox;
+				}
+			
+			}
+		}
 	}
 	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	for (std::size_t i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 
 
 Heart::Heart() :Item()
 {
-	AddAnimation("HEART_ANI_BIG");
 	AddAnimation("HEART_ANI_SMALL");
-	SetState(HEART_BIG);
 }
 
-Heart::Heart(int state)
+Heart::Heart(float ox): Item()
 {
-	SetState(state);
+	AddAnimation("HEART_ANI_SMALL");
+	this->ox = ox;
 }
 
 

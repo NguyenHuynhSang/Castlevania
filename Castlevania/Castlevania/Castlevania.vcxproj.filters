@@ -198,6 +198,9 @@
     <ClInclude Include="StairTrigger.h">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
+    <ClInclude Include="LargeHeart.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -319,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="SpawnZone.cpp">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="LargeHeart.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

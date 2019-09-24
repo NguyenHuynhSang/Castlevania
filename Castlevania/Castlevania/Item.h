@@ -15,7 +15,6 @@ public:
 	virtual void GetSpriteBox(float& _width, float& _height) {
 		
 	};
-
 	void UpdateItem() {
 		if (GetTickCount() - this->lifetime_start > ITEM_LIFE_TIME) {
 			this->SetDestroy();
