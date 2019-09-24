@@ -38,16 +38,19 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
-	if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
-	{
-		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
-		scene->GetSimon()->ResetPowerUpTime();
-	}
+	//if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
+	//{
+	//	scene->GetSimon()->SetState(SIMON_STATE_IDLE);
+	//	scene->GetSimon()->ResetPowerUpTime();
+	//}
 	if (scene->GetSimon()->GetPowerUpTime() != 0)
 	{
 		return;
 	}
-
+	if (scene->GetSimon()->GetActack_Time() != 0) // đang dùng sub weapon
+	{
+		return;
+	}
 
 
 	if (scene->GetSimon()->GetState() == SIMON_STATE_DEFLECT) {
@@ -69,6 +72,15 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		if (!scene->GetSimon()->CheckIsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && !scene->GetSimon()->CheckAttack()) // dùng atack time khỏi phải dùng state attack nhiều lần
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
+	case DIK_C: {
+		if (scene->GetSimon()->GetActack_Time()==0)
+		{
+			scene->GetSimon()->SimonUseSubWeapon();
+			scene->GetSimon()->StartUseSubWeapon();
+			break;
+		}
+		
+	}
 	case DIK_F:
 		DebugOut(L"Press F \n");
 		DebugOut(L"state=%d \n", scene->GetSimon()->GetState());
@@ -126,8 +138,22 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 	if (scene->GetSimon()->CheckAttack()) { // dùng attack time thay cho nhiều state attack
 		return;
-
 	}
+
+	if ((scene->GetSimon()->GetActack_Time() != 0) && GetTickCount() - scene->GetSimon()->GetActack_Time() > SIMON_ATTACK_TIME)
+	{
+		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
+		scene->GetSimon()->StartDelayAttack();
+		scene->GetSimon()->ResetActack_Time();
+		scene->GetSimon()->ResetSpriteFrame();
+		scene->GetSimon()->ResetUseSubWeapon();
+		return;
+	}
+	if (scene->GetSimon()->GetActack_Time()!=0) // đang dùng sub weapon
+	{
+		return;
+	}
+	
 	if (scene->GetSimon()->CheckIsJumping() == true) {
 		return;
 

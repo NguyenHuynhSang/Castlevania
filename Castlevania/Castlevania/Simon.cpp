@@ -2,7 +2,6 @@
 #include "debug.h"
 #include "Simon.h"
 #include "Game.h"
-#include "Ghoul.h"
 #include"Brick.h"
 #include"Ground.h"
 #include"Torch.h"
@@ -16,6 +15,8 @@
 #include"MorningStar.h"
 #include"SpawnZone.h"
 #include "Candle.h"
+#include"Dagger.h"
+#include"SubWeapon.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -219,13 +220,37 @@ void CSimon::HandlePerStepOnStair()
 	}
 }
 
+void CSimon::HandleUseSubWeapon()
+{
+	switch (this->subWeaponDef)
+	{
+	case SWDDAGGER: 
+	{
+		SubWeapon *sw = new Dagger();
+		sw->SetPositionInWorld(this->x, this->y);
+		sw->SetNx(this->nx);
+		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+	}
+	}
+}
+
 
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 
 	// Calculate dx, dy 
+	//DebugOut(L"Simon vy=%f \n", this->vy);
 	CGameObject::Update(dt);
+	if (this->isUseSubWeapon)
+	{
+		if (!this->isSpawnSubWeapon)
+		{
+			HandleUseSubWeapon();
+			this->isSpawnSubWeapon = true;
+		}
+	}
+
 	if (this->startOnStair) {
 		DebugOut(L"trigger \n");
 		if (!this->isFirstStepOnStair)
@@ -311,11 +336,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		// block 
-	
-			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			y += min_ty * dy + ny * 0.4f;
-
 		
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		if (ny<=0) // ny lớn hơn 0 simon overlap với ground trong trường hợp simon va chạm heart theo ny
+			y += min_ty * dy + ny * 0.4f;
+		
+	
+
+
 		//if (nx != 0) vx = 0;
 		//if (ny != 0) vy = 0;
 		//	DebugOut(L"SIMON ny=%f", ny);
@@ -333,20 +361,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					else
 						if (this->state == SIMON_STATE_DEFLECT && this->vy > 0) {
 							this->state = SIMON_STATE_IDLE;
+							DebugOut(L"Reset ground SIMON_STATE_IDLE \n ");
 						}
 						else {
 							this->isJumping = false;
-							if (this->untouchable_start == 0) {
-								if (ny != 0) vy = 0;
-								if (!isAutoWalk)
-								{
-									if (nx != 0) vx = 0;
-								}
 
-
-							}
-
-							if (this->isActack) { // còn đang đánh thì dừng lại
+							if (ny != 0) vy = 0;
+						/*	if (!isAutoWalk)
+							{
+								if (nx != 0) vx = 0;
+							}*/
+							if (this->isActack ||this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
 							}
 						}
@@ -394,22 +419,26 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0) {
-					if (e->ny<0)
+					if (e->ny < 0)
 					{
 						this->vy = 0.1f;
 						this->dy = this->vy*dt;
-					}	
+					}
 					y += dy;
 				}
-				
+
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
+					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_DEFLECT);
-					}			
+						CGameObject::Update(dt); // cap nhat lai dx dy
+						x += dx;
+						y += dy;
+					}
 					if (untouchable != 1)
 						StartUntouchable();
 
@@ -422,50 +451,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 			}
-			//else if (dynamic_cast<Ghoul *>(e->obj)) // if e->obj is Goomba 
-			//{
-			//	Ghoul *ghoul = dynamic_cast<Ghoul *>(e->obj);
-			//	//DebugOut(L"[col] SIMON ->Goomba \n");
-			//	// jump on top >> kill Goomba and deflect a bit 
-			//	if (e->ny < 0)
-			//	{
-			//		if (ghoul->GetState() != GHOUL_STATE_DIE)
-			//		{
-			//			//	goomba->SetState(GOOMBA_STATE_DIE);
-			//			vy = -SIMON_DEFLECT_SPEED_X;
-			//		}
-			//		if (untouchable == 0)
-			//		{
-			//			if (ghoul->GetState() != GHOUL_STATE_DIE)
-			//			{
-			//				if (level > SIMON_LEVEL_SMALL)
-			//				{
-			//					level = SIMON_LEVEL_SMALL;
-			//					StartUntouchable();
-			//				}
-			//				else
-			//					SetState(SIMON_STATE_DIE);
-			//			}
-			//		}
-			//	}
-			//	else if (e->nx != 0)
-			//	{
-
-			//		if (untouchable == 0)
-			//		{
-			//			if (ghoul->GetState() != GHOUL_STATE_DIE)
-			//			{
-			//				if (level > SIMON_LEVEL_SMALL)
-			//				{
-			//					level = SIMON_LEVEL_SMALL;
-			//					StartUntouchable();
-			//				}
-			//				else
-			//					SetState(SIMON_STATE_DIE);
-			//			}
-			//		}
-			//	}
-			//}
 			else if (dynamic_cast<Item *>(e->obj)) {
 				if (dynamic_cast<MorningStar *>(e->obj)) {
 					DebugOut(L"Morning star logic \n");
@@ -476,8 +461,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					StartPowerUp();
 				}
+				else if (dynamic_cast<Dagger *>(e->obj))
+				{
+					this->subWeaponDef = SWDDAGGER;
+				}
 				Item *item = dynamic_cast<Item *>(e->obj);
-				item->SetDestroy();
+				if (!item->isDestroyed)
+				{
+					item->SetDestroy();
+				}
 			}
 			else if (dynamic_cast<Entry *>(e->obj)) {
 				DebugOut(L"Entry \n");
@@ -537,6 +529,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					StartPowerUp();
 				}
+				else if (dynamic_cast<Dagger *>(e))
+				{
+					this->subWeaponDef = SWDDAGGER;
+				}
 				//DebugOut(L"aabb \n");
 				if (!f->CheckDestroyed()) {
 					f->SetDestroy();
@@ -577,6 +573,32 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				//if (!this->isOnStair)
 				//	this->stepOnStairDirection = -1; //reset
 				DebugOut(L"stop collice \n");
+			}
+		}
+		else if (dynamic_cast<Enemy*>(e))
+		{
+			Enemy *f = dynamic_cast<Enemy *>(e);
+			if (CGameObject::IsColliding(this, f))
+			{
+				if (untouchable_start == 0) {
+				
+					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
+					if (!this->isOnStair)
+					{
+						this->SetState(SIMON_STATE_DEFLECT);
+						CGameObject::Update(dt); // cap nhat lai dx dy
+						x += dx;
+						y += dy;
+					}
+					if (untouchable != 1)
+						StartUntouchable();
+
+					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
+
+				}
+				else if (e->nx == 0) {
+					y += dy;
+				}
 			}
 		}
 	}
@@ -634,7 +656,11 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_STAND_ATTACK) {
 
 		ani = SIMON_ANI_STAND_ATTACK;
-		whip->Render();
+		if (!this->isUseSubWeapon)
+		{
+			whip->Render();
+		}
+		
 		Renderer(ani);
 		return;
 	}
@@ -774,8 +800,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_SIT_ATTACK:
 	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
-
-		vx = 0;
+		this->vx = 0;
 		break;
 	case SIMON_STATE_DIE:
 		vy = -SIMON_DIE_DEFLECT_SPEED;
@@ -786,6 +811,7 @@ void CSimon::SetState(int state)
 
 void CSimon::SimonUseSubWeapon()
 {
+	this->state = SIMON_STATE_STAND_ATTACK;
 }
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)

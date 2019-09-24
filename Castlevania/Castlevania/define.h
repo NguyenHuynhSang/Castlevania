@@ -17,12 +17,13 @@
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
-#define ID_TEX_WHIP 31
+#define ID_TEX_WHIP 30
 #define ID_TEX_TORCH 40
 #define ID_TEX_ZOMBIE 50
 #define ID_TEX_PANTHER 60
 #define ID_TEX_BAT 70
 #define ID_TEX_CANDLE 80
+#define ID_TEX_ITEM_DAGGER 90
 #define ID_TEX_ITEM_HEART 500
 #define ID_TEX_ITEM_MORNINGSTAR 501
 #define ID_TEX_ITEM_MONEYBAG 502
@@ -71,9 +72,10 @@ const enum GameState {
 };
 
 const enum ItemID {
-	IDHeart,
-	IDLargeHeart,
-	IDWhip
+	IDHeart=0,
+	IDLargeHeart=1,
+	IDWhip=2,
+	IDDagger=3
 };
 
 const enum StairDir {
@@ -87,5 +89,10 @@ const enum EnemyDef {
 	EDZOMBIE,
 	EDPANTHER,
 	EDBAT
+};
+
+const enum SubWeaponDef {
+	SWDDAGGER,
+	SWDHOLLYWATER,
 };
 #endif

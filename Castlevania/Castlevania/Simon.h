@@ -74,47 +74,67 @@
 
 
 #define SIMON_UNTOUCHABLE_TIME 5000
-
-#define SIMON_ATTACK_TIME 300
+#define SIMON_DELAY_ACCTACK_BYSUBWEBPON_TIME 50
+#define SIMON_ATTACK_TIME 350
 #define SIMON_POWERUP_TIME 1000
 class CSimon : public CGameObject
 {
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
-	DWORD actack_start=0;
-	DWORD upwhip_start = 0;;
+	DWORD attack_start = 0;
+	DWORD upwhip_start = 0;
+	DWORD delay_attack_start = 0;
 	void Renderer(int ani);
 	Whip* whip;
-	bool isJumping=false;
+	bool isJumping = false;
 	bool isAutoWalk = false;
 	bool isActack = false;
-	bool sleepControl = false;
-	int subWeapon;
+	int subWeaponDef;
+	bool isUseSubWeapon = false;
+	bool isSpawnSubWeapon = false;
 	bool isOnStair = false;
 	bool startOnStair = false;
 	bool isColliceWithStair = false;
 	bool isFirstStepOnStair = false;
-	int stepOnStairDirection=-1;
+	int stepOnStairDirection = -1;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 	void HandleFirstStepOnStair();
 	void HandlePerStepOnStair();
-public: 
+public:
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
-			= sleepControl = isActack = isAutoWalk = isJumping = false;
+			= isActack = isAutoWalk = isJumping = isUseSubWeapon = false;
 		this->stepOnStairDirection = -1;
-
+		this->delay_attack_start = 0;
+		this->attack_start = 0;
+		this->untouchable_start = 0;
+		this->untouchable = 0;
 	}
-
+	void StartDelayAttack() {
+		this->delay_attack_start = GetTickCount();
+	}
+	DWORD CheckDelayAttackTime() {
+		return  this->delay_attack_start;
+	}
+	bool CheckIsUseSubWeapon() {
+		return this->isUseSubWeapon;
+	}
+	void ResetDelayAttackTime() {
+		this->delay_attack_start = 0;
+	}
+	void ResetUseSubWeapon() {
+		this->isUseSubWeapon = false;
+		this->isSpawnSubWeapon = false;
+	}
 	void SetStepOnStairDirection(int dir) {
 		this->stepOnStairDirection = dir;
 	}
 	int CheckStepOnStairDirection() {
 		return this->stepOnStairDirection;
 	}
-	
+	void HandleUseSubWeapon();
 	void StartOnStair(bool flag) {
 		this->startOnStair = flag;
 	}
@@ -144,7 +164,7 @@ public:
 	void SetAutoWalk(bool flag) {
 		this->isAutoWalk = flag;
 	}
-	
+
 	DWORD GetPowerUpTime() {
 		return this->upwhip_start;
 	}
@@ -160,29 +180,33 @@ public:
 	CSimon();
 	~CSimon();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
-	virtual void Render();	
+	virtual void Render();
 	void ResetPowerUpTime() {
 		this->upwhip_start = 0;
 	}
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void SimonUseSubWeapon();
-	DWORD GetActack_Time() { return actack_start; }
-	void ResetActack_Time() { actack_start = 0; }
+	DWORD GetActack_Time() { return attack_start; }
+	void ResetActack_Time() { attack_start = 0; }
 	bool CheckAttack() {
 		return this->isActack;
 	}
+	void StartUseSubWeapon() {
+		this->isUseSubWeapon = true;
+		this->attack_start = GetTickCount();
+	}
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartActack() { 
-	this->isActack = true;
+	void StartActack() {
+		this->isActack = true;
 	};
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetSpriteFrame() {
-		this->ResetFrame(SIMON_ANI_STAND_ATTACK);	
+		this->ResetFrame(SIMON_ANI_STAND_ATTACK);
 		whip->ResetAnimationFrame();
 	}
 	virtual void GetSpriteBox(float &width, float &height) {
 		width = SIMON_SPRITE_BOX_WIDTH; height = SIMON_SPRITE_BOX_HEIGHT;
 	}
 
-	};
+};

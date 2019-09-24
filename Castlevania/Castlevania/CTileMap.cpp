@@ -230,4 +230,5 @@ void CTileMap::LoadObjects(const std::string& filePath)
 
 CTileMap::~CTileMap()
 {
+
 }

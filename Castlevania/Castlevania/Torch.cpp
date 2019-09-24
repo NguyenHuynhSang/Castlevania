@@ -8,7 +8,7 @@ void Torch::Render()
 		return;
 	}
 	animations[0]->Render(0, x, y);
-//	RenderBoundingBox();
+	RenderBoundingBox();
 
 }
 

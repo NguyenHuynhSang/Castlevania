@@ -19,6 +19,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_DAGGER, L"Data\\GameObject\\Items\\Dagger.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -53,6 +54,10 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Items\\MoneyBag_sprite.xml", texMoneyBag);
 	resource->LoadAnimations("Data\\GameObject\\Items\\MoneyBag_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texDagger = textures->Get(ID_TEX_ITEM_DAGGER);
+	resource->LoadSprites("Data\\GameObject\\Items\\Dagger_sprite.xml", texDagger);
+	resource->LoadAnimations("Data\\GameObject\\Items\\Dagger_ani.xml", animations);
+
 	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
@@ -80,15 +85,6 @@ void SceneManagement::LoadResource()
 	sprites->Add("20001", 408, 225, 424, 241, texMisc);
 
 
-
-
-
-	/*for (const auto& entity : cmap->GetObjects()) {
-		DebugOut(L" ===============ID =%d \n", entity.first);
-		for (const auto& child : entity.second) {
-			DebugOut(L" ID =%d \n", child->GetId());
-		}
-	}*/
 
 	simon = new CSimon();
 	objects.push_back(simon);
@@ -129,25 +125,105 @@ void SceneManagement::Update(DWORD dt)
 	cy -= SCREEN_HEIGHT / 2;
 
 
+	
+		
+
+
+	vector<LPGAMEOBJECT> coObjects;
+	for (std::size_t i = 1; i < objects.size(); i++)
+	{
+		if (dynamic_cast<Ground *>(objects[i]))
+		{
+			coObjects.push_back(objects[i]);
+			continue;
+		}
+		else if (objects[i]->x > cx && objects[i]->x < cx + SCREEN_WIDTH+128)
+		{
+			coObjects.push_back(objects[i]);
+		}
+
+	}
+	for (std::size_t i = 0; i < subWeapon.size(); i++)
+	{
+		coObjects.push_back(subWeapon[i]);
+	}
+	for (std::size_t i = 0; i < enemies.size(); i++)
+	{
+		if (enemies[i]->x > cx && enemies[i]->x < cx + SCREEN_WIDTH)
+		{
+			coObjects.push_back(enemies[i]);
+		}
+	}	
+	for (std::size_t i = 0; i < items.size(); i++)  //item
+	{
+		coObjects.push_back(items[i]);
+	}
+
+	//update object
+	for (std::size_t i = 0; i < objects.size(); i++) //object
+	{
+		objects[i]->Update(dt, &coObjects);
+	}
+	//update subweapon
+	for (std::size_t i = 0; i < subWeapon.size(); i++) //object
+	{
+		if (subWeapon[i]->x<0 || subWeapon[i]->x>cmap->GetMapWidth() || subWeapon[i]->y > SCREEN_HEIGHT)
+		{
+			subWeapon[i]->SetDestroy();
+		}
+		subWeapon[i]->Update(dt, &coObjects);
+	}
+	//update enemies
+	for (std::size_t i = 0; i < enemies.size(); i++) //object
+	{
+		if (enemies[i]->x<0 || enemies[i]->x>cmap->GetMapWidth() || enemies[i]->y > SCREEN_HEIGHT)
+		{
+			enemies[i]->SetDestroy();
+		}
+		enemies[i]->Update(dt, &coObjects);
+	}
+	
+	//update efftects
+	for (std::size_t i = 0; i < effects.size(); i++) //effect
+	{
+		effects[i]->Update(dt, &coObjects);
+	}
+	//update items
+	for (std::size_t i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt, &coObjects);
+	}
+
 	//clean object
 	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
 
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = objects.erase(it);
-
 		}
 		else ++it;
 	}
+	//clean subweapon
+
+	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = subWeapon.erase(it);
+		}
+		else ++it;
+	}
+	//clean enemy
 	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
 
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = enemies.erase(it);
-
+			DebugOut(L"Xoa enemy \n");
 		}
 		else ++it;
 	}
+
+
 	//clean effects
 	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
 
@@ -168,60 +244,6 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 
-	vector<LPGAMEOBJECT> coObjects;
-	for (std::size_t i = 1; i < objects.size(); i++)
-	{
-		if (dynamic_cast<Ground *>(objects[i]))
-		{
-			coObjects.push_back(objects[i]);
-			continue;
-		}
-		else if (objects[i]->x > cx && objects[i]->x < cx+SCREEN_WIDTH)
-		{
-			coObjects.push_back(objects[i]);
-		}
-
-	}
-	for (std::size_t i = 0; i < enemies.size(); i++)
-	{
-		if (enemies[i]->x > cx && enemies[i]->x < cx + SCREEN_WIDTH)
-		{
-			coObjects.push_back(enemies[i]);
-		}
-	}
-	for (std::size_t i = 0; i < items.size(); i++)  //item
-	{
-		coObjects.push_back(items[i]);
-	}
-
-	//update object
-	for (std::size_t i = 0; i < objects.size(); i++) //object
-	{
-		objects[i]->Update(dt, &coObjects);
-	}
-	//update enemies
-	for (std::size_t i = 0; i < enemies.size(); i++) //object
-	{
-		if (enemies[i]->x<0 || enemies[i]->x>cmap->GetMapWidth() || enemies[i]->y > SCREEN_HEIGHT)
-		{
-			enemies[i]->SetDestroy();
-		}
-		enemies[i]->Update(dt, &coObjects);
-	}
-
-	//update efftects
-	for (std::size_t i = 0; i < effects.size(); i++) //effect
-	{
-		effects[i]->Update(dt, &coObjects);
-	}
-	//update items
-	for (std::size_t i = 0; i < items.size(); i++)
-	{
-		items[i]->Update(dt, &coObjects);
-	}
-
-
-	
 
 	if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
 		CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
@@ -239,6 +261,14 @@ void SceneManagement::Render()
 		if (objects[i]->x > cx&&objects[i]->x < cx + SCREEN_WIDTH)
 		{
 			objects[i]->Render();
+		}
+	}
+
+	for (std::size_t i = 0; i < subWeapon.size(); i++)
+	{
+		if (subWeapon[i]->x > cx&&subWeapon[i]->x < cx + SCREEN_WIDTH)
+		{
+			subWeapon[i]->Render();
 		}
 	}
 
@@ -306,12 +336,14 @@ void SceneManagement::LoadObjects(int currentscene)
 {
 	for (UINT i = 1; i < objects.size(); i++) delete objects[i]; // mặc định object[0] là Simon 
 	for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
+	for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
 	objects.clear();
 	enemies.clear();
 	items.clear();
 	effects.clear();
+	subWeapon.clear();
 	simon->ResetState();
 	switch (this->currentScene)
 	{

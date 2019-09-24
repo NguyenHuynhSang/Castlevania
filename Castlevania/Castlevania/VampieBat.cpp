@@ -16,6 +16,11 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
+	if (this->setDestroy)
+	{
+		this->isDestroyed = true;
+		return;
+	}
 	if (this->x > CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2) {
 		return;
 	}

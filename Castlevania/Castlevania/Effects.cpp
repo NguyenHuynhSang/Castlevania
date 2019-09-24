@@ -4,6 +4,7 @@
 #include"MorningStar.h"
 #include"SceneManagement.h"
 #include"LargeHeart.h"
+#include"DaggerItem.h"
 void Effects::SpawnItem()
 {
 	SceneManagement *scene = SceneManagement::GetInstance();
@@ -26,6 +27,13 @@ void Effects::SpawnItem()
 		item = new MorningStar();
 		item->SetPositionInWorld(x, y);
 		scene->SpawnItem(item);
+		break;
+	}
+	case IDDagger: {
+		item = new DaggerItem();
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+		break;
 	}
 	}
 

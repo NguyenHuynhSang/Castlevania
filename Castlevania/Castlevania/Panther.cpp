@@ -19,6 +19,11 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
+	if (this->setDestroy)
+	{
+		this->isDestroyed = true;
+		return;
+	}
 	this->UpdateEnemy();
 
 	if (!this->isActive)
@@ -59,6 +64,7 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		// block 
 		x += min_tx * dx + nx * 0.2f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+
 		y += min_ty * dy + ny * 0.2f;
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -77,7 +83,7 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						//k va chạm với object khác
 						if (ny != 0) vy = 0;
 					}
-
+			
 				}
 				else {
 					x += dx;

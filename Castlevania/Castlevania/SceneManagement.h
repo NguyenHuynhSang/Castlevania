@@ -9,7 +9,6 @@
 #include "Textures.h"
 #include "Simon.h"
 #include "Brick.h"
-#include "Ghoul.h"
 #include"ResourceManagement.h"
 #include"Ground.h"
 #include"NextScene.h"
@@ -27,12 +26,12 @@
 #include"StairTrigger.h"
 #include"SpawnZone.h"
 #include"Candle.h"
+#include"SubWeapon.h"
 class SceneManagement
 {
 private:
 	CGame *game;
 	CSimon *simon;
-	Ghoul *goomba;
 	Whip* whip;
 	Torch * torch;
 	Ground *ground;
@@ -49,6 +48,7 @@ private:
 	vector<LPGAMEOBJECT> items;
 	vector<LPGAMEOBJECT> effects;
 	vector<LPGAMEOBJECT> enemies;
+	vector<LPGAMEOBJECT> subWeapon;
 	CTileMap* cmap;
 	static SceneManagement * __instance;
 	bool isNextScene;
@@ -79,11 +79,14 @@ public:
 	void SpawnItem(Item* item) {
 		this->items.push_back(item);
 	}
-	void SpawnEnemy(LPGAMEOBJECT enemy) {
+	void SpawnEnemy(Enemy* enemy) {
 		this->enemies.push_back(enemy);
 	}
 	void SpawnEffect(Effects* eff) {
 		this->effects.push_back(eff);
+	}
+	void SpawnSubWeapon(SubWeapon* subW) {
+		this->subWeapon.push_back(subW);
 	}
 	void LoadObjects(int currentScene);
 	SceneManagement();

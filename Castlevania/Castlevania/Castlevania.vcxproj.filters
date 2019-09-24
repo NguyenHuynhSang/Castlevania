@@ -19,9 +19,6 @@
     <Filter Include="ObjectsManagement">
       <UniqueIdentifier>{1891c92d-360d-40be-97e4-2164b4a80918}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement\Player">
-      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ObjectsManagement\StaticObjects">
       <UniqueIdentifier>{6e6c3d27-0bd8-4900-b5d7-0413a2acac00}</UniqueIdentifier>
     </Filter>
@@ -55,17 +52,20 @@
     <Filter Include="Effects">
       <UniqueIdentifier>{7257fe3b-49e5-4ee9-aadd-a1c967f6f38a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement\Player\Weapons">
-      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\Player\SubWeapons">
-      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ObjectsManagement\Enemy">
       <UniqueIdentifier>{a75e11b1-51ac-4bbb-aa31-918cc911d2dd}</UniqueIdentifier>
     </Filter>
     <Filter Include="ObjectsManagement\StaticObjects\Hidden">
       <UniqueIdentifier>{b570a370-9a47-4a1a-9f11-b12cc236d0c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\PlayerAndTheirStuff">
+      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\PlayerAndTheirStuff\Weapons">
+      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\PlayerAndTheirStuff\SubWeapons">
+      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +106,7 @@
       <Filter>Library\RapidXML</Filter>
     </ClInclude>
     <ClInclude Include="Simon.h">
-      <Filter>ObjectsManagement\Player</Filter>
+      <Filter>ObjectsManagement\PlayerAndTheirStuff</Filter>
     </ClInclude>
     <ClInclude Include="Torch.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
@@ -129,9 +129,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Ghoul.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Zombie.h">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
@@ -151,7 +148,7 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
     <ClInclude Include="Whip.h">
-      <Filter>ObjectsManagement\Player\Weapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Panther.h">
       <Filter>ObjectsManagement\Enemy</Filter>
@@ -180,9 +177,6 @@
     <ClInclude Include="Entry.h">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
-    <ClInclude Include="EntryObject.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
-    </ClInclude>
     <ClInclude Include="MoneyBagTrigger.h">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
@@ -200,6 +194,15 @@
     </ClInclude>
     <ClInclude Include="LargeHeart.h">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="DaggerItem.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWeapon.h">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Dagger.h">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +234,7 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Simon.cpp">
-      <Filter>ObjectsManagement\Player</Filter>
+      <Filter>ObjectsManagement\PlayerAndTheirStuff</Filter>
     </ClCompile>
     <ClCompile Include="define.h">
       <Filter>Utilities</Filter>
@@ -260,9 +263,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Ghoul.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Zombie.cpp">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
@@ -282,7 +282,7 @@
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Whip.cpp">
-      <Filter>ObjectsManagement\Player\Weapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="VampieBat.cpp">
       <Filter>ObjectsManagement\Enemy</Filter>
@@ -305,9 +305,6 @@
     <ClCompile Include="Entry.cpp">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClCompile>
-    <ClCompile Include="EntryObject.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
-    </ClCompile>
     <ClCompile Include="MoneyBagTrigger.cpp">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClCompile>
@@ -325,6 +322,15 @@
     </ClCompile>
     <ClCompile Include="LargeHeart.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="DaggerItem.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWeapon.cpp">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Dagger.cpp">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
