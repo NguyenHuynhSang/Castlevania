@@ -180,9 +180,14 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	xml_node<>* rootNode = doc.first_node("map");
 	//xml_node<>* tileset = rootNode->first_node("tileset");
 	LPTILEOBJECT object;
-	ObjectLayer*listobject = ObjectLayer::GetInstance();
+	ObjectLayer*objectLayer = ObjectLayer::GetInstance();
 	for (xml_node<> *child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
+	
 		int id = std::atoi(child->first_attribute("id")->value()); // lay ID
+		if (id == 6)
+		{
+			int a = 2;
+		}
 		vector<LPTILEOBJECT> ObjectInGroup;
 		object = new TileObject();
 		for (xml_node<> *smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
@@ -197,8 +202,8 @@ void CTileMap::LoadObjects(const std::string& filePath)
 			object = new TileObject(scid, x, y, w, h);
 			xml_node<>* propertiesNode = smailchild->first_node("properties");
 			if (propertiesNode == NULL) {
-				listobject->Add(id, object);
-				ObjectInGroup.push_back(listobject->GetTileObject(id));
+				objectLayer->Add(id, object);
+				ObjectInGroup.push_back(objectLayer->GetTileObject(id));
 				continue;
 			}
 			else {
@@ -207,10 +212,10 @@ void CTileMap::LoadObjects(const std::string& filePath)
 					string name = std::string(prochild->first_attribute("name")->value());
 					int value= std::atoi(prochild->first_attribute("value")->value());
 					DebugOut(L"Value =%d \n", value);
-					object->AddProperty(name, value);
-					listobject->Add(id, object);
-					ObjectInGroup.push_back(listobject->GetTileObject(id));
+					object->AddProperty(name, value);	
 				}
+				objectLayer->Add(id, object);
+				ObjectInGroup.push_back(objectLayer->GetTileObject(id));
 			}
 			
 		}

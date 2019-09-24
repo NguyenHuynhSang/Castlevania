@@ -29,6 +29,9 @@ public:
 	void LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
 	void Render();
 	void LoadObjects(const std::string& filePath);
+	void ClearObject() {
+		this->listObject.clear();
+	}
 	unsigned int GetMapWidth() {
 		return this->mapWidth;
 	}

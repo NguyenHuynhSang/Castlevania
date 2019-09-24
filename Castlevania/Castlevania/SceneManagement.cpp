@@ -124,6 +124,51 @@ void SceneManagement::Update(DWORD dt)
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
 
+	//clean object
+	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = objects.erase(it);
+		}
+		else ++it;
+	}
+	//clean subweapon
+	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = subWeapon.erase(it);
+		}
+		else ++it;
+	}
+	//clean enemy
+	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = enemies.erase(it);
+			DebugOut(L"Xoa enemy \n");
+		}
+		else ++it;
+	}
+	//clean effects
+	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = effects.erase(it);
+		}
+		else ++it;
+	}
+	//clean item
+	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = items.erase(it);
+		}
+		else ++it;
+	}
 
 	
 		
@@ -194,55 +239,7 @@ void SceneManagement::Update(DWORD dt)
 		items[i]->Update(dt, &coObjects);
 	}
 
-	//clean object
-	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = objects.erase(it);
-		}
-		else ++it;
-	}
-	//clean subweapon
-
-	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = subWeapon.erase(it);
-		}
-		else ++it;
-	}
-	//clean enemy
-	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = enemies.erase(it);
-			DebugOut(L"Xoa enemy \n");
-		}
-		else ++it;
-	}
-
-
-	//clean effects
-	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = effects.erase(it);
-		}
-		else ++it;
-	}
-	//clean item
-	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = items.erase(it);
-		}
-		else ++it;
-	}
-
+	
 
 
 	if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
@@ -272,7 +269,7 @@ void SceneManagement::Render()
 		}
 	}
 
-	for (std::size_t i = 1; i < enemies.size(); i++) {
+	for (std::size_t i = 0; i < enemies.size(); i++) {
 		if (enemies[i]->x > cx&&enemies[i]->x < cx + SCREEN_WIDTH)
 		{
 			enemies[i]->Render();
@@ -304,7 +301,7 @@ void SceneManagement::LoadScene()
 		LoadObjects(GSTATE_01);
 		break;
 	case GSTATE_02:
-
+		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
@@ -334,11 +331,13 @@ void SceneManagement::JumpToState(int state)
 
 void SceneManagement::LoadObjects(int currentscene)
 {
+	DebugOut(L"Load object \n");
 	for (UINT i = 1; i < objects.size(); i++) delete objects[i]; // mặc định object[0] là Simon 
 	for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
 	for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
+	
 	objects.clear();
 	enemies.clear();
 	items.clear();
@@ -423,7 +422,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 	case GSTATE_02:
 	{
-
+		
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -451,7 +450,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(bound);
 		}
 
-		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNONE);
+		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
 		for (const auto& child : spawnObject->second) {
 			spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 			spawnZone->SetSize(child->GetWidth(), child->GetHeight());
@@ -499,7 +498,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GSTATE_01;
+	this->currentScene = GSTATE_02;
 
 	cmap = CTileMap::GetInstance();
 }

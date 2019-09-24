@@ -21,13 +21,14 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (this->spawn_start!=0 && GetTickCount()- this->spawn_start>this->defaultTime)
 		{
+			DebugOut(L"true \n");
 			this->isSpawn = true;
 
 		}
 	}
 	else
 	{
-		//DebugOut(L"Spawn \n");
+		DebugOut(L"Spawn \n");
 		switch (this->enemyDef)
 		{
 		case EDZOMBIE:
@@ -37,7 +38,9 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy * enemy = new Zombie();
 				enemy->SetPositionInWorld(this->x + i*50+34, this->y);
 				SceneManagement::GetInstance()->SpawnEnemy(enemy);
+				
 			}
+			break;
 		}
 
 		}

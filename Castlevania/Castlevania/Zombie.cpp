@@ -16,14 +16,14 @@ void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bo
 void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
+	
+	if (this->isDestroyed) return;
 	if (this->setDestroy)
 	{
 		this->UpdateEnemy();
 		this->isDestroyed = true;
 		return;
 	}
-	if (this->isDestroyed) return;
-
 	//	if (reSpawn) return;
 		//DebugOut(L"update \n");
 	CGameObject::Update(dt);
@@ -77,7 +77,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Zombie::Render()
 {
-	if (this->isDestroyed) return;
+
 	animations[0]->Render(nx, x, y);
 	RenderBoundingBox();
 }

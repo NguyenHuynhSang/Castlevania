@@ -69,10 +69,10 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 
-				Zombie *z = dynamic_cast<Zombie  *>(e->obj);
-				if (!(*z).isDestroyed)
+				Enemy *z = dynamic_cast<Enemy  *>(e->obj);
+				if (!z->isDestroyed)
 				{
-					(*z).SetDestroy();
+					z->SetDestroy();
 				}
 				this->SetDestroy();
 			}
@@ -98,8 +98,7 @@ void Dagger::GetBoundingBox(float & l, float & t, float & r, float & b)
 Dagger::Dagger() :SubWeapon()
 {
 	AddAnimation("DAGGER_ITEM_ANI");
-	this->damage = 1;
-	this->heartCostPerUse = 1;
+	
 }
 
 
