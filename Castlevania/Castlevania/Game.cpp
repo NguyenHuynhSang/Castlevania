@@ -53,12 +53,15 @@ void CGame::Init(HWND hWnd)
 
 	// init font 
 	this->font = NULL;
-	AddFontResourceEx(FONT_PATH, FR_PRIVATE, NULL);
+	HRESULT h=AddFontResourceEx(FONT_PATH, FR_PRIVATE, NULL);
+	if (h != DI_OK)
+	{
 
+	}
 	HRESULT hr = D3DXCreateFont(
 		GetDirect3DDevice(), 16, 0, FW_NORMAL, 1, false,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY, FF_DONTCARE, NULL, &font);
+		ANTIALIASED_QUALITY, FF_DONTCARE, L"Press Start", &font);
 
 	if (hr != DI_OK)
 	{
