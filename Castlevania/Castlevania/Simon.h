@@ -4,10 +4,10 @@
 #define SIMON_WALKING_SPEED		0.13f 
 #define SIMON_AUTOWALKING_SPEED		0.05f 
 //0.1f
-#define SIMON_JUMP_SPEED_Y		0.6f
+#define SIMON_JUMP_SPEED_Y		0.58f
 #define SIMON_DEFLECT_SPEED_X 0.2f
 #define SIMON_DEFLECT_SPEED_Y 0.45f
-#define SIMON_GRAVITY			0.002f
+#define SIMON_GRAVITY			0.0018f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
 #define SIMON_UPSTAIR_VELOCITY 0.04f
 #define SIMON_STATE_IDLE			0
@@ -90,7 +90,7 @@ class CSimon : public CGameObject
 	bool isJumping = false;
 	bool isAutoWalk = false;
 	bool isActack = false;
-	int subWeaponDef;
+	int subWeaponDef=-1;
 	bool isUseSubWeapon = false;
 	bool isSpawnSubWeapon = false;
 	bool isOnStair = false;

@@ -108,6 +108,7 @@ void SceneManagement::OnCreate()
 }
 void SceneManagement::Update(DWORD dt)
 {
+	
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	if (this->isNextScene) {
@@ -249,6 +250,14 @@ void SceneManagement::Update(DWORD dt)
 }
 void SceneManagement::Render()
 {
+	RECT rect;
+	SetRect(&rect, 0, 15, SCREEN_WIDTH, 80);
+	string  information;
+	information = "SCORE-000000 TIME 0000 SCENE 00\n";
+	information += "PLAYER                  -00\n";
+	information += "ENEMY                   -00\n";
+	if (game->GetFont() != NULL)
+		game->GetFont()->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 	float cx, cy;
 	game->GetCamera(cx, cy);
 	if (this->isNextScene) return;

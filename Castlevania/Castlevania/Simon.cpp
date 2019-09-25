@@ -17,6 +17,7 @@
 #include "Candle.h"
 #include"Dagger.h"
 #include"SubWeapon.h"
+#include"DaggerItem.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -291,21 +292,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		whip->Update(dt, coObjects);
 		whip->SetDirection(nx);
 	}
-
-
-
-	// Bỏ những object không cần check va chạm với simon
-	/*for (vector<LPGAMEOBJECT>::iterator it = coObjects->begin(); it != coObjects->end(); ) {
-
-		if (dynamic_cast<Torch *>((*it)))
-		{
-			it = coObjects->erase(it);
-		}
-		else {
-			++it;
-		}
-	}
-*/
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -334,20 +320,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
 		// block 
-		
 		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		if (ny<=0) // ny lớn hơn 0 simon overlap với ground trong trường hợp simon va chạm heart theo ny
 			y += min_ty * dy + ny * 0.4f;
-		
-	
-
-
-		//if (nx != 0) vx = 0;
-		//if (ny != 0) vy = 0;
-		//	DebugOut(L"SIMON ny=%f", ny);
-			// Collision logic with Goombas
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -461,7 +437,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					StartPowerUp();
 				}
-				else if (dynamic_cast<Dagger *>(e->obj))
+				else if (dynamic_cast<DaggerItem *>(e->obj))
 				{
 					this->subWeaponDef = SWDDAGGER;
 				}
@@ -529,7 +505,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					}
 					StartPowerUp();
 				}
-				else if (dynamic_cast<Dagger *>(e))
+				else if (dynamic_cast<DaggerItem *>(e))
 				{
 					this->subWeaponDef = SWDDAGGER;
 				}

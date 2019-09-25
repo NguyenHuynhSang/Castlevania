@@ -31,6 +31,9 @@ class CGame
 
 	InputController* keyHandler;
 
+	// font 
+	ID3DXFont * font;
+	
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
 
@@ -70,7 +73,9 @@ public:
 		rec = { (long)this->cam_x,(long)this->cam_y,(long)this->cam_x + SCREEN_WIDTH,(long)this->cam_y + SCREEN_HEIGHT };
 		return rec;
 	}
-
+	ID3DXFont* GetFont() { 
+		return this->font; 
+	}
 	static CGame * GetInstance();
 
 	~CGame();

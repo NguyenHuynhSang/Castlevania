@@ -51,6 +51,26 @@ void CGame::Init(HWND hWnd)
 	// Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
+	// init font 
+	this->font = NULL;
+	AddFontResourceEx(FONT_PATH, FR_PRIVATE, NULL);
+
+	HRESULT hr = D3DXCreateFont(
+		GetDirect3DDevice(), 16, 0, FW_NORMAL, 1, false,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+		ANTIALIASED_QUALITY, FF_DONTCARE, NULL, &font);
+
+	if (hr != DI_OK)
+	{
+		DebugOut(L"[ERROR] Load font failed\n");
+		return;
+	}
+	else
+	{
+		DebugOut(L"[INFO] Load font done\n");
+	}
+
+
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
@@ -60,8 +80,8 @@ void CGame::Init(HWND hWnd)
 void CGame::Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 
-	
-	D3DXVECTOR3 p(std::floor(x-cam_x), floor(y-cam_y), 0);
+
+	D3DXVECTOR3 p(std::floor(x - cam_x), floor(y - cam_y), 0);
 	RECT r;
 	r.left = left;
 	r.top = top;
@@ -180,7 +200,7 @@ void CGame::ProcessKeyboard()
 			if (h == DI_OK)
 			{
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
-				
+
 			}
 			else return;
 		}

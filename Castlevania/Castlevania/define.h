@@ -10,9 +10,12 @@
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 480
-#define GAME_WORLD_Y 64
-
+#define GAME_WORLD_Y 80
 #define MAX_FRAME_RATE 120
+
+
+#define FONT_PATH L"Data\\prstart.ttf"
+
 
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
