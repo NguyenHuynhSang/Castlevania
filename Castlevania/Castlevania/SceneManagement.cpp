@@ -10,7 +10,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
+	textures->Add(ID_TEX_BRICK, L"Data\\GameObject\\Ground\\Brick.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whipedip.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -81,10 +81,12 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Ground\\Candle_sprite.xml", texCandle);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Candle_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texBrick = textures->Get(ID_TEX_BRICK);
+	resource->LoadSprites("Data\\GameObject\\Ground\\Brick_sprite.xml", texBrick);
+	resource->LoadAnimations("Data\\GameObject\\Ground\\Brick_ani.xml", animations);
 
-	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
-	sprites->Add("20001", 408, 225, 424, 241, texMisc);
 
+	
 
 
 	simon = new CSimon();
@@ -497,6 +499,14 @@ void SceneManagement::LoadObjects(int currentscene)
 			candle = new Candle();
 			candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			objects.push_back(candle);
+		}
+
+		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
+		for (const auto& child : brickObject->second) {
+			brick = new CBrick();
+			brick->SetState(child->GetPropertyByKey("brickstate"));
+			brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			objects.push_back(brick);
 		}
 
 

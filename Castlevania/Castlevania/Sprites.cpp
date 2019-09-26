@@ -53,7 +53,7 @@ void CAnimation::Render(int nx,float x, float y, int alpha)
 {
 
 	DWORD now = GetTickCount();
-	if (isDone) {
+	if (isDone ) {
 		return;
 	}
 	if (currentFrame == -1) 

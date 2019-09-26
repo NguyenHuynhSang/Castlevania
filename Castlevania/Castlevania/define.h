@@ -19,7 +19,7 @@
 
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
-#define ID_TEX_MISC 20
+#define ID_TEX_BRICK 20
 #define ID_TEX_WHIP 30
 #define ID_TEX_TORCH 40
 #define ID_TEX_ZOMBIE 50
@@ -60,7 +60,7 @@
 
 //object castle
 #define ID_TILE_OBJECT_NEXTSCENE_CASTLE 7
-
+#define ID_TiLE_OBJECT_BREAKING_BRICK 14
 ///ITEM
 ///
 #define ITEM_STATE_HIDING 100

@@ -18,6 +18,7 @@
 #include"Dagger.h"
 #include"SubWeapon.h"
 #include"DaggerItem.h"
+#include"Brick.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -306,11 +307,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		&& state != SIMON_STATE_UPSTAIR_IDLE
 		&& state != SIMON_STATE_DOWNSTAIR_IDLE
 		&& state != SIMON_STATE_UPSTAIR_ATTACK
-		&& state != SIMON_STATE_DOWNSTAIR_ATTACK) 
+		&& state != SIMON_STATE_DOWNSTAIR_ATTACK)
 	{
 		vy += SIMON_GRAVITY * dt;
 	}
-	
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -390,6 +391,28 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 
 
+			}
+			else if (dynamic_cast<CBrick *>(e->obj))
+			{
+				if (e->nx != 0)
+				{
+					if (nx != 0)
+						this->vx = 0;
+					else if (ny != 0)
+						this->vy = 0;
+				}
+				else if (e->ny == -1)
+				{
+					this->isJumping = false;
+					if (ny != 0)
+						this->vy = 0;
+				}
+				else if (e->ny == 1)
+				{
+					if (nx != 0)
+						this->vx = 0;
+					y += dy;
+				}
 			}
 			else if (dynamic_cast<Torch *>(e->obj)) {
 				if (e->nx != 0)
@@ -817,7 +840,7 @@ void CSimon::SetState(int state)
 		this->startOnStair = false; // cho phép nhấn tiếp
 		//tránh trường hợp khi simon attack y thay đổi làm floor
 		// làm tròn xuống 1px
-		if (this->lastState!=SIMON_STATE_UPSTAIR_ATTACK)
+		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
 		{
 			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
 
@@ -826,7 +849,7 @@ void CSimon::SetState(int state)
 		{
 			this->lastState = -1;
 		}
-	
+
 		DebugOut(L" LastStepOnStairPos x=%f y=%f", LastStepOnStairPos.x, LastStepOnStairPos.y);
 		vx = 0;
 		vy = 0;

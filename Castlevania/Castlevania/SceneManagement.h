@@ -41,6 +41,7 @@ private:
 	BoundMap *bound;
 	MoneyBagTrigger* trigger;
 	StairTrigger *stair;
+	CBrick * brick;
 	Candle * candle;
 	SpawnZone *spawnZone;
 	ResourceManagement * resource;

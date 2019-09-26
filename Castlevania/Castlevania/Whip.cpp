@@ -3,6 +3,7 @@
 #include"Torch.h"
 #include"Candle.h"
 #include"Enemy.h"
+#include"Brick.h"
 #include"SceneManagement.h"	
 
 
@@ -35,6 +36,18 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 
 			}
 
+		}
+		else if (dynamic_cast<CBrick *>(e))
+		{
+			CBrick * f = dynamic_cast<CBrick*> (e);
+			if (CGameObject::IsColliding(this, f))
+			{
+				if (!f->CheckDestroyed()) {
+					f->SetDestroy();
+					//	DebugOut(L"Set destroy object \n");
+				}
+
+			}
 		}
 		else if (dynamic_cast<Candle *>(e))
 		{
