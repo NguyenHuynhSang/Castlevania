@@ -65,6 +65,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_W:
 		scene->JumpToState(GSTATE_02);
 		break;
+	case DIK_E:
+		scene->JumpToState(GSTATE_03);
+		break;
 	case DIK_H:
 		scene->GetSimon()->SetAutoWalk(true);
 		break;
@@ -73,12 +76,12 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_C: {
-		if (scene->GetSimon()->GetActack_Time()==0)
+		if (scene->GetSimon()->GetActack_Time()==0 && scene->GetSimon()->GetCurrentSubWeapon()!=-1)
 		{
 			scene->GetSimon()->SimonUseSubWeapon();
 			scene->GetSimon()->StartUseSubWeapon();
-			break;
 		}
+		break;
 		
 	}
 	case DIK_F:

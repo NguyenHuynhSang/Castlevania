@@ -6,7 +6,7 @@
 void MoneyBag::Render()
 {
 	int ani = 0;
-	animations[ani]->Render(0,x,y);
+	animations[ani]->Render(0, x, y);
 }
 
 void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)
@@ -26,32 +26,41 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->setDestroy) {
 		this->TurnOffCollision();
 		Effects *effct = new Flame;
-		effct->SetPositionInWorld(this->x+ MONEYBAG_BBOX_WIDTH,this->y);
+		effct->SetPositionInWorld(this->x + MONEYBAG_BBOX_WIDTH, this->y);
 		SceneManagement::GetInstance()->SpawnEffect(effct);
 
 		this->isDestroyed = true;
 		return;
 	}
-	
+
 	CGameObject::Update(dt);
 
 	vy -= HEART_GRAVITY * dt;
 
 	y += dy;
 	x += dx;
-	for (std::size_t  i = 0; i < coObjects->size();i++) {
+	for (std::size_t i = 0; i < coObjects->size(); i++) {
 		{
 			if (dynamic_cast<Ground *>(coObjects->at(i)))
 			{
 				Ground * f = dynamic_cast<Ground*> (coObjects->at(i));
-				if (!this->IsColliding(this, f)) {
-					vy = 0;
+				if (this->IsColliding(this, f)) {
+					f->SetFlagCollice();
+					break;
 				}
-				break;	
+				else
+				{
+					if (f->CheckFlagCollice())
+					{
+						vy = 0;
+						vx = 0;
+					}
+				}
 			}
-			
+
 		}
 	}
+
 }
 
 MoneyBag::MoneyBag()

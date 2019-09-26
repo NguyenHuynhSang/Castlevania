@@ -53,7 +53,7 @@
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
 
-#define SIMON_BIG_BBOX_WIDTH  38
+#define SIMON_BIG_BBOX_WIDTH  32
 #define SIMON_BIG_BBOX_HEIGHT 62
 
 #define SIMON_SPRITE_BOX_WIDTH 60
@@ -120,6 +120,9 @@ public:
 	}
 	bool CheckIsUseSubWeapon() {
 		return this->isUseSubWeapon;
+	}
+	int GetCurrentSubWeapon() {
+		return this->subWeaponDef;
 	}
 	void ResetDelayAttackTime() {
 		this->delay_attack_start = 0;
@@ -200,9 +203,11 @@ public:
 	void StartActack() {
 		this->isActack = true;
 	};
+
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetSpriteFrame() {
 		this->ResetFrame(SIMON_ANI_STAND_ATTACK);
+		this->ResetFrame(SIMON_ANI_SIT_ATTACK);
 		whip->ResetAnimationFrame();
 	}
 	virtual void GetSpriteBox(float &width, float &height) {

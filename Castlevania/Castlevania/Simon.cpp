@@ -469,10 +469,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-				if (this->isAutoWalk) {
+				if (this->isAutoWalk) { 
 					(e->obj)->SetDestroy();
 					// clean up collision events
 					SceneManagement::GetInstance()->GoNextScene();
+				}
+				else
+				{
+					NextScene *nexecene = dynamic_cast<NextScene *>(e->obj);
+					(e->obj)->SetDestroy();
+					// clean up collision events
+					SceneManagement::GetInstance()->JumpToState(nexecene->CheckSceneDef());
 				}
 
 
@@ -546,8 +553,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				f->SetActive(false);
 				this->isColliceWithStair = false;
-				//if (!this->isOnStair)
-				//	this->stepOnStairDirection = -1; //reset
+				if (!this->isOnStair)
+					this->stepOnStairDirection = -1; //reset
 				DebugOut(L"stop collice \n");
 			}
 		}
@@ -730,7 +737,18 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_DOWNSTAIR_IDLE:
 	{
 		DebugOut(L"State SIMON_STATE_DOWNSTAIR_IDLE \n");
+		this->isOnStair = true;
+		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
 		this->startOnStair = false; // cho phép nhấn tiếp
+		if (nx>0)
+		{
+			this->stepOnStairDirection = DIR_DOWNRIGHT;
+		}
+		else
+		{
+			this->stepOnStairDirection = DIR_DOWNLEFT;
+		}
+		
 		this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
 		vx = 0;
 		vy = 0;
@@ -792,7 +810,7 @@ void CSimon::SimonUseSubWeapon()
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x + 10;
+	left = x + 12;
 	top = y;
 
 	right = left + SIMON_BIG_BBOX_WIDTH;

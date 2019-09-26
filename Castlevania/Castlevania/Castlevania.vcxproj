@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BattleCross.h" />
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Brick.h" />
@@ -66,6 +67,7 @@
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BattleCross.cpp" />
     <ClCompile Include="BoundMap.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Candle.cpp" />

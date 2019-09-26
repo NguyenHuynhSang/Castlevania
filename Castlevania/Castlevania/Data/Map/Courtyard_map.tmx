@@ -570,7 +570,11 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="NextScene">
-  <object id="23" name="NextScene" x="1500" y="109" width="8" height="176.5"/>
+  <object id="23" name="NextScene" x="1500" y="109" width="8" height="176.5">
+   <properties>
+    <property name="scenedef" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="AutoWalk">
   <object id="24" name="EnterCastle" x="1365" y="270.5" width="25.5" height="11"/>

@@ -8,6 +8,7 @@ void SceneManagement::LoadResource()
 	CTextures * textures = CTextures::GetInstance();
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
@@ -108,7 +109,7 @@ void SceneManagement::OnCreate()
 }
 void SceneManagement::Update(DWORD dt)
 {
-	
+			
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	if (this->isNextScene) {
@@ -121,7 +122,6 @@ void SceneManagement::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	simon->GetPosition(cx, cy);
-
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
 
@@ -317,6 +317,11 @@ void SceneManagement::LoadScene()
 		LoadObjects(GSTATE_02);
 		break;
 	case GSTATE_03:
+		cmap->ClearObject();
+		cmap = CTileMap::GetInstance();
+		cmap->LoadMap("Data\\Map\\Underground_map.tmx", textures->Get(ID_TEX_TILESET_3));
+		cmap->LoadObjects("Data\\Map\\Underground_map.tmx");
+		LoadObjects(GSTATE_03);
 		break;
 
 	}
@@ -403,6 +408,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		for (const auto& child : nextsceneObject->second) {
 			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			nextScene = new NextScene();
+			nextScene->SetSceneDef(child->GetPropertyByKey("scenedef"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(nextScene);
@@ -493,10 +499,65 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(candle);
 		}
 
+
+		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
+		for (const auto& child : nextsceneObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			nextScene = new NextScene();
+			nextScene->SetSceneDef(child->GetPropertyByKey("scenedef"));
+			nextScene->SetSize(child->GetWidth(), child->GetHeight());
+			nextScene->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(nextScene);
+		}
+
 		break;
 	}
 
 	case GSTATE_03:
+		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
+		for (const auto& child : simonPos->second) {
+			int x = child->GetX();
+			int y = child->GetY() - child->GetHeight();
+			simon->SetPosition(x,y);
+		}
+		simon->SetState(SIMON_STATE_DOWNSTAIR_IDLE);
+		objects.push_back(simon);
+
+		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
+		for (const auto& child : groundObject->second) {
+			ground = new Ground();
+			ground->SetSize(child->GetWidth(), child->GetHeight());
+			ground->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(ground);
+		}
+
+
+
+
+		auto triggerObject = cmap->GetObjects().find(ID_TILE_OBJECT_TRIGGER);
+		for (const auto& child : triggerObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			trigger = new MoneyBagTrigger();
+			trigger->SetSize(child->GetWidth(), child->GetHeight());
+			trigger->SetPosition(child->GetX(), child->GetY());
+			auto moneyBagObject = cmap->GetObjects().find(ID_TILE_OBJECT_UNDERGROUND_MONERBAG);
+			for (const auto& smallchild : moneyBagObject->second) {
+				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
+			}
+			objects.push_back(trigger);
+		}
+
+
+		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_UNDERGROUND_STAIR);
+		for (const auto& child : stairObject->second) {
+			stair = new StairTrigger();
+			stair->SetDirection(child->GetPropertyByKey("dir"));
+			stair->SetSize(child->GetWidth(), child->GetHeight());
+			stair->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(stair);
+		}
+
+		
 		break;
 
 	}

@@ -204,6 +204,9 @@
     <ClInclude Include="Dagger.h">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClInclude>
+    <ClInclude Include="BattleCross.h">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -330,6 +333,9 @@
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Dagger.cpp">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleCross.cpp">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClCompile>
   </ItemGroup>
