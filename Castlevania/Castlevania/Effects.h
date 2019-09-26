@@ -7,8 +7,8 @@
 class Effects :public CGameObject
 {
 protected:
-	int itemDef; // hiện item khi effect kết thúc
-	float objectPosX;
+	int itemDef=-1; // hiện item khi effect kết thúc
+	float objectPosX; // lấy vị trí object để spawn effects
 	float objectPosY;
 	void SpawnItem();
 	DWORD lifetime_start;
@@ -18,6 +18,7 @@ public:
 			this->SetDestroy();
 		}
 	}
+
 	virtual void GetSpriteBox(float& _width, float& _height) {
 	};
 	void SetObjectPosition(float x,float y) {

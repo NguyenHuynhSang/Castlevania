@@ -39,6 +39,8 @@ void Effects::SpawnItem()
 
 }
 
+
+
 Effects::Effects()
 {
 	this->TurnOffCollision() ;

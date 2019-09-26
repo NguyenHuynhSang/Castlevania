@@ -31,6 +31,7 @@
 #define ID_TEX_ITEM_MORNINGSTAR 501
 #define ID_TEX_ITEM_MONEYBAG 502
 #define ID_TEX_EFFECT_FLAME 600
+#define ID_TEX_EFFECT_DEBRIS 601
 #define ID_TEX_TILESET_1 1000
 #define ID_TEX_TILESET_2 1001
 #define ID_TEX_TILESET_3 1002
@@ -109,5 +110,10 @@ const enum EnemyDef {
 const enum SubWeaponDef {
 	SWDDAGGER,
 	SWDHOLLYWATER,
+};
+
+const enum EffectDef {
+	EFD_FLAME,
+	EFD_DEBRIS
 };
 #endif

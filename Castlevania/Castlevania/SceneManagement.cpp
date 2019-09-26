@@ -10,7 +10,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_BRICK, L"Data\\GameObject\\Ground\\Brick.png", D3DCOLOR_XRGB(176, 224, 248));
+	textures->Add(ID_TEX_BRICK, L"Data\\GameObject\\Ground\\Brick.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_WHIP, L"Data\\GameObject\\Weapons\\Whipedip.png", D3DCOLOR_XRGB(3, 26, 110));
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -27,6 +27,7 @@ void SceneManagement::LoadResource()
 
 
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_EFFECT_DEBRIS, L"Data\\GameObject\\Effect\\Debris.png", D3DCOLOR_XRGB(255, 0, 255));
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -76,7 +77,11 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
-
+	
+	LPDIRECT3DTEXTURE9 texEffectDebris = textures->Get(ID_TEX_EFFECT_DEBRIS);
+	resource->LoadSprites("Data\\GameObject\\Effect\\Debris_sprite.xml", texEffectDebris);
+	resource->LoadAnimations("Data\\GameObject\\Effect\\Debris_ani.xml", animations);
+	
 	LPDIRECT3DTEXTURE9 texCandle = textures->Get(ID_TEX_CANDLE);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Candle_sprite.xml", texCandle);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Candle_ani.xml", animations);

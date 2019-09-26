@@ -207,6 +207,12 @@
     <ClInclude Include="BattleCross.h">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClInclude>
+    <ClInclude Include="DebrisBrick.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="HandleSpawnEffects.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -337,6 +343,12 @@
     </ClCompile>
     <ClCompile Include="BattleCross.cpp">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="DebrisBrick.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="HandleSpawnEffects.cpp">
+      <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
