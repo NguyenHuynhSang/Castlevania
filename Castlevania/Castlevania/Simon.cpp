@@ -41,6 +41,8 @@ CSimon::CSimon() :CGameObject()
 	this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //15
 	this->AddAnimation("SIMON_ANI_IDLE_DOWNSTAIR");    //16
 	this->AddAnimation("SIMON_ANI_STEP_DOWNSTAIR");    //17
+	this->AddAnimation("SIMON_ANI_UPSTAIR_ATTACK");    //18
+	this->AddAnimation("SIMON_ANI_DOWNSTAIR_ATTACK"); //19
 	//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
 }
 
@@ -225,7 +227,7 @@ void CSimon::HandleUseSubWeapon()
 {
 	switch (this->subWeaponDef)
 	{
-	case SWDDAGGER: 
+	case SWDDAGGER:
 	{
 		SubWeapon *sw = new Dagger();
 		sw->SetPositionInWorld(this->x, this->y);
@@ -241,17 +243,42 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 
 	// Calculate dx, dy 
-	//DebugOut(L"Simon vy=%f \n", this->vy);
 	CGameObject::Update(dt);
-	if (this->isUseSubWeapon)
-	{
-		if (!this->isSpawnSubWeapon)
-		{
-			HandleUseSubWeapon();
-			this->isSpawnSubWeapon = true;
-		}
-	}
 
+	if (this->isActack) {
+		if (whip->CheckLastFrame()) {
+			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
+			this->isActack = false;
+			if (this->isOnStair)
+			{
+				if (this->stepOnStairDirection == DIR_UPLEFT
+					|| this->stepOnStairDirection == DIR_UPRIGHT)
+				{
+					this->lastState = SIMON_STATE_UPSTAIR_ATTACK;
+					SetState(SIMON_STATE_UPSTAIR_IDLE);
+				}
+				else if (this->stepOnStairDirection == DIR_DOWNLEFT
+					|| this->stepOnStairDirection == DIR_DOWNRIGHT)
+				{
+					this->lastState = SIMON_STATE_DOWNSTAIR_ATTACK;
+					SetState(SIMON_STATE_DOWNSTAIR_IDLE);
+				}
+			}
+			else {
+				SetState(SIMON_STATE_IDLE);
+			}
+			whip->ResetLastFrame();
+			ResetSpriteFrame();
+			ResetActack_Time();
+			this->animations[SIMON_ANI_STAND_ATTACK]->ResetAnimation();
+			this->animations[SIMON_ANI_SIT_ATTACK]->ResetAnimation();
+			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
+			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
+			DebugOut(L"REset frame \n");
+		}
+		whip->Update(dt, coObjects);
+		whip->SetDirection(nx);
+	}
 	if (this->startOnStair) {
 		DebugOut(L"trigger \n");
 		if (!this->isFirstStepOnStair)
@@ -275,23 +302,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	this->HandlePerStepOnStair();
 	// Simple fall down
-	if (!this->startOnStair &&state != SIMON_STATE_UPSTAIR_IDLE && state != SIMON_STATE_DOWNSTAIR_IDLE) {
-
+	if (!this->startOnStair
+		&& state != SIMON_STATE_UPSTAIR_IDLE
+		&& state != SIMON_STATE_DOWNSTAIR_IDLE
+		&& state != SIMON_STATE_UPSTAIR_ATTACK
+		&& state != SIMON_STATE_DOWNSTAIR_ATTACK) 
+	{
 		vy += SIMON_GRAVITY * dt;
 	}
-	if (this->isActack) {
-		if (whip->CheckLastFrame()) {
-			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
-			this->isActack = false;
-			SetState(SIMON_STATE_IDLE);
-			whip->ResetLastFrame();
-			ResetSpriteFrame();
-			ResetActack_Time();
-			this->animations[SIMON_ANI_STAND_ATTACK]->ResetLastFrame();
-		}
-		whip->Update(dt, coObjects);
-		whip->SetDirection(nx);
-	}
+	
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -322,7 +341,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		// block 
 		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		if (ny<=0) // ny lớn hơn 0 simon overlap với ground trong trường hợp simon va chạm heart theo ny
+		if (ny <= 0) // ny lớn hơn 0 simon overlap với ground trong trường hợp simon va chạm heart theo ny
 			y += min_ty * dy + ny * 0.4f;
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -343,11 +362,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 							this->isJumping = false;
 
 							if (ny != 0) vy = 0;
-						/*	if (!isAutoWalk)
-							{
-								if (nx != 0) vx = 0;
-							}*/
-							if (this->isActack ||this->isUseSubWeapon) { // còn đang đánh thì dừng lại
+							/*	if (!isAutoWalk)
+								{
+									if (nx != 0) vx = 0;
+								}*/
+							if (this->isActack || this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
 							}
 						}
@@ -469,7 +488,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-				if (this->isAutoWalk) { 
+				if (this->isAutoWalk) {
 					(e->obj)->SetDestroy();
 					// clean up collision events
 					SceneManagement::GetInstance()->GoNextScene();
@@ -564,7 +583,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			if (CGameObject::IsColliding(this, f))
 			{
 				if (untouchable_start == 0) {
-				
+
 					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
 					if (!this->isOnStair)
 					{
@@ -587,7 +606,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 
-	if (state == SIMON_STATE_STAND_ATTACK) {
+	if (state == SIMON_STATE_STAND_ATTACK
+		|| state == SIMON_STATE_UPSTAIR_ATTACK
+		|| state == SIMON_STATE_DOWNSTAIR_ATTACK) {
 
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
 	}
@@ -597,7 +618,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
 	}
 
-
+	if (this->isUseSubWeapon)
+	{
+		if (!this->isSpawnSubWeapon)
+		{
+			HandleUseSubWeapon();
+			this->isSpawnSubWeapon = true;
+		}
+	}
 
 
 }
@@ -643,7 +671,27 @@ void CSimon::Render()
 		{
 			whip->Render();
 		}
-		
+
+		Renderer(ani);
+		return;
+	}
+	else if (state == SIMON_STATE_UPSTAIR_ATTACK) {
+		ani = SIMON_ANI_UPSTAIR_ATTACK;
+		if (!this->isUseSubWeapon)
+		{
+			whip->Render();
+		}
+
+		Renderer(ani);
+		return;
+	}
+	else if (state == SIMON_STATE_DOWNSTAIR_ATTACK) {
+		ani = SIMON_ANI_DOWNSTAIR_ATTACK;
+		if (!this->isUseSubWeapon)
+		{
+			whip->Render();
+		}
+
 		Renderer(ani);
 		return;
 	}
@@ -737,10 +785,11 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_DOWNSTAIR_IDLE:
 	{
 		DebugOut(L"State SIMON_STATE_DOWNSTAIR_IDLE \n");
+		this->isActack = false;
 		this->isOnStair = true;
 		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
 		this->startOnStair = false; // cho phép nhấn tiếp
-		if (nx>0)
+		if (nx > 0)
 		{
 			this->stepOnStairDirection = DIR_DOWNRIGHT;
 		}
@@ -748,15 +797,37 @@ void CSimon::SetState(int state)
 		{
 			this->stepOnStairDirection = DIR_DOWNLEFT;
 		}
-		
-		this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
+		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
+		{
+			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
+
+		}
+		else
+		{
+			this->lastState = -1;
+		}
 		vx = 0;
 		vy = 0;
 		break;
 	}
 	case SIMON_STATE_UPSTAIR_IDLE: {
+		this->isActack = false;
+		this->isOnStair = true;
+		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
 		this->startOnStair = false; // cho phép nhấn tiếp
-		this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
+		//tránh trường hợp khi simon attack y thay đổi làm floor
+		// làm tròn xuống 1px
+		if (this->lastState!=SIMON_STATE_UPSTAIR_ATTACK)
+		{
+			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
+
+		}
+		else
+		{
+			this->lastState = -1;
+		}
+	
+		DebugOut(L" LastStepOnStairPos x=%f y=%f", LastStepOnStairPos.x, LastStepOnStairPos.y);
 		vx = 0;
 		vy = 0;
 		break;
@@ -776,6 +847,22 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_STAND_ATTACK:
 	{
 		if (!this->isJumping) vx = 0;
+		break;
+	}
+	case SIMON_STATE_UPSTAIR_ATTACK:
+	{
+		this->isOnStair = true;
+		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
+		this->vx = 0;
+		this->vy = 0;
+
+		break;
+	}
+	case SIMON_STATE_DOWNSTAIR_ATTACK: {
+		this->isOnStair = true;
+		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
+		this->vx = 0;
+		this->vy = 0;
 		break;
 	}
 	case SIMON_STATE_DEFLECT:

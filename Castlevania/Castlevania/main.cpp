@@ -76,28 +76,49 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_C: {
-		if (scene->GetSimon()->GetActack_Time()==0 && scene->GetSimon()->GetCurrentSubWeapon()!=-1)
+		if (scene->GetSimon()->GetActack_Time() == 0 && scene->GetSimon()->GetCurrentSubWeapon() != -1)
 		{
 			scene->GetSimon()->SimonUseSubWeapon();
 			scene->GetSimon()->StartUseSubWeapon();
 		}
 		break;
-		
+
 	}
 	case DIK_F:
 		DebugOut(L"Press F \n");
 		DebugOut(L"state=%d \n", scene->GetSimon()->GetState());
 		if (!scene->GetSimon()->CheckAttack()) {
+			DebugOut(L"Check attact \n");
 			scene->GetSimon()->StartActack();
-			if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
+			if (scene->GetSimon()->CheckIsOnStair())
 			{
-				scene->GetSimon()->SetState(SIMON_STATE_SIT_ATTACK);
-				return;
+				DebugOut(L"CheckIsOnStair \n");
+				if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPLEFT
+					|| scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPRIGHT
+					&& scene->GetSimon()->GetState() == SIMON_STATE_UPSTAIR_IDLE)
+				{
+					scene->GetSimon()->SetState(SIMON_STATE_UPSTAIR_ATTACK);
+				}
+				else if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_DOWNLEFT
+					|| scene->GetSimon()->CheckStepOnStairDirection() == DIR_DOWNRIGHT
+					&& scene->GetSimon()->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
+				{
+					scene->GetSimon()->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+
+				}
+
 			}
 			else {
-				scene->GetSimon()->SetState(SIMON_STATE_STAND_ATTACK);
+				if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
+				{
+					scene->GetSimon()->SetState(SIMON_STATE_SIT_ATTACK);
+				}
+				else {
+					scene->GetSimon()->SetState(SIMON_STATE_STAND_ATTACK);
+				}
+
 			}
-			//	DebugOut(L"Start counting");
+
 		}
 
 		break;
@@ -130,7 +151,6 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		scene->GetSimon()->ResetPowerUpTime();
 	}
 
-
 	if (scene->GetSimon()->GetPowerUpTime() != 0)
 	{
 		return;
@@ -152,11 +172,11 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		scene->GetSimon()->ResetUseSubWeapon();
 		return;
 	}
-	if (scene->GetSimon()->GetActack_Time()!=0) // đang dùng sub weapon
+	if (scene->GetSimon()->GetActack_Time() != 0) // đang dùng sub weapon
 	{
 		return;
 	}
-	
+
 	if (scene->GetSimon()->CheckIsJumping() == true) {
 		return;
 

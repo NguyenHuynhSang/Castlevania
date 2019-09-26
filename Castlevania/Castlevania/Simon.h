@@ -26,8 +26,8 @@
 #define SIMON_STATE_DOWNSTAIR_IDLE 1300
 #define SIMON_STATE_DOWNSTAIR_RIGHT 1400
 #define SIMON_STATE_DOWNSTAIR_LEFT 1500
-
-
+#define SIMON_STATE_UPSTAIR_ATTACK 1600
+#define SIMON_STATE_DOWNSTAIR_ATTACK 1700
 
 #define SIMON_ANI_BIG_IDLE_RIGHT		0
 #define SIMON_ANI_BIG_IDLE_LEFT			1
@@ -48,8 +48,8 @@
 #define SIMON_ANI_STEP_UPSTAIR            15
 #define SIMON_ANI_IDLE_DOWNSTAIR         16
 #define SIMON_ANI_STEP_DOWNSTAIR            17
-
-
+#define SIMON_ANI_UPSTAIR_ATTACK            18
+#define SIMON_ANI_DOWNSTAIR_ATTACK         19
 #define	SIMON_LEVEL_SMALL	1
 #define	SIMON_LEVEL_BIG		2
 
@@ -98,6 +98,7 @@ class CSimon : public CGameObject
 	bool isColliceWithStair = false;
 	bool isFirstStepOnStair = false;
 	int stepOnStairDirection = -1;
+	int lastState = -1;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 	void HandleFirstStepOnStair();
@@ -107,6 +108,7 @@ public:
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
 			= isActack = isAutoWalk = isJumping = isUseSubWeapon = false;
 		this->stepOnStairDirection = -1;
+		this->lastState = -1; 
 		this->delay_attack_start = 0;
 		this->attack_start = 0;
 		this->untouchable_start = 0;
