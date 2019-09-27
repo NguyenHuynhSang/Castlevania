@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<animations AtlasPath="Bubble_sprite.xml">
+		<animation ID="BUBBLE_ANI" defaulttime="100">
+			<frame spriteID="BUBBLE_01" />
+		</animation>
+	</animations>
+</resource>

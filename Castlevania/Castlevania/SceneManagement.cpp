@@ -24,10 +24,13 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_FISHMAN, L"Data\\GameObject\\Enemies\\Fishman.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_DEBRIS, L"Data\\GameObject\\Effect\\Debris.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_EFFECT_BUBBLE, L"Data\\GameObject\\Effect\\Bubble.png", D3DCOLOR_XRGB(255, 0, 255));
+	
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -73,6 +76,10 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Bat_sprite.xml", texBAT);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Bat_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texFishman = textures->Get(ID_TEX_FISHMAN);
+	resource->LoadSprites("Data\\GameObject\\Enemies\\Fishman_sprite.xml", texFishman);
+	resource->LoadAnimations("Data\\GameObject\\Enemies\\Fishman_ani.xml", animations);
+	
 
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
@@ -82,6 +89,9 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Effect\\Debris_sprite.xml", texEffectDebris);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Debris_ani.xml", animations);
 	
+	LPDIRECT3DTEXTURE9 texEffectBubble = textures->Get(ID_TEX_EFFECT_BUBBLE);
+	resource->LoadSprites("Data\\GameObject\\Effect\\Bubble_sprite.xml", texEffectBubble);
+	resource->LoadAnimations("Data\\GameObject\\Effect\\Bubble_ani.xml", animations);
 	LPDIRECT3DTEXTURE9 texCandle = textures->Get(ID_TEX_CANDLE);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Candle_sprite.xml", texCandle);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Candle_ani.xml", animations);
@@ -185,7 +195,7 @@ void SceneManagement::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 	for (std::size_t i = 1; i < objects.size(); i++)
 	{
-		if (dynamic_cast<Ground *>(objects[i]))
+		if (dynamic_cast<Ground *>(objects[i]) || dynamic_cast<Water *>(objects[i]))
 		{
 			coObjects.push_back(objects[i]);
 			continue;
@@ -546,8 +556,15 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(ground);
 		}
 
-
-
+		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
+		for (const auto& child : boundObject->second) {
+			//DebugOut(L"[Complete]Load Torch position in game world \n");
+			bound = new BoundMap();
+			bound->SetSize(child->GetWidth(), child->GetHeight());
+			bound->SetPosition(child->GetX(), child->GetY());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(bound);
+		}
 
 		auto triggerObject = cmap->GetObjects().find(ID_TILE_OBJECT_TRIGGER);
 		for (const auto& child : triggerObject->second) {
@@ -572,7 +589,32 @@ void SceneManagement::LoadObjects(int currentscene)
 			objects.push_back(stair);
 		}
 
+		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_UNDERGROUND_SPAWNZONE);
+		for (const auto& child : spawnObject->second) {
+			spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
+			spawnZone->SetSize(child->GetWidth(), child->GetHeight());
+			spawnZone->SetPosition(child->GetX(), child->GetY());
+			objects.push_back(spawnZone);
+		}
+
+
+		auto waterObject = cmap->GetObjects().find(ID_TILE_OBJECT_UNDERGROUND_WATER);
+		for (const auto& child : waterObject->second) {
+			water = new Water();
+			water->SetSize(child->GetWidth(), child->GetHeight());
+			water->SetPosition(child->GetX(), child->GetY());
+			//DebugOut(L"[Complete]Load Simon position in game world \n");
+			objects.push_back(water);
+		}
 		
+		auto brickObject = cmap->GetObjects().find(ID_TILE_OBJECT_UNDERGROUND_BRICK);
+		for (const auto& child : brickObject->second) {
+			brick = new CBrick();
+			brick->SetState(child->GetPropertyByKey("brickstate"));
+			brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			objects.push_back(brick);
+		}
+
 		break;
 
 	}

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="20">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="22">
  <tileset firstgid="1" name="Underground_bank.png" tilewidth="32" tileheight="32" tilecount="30" columns="5">
   <image source="Underground_bank.png" width="160" height="192"/>
  </tileset>
  <tileset firstgid="31" source="ObjectTile/SIMON.tsx"/>
  <tileset firstgid="103" source="ObjectTile/Money_Bag.tsx"/>
+ <tileset firstgid="106" source="ObjectTile/Brick.tsx"/>
  <layer id="1" name="background" width="32" height="12">
   <data>
    <tile gid="1"/>
@@ -395,11 +396,11 @@
  </layer>
  <objectgroup color="#00aaff" id="2" name="boundmap">
   <object id="2" x="-26" y="-0.5" width="26" height="383.5"/>
-  <object id="3" x="1024" y="-0.5" width="19" height="384"/>
+  <object id="3" x="1008.5" y="-3.5" width="19" height="384"/>
   <object id="4" x="0" y="352" width="1022.5" height="31.5"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="3" name="ground">
-  <object id="5" x="0.5" y="161.5" width="447" height="28.5"/>
+  <object id="5" x="-8.5" y="161.5" width="456" height="28.5"/>
   <object id="6" x="192.5" y="97" width="63" height="29.5"/>
   <object id="7" x="512.5" y="160" width="64" height="30.5"/>
   <object id="8" x="639.5" y="160.5" width="289" height="30"/>
@@ -423,8 +424,8 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="water">
-  <object id="13" name="Water" type="Water" x="1" y="285" width="897" height="64"/>
-  <object id="14" name="Water" type="Water" x="962" y="287" width="62" height="62"/>
+  <object id="13" name="Water" type="Water" x="1.66667" y="293.5" width="888.833" height="12.1667"/>
+  <object id="14" name="Water" type="Water" x="962" y="299" width="62" height="52"/>
  </objectgroup>
  <objectgroup id="10" name="stair">
   <object id="16" x="176" y="91" width="32" height="5">
@@ -435,6 +436,22 @@
   <object id="17" x="880" y="149.5" width="32" height="10.5">
    <properties>
     <property name="dir" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aaaaff" id="11" name="spawnZone">
+  <object id="20" name="Spawn" type="Spawn" x="0.666667" y="316.667" width="896.667" height="66">
+   <properties>
+    <property name="enemydef" type="int" value="3"/>
+    <property name="num" type="int" value="2"/>
+    <property name="respawntime" type="int" value="5000"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="12" name="breckingbrick">
+  <object id="21" name="Brick" type="Brick" gid="106" x="928" y="192" width="32" height="32">
+   <properties>
+    <property name="brickstate" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

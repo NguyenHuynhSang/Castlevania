@@ -19,6 +19,8 @@
 #include"SubWeapon.h"
 #include"DaggerItem.h"
 #include"Brick.h"
+#include"Water.h"
+#include"Bubble.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -392,6 +394,26 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 			}
+			else if (dynamic_cast<Water *>(e->obj)) {
+				if (e->nx!=0)
+				{
+					x += dx;
+				}
+				else if (e->ny!=0)
+				{
+					y += dy;
+				}
+				Effects * effect;
+				for (size_t i = 0; i < 4; i++)
+				{
+					//rank tu -0.1->0.2
+					float vx = (float)(-100 + rand() % 200) / 1000;
+					float vy = (float)(-100 + rand() % 200) / 1000;
+					effect = new Bubble(vx, vy);
+					effect->SetPositionInWorld(this->x, this->y);
+					SceneManagement::GetInstance()->SpawnEffect(effect);
+				}
+			}
 			else if (dynamic_cast<CBrick *>(e->obj))
 			{
 				if (e->nx != 0)
@@ -527,7 +549,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 
 			}
-
 		}
 	}
 

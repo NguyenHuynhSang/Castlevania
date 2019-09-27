@@ -27,6 +27,7 @@
 #include"SpawnZone.h"
 #include"Candle.h"
 #include"SubWeapon.h"
+#include"Water.h"
 class SceneManagement
 {
 private:
@@ -44,19 +45,21 @@ private:
 	CBrick * brick;
 	Candle * candle;
 	SpawnZone *spawnZone;
+	Water* water;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
 	vector<LPGAMEOBJECT> effects;
 	vector<LPGAMEOBJECT> enemies;
+
 	vector<LPGAMEOBJECT> subWeapon;
 	CTileMap* cmap;
 	static SceneManagement * __instance;
 	bool isNextScene;
+	bool isAutoScrollCam = false;		
 	void LoadResource();
 	int currentScene;
 	void HandleSpawningItem();
-	
 public:
 
 	static SceneManagement * GetInstance();

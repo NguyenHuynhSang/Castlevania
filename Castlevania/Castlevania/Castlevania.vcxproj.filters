@@ -213,6 +213,15 @@
     <ClInclude Include="HandleSpawnEffects.h">
       <Filter>Effects</Filter>
     </ClInclude>
+    <ClInclude Include="Bubble.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Fishman.h">
+      <Filter>ObjectsManagement\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -349,6 +358,15 @@
     </ClCompile>
     <ClCompile Include="HandleSpawnEffects.cpp">
       <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Bubble.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Fishman.cpp">
+      <Filter>ObjectsManagement\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
