@@ -1,7 +1,6 @@
 #include "Torch.h"
-#include"SceneManagement.h"
-#include"Effects.h"
-#include"Flame.h"
+#include"HandleSpawnEffects.h"
+#include"HandleSpawnItem.h"
 void Torch::Render()
 {
 	if (this->setDestroy) {
@@ -19,10 +18,8 @@ void Torch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->setDestroy) {
 		this->TurnOffCollision();
-		Effects* effect = new Flame();
-		effect->SetPositionInWorld(this->x+10, this->y+TORCH_BBOX_HEIGHT/4);
-		effect->AddItemDef(this->itemDef);
-		SceneManagement::GetInstance()->SpawnEffect(effect);
+		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_FLAME, this->x + 10, this->y + TORCH_BBOX_HEIGHT / 4);
+		HandleSpawnItem::GetInstance()->SpawnItem(this->itemDef, this->x, this->y);
 		isDestroyed = true;
 	}
 

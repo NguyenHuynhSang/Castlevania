@@ -4,6 +4,10 @@
 
 void MorningStar::Render()
 {
+	if (this->isHiding)
+	{
+		return;
+	}
 	animations[0]->Render(0, x, y);
 }
 
@@ -17,6 +21,14 @@ void MorningStar::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MorningStar::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (GetTickCount() - wait_start > EFFECTS_LIFE_TIME)
+	{
+		this->isHiding = false;
+	}
+	if (this->isHiding)
+	{
+		return;
+	}
 	if (this->isDestroyed)
 	{
 		return;

@@ -11,7 +11,6 @@
 
 
 
-
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	// Calculate dx, dy 

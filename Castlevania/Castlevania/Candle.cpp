@@ -1,8 +1,6 @@
 #include "Candle.h"
-#include"SceneManagement.h"
-#include"Effects.h"
-#include"Flame.h"
-
+#include"HandleSpawnEffects.h"
+#include"HandleSpawnItem.h"
 Candle::Candle()
 {
 	AddAnimation("CANDLE_ANI_BURNING");
@@ -27,9 +25,8 @@ void Candle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 	if (this->setDestroy) {
-		Effects* effect = new Flame();
-		effect->SetPositionInWorld(this->x + 5, this->y);
-		SceneManagement::GetInstance()->SpawnEffect(effect);
+		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_FLAME, this->x, this->y);
+		HandleSpawnItem::GetInstance()->SpawnRandomItem(this->x, this->y);
 		isDestroyed = true;
 	}
 }

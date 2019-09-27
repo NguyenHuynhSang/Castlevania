@@ -4,6 +4,10 @@
 #include"Ground.h"
 void Heart::Render()
 {
+	if (this->isHiding)
+	{
+		return;
+	}
 	animations[0]->Render(0, x, y);
 
 }
@@ -22,7 +26,14 @@ void Heart::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	if (GetTickCount()-wait_start> EFFECTS_LIFE_TIME)
+	{
+		this->isHiding = false;
+	}
+	if (this->isHiding)
+	{
+		return;
+	}
 	this->UpdateItem();
 	if (this->setDestroy) {
 		this->TurnOffCollision();

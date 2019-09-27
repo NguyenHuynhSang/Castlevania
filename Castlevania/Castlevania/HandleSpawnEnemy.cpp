@@ -1,5 +1,5 @@
 #include "HandleSpawnEnemy.h"
-#include"Enemy.h"
+
 #include"Zombie.h"
 #include"Fishman.h"
 #include"SceneManagement.h"
@@ -17,7 +17,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 	{
 		for (size_t i = 0; i < num; i++)
 		{
-			Enemy * enemy = new Zombie();
+			enemy = new Zombie();
 			enemy->SetPositionInWorld(x + i * 50 + 34, y);
 			SceneManagement::GetInstance()->SpawnEnemy(enemy);
 
@@ -31,7 +31,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 		}
 		for (size_t i = 0; i < num; i++)
 		{
-			Enemy * enemy = new Fishman();
+			enemy = new Fishman();
 			enemy->SetPositionInWorld(x + i * 150 + 150, y);
 			SceneManagement::GetInstance()->SpawnEnemy(enemy);
 

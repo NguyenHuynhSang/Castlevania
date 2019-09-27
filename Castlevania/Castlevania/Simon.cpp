@@ -20,7 +20,8 @@
 #include"DaggerItem.h"
 #include"Brick.h"
 #include"Water.h"
-#include"Bubble.h"
+#include"HandleSpawnEffects.h"
+
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -395,24 +396,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<Water *>(e->obj)) {
-				if (e->nx!=0)
+				if (e->nx != 0)
 				{
 					x += dx;
 				}
-				else if (e->ny!=0)
+				else if (e->ny != 0)
 				{
 					y += dy;
 				}
-				Effects * effect;
-				for (size_t i = 0; i < 4; i++)
-				{
-					//rank tu -0.1->0.2
-					float vx = (float)(-100 + rand() % 200) / 1000;
-					float vy = (float)(-100 + rand() % 200) / 1000;
-					effect = new Bubble(vx, vy);
-					effect->SetPositionInWorld(this->x, this->y);
-					SceneManagement::GetInstance()->SpawnEffect(effect);
-				}
+				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
 			}
 			else if (dynamic_cast<CBrick *>(e->obj))
 			{
@@ -492,23 +484,33 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<Item *>(e->obj)) {
-				if (dynamic_cast<MorningStar *>(e->obj)) {
-					DebugOut(L"Morning star logic \n");
-					SetState(SIMON_STATE_POWERUP);
-					if (isActack) {
-						ResetActack_Time();
-						isActack = false;
-					}
-					StartPowerUp();
-				}
-				else if (dynamic_cast<DaggerItem *>(e->obj))
-				{
-					this->subWeaponDef = SWDDAGGER;
-				}
 				Item *item = dynamic_cast<Item *>(e->obj);
-				if (!item->isDestroyed)
+				if (item->CheckisHiding())
 				{
-					item->SetDestroy();
+					if (e->nx != 0)
+						x += dx;
+					else if (e->ny != 0)
+						y += dy;
+				}
+				else {
+					if (dynamic_cast<MorningStar *>(e->obj)) {
+						DebugOut(L"Morning star logic \n");
+						SetState(SIMON_STATE_POWERUP);
+						if (isActack) {
+							ResetActack_Time();
+							isActack = false;
+						}
+						StartPowerUp();
+					}
+					else if (dynamic_cast<DaggerItem *>(e->obj))
+					{
+						this->subWeaponDef = SWDDAGGER;
+					}
+
+					if (!item->isDestroyed)
+					{
+						item->SetDestroy();
+					}
 				}
 			}
 			else if (dynamic_cast<Entry *>(e->obj)) {
@@ -562,29 +564,33 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		LPGAMEOBJECT e = coObjects->at(i);
 		if (dynamic_cast<Item *>(e))
 		{
+
 			Item * f = dynamic_cast<Item*> (e);
-
-			if (CGameObject::IsColliding(this, f))
+			if (!f->CheckisHiding())
 			{
-				if (dynamic_cast<MorningStar *>(e)) {
-					DebugOut(L"Morning star logic \n");
-					SetState(SIMON_STATE_POWERUP);
-					if (isActack) {
-						ResetActack_Time();
-						isActack = false;
-					}
-					StartPowerUp();
-				}
-				else if (dynamic_cast<DaggerItem *>(e))
+				if (CGameObject::IsColliding(this, f))
 				{
-					this->subWeaponDef = SWDDAGGER;
-				}
-				//DebugOut(L"aabb \n");
-				if (!f->CheckDestroyed()) {
-					f->SetDestroy();
-				}
+					if (dynamic_cast<MorningStar *>(e)) {
+						DebugOut(L"Morning star logic \n");
+						SetState(SIMON_STATE_POWERUP);
+						if (isActack) {
+							ResetActack_Time();
+							isActack = false;
+						}
+						StartPowerUp();
+					}
+					else if (dynamic_cast<DaggerItem *>(e))
+					{
+						this->subWeaponDef = SWDDAGGER;
+					}
+					//DebugOut(L"aabb \n");
+					if (!f->CheckDestroyed()) {
+						f->SetDestroy();
+					}
 
+				}
 			}
+
 
 		}
 		else if (dynamic_cast<StairTrigger*>(e)) {

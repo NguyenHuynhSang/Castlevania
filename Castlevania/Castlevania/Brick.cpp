@@ -1,8 +1,7 @@
 #include "Brick.h"
 #include"debug.h"
-#include"Effects.h"
-#include"DebrisBrick.h"
-#include"SceneManagement.h"
+#include"HandleSpawnEffects.h"
+#include"HandleSpawnItem.h"
 CBrick::CBrick()
 {
 	AddAnimation("BRICK_ANI_NORMAL");
@@ -37,19 +36,9 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 	if (this->setDestroy) {
-		Effects * effect;
-		for (size_t i = 0; i < 4; i++)
-		{
-			//rank tu -0.1->0.2
-			float vx = (float)(-100 + rand() % 200) / 1000;
-			float vy = (float)(-100 + rand() % 200) / 1000;
-			effect = new DebrisBrick(vx,vy);
-			effect->SetPositionInWorld(this->x, this->y);
-			SceneManagement::GetInstance()->SpawnEffect(effect);
-		}
-
-
-
+		
+		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_DEBRIS, this->x, this->y);
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDWhip, this->x, this->y, false);
 		isDestroyed = true;
 	}
 }

@@ -16,6 +16,8 @@
 
 #define FONT_PATH L"Data\\prstart.ttf"
 
+#define EFFECTS_LIFE_TIME 500
+
 
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
@@ -89,10 +91,10 @@ const enum GameState {
 };
 
 const enum ItemID {
-	IDHeart=0,
-	IDLargeHeart=1,
-	IDWhip=2,
-	IDDagger=3
+	ITDHeart=0,
+	ITDLargeHeart=1,
+	ITDWhip=2,
+	ITDDagger=3
 };
 
 const enum StairDir {
@@ -116,6 +118,7 @@ const enum SubWeaponDef {
 
 const enum EffectDef {
 	EFD_FLAME,
-	EFD_DEBRIS
+	EFD_DEBRIS,
+	EFD_BUBBLE
 };
 #endif

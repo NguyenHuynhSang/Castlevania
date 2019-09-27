@@ -22,9 +22,10 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->setDestroy)
 	{
 		this->isDestroyed = true;
+		this->UpdateEnemy();
 		return;
 	}
-	this->UpdateEnemy();
+
 
 	if (!this->isActive)
 	{

@@ -1,15 +1,12 @@
 #include "Enemy.h"
-#include"Effects.h"
-#include"Flame.h"
-#include"SceneManagement.h"
+#include"HandleSpawnEffects.h"
+#include"HandleSpawnItem.h"
 void Enemy::UpdateEnemy()
 {
 	if (this->setDestroy) {
 		this->TurnOffCollision();
-		Effects* effect = new Flame();
-		effect->SetPositionInWorld(this->x + 10, this->y + 32 / 4);
-		effect->AddItemDef(0);
-		SceneManagement::GetInstance()->SpawnEffect(effect);
+		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_FLAME, this->x + 10, this->y + 32 / 4);
+		HandleSpawnItem::GetInstance()->SpawnRandomItem(this->x, this->y);
 		isDestroyed = true;
 	}
 }

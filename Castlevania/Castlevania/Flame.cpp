@@ -18,7 +18,6 @@ void Flame::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (this->isDestroyed) return;
 		UpdateEffect();
 	if (this->setDestroy) {
-		SpawnItem();
 		this->isDestroyed = true;
 	}
 

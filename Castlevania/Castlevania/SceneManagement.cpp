@@ -313,7 +313,7 @@ void SceneManagement::Render()
 			enemies[i]->Render();
 		}
 	}
-
+	
 	for (std::size_t i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
 	for (std::size_t i = 0; i < this->effects.size(); i++)

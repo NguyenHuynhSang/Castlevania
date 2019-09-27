@@ -19,6 +19,9 @@ void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
+	this->isHiding = false;
+
 	if (this->isDestroyed)
 	{
 		return;
