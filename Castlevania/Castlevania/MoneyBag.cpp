@@ -5,7 +5,27 @@
 #include"SceneManagement.h"
 void MoneyBag::Render()
 {
+	if (this->isHiding)
+	{
+		return;
+	}
 	int ani = 0;
+	if (state == MONEYBAG_STATE_FULLCOLOR)
+	{
+		ani = MONEYBAG_ANI_COLOR;
+	}
+	else if (state == MONEYBAG_STATE_BLUE)
+	{
+		ani = MONEYBAG_ANI_BLUE;
+	}
+	else if (state == MONEYBAG_STATE_RED)
+	{
+		ani = MONEYBAG_ANI_RED;
+	}
+	else
+	{
+		ani = MONEYBAG_ANI_WHITE;
+	}
 	animations[ani]->Render(0, x, y);
 }
 
@@ -19,8 +39,14 @@ void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	this->isHiding = false;
+	if (GetTickCount() - wait_start > EFFECTS_LIFE_TIME)
+	{
+		this->isHiding = false;
+	}
+	if (this->isHiding)
+	{
+		return;
+	}
 
 	if (this->isDestroyed)
 	{
@@ -28,45 +54,82 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->setDestroy) {
 		this->TurnOffCollision();
-		Effects *effct = new Flame;
-		effct->SetPositionInWorld(this->x + MONEYBAG_BBOX_WIDTH, this->y);
-		SceneManagement::GetInstance()->SpawnEffect(effct);
-
+		if (state != MONEYBAG_STATE_FULLCOLOR)
+			this->UpdateItem();
 		this->isDestroyed = true;
 		return;
 	}
 
 	CGameObject::Update(dt);
+	if (state != MONEYBAG_STATE_FULLCOLOR)
+		vy += HEART_GRAVITY * dt;
+	else {
+		vy -= HEART_GRAVITY * dt;
+		y += dy;
+		x += dx;
+	}
 
-	vy -= HEART_GRAVITY * dt;
 
-	y += dy;
-	x += dx;
-	for (std::size_t i = 0; i < coObjects->size(); i++) {
+	if (state != MONEYBAG_STATE_FULLCOLOR)
+	{
+
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+
+		// turn off collision when die 
+
+		CalcPotentialCollisions(coObjects, coEvents);
+
+
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
 		{
-			if (dynamic_cast<Ground *>(coObjects->at(i)))
-			{
-				Ground * f = dynamic_cast<Ground*> (coObjects->at(i));
-				if (this->IsColliding(this, f)) {
-					f->SetFlagCollice();
-					break;
-				}
-				else
-				{
-					if (f->CheckFlagCollice())
-					{
-						vy = 0;
-						vx = 0;
-					}
-				}
-			}
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			float min_tx, min_ty, nx = 0, ny;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+			y += min_ty * dy + ny * 0.4f;
+
+			if (nx != 0) vx = 0;
+			if (ny != 0) vy = 0;
 
 		}
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
+	else
+		for (std::size_t i = 0; i < coObjects->size(); i++) {
+			{
+				if (dynamic_cast<Ground *>(coObjects->at(i)))
+				{
+					Ground * f = dynamic_cast<Ground*> (coObjects->at(i));
+					if (this->IsColliding(this, f)) {
+						f->SetFlagCollice();
+						break;
+					}
+					else
+					{
+						if (f->CheckFlagCollice())
+						{
+							vy = 0;
+							vx = 0;
+						}
+					}
+				}
+
+			}
+		}
 
 }
 
-MoneyBag::MoneyBag()
+MoneyBag::MoneyBag() :Item()
 {
 	AddAnimation("MONEYBAG_ANI_COLOR");
 	AddAnimation("MONEYBAG_ANI_BLUE");

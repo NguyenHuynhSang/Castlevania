@@ -16,6 +16,9 @@ public:
 	CBrick();
 	~CBrick();
 	virtual void Render();
+	void SetItemDef(int item) {
+		this->itemDef = item;
+	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {

@@ -1,12 +1,8 @@
 #include "MoneyBagTrigger.h"
-#include"SceneManagement.h"
-#include"Item.h"
-#include"MoneyBag.h"
+#include"HandleSpawnItem.h"
 void MoneyBagTrigger::SpawnMoneyBag()
 {
-	Item* item = new MoneyBag();
-	item->SetPosition(this->item_x, this->item_y);
-	SceneManagement::GetInstance()->SpawnItem(item);
+	HandleSpawnItem::GetInstance()->SpawnItem(ITDMONEYBAGFULLCOLOR,this->item_x,this->item_y,false);
 }
 
 MoneyBagTrigger::MoneyBagTrigger()

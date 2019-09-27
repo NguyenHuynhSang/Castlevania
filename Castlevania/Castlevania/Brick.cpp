@@ -38,7 +38,7 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->setDestroy) {
 		
 		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_DEBRIS, this->x, this->y);
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDWhip, this->x, this->y, false);
+		HandleSpawnItem::GetInstance()->SpawnItem(this->itemDef, this->x, this->y, false);
 		isDestroyed = true;
 	}
 }

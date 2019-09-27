@@ -532,6 +532,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		for (const auto& child : brickObject->second) {
 			brick = new CBrick();
 			brick->SetState(child->GetPropertyByKey("brickstate"));
+			brick->SetItemDef(child->GetPropertyByKey("itemdef"));
 			brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			objects.push_back(brick);
 		}

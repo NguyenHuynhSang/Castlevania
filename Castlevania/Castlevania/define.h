@@ -94,7 +94,11 @@ const enum ItemID {
 	ITDHeart=0,
 	ITDLargeHeart=1,
 	ITDWhip=2,
-	ITDDagger=3
+	ITDDagger=3,
+	ITDMONEYBAGFULLCOLOR,
+	ITDMONEYBAGBLUE,
+	ITDMONEYBAGWHITE,
+	ITDMONEYBAGRED,
 };
 
 const enum StairDir {

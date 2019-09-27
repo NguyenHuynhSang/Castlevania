@@ -2268,16 +2268,19 @@
   <object id="151" name="Brick" type="Brick" gid="189" x="2016.25" y="224" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="0"/>
+    <property name="itemdef" type="int" value="5"/>
    </properties>
   </object>
   <object id="152" name="Brick" type="Brick" gid="190" x="3584" y="320" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="1"/>
+    <property name="itemdef" type="int" value="5"/>
    </properties>
   </object>
   <object id="153" name="Brick" type="Brick" gid="190" x="3584" y="288" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="1"/>
+    <property name="itemdef" type="int" value="-1"/>
    </properties>
   </object>
  </objectgroup>

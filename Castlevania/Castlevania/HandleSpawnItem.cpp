@@ -1,10 +1,10 @@
-#include "HandleSpawnItem.h"
+﻿#include "HandleSpawnItem.h"
 #include"Heart.h"
 #include"MorningStar.h"
 #include"SceneManagement.h"
 #include"LargeHeart.h"
 #include"DaggerItem.h"
-
+#include"MoneyBag.h"
 
 
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
@@ -43,6 +43,41 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		SceneManagement::GetInstance()->SpawnItem(item);
 		break;
 	}
+
+	case ITDMONEYBAGFULLCOLOR: {
+		item = new MoneyBag();
+		item->SetState(MONEYBAG_STATE_FULLCOLOR);
+		item->SetIsHiding(isHiding);
+		item->SetPosition(x, y); // vì tọa độ được load vào chưa -80
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
+	case ITDMONEYBAGWHITE: {
+		item = new MoneyBag();
+		item->SetState(MONEYBAG_STATE_WHITE);
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
+	case  ITDMONEYBAGBLUE: 
+	{
+		item = new MoneyBag();
+		item->SetState(MONEYBAG_STATE_BLUE);
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
+	case  ITDMONEYBAGRED:
+	{
+		item = new MoneyBag();
+		item->SetState(MONEYBAG_STATE_RED);
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
 	}
 }
 
@@ -65,7 +100,8 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 	}
 	else if (rank<180)
 	{
-		item = new MorningStar();
+		item = new MoneyBag();
+		item->SetState(MONEYBAG_STATE_RED);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
 		SceneManagement::GetInstance()->SpawnItem(item);
@@ -73,7 +109,8 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 	}
 	else
 	{
-		item = new DaggerItem();
+		item = new MoneyBag();
+		item->SetState(MONEYBAG_STATE_WHITE);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
 		SceneManagement::GetInstance()->SpawnItem(item);
