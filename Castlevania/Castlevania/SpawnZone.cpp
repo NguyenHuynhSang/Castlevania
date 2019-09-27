@@ -1,8 +1,5 @@
 #include "SpawnZone.h"
-#include"Enemy.h"
-#include"Zombie.h"
-#include"SceneManagement.h"
-
+#include"HandleSpawnEnemy.h"
 
 
 bool SpawnZone::CheckInCam()
@@ -29,21 +26,8 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 		DebugOut(L"Spawn \n");
-		switch (this->enemyDef)
-		{
-		case EDZOMBIE:
-		{
-			for (size_t i = 0; i < this->num; i++)
-			{
-				Enemy * enemy = new Zombie();
-				enemy->SetPositionInWorld(this->x + i*50+34, this->y);
-				SceneManagement::GetInstance()->SpawnEnemy(enemy);
-				
-			}
-			break;
-		}
-
-		}
+		HandleSpawnEnemy::GetInstance()->SpawnEnemy(this->enemyDef, this->num
+			, this->defaultTime, this->x, this->y);
 		this->isSpawn = false;
 		spawn_start = GetTickCount();
 	}

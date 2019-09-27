@@ -38,7 +38,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HandleSpawnEffects.h" />
-    <ClInclude Include="HanleSpawnEnemy.h" />
+    <ClInclude Include="HandleSpawnEnemy.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="Item.h" />
@@ -91,7 +91,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HandleSpawnEffects.cpp" />
-    <ClCompile Include="HanleSpawnEnemy.cpp" />
+    <ClCompile Include="HandleSpawnEnemy.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="Item.cpp" />

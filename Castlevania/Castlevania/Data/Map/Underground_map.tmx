@@ -444,7 +444,7 @@
    <properties>
     <property name="enemydef" type="int" value="3"/>
     <property name="num" type="int" value="2"/>
-    <property name="respawntime" type="int" value="5000"/>
+    <property name="respawntime" type="int" value="10000"/>
    </properties>
   </object>
  </objectgroup>

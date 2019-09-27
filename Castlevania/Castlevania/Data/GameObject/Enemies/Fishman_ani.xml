@@ -8,9 +8,8 @@
 			<frame spriteID="FISHMAN_IDLE" />
 			<frame spriteID="FISHMAN_WALKING_01" />
 		</animation>
-			<animation ID="FISHMAN_ANI_SHOOTING" defaulttime="100">
-			<frame spriteID="FISHMAN_IDLE" />
-			<frame spriteID="FISHMAN_WALKING_01" />
+			<animation ID="FISHMAN_ANI_SHOOTING" defaulttime="1000">
+			<frame spriteID="FISHMAN_SHOOTING_01" />
 		</animation>
 	</animations>
 

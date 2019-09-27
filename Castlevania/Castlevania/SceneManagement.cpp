@@ -1,5 +1,5 @@
 ﻿#include "SceneManagement.h"
-
+#include"Fishman.h"
 
 SceneManagement * SceneManagement::__instance = NULL;
 
@@ -124,6 +124,18 @@ void SceneManagement::OnCreate()
 	LoadResource();
 	LoadScene();
 }
+int SceneManagement::CheckNumOfFishMan()
+{
+	int counter = 0;
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		if (dynamic_cast<Fishman*>(enemies.at(i)))
+		{
+			counter++;
+		}
+	}
+	return counter;
+}
 void SceneManagement::Update(DWORD dt)
 {
 			
@@ -239,7 +251,7 @@ void SceneManagement::Update(DWORD dt)
 	//update enemies
 	for (std::size_t i = 0; i < enemies.size(); i++) //object
 	{
-		if (enemies[i]->x<0 || enemies[i]->x>cmap->GetMapWidth() || enemies[i]->y > SCREEN_HEIGHT)
+		if (enemies[i]->x<-64|| enemies[i]->x>cmap->GetMapWidth()+64 || enemies[i]->y > SCREEN_HEIGHT)
 		{
 			enemies[i]->SetDestroy();
 		}

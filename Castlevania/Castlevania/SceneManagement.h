@@ -64,6 +64,7 @@ public:
 
 	static SceneManagement * GetInstance();
 	void OnCreate();
+	int CheckNumOfFishMan();
 	CSimon* GetSimon() {
 		return this->simon;
 	};
