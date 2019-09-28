@@ -30,6 +30,7 @@
 #define ID_TEX_CANDLE 80
 #define ID_TEX_ITEM_DAGGER 90
 #define ID_TEX_FISHMAN 100
+#define ID_TEX_FIREBALL 110
 #define ID_TEX_ITEM_HEART 500
 #define ID_TEX_ITEM_MORNINGSTAR 501
 #define ID_TEX_ITEM_MONEYBAG 502
@@ -112,7 +113,8 @@ const enum EnemyDef {
 	EDZOMBIE,
 	EDPANTHER,
 	EDBAT,
-	EDFISHMAN
+	EDFISHMAN,
+	EDFIREBALL,
 };
 
 const enum SubWeaponDef {

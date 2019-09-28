@@ -22,6 +22,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include"SceneManagement.h"
+#include"HandleSpawnItem.h"
 CGame *game;
 SceneManagement *scene;
 class CSampleKeyHander : public InputController
@@ -34,6 +35,8 @@ class CSampleKeyHander : public InputController
 CSampleKeyHander * keyHandler;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
+	float sx, sy;
+	scene->GetSimon()->GetPosition(sx, sy);
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
@@ -59,6 +62,12 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 
+	case DIK_1: 
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDWhip, sx, sy - 64,false);
+		break;
+	case DIK_2:
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDDagger, sx, sy - 64,false);
+		break;
 	case DIK_Q:
 		scene->JumpToState(GSTATE_01);
 		break;

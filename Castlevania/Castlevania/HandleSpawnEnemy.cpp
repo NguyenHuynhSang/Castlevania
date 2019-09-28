@@ -2,6 +2,7 @@
 
 #include"Zombie.h"
 #include"Fishman.h"
+#include"Fireball.h"
 #include"SceneManagement.h"
 
 
@@ -9,7 +10,7 @@ HandleSpawnEnemy * HandleSpawnEnemy::__instance = NULL;
 
 
 
-void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float x,float y)
+void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float x,float y,int nx)
 {
 	switch (enemyDef)
 	{
@@ -38,7 +39,12 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 		}
 		break;
 	}
-
+	case EDFIREBALL: {
+		enemy = new Fireball(nx);
+		enemy->SetPositionInWorld(x , y);
+		SceneManagement::GetInstance()->SpawnEnemy(enemy);
+		break;
+	}
 	}
 }
 

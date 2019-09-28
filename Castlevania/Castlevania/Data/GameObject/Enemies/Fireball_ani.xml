@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<animations AtlasPath="Fireball_sprite.xml">
+		<animation ID="FIREBALL_ANI" defaulttime="100">
+			<frame spriteID="FIREBALL_01" />
+		</animation>
+	</animations>
+
+</resource>

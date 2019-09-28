@@ -2,6 +2,7 @@
 #include"Ground.h"
 #include"Water.h"
 #include"HandleSpawnEffects.h"
+#include"HandleSpawnEnemy.h"
 void Fishman::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
@@ -168,7 +169,7 @@ void Fishman::SetState(int state)
 		this->shooting_start = GetTickCount();
 		this->vx = 0;
 		this->vy = 0;
-		
+		HandleSpawnEnemy::GetInstance()->SpawnEnemy(EDFIREBALL,1,0, this->x, this->y+5,this->nx);
 		break;
 	}
 

@@ -222,11 +222,11 @@
     <ClInclude Include="HandleSpawnEnemy.h">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="HandleSpawnItem.h">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,11 +374,11 @@
     <ClCompile Include="HandleSpawnEnemy.cpp">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="HandleSpawnItem.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
