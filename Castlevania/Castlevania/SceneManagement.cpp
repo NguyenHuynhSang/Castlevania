@@ -30,7 +30,8 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_DEBRIS, L"Data\\GameObject\\Effect\\Debris.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_BUBBLE, L"Data\\GameObject\\Effect\\Bubble.png", D3DCOLOR_XRGB(255, 0, 255));
-	
+	textures->Add(ID_TEX_EFFECT_SCROTE_TEXT, L"Data\\GameObject\\Effect\\ScoreText.png", D3DCOLOR_XRGB(255, 0, 255));
+
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
@@ -97,6 +98,12 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texEffectBubble = textures->Get(ID_TEX_EFFECT_BUBBLE);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Bubble_sprite.xml", texEffectBubble);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Bubble_ani.xml", animations);
+
+	LPDIRECT3DTEXTURE9 texEffectScoreText = textures->Get(ID_TEX_EFFECT_SCROTE_TEXT);
+	resource->LoadSprites("Data\\GameObject\\Effect\\ScoreText_sprite.xml", texEffectScoreText);
+	resource->LoadAnimations("Data\\GameObject\\Effect\\ScoreText_ani.xml", animations);
+
+	
 	LPDIRECT3DTEXTURE9 texCandle = textures->Get(ID_TEX_CANDLE);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Candle_sprite.xml", texCandle);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Candle_ani.xml", animations);

@@ -5,6 +5,7 @@
 void Flame::Render()
 {
 	if (this->isDestroyed) return;
+	
 	animations[0]->Render(0, x, y);
 }
 

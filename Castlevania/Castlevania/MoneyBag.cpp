@@ -1,8 +1,6 @@
 ﻿#include "MoneyBag.h"
 #include"Ground.h"
-#include"Effects.h"
-#include"Flame.h"
-#include"SceneManagement.h"
+#include"HandleSpawnEffects.h"
 void MoneyBag::Render()
 {
 	if (this->isHiding)
@@ -39,6 +37,8 @@ void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (state != MONEYBAG_STATE_FULLCOLOR)
+		this->UpdateItem();
 	if (GetTickCount() - wait_start > EFFECTS_LIFE_TIME)
 	{
 		this->isHiding = false;
@@ -54,8 +54,25 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->setDestroy) {
 		this->TurnOffCollision();
-		if (state != MONEYBAG_STATE_FULLCOLOR)
-			this->UpdateItem();
+		switch (this->state)
+		{
+		case MONEYBAG_STATE_FULLCOLOR: {
+			HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_ST1000, this->x, this->y);
+			break;
+		}
+		case MONEYBAG_STATE_WHITE: {
+			HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_ST100, this->x, this->y);
+			break;
+		}
+		case MONEYBAG_STATE_RED: {
+			HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_ST400, this->x, this->y);
+			break;
+		}
+		case MONEYBAG_STATE_BLUE: {
+			HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_ST700, this->x, this->y);
+			break;
+		}
+		}
 		this->isDestroyed = true;
 		return;
 	}

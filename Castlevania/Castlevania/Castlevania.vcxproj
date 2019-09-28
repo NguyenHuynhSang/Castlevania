@@ -56,6 +56,7 @@
     <ClInclude Include="ObjectProperty.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="SceneManagement.h" />
+    <ClInclude Include="ScoreText.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Flame.h" />
@@ -108,6 +109,7 @@
     <ClCompile Include="ObjectProperty.cpp" />
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
+    <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Flame.cpp" />

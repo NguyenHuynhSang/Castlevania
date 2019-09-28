@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="ScoreText.png">
+		<sprite ID="SCORETEXT_100">
+			<frame x="0" y="85" width="32" height="17" />
+		</sprite>
+		<sprite ID="SCORETEXT_400">
+			<frame x="0" y="68" width="32" height="17" />
+		</sprite>
+		<sprite ID="SCORETEXT_700">
+			<frame x="0" y="51" width="32" height="17" />
+		</sprite>
+		<sprite ID="SCORETEXT_1000_01">
+			<frame x="0" y="0" width="32" height="17" />
+		</sprite>
+		<sprite ID="SCORETEXT_1000_02">
+			<frame x="0" y="17" width="32" height="17" />
+		</sprite>
+		<sprite ID="SCORETEXT_1000_03">
+			<frame x="0" y="34" width="32" height="17" />
+		</sprite>
+	</spritesheet>
+</resource>

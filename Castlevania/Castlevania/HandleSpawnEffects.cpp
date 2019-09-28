@@ -3,6 +3,7 @@
 #include"Flame.h"
 #include"DebrisBrick.h"
 #include"Bubble.h"
+#include"ScoreText.h"
 
 
 HandleSpawnEffects * HandleSpawnEffects::__instance = NULL;
@@ -44,6 +45,30 @@ void HandleSpawnEffects::SpawnEffect(int effectDef, float x, float y)
 				effect->SetPositionInWorld(x,y);
 				SceneManagement::GetInstance()->SpawnEffect(effect);
 			}
+			break;
+		}
+		case EFD_ST100: {
+			effect = new ScoreText(SCORETEXT_STATE_100);
+			effect->SetPositionInWorld(x, y);
+			SceneManagement::GetInstance()->SpawnEffect(effect);
+			break;
+		}
+		case EFD_ST400: {
+			effect = new ScoreText(SCORETEXT_STATE_400);
+			effect->SetPositionInWorld(x, y);
+			SceneManagement::GetInstance()->SpawnEffect(effect);
+			break;
+		}
+		case EFD_ST700: {
+			effect = new ScoreText(SCORETEXT_STATE_700);
+			effect->SetPositionInWorld(x, y);
+			SceneManagement::GetInstance()->SpawnEffect(effect);
+			break;
+		}
+		case EFD_ST1000: {
+			effect = new ScoreText(SCORETEXT_STATE_1000);
+			effect->SetPositionInWorld(x, y);
+			SceneManagement::GetInstance()->SpawnEffect(effect);
 			break;
 		}
 	}

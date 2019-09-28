@@ -17,7 +17,10 @@
 #define FONT_PATH L"Data\\prstart.ttf"
 
 #define EFFECTS_LIFE_TIME 500
-
+#define SCORETEXT_STATE_100 0
+#define SCORETEXT_STATE_400 100
+#define SCORETEXT_STATE_700 200 
+#define SCORETEXT_STATE_1000 300
 
 #define ID_TEX_SIMON 0
 #define ID_TEX_ENEMY 10
@@ -37,6 +40,7 @@
 #define ID_TEX_EFFECT_FLAME 600
 #define ID_TEX_EFFECT_DEBRIS 601
 #define ID_TEX_EFFECT_BUBBLE 602
+#define ID_TEX_EFFECT_SCROTE_TEXT 603
 #define ID_TEX_TILESET_1 1000
 #define ID_TEX_TILESET_2 1001
 #define ID_TEX_TILESET_3 1002
@@ -125,6 +129,10 @@ const enum SubWeaponDef {
 const enum EffectDef {
 	EFD_FLAME,
 	EFD_DEBRIS,
-	EFD_BUBBLE
+	EFD_BUBBLE,
+	EFD_ST100,
+	EFD_ST400,
+	EFD_ST700,
+	EFD_ST1000,
 };
 #endif
