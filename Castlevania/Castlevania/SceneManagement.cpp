@@ -17,6 +17,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_SPRITE_BBOX, L"textures\\bbox1.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_CANDLE, L"Data\\GameObject\\Ground\\Candle.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_DOOR, L"Data\\GameObject\\Ground\\Door.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -47,6 +48,11 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texTorch = textures->Get(ID_TEX_TORCH);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Torch_sprite.xml", texTorch);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Torch_ani.xml", animations);
+
+
+	LPDIRECT3DTEXTURE9 texDoor = textures->Get(ID_TEX_DOOR);
+	resource->LoadSprites("Data\\GameObject\\Ground\\Door_sprite.xml", texDoor);
+	resource->LoadAnimations("Data\\GameObject\\Ground\\Door_ani.xml", animations);
 
 	LPDIRECT3DTEXTURE9 texHeart = textures->Get(ID_TEX_ITEM_HEART);
 	resource->LoadSprites("Data\\GameObject\\Items\\Heart_sprite.xml", texHeart);
@@ -548,6 +554,14 @@ void SceneManagement::LoadObjects(int currentscene)
 			brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			objects.push_back(brick);
 		}
+
+		auto doorObject = cmap->GetObjects().find(ID_TILE_OBJECT_GS2_DOOR);
+		for (const auto& child : doorObject->second) {
+			door = new Door();
+			door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			objects.push_back(door);
+		}
+
 
 
 		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);

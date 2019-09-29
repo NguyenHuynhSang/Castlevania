@@ -28,6 +28,7 @@
 #include"Candle.h"
 #include"SubWeapon.h"
 #include"Water.h"
+#include"Door.h"
 class SceneManagement
 {
 private:
@@ -46,6 +47,7 @@ private:
 	Candle * candle;
 	SpawnZone *spawnZone;
 	Water* water;
+	Door* door;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;

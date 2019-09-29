@@ -1,2 +1,4 @@
-﻿  Door.cpp
+﻿  Simon.cpp
+d:\git\castlevania\castlevania\castlevania\simon.cpp(678): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\simon.cpp(683): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

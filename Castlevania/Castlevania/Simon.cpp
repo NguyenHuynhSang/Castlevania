@@ -21,7 +21,7 @@
 #include"Brick.h"
 #include"Water.h"
 #include"HandleSpawnEffects.h"
-
+#include"Door.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -459,6 +459,21 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					y += dy;
 				}
 
+			}
+			else if (dynamic_cast<Door *>(e->obj))
+			{
+			Door *door = dynamic_cast<Door *>(e->obj);
+			if (door->GetState()== DOOR_STATE_CLOSE && !this->isJumping)
+			{
+				door->SetState(DOOR_STATE_OPEN);
+				if (e->nx!=0)
+				{
+					x += dx;
+					this->isAutoWalk = true;
+					this->SetState(SIMON_STATE_WALKING_RIGHT);
+				}
+			}
+				
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {

@@ -2152,7 +2152,7 @@
  </objectgroup>
  <objectgroup id="4" name="Entry"/>
  <objectgroup color="#ff0000" id="5" name="Simon">
-  <object id="146" name="Simon" type="Simon" gid="112" x="2652.08" y="315.917" width="60" height="66"/>
+  <object id="146" name="Simon" type="Simon" gid="112" x="2882.08" y="122.584" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="SpawnZone">
   <object id="147" x="3093" y="252" width="251" height="64">
@@ -2285,8 +2285,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="15" name="Door">
-  <object id="159" gid="191" x="3056" y="128" width="16" height="96"/>
-  <object id="160" gid="191" x="4080" y="128" width="16" height="96"/>
+ <objectgroup color="#aa007f" id="15" name="Door">
+  <object id="159" name="Door" type="Door" gid="191" x="3056" y="128" width="16" height="96"/>
+  <object id="160" name="Door" type="Door" gid="191" x="4080" y="128" width="16" height="96"/>
  </objectgroup>
 </map>
