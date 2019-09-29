@@ -3,6 +3,9 @@
 #include"Torch.h"
 #include"Candle.h"
 #include"Zombie.h"
+#include"Dagger.h"
+#include"Brick.h"
+#include"Fireball.h"
 void Dagger::Render()
 {
 	animations[0]->Render(nx, x, y);
@@ -51,11 +54,29 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Torch *>(e->obj)) {
-			
+
 				Torch *torch = dynamic_cast<Torch *>(e->obj);
 				if (!torch->isDestroyed)
 				{
 					torch->SetDestroy();
+				}
+				this->SetDestroy();
+			}
+			else if (dynamic_cast<CBrick *>(e->obj)) {
+
+				CBrick *brick = dynamic_cast<CBrick *>(e->obj);
+				if (!brick->isDestroyed)
+				{
+					brick->SetDestroy();
+				}
+				this->SetDestroy();
+			}
+			else if (dynamic_cast<Fireball *>(e->obj)) {
+
+				Fireball *fireball = dynamic_cast<Fireball *>(e->obj);
+				if (!fireball->isDestroyed)
+				{
+					fireball->SetDestroy();
 				}
 				this->SetDestroy();
 			}
@@ -98,7 +119,7 @@ void Dagger::GetBoundingBox(float & l, float & t, float & r, float & b)
 Dagger::Dagger() :SubWeapon()
 {
 	AddAnimation("DAGGER_ITEM_ANI");
-	
+
 }
 
 

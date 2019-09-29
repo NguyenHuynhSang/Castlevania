@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="155">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="161">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -8,6 +8,7 @@
  <tileset firstgid="183" source="ObjectTile/PANTHER.tsx"/>
  <tileset firstgid="187" source="ObjectTile/Candle.tsx"/>
  <tileset firstgid="189" source="ObjectTile/Brick.tsx"/>
+ <tileset firstgid="191" source="ObjectTile/Door.tsx"/>
  <layer id="1" name="background" width="176" height="12" locked="1">
   <data>
    <tile gid="1"/>
@@ -2124,12 +2125,13 @@
    <tile gid="38"/>
   </data>
  </layer>
- <objectgroup color="#ff0000" id="2" name="BoundMap" locked="1">
+ <objectgroup color="#ff0000" id="2" name="BoundMap">
   <object id="1" name="Bound" x="-25" y="0" width="25" height="383"/>
   <object id="3" name="Bound" x="5633" y="-1" width="15" height="384"/>
   <object id="95" x="3056.5" y="159" width="31.5" height="160.5"/>
   <object id="96" x="3055.5" y="0" width="32.5" height="30.5"/>
   <object id="109" x="5616" y="0.5" width="17" height="318.5"/>
+  <object id="157" x="4080" y="158.667" width="16.6667" height="160"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="3" name="Ground">
   <object id="4" x="2" y="321.167" width="5628" height="29.5"/>
@@ -2143,7 +2145,6 @@
   <object id="102" x="3776.5" y="193.5" width="126.667" height="28.5"/>
   <object id="103" x="3903.5" y="128" width="416.5" height="30.5"/>
   <object id="104" x="4032" y="0.5" width="63.5" height="30"/>
-  <object id="105" x="4080" y="159" width="17" height="159.5"/>
   <object id="106" x="4352" y="192.5" width="352.5" height="30.5"/>
   <object id="107" x="5440.5" y="256.5" width="31.5" height="30"/>
   <object id="108" x="5535.5" y="193" width="97" height="30"/>
@@ -2154,7 +2155,7 @@
   <object id="146" name="Simon" type="Simon" gid="112" x="2652.08" y="315.917" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="SpawnZone">
-  <object id="147" x="2801" y="253" width="251" height="64">
+  <object id="147" x="3093" y="252" width="251" height="64">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
@@ -2283,5 +2284,9 @@
     <property name="itemdef" type="int" value="-1"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup id="15" name="Door">
+  <object id="159" gid="191" x="3056" y="128" width="16" height="96"/>
+  <object id="160" gid="191" x="4080" y="128" width="16" height="96"/>
  </objectgroup>
 </map>

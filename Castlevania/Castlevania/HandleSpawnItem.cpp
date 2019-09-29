@@ -12,7 +12,7 @@ HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 {
-	
+	DebugOut(L"Spawn item \n");
 	switch (itemDef)
 	{
 	case ITDHeart: {
@@ -83,6 +83,7 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 
 void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 {
+	DebugOut(L"Spawn random item \n");
 	int rank = 0 + rand() % (200 + 1 - 0);
 	if (rank<100)
 	{

@@ -23,6 +23,7 @@
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Bubble.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="DebrisBrick.h" />
     <ClInclude Include="Brick.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="BattleCross.cpp" />
     <ClCompile Include="BoundMap.cpp" />
     <ClCompile Include="Bubble.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="DebrisBrick.cpp" />
     <ClCompile Include="Brick.cpp" />

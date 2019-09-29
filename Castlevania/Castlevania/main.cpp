@@ -307,8 +307,9 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
+		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 		scene->Render();
 		spriteHandler->End();

@@ -150,12 +150,11 @@ void CTileMap::Render()
 	int beginRow = (int)camY / 32;
 	for (int i = beginRow; i < mapRow; i++)
 	{
+	
 		for (int j = beginCol; j < endCol; j++)
 		{
 			int id = matrix[i][j];
 			CSprites::GetInstance()->Get(std::to_string(id))->Draw(0, j*this->tileHeight, i*this->tileHeight + GAME_WORLD_Y);
-
-
 		}
 	}
 
