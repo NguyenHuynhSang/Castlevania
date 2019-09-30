@@ -17,11 +17,15 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	
-	if (this->isDestroyed) return;
+	if (this->isDestroyed ) return;
 	if (this->setDestroy)
 	{
 		this->UpdateEnemy();
 		this->isDestroyed = true;
+		return;
+	}
+	if (this->isFreeze)
+	{
 		return;
 	}
 	//	if (reSpawn) return;

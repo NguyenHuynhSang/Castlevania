@@ -77,6 +77,9 @@ public:
 	void ResetCam() {
 		CGame::GetInstance()->SetCamPos(0, 0);
 	}
+
+	void FreezeEnemy();
+	void DestroyEnemyImmediately();
 	void LoadScene();
 	void GoNextScene();
 	void JumpToState(int state);

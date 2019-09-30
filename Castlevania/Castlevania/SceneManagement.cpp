@@ -360,6 +360,15 @@ void SceneManagement::SceneUpdate()
 {
 }
 
+void SceneManagement::FreezeEnemy()
+{
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		Enemy * enemy = dynamic_cast<Enemy*> (enemies.at(i));
+		enemy->SetFreeze();
+	}
+}
+
 void SceneManagement::LoadScene()
 {
 	CTextures * textures = CTextures::GetInstance();

@@ -101,10 +101,10 @@ const enum GameState {
 };
 
 const enum ItemID {
-	ITDHeart=0,
-	ITDLargeHeart=1,
-	ITDWhip=2,
-	ITDDagger=3,
+	ITDHeart = 0,
+	ITDLargeHeart = 1,
+	ITDWhip = 2,
+	ITDDagger = 3,
 	ITDMONEYBAGFULLCOLOR,
 	ITDMONEYBAGBLUE,
 	ITDMONEYBAGWHITE,
@@ -141,5 +141,12 @@ const enum EffectDef {
 	EFD_ST400,
 	EFD_ST700,
 	EFD_ST1000,
+};
+
+const enum class DIRECTION {
+	LEFT = -1,
+	RIGHT = 1,
+	UP,
+	DOWN,
 };
 #endif

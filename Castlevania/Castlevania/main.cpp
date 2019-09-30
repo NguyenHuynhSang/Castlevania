@@ -89,6 +89,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_E:
 		scene->JumpToState(GSTATE_03);
 		break;
+	case DIK_TAB:
+		scene->FreezeEnemy();
+		break;
 	case DIK_H:
 		scene->GetSimon()->SetAutoWalk(true);
 		break;
@@ -106,14 +109,11 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	}
 	case DIK_F:
-		DebugOut(L"Press F \n");
-		DebugOut(L"state=%d \n", scene->GetSimon()->GetState());
 		if (!scene->GetSimon()->CheckAttack()) {
-			DebugOut(L"Check attact \n");
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->CheckIsOnStair())
 			{
-				DebugOut(L"CheckIsOnStair \n");
+	
 				if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPLEFT
 					|| scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPRIGHT
 					&& scene->GetSimon()->GetState() == SIMON_STATE_UPSTAIR_IDLE)
@@ -132,9 +132,13 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			else {
 				if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
 				{
+				
+					
 					scene->GetSimon()->SetState(SIMON_STATE_SIT_ATTACK);
 				}
 				else {
+				
+					
 					scene->GetSimon()->SetState(SIMON_STATE_STAND_ATTACK);
 				}
 

@@ -21,6 +21,10 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->isDestroyed = true;
 		return;
 	}
+	if (this->isFreeze)
+	{
+		return;
+	}
 	//	if (reSpawn) return;
 		//DebugOut(L"update \n");
 	CGameObject::Update(dt);

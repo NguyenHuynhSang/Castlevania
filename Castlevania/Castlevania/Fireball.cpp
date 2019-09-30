@@ -12,7 +12,7 @@ void Fireball::GetBoundingBox(float & left, float & top, float & right, float & 
 
 void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isDestroyed)
+	if (this->isDestroyed )
 	{
 		return;
 	}
@@ -22,7 +22,10 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->isDestroyed = true;
 		return;
 	}
-
+	if (this->isFreeze)
+	{
+		return;
+	}
 	CGameObject::Update(dt);
 
 		this->vx = -BULLET_SPEED_VX * nx;
