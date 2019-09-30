@@ -234,6 +234,12 @@
     <ClInclude Include="Door.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClInclude>
+    <ClInclude Include="AxeItem.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -391,6 +397,12 @@
     </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>ObjectsManagement\StaticObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="AxeItem.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

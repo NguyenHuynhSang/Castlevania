@@ -35,6 +35,8 @@
 #define ID_TEX_FISHMAN 100
 #define ID_TEX_FIREBALL 110
 #define ID_TEX_DOOR      120
+#define ID_TEX_AXE      130
+#define ID_TEX_ITEM_AXE      130
 #define ID_TEX_ITEM_HEART 500
 #define ID_TEX_ITEM_MORNINGSTAR 501
 #define ID_TEX_ITEM_MONEYBAG 502
@@ -42,6 +44,7 @@
 #define ID_TEX_EFFECT_DEBRIS 601
 #define ID_TEX_EFFECT_BUBBLE 602
 #define ID_TEX_EFFECT_SCROTE_TEXT 603
+
 #define ID_TEX_TILESET_1 1000
 #define ID_TEX_TILESET_2 1001
 #define ID_TEX_TILESET_3 1002
@@ -106,6 +109,7 @@ const enum ItemID {
 	ITDMONEYBAGBLUE,
 	ITDMONEYBAGWHITE,
 	ITDMONEYBAGRED,
+	ITDAXE
 };
 
 const enum StairDir {
@@ -126,6 +130,7 @@ const enum EnemyDef {
 const enum SubWeaponDef {
 	SWDDAGGER,
 	SWDHOLLYWATER,
+	SWDAXE,
 };
 
 const enum EffectDef {

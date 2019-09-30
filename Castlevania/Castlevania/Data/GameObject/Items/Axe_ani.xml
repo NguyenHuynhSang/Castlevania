@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<animations AtlasPath="Axe_sprite.xml">
+		<animation ID="AXE_ITEM_ANI" defaulttime="100">
+			<frame spriteID="AXE_ITEM_01" />
+		</animation>
+	</animations>
+
+</resource>

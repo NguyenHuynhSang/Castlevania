@@ -22,6 +22,8 @@
 #include"Water.h"
 #include"HandleSpawnEffects.h"
 #include"Door.h"
+#include"Axe.h"
+#include"AxeItem.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -237,6 +239,14 @@ void CSimon::HandleUseSubWeapon()
 		sw->SetPositionInWorld(this->x, this->y);
 		sw->SetNx(this->nx);
 		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+		break;
+	}
+	case SWDAXE: {
+		SubWeapon *sw = new Axe();
+		sw->SetPositionInWorld(this->x, this->y);
+		sw->SetNx(this->nx);
+		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+		break;
 	}
 	}
 }
@@ -462,18 +472,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (dynamic_cast<Door *>(e->obj))
 			{
-			Door *door = dynamic_cast<Door *>(e->obj);
-			if (door->GetState()== DOOR_STATE_CLOSE && !this->isJumping)
-			{
-				door->SetState(DOOR_STATE_OPEN);
-				if (e->nx!=0)
+				Door *door = dynamic_cast<Door *>(e->obj);
+				if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
 				{
-					x += dx;
-					this->isAutoWalk = true;
-					this->SetState(SIMON_STATE_WALKING_RIGHT);
+					door->SetState(DOOR_STATE_OPEN);
+					if (e->nx != 0)
+					{
+						x += dx;
+						this->isAutoWalk = true;
+						this->SetState(SIMON_STATE_WALKING_RIGHT);
+					}
 				}
-			}
-				
+
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {
@@ -520,6 +530,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					else if (dynamic_cast<DaggerItem *>(e->obj))
 					{
 						this->subWeaponDef = SWDDAGGER;
+					}
+					else if (dynamic_cast<AxeItem *>(e->obj))
+					{
+						this->subWeaponDef = SWDAXE;
 					}
 
 					if (!item->isDestroyed)
@@ -598,6 +612,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						this->subWeaponDef = SWDDAGGER;
 					}
+					else if (dynamic_cast<AxeItem *>(e))
+					{
+						this->subWeaponDef = SWDAXE;
+					}
+
 					//DebugOut(L"aabb \n");
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();

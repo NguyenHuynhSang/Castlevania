@@ -22,12 +22,14 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_DAGGER, L"Data\\GameObject\\Items\\Dagger.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_AXE, L"Data\\GameObject\\Items\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_FISHMAN, L"Data\\GameObject\\Enemies\\Fishman.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_FIREBALL, L"Data\\GameObject\\Enemies\\FIREBALL.png", D3DCOLOR_XRGB(255, 0, 255));
-	
+	textures->Add(ID_TEX_AXE, L"Data\\GameObject\\Sub_weapons\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
+
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_DEBRIS, L"Data\\GameObject\\Effect\\Debris.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_BUBBLE, L"Data\\GameObject\\Effect\\Bubble.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -69,6 +71,16 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texDagger = textures->Get(ID_TEX_ITEM_DAGGER);
 	resource->LoadSprites("Data\\GameObject\\Items\\Dagger_sprite.xml", texDagger);
 	resource->LoadAnimations("Data\\GameObject\\Items\\Dagger_ani.xml", animations);
+	
+	LPDIRECT3DTEXTURE9 texItemAxe = textures->Get(ID_TEX_ITEM_AXE);
+	resource->LoadSprites("Data\\GameObject\\Items\\Axe_sprite.xml", texItemAxe);
+	resource->LoadAnimations("Data\\GameObject\\Items\\Axe_ani.xml", animations);
+
+	
+	LPDIRECT3DTEXTURE9 texAxe = textures->Get(ID_TEX_AXE);
+	resource->LoadSprites("Data\\GameObject\\Sub_weapons\\Axe_sprite.xml", texAxe);
+	resource->LoadAnimations("Data\\GameObject\\Sub_weapons\\Axe_ani.xml", animations);
+
 
 	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
@@ -86,7 +98,7 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texFishman = textures->Get(ID_TEX_FISHMAN);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Fishman_sprite.xml", texFishman);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Fishman_ani.xml", animations);
-	
+
 	LPDIRECT3DTEXTURE9 texFireball = textures->Get(ID_TEX_FIREBALL);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Fireball_sprite.xml", texFireball);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Fireball_ani.xml", animations);
@@ -96,11 +108,11 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
-	
+
 	LPDIRECT3DTEXTURE9 texEffectDebris = textures->Get(ID_TEX_EFFECT_DEBRIS);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Debris_sprite.xml", texEffectDebris);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Debris_ani.xml", animations);
-	
+
 	LPDIRECT3DTEXTURE9 texEffectBubble = textures->Get(ID_TEX_EFFECT_BUBBLE);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Bubble_sprite.xml", texEffectBubble);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Bubble_ani.xml", animations);
@@ -109,7 +121,7 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Effect\\ScoreText_sprite.xml", texEffectScoreText);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\ScoreText_ani.xml", animations);
 
-	
+
 	LPDIRECT3DTEXTURE9 texCandle = textures->Get(ID_TEX_CANDLE);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Candle_sprite.xml", texCandle);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Candle_ani.xml", animations);
@@ -119,7 +131,7 @@ void SceneManagement::LoadResource()
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Brick_ani.xml", animations);
 
 
-	
+
 
 
 	simon = new CSimon();
@@ -156,7 +168,7 @@ int SceneManagement::CheckNumOfFishMan()
 }
 void SceneManagement::Update(DWORD dt)
 {
-			
+
 	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	if (this->isNextScene) {
@@ -178,6 +190,7 @@ void SceneManagement::Update(DWORD dt)
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = objects.erase(it);
+			DebugOut(L"[DELETE] OBJECT \n");
 		}
 		else ++it;
 	}
@@ -186,6 +199,7 @@ void SceneManagement::Update(DWORD dt)
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = subWeapon.erase(it);
+			DebugOut(L"[DELETE] SUBWEAPON \n");
 		}
 		else ++it;
 	}
@@ -195,7 +209,7 @@ void SceneManagement::Update(DWORD dt)
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = enemies.erase(it);
-			DebugOut(L"Xoa enemy \n");
+			DebugOut(L"[DELETE] ENEMY \n");
 		}
 		else ++it;
 	}
@@ -205,6 +219,7 @@ void SceneManagement::Update(DWORD dt)
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = effects.erase(it);
+			DebugOut(L"[DELETE] EFFECT \n");
 		}
 		else ++it;
 	}
@@ -214,12 +229,13 @@ void SceneManagement::Update(DWORD dt)
 		if ((*it)->isDestroyed) {
 			delete (*it);
 			it = items.erase(it);
+			DebugOut(L"[DELETE] ITEM \n");
 		}
 		else ++it;
 	}
 
-	
-		
+
+
 
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -230,7 +246,7 @@ void SceneManagement::Update(DWORD dt)
 			coObjects.push_back(objects[i]);
 			continue;
 		}
-		else if (objects[i]->x > cx && objects[i]->x < cx + SCREEN_WIDTH+128)
+		else if (objects[i]->x > cx && objects[i]->x < cx + SCREEN_WIDTH + 128)
 		{
 			coObjects.push_back(objects[i]);
 		}
@@ -246,7 +262,7 @@ void SceneManagement::Update(DWORD dt)
 		{
 			coObjects.push_back(enemies[i]);
 		}
-	}	
+	}
 	for (std::size_t i = 0; i < items.size(); i++)  //item
 	{
 		coObjects.push_back(items[i]);
@@ -269,13 +285,13 @@ void SceneManagement::Update(DWORD dt)
 	//update enemies
 	for (std::size_t i = 0; i < enemies.size(); i++) //object
 	{
-		if (enemies[i]->x<-64|| enemies[i]->x>cmap->GetMapWidth()+64 || enemies[i]->y > SCREEN_HEIGHT)
+		if (enemies[i]->x<-64 || enemies[i]->x>cmap->GetMapWidth() + 64 || enemies[i]->y > SCREEN_HEIGHT)
 		{
 			enemies[i]->SetDestroy();
 		}
 		enemies[i]->Update(dt, &coObjects);
 	}
-	
+
 	//update efftects
 	for (std::size_t i = 0; i < effects.size(); i++) //effect
 	{
@@ -287,7 +303,7 @@ void SceneManagement::Update(DWORD dt)
 		items[i]->Update(dt, &coObjects);
 	}
 
-	
+
 
 
 	if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
@@ -331,7 +347,7 @@ void SceneManagement::Render()
 			enemies[i]->Render();
 		}
 	}
-	
+
 	for (std::size_t i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
 	for (std::size_t i = 0; i < this->effects.size(); i++)
@@ -398,7 +414,7 @@ void SceneManagement::LoadObjects(int currentscene)
 	for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
-	
+
 	objects.clear();
 	enemies.clear();
 	items.clear();
@@ -484,7 +500,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 	case GSTATE_02:
 	{
-		
+
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -582,7 +598,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		for (const auto& child : simonPos->second) {
 			int x = child->GetX();
 			int y = child->GetY() - child->GetHeight();
-			simon->SetPosition(x,y);
+			simon->SetPosition(x, y);
 		}
 		simon->SetState(SIMON_STATE_DOWNSTAIR_IDLE);
 		objects.push_back(simon);
@@ -645,7 +661,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(water);
 		}
-		
+
 		auto brickObject = cmap->GetObjects().find(ID_TILE_OBJECT_UNDERGROUND_BRICK);
 		for (const auto& child : brickObject->second) {
 			brick = new CBrick();

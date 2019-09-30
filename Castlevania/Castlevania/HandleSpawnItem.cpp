@@ -5,7 +5,7 @@
 #include"LargeHeart.h"
 #include"DaggerItem.h"
 #include"MoneyBag.h"
-
+#include"AxeItem.h"
 
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
@@ -31,6 +31,13 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 	}
 	case ITDDagger: {
 		item = new DaggerItem();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
+	case ITDAXE: {
+		item = new AxeItem();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
 		SceneManagement::GetInstance()->SpawnItem(item);

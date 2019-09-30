@@ -69,7 +69,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDDagger, sx, sy - 64,false);
 		break;
 	case DIK_3:
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDMONEYBAGFULLCOLOR, sx, sy - 64, false);
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDAXE, sx, sy - 64, false);
 		break;
 	case DIK_4:
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDMONEYBAGBLUE, sx, sy - 64, false);
