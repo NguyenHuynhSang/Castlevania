@@ -1,5 +1,5 @@
 #include "DaggerItem.h"
-
+#include"Ground.h"
 
 
 void DaggerItem::Render()
@@ -65,11 +65,23 @@ void DaggerItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-		y += min_ty * dy + ny * 0.1f;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (ny <= 0)
+			y += min_ty * dy + ny * 0.4f;
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<Ground *>(e->obj)) {
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+			}
+			else
+			{
+				if (e->nx != 0)
+					x += dx;
+				else if (e->ny != 0)
+					y += dy;
+			}
+		}
 
 	}
 	// clean up collision events
