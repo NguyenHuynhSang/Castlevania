@@ -67,6 +67,9 @@
     <Filter Include="ObjectsManagement\PlayerAndTheirStuff\SubWeapons">
       <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities\Grid">
+      <UniqueIdentifier>{b832f5bf-88a0-4ee6-888e-7cc4b17d9897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -240,6 +243,15 @@
     <ClInclude Include="AxeItem.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Utilities\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="IStopWatch.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="PorkChop.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -402,6 +414,15 @@
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="AxeItem.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Utilities\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="IStopWatch.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="PorkChop.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>

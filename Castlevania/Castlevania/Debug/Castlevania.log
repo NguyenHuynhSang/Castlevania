@@ -1,4 +1,138 @@
-﻿  Simon.cpp
+﻿  Axe.cpp
+  AxeItem.cpp
+  BattleCross.cpp
+  BoundMap.cpp
+  Bubble.cpp
+  Door.cpp
+  Fireball.cpp
+  DebrisBrick.cpp
+  Brick.cpp
+  Candle.cpp
+  CTileMap.cpp
+d:\git\castlevania\castlevania\castlevania\ctilemap.cpp(102): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\ctilemap.cpp(151): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\ctilemap.cpp(157): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\library\rapidxml\rapidxml_utils.hpp(40): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+  d:\git\castlevania\castlevania\castlevania\library\rapidxml\rapidxml_utils.hpp(28): note: while compiling class template member function 'rapidxml::file<char>::file(const char *)'
+  d:\git\castlevania\castlevania\castlevania\ctilemap.cpp(26): note: see reference to function template instantiation 'rapidxml::file<char>::file(const char *)' being compiled
+  d:\git\castlevania\castlevania\castlevania\ctilemap.cpp(26): note: see reference to class template instantiation 'rapidxml::file<char>' being compiled
+  Dagger.cpp
+  DaggerItem.cpp
+  debug.cpp
+  define.h
+  Effects.cpp
+  Enemy.cpp
+  Entry.cpp
+  Fishman.cpp
+  Game.cpp
+d:\git\castlevania\castlevania\castlevania\game.cpp(101): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+d:\git\castlevania\castlevania\castlevania\game.cpp(307): warning C4305: '=': truncation from '__int64' to 'float'
+d:\git\castlevania\castlevania\castlevania\game.cpp(308): warning C4305: '=': truncation from '__int64' to 'float'
+d:\git\castlevania\castlevania\castlevania\game.cpp(318): warning C4305: '=': truncation from '__int64' to 'float'
+d:\git\castlevania\castlevania\castlevania\game.cpp(319): warning C4305: '=': truncation from '__int64' to 'float'
+  Generating Code...
+  Compiling...
+  GameObject.cpp
+  Grid.cpp
+  Ground.cpp
+  HandleSpawnEffects.cpp
+  HandleSpawnEnemy.cpp
+d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(19): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(33): warning C4018: '<': signed/unsigned mismatch
+  HandleSpawnItem.cpp
+  Heart.cpp
+  InputController.cpp
+  IStopWatch.cpp
+  Item.cpp
+  LargeHeart.cpp
+  main.cpp
+  MoneyBag.cpp
+  MoneyBagTrigger.cpp
+  MorningStar.cpp
+  NextScene.cpp
+  ObjectProperty.cpp
+  Panther.cpp
+  PorkChop.cpp
+  SceneManagement.cpp
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(376): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(451): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(451): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(459): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(460): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(470): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(471): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(480): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(481): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(484): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(484): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(495): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(496): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(504): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(505): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(514): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(514): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(526): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(526): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(535): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(536): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(545): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(546): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(554): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(555): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(563): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(563): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(572): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(573): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(581): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(581): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(590): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(590): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(597): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(597): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(608): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(609): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(621): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(629): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(630): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(638): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(639): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(648): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(649): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(652): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(652): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(662): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(663): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(670): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(671): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(679): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(680): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(689): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\scenemanagement.cpp(689): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  ScoreText.cpp
+  Simon.cpp
 d:\git\castlevania\castlevania\castlevania\simon.cpp(697): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 d:\git\castlevania\castlevania\castlevania\simon.cpp(702): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  ResourceManagement.cpp
+d:\git\castlevania\castlevania\castlevania\library\rapidxml\rapidxml_utils.hpp(40): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+  d:\git\castlevania\castlevania\castlevania\library\rapidxml\rapidxml_utils.hpp(28): note: while compiling class template member function 'rapidxml::file<char>::file(const char *)'
+  d:\git\castlevania\castlevania\castlevania\resourcemanagement.cpp(30): note: see reference to function template instantiation 'rapidxml::file<char>::file(const char *)' being compiled
+  d:\git\castlevania\castlevania\castlevania\resourcemanagement.cpp(30): note: see reference to class template instantiation 'rapidxml::file<char>' being compiled
+  Flame.cpp
+  SpawnZone.cpp
+d:\git\castlevania\castlevania\castlevania\spawnzone.cpp(19): warning C4018: '>': signed/unsigned mismatch
+  Sprites.cpp
+  StairTrigger.cpp
+  SubWeapon.cpp
+  Textures.cpp
+  BBoxObjects.cpp
+  TileObject.cpp
+  TileSet.cpp
+  Torch.cpp
+  VampieBat.cpp
+  Water.cpp
+  Whip.cpp
+  Zombie.cpp
+  Generating Code...
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

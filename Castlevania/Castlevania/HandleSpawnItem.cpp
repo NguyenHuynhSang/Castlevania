@@ -6,7 +6,8 @@
 #include"DaggerItem.h"
 #include"MoneyBag.h"
 #include"AxeItem.h"
-
+#include"IStopWatch.h"
+#include"PorkChop.h"
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 
@@ -85,6 +86,21 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		SceneManagement::GetInstance()->SpawnItem(item);
 		break;
 	}
+	case ITDSTOPWATCH: {
+		item = new IStopWatch();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
+	case ITDROAST: {
+		item = new PorkChop();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		SceneManagement::GetInstance()->SpawnItem(item);
+		break;
+	}
+	
 	}
 }
 

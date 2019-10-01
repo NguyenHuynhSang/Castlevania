@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<animations AtlasPath="Roast_sprite.xml">
+		<animation ID="ROAST_ITEM_ANI" defaulttime="100">
+			<frame spriteID="ROAST_ITEM_01" />
+		</animation>
+	</animations>
+
+</resource>

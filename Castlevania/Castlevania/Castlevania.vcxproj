@@ -40,12 +40,14 @@
     <ClInclude Include="Fishman.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HandleSpawnEffects.h" />
     <ClInclude Include="HandleSpawnEnemy.h" />
     <ClInclude Include="HandleSpawnItem.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="InputController.h" />
+    <ClInclude Include="IStopWatch.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LargeHeart.h" />
     <ClInclude Include="Library\RapidXML\rapidxml.hpp" />
@@ -58,6 +60,7 @@
     <ClInclude Include="NextScene.h" />
     <ClInclude Include="ObjectProperty.h" />
     <ClInclude Include="Panther.h" />
+    <ClInclude Include="PorkChop.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="ScoreText.h" />
     <ClInclude Include="Simon.h" />
@@ -99,12 +102,14 @@
     <ClCompile Include="Fishman.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HandleSpawnEffects.cpp" />
     <ClCompile Include="HandleSpawnEnemy.cpp" />
     <ClCompile Include="HandleSpawnItem.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="InputController.cpp" />
+    <ClCompile Include="IStopWatch.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LargeHeart.cpp" />
     <ClCompile Include="main.cpp" />
@@ -114,6 +119,7 @@
     <ClCompile Include="NextScene.cpp" />
     <ClCompile Include="ObjectProperty.cpp" />
     <ClCompile Include="Panther.cpp" />
+    <ClCompile Include="PorkChop.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="Simon.cpp" />

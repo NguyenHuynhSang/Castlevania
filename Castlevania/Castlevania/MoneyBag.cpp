@@ -79,9 +79,9 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGameObject::Update(dt);
 	if (state != MONEYBAG_STATE_FULLCOLOR)
-		vy += HEART_GRAVITY * dt;
+		vy += ITEM_GRAVITY * dt;
 	else {
-		vy -= HEART_GRAVITY * dt;
+		vy -= ITEM_GRAVITY * dt;
 		y += dy;
 		x += dx;
 	}

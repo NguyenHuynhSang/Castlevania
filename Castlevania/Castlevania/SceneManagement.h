@@ -79,7 +79,6 @@ public:
 	}
 
 	void FreezeEnemy();
-	void DestroyEnemyImmediately();
 	void LoadScene();
 	void GoNextScene();
 	void JumpToState(int state);

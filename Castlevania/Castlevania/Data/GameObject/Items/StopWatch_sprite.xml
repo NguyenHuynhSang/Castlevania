@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="StopWatch.png">
+		<sprite ID="STOPWATCH_ITEM_01">
+			<frame x="0" y="0" width="30" height="32" />
+		</sprite>
+	</spritesheet>
+</resource>
