@@ -76,6 +76,8 @@ public:
 	ID3DXFont* GetFont() { 
 		return this->font; 
 	}
+
+	void DrawUIText(std::string text,RECT bound);
 	static CGame * GetInstance();
 
 	~CGame();

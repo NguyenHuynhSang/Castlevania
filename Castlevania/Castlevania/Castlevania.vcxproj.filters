@@ -70,6 +70,9 @@
     <Filter Include="Utilities\Grid">
       <UniqueIdentifier>{b832f5bf-88a0-4ee6-888e-7cc4b17d9897}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hub">
+      <UniqueIdentifier>{bfc83f90-cf3d-4e6a-a1bc-ffbe0f378a9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -252,6 +255,9 @@
     <ClInclude Include="PorkChop.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
+    <ClInclude Include="Hub.h">
+      <Filter>Hub</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -424,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="PorkChop.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Hub.cpp">
+      <Filter>Hub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

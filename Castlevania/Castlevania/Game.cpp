@@ -347,6 +347,12 @@ void CGame::SweptAABB(
 
 }
 
+void CGame::DrawUIText(std::string text, RECT bound)
+{
+	if (this->font != NULL)
+		this->GetFont()->DrawTextA(NULL, text.c_str(), -1, &bound, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+}
+
 CGame *CGame::GetInstance()
 {
 	if (__instance == NULL) __instance = new CGame();

@@ -324,14 +324,7 @@ void SceneManagement::Update(DWORD dt)
 }
 void SceneManagement::Render()
 {
-	RECT rect;
-	SetRect(&rect, 0, 15, SCREEN_WIDTH, 80);
-	string  information;
-	information = "SCORE-000000 TIME 0000 SCENE 00\n";
-	information += "PLAYER                  -00\n";
-	information += "ENEMY                   -00\n";
-	if (game->GetFont() != NULL)
-		game->GetFont()->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	hub->Render();
 	float cx, cy;
 	game->GetCamera(cx, cy);
 	if (this->isNextScene) return;
@@ -363,7 +356,7 @@ void SceneManagement::Render()
 		this->items[i]->Render();
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
-	objects[0]->Render();
+	simon->Render();
 
 
 }
@@ -703,6 +696,7 @@ SceneManagement::SceneManagement()
 	this->currentScene = GSTATE_02;
 
 	cmap = CTileMap::GetInstance();
+	hub = new Hub();
 }
 
 
