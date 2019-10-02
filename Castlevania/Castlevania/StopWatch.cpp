@@ -10,14 +10,15 @@ StopWatch *StopWatch::GetInstance()
 }
 void StopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isDestroyed)
+	if (this->stopwatch_start!=0)
 	{
-		return;
+		HandleSpawnEnemy::GetInstance()->FreezeEnemy(true);
 	}
 	if (GetTickCount()-this->stopwatch_start>STOPWATCH_FREEZE_TIME)
 	{
 		HandleSpawnEnemy::GetInstance()->FreezeEnemy(false);
-		this->isDestroyed = true;
+		this->stopwatch_start = 0;
+		
 	}
 }
 
@@ -25,7 +26,6 @@ void StopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 StopWatch::StopWatch()
 {
 	this->stopwatch_start = GetTickCount();
-	HandleSpawnEnemy::GetInstance()->FreezeEnemy(true);
 }
 
 

@@ -251,7 +251,9 @@ void CSimon::HandleUseSubWeapon()
 		break;
 	}
 	case SWDSTOPWATCH: {
-		SubWeapon *sw = new StopWatch();
+		SubWeapon *sw = StopWatch::GetInstance();
+		StopWatch * sub = dynamic_cast<StopWatch *>(sw);
+		sub->StartStopWatch();
 		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
 		break;
 	}
