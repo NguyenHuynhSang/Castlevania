@@ -12,8 +12,8 @@ protected:
 	bool isFreeze = false;
 public:
 	void UpdateEnemy();
-	void SetFreeze() {
-		this->isFreeze = true;
+	void SetFreeze(bool flag) {
+		this->isFreeze = flag;
 	}
 
 	void ResetSpawnStart() {

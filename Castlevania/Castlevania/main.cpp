@@ -90,7 +90,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		scene->JumpToState(GSTATE_03);
 		break;
 	case DIK_TAB:
-		scene->FreezeEnemy();
+		scene->FreezeEnemy(true);
 		break;
 	case DIK_H:
 		scene->GetSimon()->SetAutoWalk(true);

@@ -12,6 +12,10 @@ HandleSpawnEnemy * HandleSpawnEnemy::__instance = NULL;
 
 void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float x,float y,int nx)
 {
+	if (stopSpawn)
+	{
+		return;
+	}
 	switch (enemyDef)
 	{
 	case EDZOMBIE:
@@ -52,6 +56,11 @@ HandleSpawnEnemy *HandleSpawnEnemy::GetInstance()
 {
 	if (__instance == NULL) __instance = new HandleSpawnEnemy();
 	return __instance;
+}
+void HandleSpawnEnemy::FreezeEnemy(bool flag)
+{
+	this->stopSpawn = flag;
+	SceneManagement::GetInstance()->FreezeEnemy(this->stopSpawn);
 }
 HandleSpawnEnemy::HandleSpawnEnemy()
 {

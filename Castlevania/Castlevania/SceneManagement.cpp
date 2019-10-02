@@ -364,12 +364,12 @@ void SceneManagement::SceneUpdate()
 {
 }
 
-void SceneManagement::FreezeEnemy()
+void SceneManagement::FreezeEnemy(bool flag)
 {
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		Enemy * enemy = dynamic_cast<Enemy*> (enemies.at(i));
-		enemy->SetFreeze();
+		enemy->SetFreeze(flag);
 	}
 }
 

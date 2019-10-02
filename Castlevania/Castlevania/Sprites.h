@@ -36,7 +36,7 @@ public:
 	void Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE Get(string id);
 	LPSPRITE &operator[](string id) {return sprites[id];}
-
+	
 	static CSprites * GetInstance();
 };
 

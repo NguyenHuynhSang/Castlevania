@@ -24,6 +24,8 @@
 #include"Door.h"
 #include"Axe.h"
 #include"AxeItem.h"
+#include"IStopWatch.h"
+#include"StopWatch.h"
 CSimon::CSimon() :CGameObject()
 {
 	level = SIMON_LEVEL_BIG;
@@ -245,6 +247,11 @@ void CSimon::HandleUseSubWeapon()
 		SubWeapon *sw = new Axe();
 		sw->SetPositionInWorld(this->x, this->y);
 		sw->SetNx(this->nx);
+		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+		break;
+	}
+	case SWDSTOPWATCH: {
+		SubWeapon *sw = new StopWatch();
 		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
 		break;
 	}
@@ -535,6 +542,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						this->subWeaponDef = SWDAXE;
 					}
+					else if (dynamic_cast<IStopWatch *>(e->obj))
+					{
+						this->subWeaponDef = SWDSTOPWATCH;
+					}
 
 					if (!item->isDestroyed)
 					{
@@ -616,7 +627,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						this->subWeaponDef = SWDAXE;
 					}
-
+					else if (dynamic_cast<IStopWatch *>(e))
+					{
+						this->subWeaponDef = SWDSTOPWATCH;
+					}
+					
 					//DebugOut(L"aabb \n");
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();

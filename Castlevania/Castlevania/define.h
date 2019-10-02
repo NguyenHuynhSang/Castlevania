@@ -136,6 +136,7 @@ const enum SubWeaponDef {
 	SWDDAGGER,
 	SWDHOLLYWATER,
 	SWDAXE,
+	SWDSTOPWATCH
 };
 
 const enum EffectDef {

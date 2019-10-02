@@ -80,7 +80,7 @@ public:
 		CGame::GetInstance()->SetCamPos(0, 0);
 	}
 
-	void FreezeEnemy();
+	void FreezeEnemy(bool flag);
 	void LoadScene();
 	void GoNextScene();
 	void JumpToState(int state);
