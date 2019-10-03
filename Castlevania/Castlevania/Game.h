@@ -34,8 +34,6 @@ class CGame
 	// font 
 	ID3DXFont * font;
 	
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
 
 
 public:
@@ -65,14 +63,6 @@ public:
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
-
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
-	void GetCamera(float& camx, float& camy) { camx = this->cam_x; camy = this->cam_y; }
-	RECT GetCamera() {
-		RECT rec;
-		rec = { (long)this->cam_x,(long)this->cam_y,(long)this->cam_x + SCREEN_WIDTH,(long)this->cam_y + SCREEN_HEIGHT };
-		return rec;
-	}
 	ID3DXFont* GetFont() { 
 		return this->font; 
 	}

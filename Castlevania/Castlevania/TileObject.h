@@ -24,6 +24,10 @@ public:
 	int  GetPropertyByKey(std::string key) {
 		if (this->properties.empty())
 			return -1;
+		if (this->properties.count(key)<=0)
+		{
+			return -1;
+		}
 		return this->properties.find(key)->second;
 	}
 	void AddProperty(std::string name, int value);

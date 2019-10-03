@@ -2,6 +2,7 @@
 #include"define.h"
 #include"debug.h"
 #include"Game.h"
+#include"Camera.h"
 CTileMap * CTileMap::__instance = NULL;
 
 CTileMap *CTileMap::GetInstance()
@@ -142,7 +143,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 void CTileMap::Render()
 {
 	float camX, camY;
-	CGame::GetInstance()->GetCamera(camX, camY);
+	Camera::GetInstance()->GetCamera(camX, camY);
 	// lấy ra cột đầu và cột cuối trong Viewport ;
 	int beginCol = ((int)camX) / 32;
 	//+1 vì nếu vẽ vừa đủ cột cuối cùng mỗi khi render sẽ nhấp nháy

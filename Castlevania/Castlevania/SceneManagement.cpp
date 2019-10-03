@@ -154,6 +154,42 @@ void SceneManagement::HandleSpawningItem()
 	//if(itemtoSpawn.push)
 }
 
+void SceneManagement::CamUpdate(DWORD dt)
+{
+	float cx, cy;
+	simon->GetPosition(cx, cy);
+	cx -= SCREEN_WIDTH / 2;
+	cy -= SCREEN_HEIGHT / 2;
+	if (currentScene==GSTATE_02)
+	{
+		if (cx>0 &&cx<sceneBox.right - SCREEN_WIDTH)
+		{
+			Camera::GetInstance()->SetCamera(cx,0.0f);
+		}
+		else
+		{
+			if (simon->CheckAutoWalk()) {	
+				float camx, camy;
+				Camera::GetInstance()->GetCamera(camx, camy);
+				if (camx < sceneBox.right-32) // move 255 px
+				{	
+					DebugOut(L"camX=%f  \n", camx);
+					float camVx = 0.1f;
+					camx += camVx * dt;
+					Camera::GetInstance()->SetCamera(camx, camy);
+				}
+			
+			}
+		}
+	}
+	else
+	{
+		if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
+			Camera::GetInstance()->SetCamera(cx, 0.0f);
+	}
+	
+}
+
 SceneManagement *SceneManagement::GetInstance()
 {
 	if (__instance == NULL) __instance = new SceneManagement();
@@ -184,7 +220,7 @@ void SceneManagement::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	if (this->isNextScene) {
 		LoadScene();
-		game->SetCamPos(0, 0); //reset cam
+		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
 		this->isNextScene = false;
 		return;
 	}
@@ -315,18 +351,15 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 
-
-
-	if (cx > 0 && cx < cmap->GetMapWidth() - SCREEN_WIDTH)
-		CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
-
+	
+	CamUpdate(dt);
 
 }
 void SceneManagement::Render()
 {
 	hub->Render();
 	float cx, cy;
-	game->GetCamera(cx, cy);
+	Camera::GetInstance()->GetCamera(cx, cy);
 	if (this->isNextScene) return;
 	cmap->Render();
 	for (std::size_t i = 1; i < objects.size(); i++)
@@ -516,92 +549,129 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
-			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			//	DebugOut(L"[Complete]Load Simon position in game world \n");
+			if (child->GetPropertyByKey("scenedef")==GSTATE_02)
+			{
+				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				//	DebugOut(L"[Complete]Load Simon position in game world \n");
+			}
+		
 		}
 		objects.push_back(simon);
 
+
+		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
+		for (const auto& child : camObject->second) {
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				int l = child->GetX();
+				int t = child->GetY();
+				int r = child->GetX() + child->GetWidth();
+				int b = child->GetY() + child->GetHeight();
+				sceneBox = {l,t,r,b};
+			}
+		}
 
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			//DebugOut(L"Ground state 2 x=%f y=%f \n", ground->x, ground->y);
 			objects.push_back(ground);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
 		for (const auto& child : boundObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			bound = new BoundMap();
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
-			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(bound);
 		}
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
 		for (const auto& child : spawnObject->second) {
-			spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
-			spawnZone->SetSize(child->GetWidth(), child->GetHeight());
-			spawnZone->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(spawnZone);
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
+				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
+				spawnZone->SetPosition(child->GetX(), child->GetY());
+				objects.push_back(spawnZone);
+			}
+	
 		}
 
 		auto pantherObject = cmap->GetObjects().find(ID_TILE_OBJECT_PANTHER);
 		for (const auto& child : pantherObject->second) {
-			panther = new Panther();
-			//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
-			panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			objects.push_back(panther);
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				panther = new Panther();
+				//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
+				panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				objects.push_back(panther);
+			}
+	
 		}
 
 
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
-			stair = new StairTrigger();
-			stair->SetDirection(child->GetPropertyByKey("dir"));
-			stair->SetSize(child->GetWidth(), child->GetHeight());
-			stair->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(stair);
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				stair = new StairTrigger();
+				stair->SetDirection(child->GetPropertyByKey("dir"));
+				stair->SetSize(child->GetWidth(), child->GetHeight());
+				stair->SetPosition(child->GetX(), child->GetY());
+				objects.push_back(stair);
+			}
+		
 		}
 
 
 		auto candleObject = cmap->GetObjects().find(ID_TILE_OBJECT_CANDLE);
 		for (const auto& child : candleObject->second) {
-			candle = new Candle();
-			candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			objects.push_back(candle);
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				candle = new Candle();
+				candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				objects.push_back(candle);
+			}
+		
 		}
 
 		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
 		for (const auto& child : brickObject->second) {
-			brick = new CBrick();
-			brick->SetState(child->GetPropertyByKey("brickstate"));
-			brick->SetItemDef(child->GetPropertyByKey("itemdef"));
-			brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			objects.push_back(brick);
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				brick = new CBrick();
+				brick->SetState(child->GetPropertyByKey("brickstate"));
+				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
+				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				objects.push_back(brick);
+			}
+		
 		}
 
 		auto doorObject = cmap->GetObjects().find(ID_TILE_OBJECT_GS2_DOOR);
 		for (const auto& child : doorObject->second) {
-			door = new Door();
-			door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			objects.push_back(door);
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				door = new Door();
+				door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				objects.push_back(door);
+			}
+		
 		}
 
 
 
-		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
-		for (const auto& child : nextsceneObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
-			nextScene = new NextScene();
-			nextScene->SetSceneDef(child->GetPropertyByKey("scenedef"));
-			nextScene->SetSize(child->GetWidth(), child->GetHeight());
-			nextScene->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(nextScene);
-		}
+		//auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
+		//for (const auto& child : nextsceneObject->second) {
+		//	//DebugOut(L"[Complete]Load Torch position in game world \n");
+		//	nextScene = new NextScene();
+		//	nextScene->SetSceneDef(child->GetPropertyByKey("scenedef"));
+		//	nextScene->SetSize(child->GetWidth(), child->GetHeight());
+		//	nextScene->SetPosition(child->GetX(), child->GetY());
+		//	objects.push_back(nextScene);
+		//}
 
 		break;
 	}

@@ -5,6 +5,7 @@
 #include"define.h"
 #include "debug.h"
 #include "Game.h"
+#include"Camera.h"
 #include "GameObject.h"
 #include "Textures.h"
 #include "Simon.h"
@@ -50,6 +51,8 @@ private:
 	Water* water;
 	Door* door;
 	Hub* hub;
+
+	RECT sceneBox;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
@@ -64,6 +67,7 @@ private:
 	void LoadResource();
 	int currentScene;
 	void HandleSpawningItem();
+	void CamUpdate(DWORD dt);
 public:
 
 	static SceneManagement * GetInstance();
@@ -77,7 +81,8 @@ public:
 	void Render();
 	void SceneUpdate();
 	void ResetCam() {
-		CGame::GetInstance()->SetCamPos(0, 0);
+		Camera::GetInstance()->SetCamera(0, 0);
+		
 	}
 
 	void FreezeEnemy(bool flag);

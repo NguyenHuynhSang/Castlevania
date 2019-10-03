@@ -1,5 +1,5 @@
 ﻿#include "VampieBat.h"
-#include"Game.h"
+#include"Camera.h"
 
 
 void VampieBat::GetBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -25,7 +25,7 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
-	if (this->x > CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2) {
+	if (this->x > Camera::GetInstance()->GetCamera().x + SCREEN_WIDTH / 2) {
 		return;
 	}
 	vx = -nx* BAT_FLY_SPEED_X;

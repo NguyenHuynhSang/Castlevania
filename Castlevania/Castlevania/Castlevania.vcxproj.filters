@@ -261,6 +261,9 @@
     <ClInclude Include="StopWatch.h">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -439,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="StopWatch.cpp">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

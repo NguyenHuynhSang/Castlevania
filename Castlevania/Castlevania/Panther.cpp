@@ -1,5 +1,5 @@
 ﻿#include "Panther.h"
-#include"Game.h"
+#include"Camera.h"
 #include"Ground.h"
 
 
@@ -34,7 +34,7 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (!this->isActive)
 	{
-		if (state == PANTHER_STATE_LIEDOWN && this->x < CGame::GetInstance()->GetCamera().left + SCREEN_WIDTH / 2 + 150) {
+		if (state == PANTHER_STATE_LIEDOWN && this->x < Camera::GetInstance()->GetCamera().x+ SCREEN_WIDTH / 2 + 150) {
 			SetState(PANTHER_STATE_RUNNING);
 			this->isActive = true;
 		}
