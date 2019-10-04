@@ -13,6 +13,8 @@ protected:
 	DWORD lifetime_start;
 	DWORD wait_start;
 	bool isHiding = true;
+	bool isTorchGround = false;
+
 public:
 	virtual void GetSpriteBox(float& _width, float& _height) {
 

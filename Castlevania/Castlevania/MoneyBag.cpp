@@ -127,6 +127,7 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (e->nx != 0)
 						x += dx;
 					else if (e->ny != 0)
+						
 						y += dy;
 				}
 			}

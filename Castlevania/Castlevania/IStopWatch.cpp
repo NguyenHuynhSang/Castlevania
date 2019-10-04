@@ -36,6 +36,11 @@ void IStopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
+	if (this->isTorchGround)
+	{
+		return;
+	}
+
 	CGameObject::Update(dt);
 
 	vy += ITEM_GRAVITY * dt;
@@ -69,6 +74,7 @@ void IStopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground *>(e->obj)) {
+				this->isTorchGround = true;
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
 			}

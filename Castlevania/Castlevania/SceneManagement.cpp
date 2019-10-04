@@ -321,38 +321,39 @@ void SceneManagement::Update(DWORD dt)
 
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (std::size_t i = 1; i < objects.size(); i++)
-	{
-		if (dynamic_cast<Ground *>(objects[i]) || dynamic_cast<Water *>(objects[i]))
-		{
-			coObjects.push_back(objects[i]);
-			continue;
-		}
-		else if (objects[i]->x > cx && objects[i]->x < cx + SCREEN_WIDTH + 128)
-		{
-			coObjects.push_back(objects[i]);
-		}
+	//for (std::size_t i = 1; i < objects.size(); i++)
+	//{
+	//	if (dynamic_cast<Ground *>(objects[i]) || dynamic_cast<Water *>(objects[i]))
+	//	{
+	//		coObjects.push_back(objects[i]);
+	//		continue;
+	//	}
+	//	else if (objects[i]->x > cx && objects[i]->x < cx + SCREEN_WIDTH + 128)
+	//	{
+	//		coObjects.push_back(objects[i]);
+	//	}
 
-	}
-	for (std::size_t i = 0; i < subWeapon.size(); i++)
-	{
-		coObjects.push_back(subWeapon[i]);
-	}
-	for (std::size_t i = 0; i < enemies.size(); i++)
-	{
-		if (enemies[i]->x > cx && enemies[i]->x < cx + SCREEN_WIDTH)
-		{
-			coObjects.push_back(enemies[i]);
-		}
-	}
-	for (std::size_t i = 0; i < items.size(); i++)  //item
-	{
-		coObjects.push_back(items[i]);
-	}
+	//}
+	//for (std::size_t i = 0; i < subWeapon.size(); i++)
+	//{
+	//	coObjects.push_back(subWeapon[i]);
+	//}
+	//for (std::size_t i = 0; i < enemies.size(); i++)
+	//{
+	//	if (enemies[i]->x > cx && enemies[i]->x < cx + SCREEN_WIDTH)
+	//	{
+	//		coObjects.push_back(enemies[i]);
+	//	}
+	//}
+	//for (std::size_t i = 0; i < items.size(); i++)  //item
+	//{
+	//	coObjects.push_back(items[i]);
+	//}
 
 	//update object
 	for (std::size_t i = 0; i < objects.size(); i++) //object
 	{
+		GetCoObjects(objects.at(i), coObjects);
 		objects[i]->Update(dt, &coObjects);
 	}
 	//update subweapon
@@ -362,6 +363,7 @@ void SceneManagement::Update(DWORD dt)
 		{
 			subWeapon[i]->SetDestroy();
 		}
+		GetCoObjects(objects.at(i), coObjects);
 		subWeapon[i]->Update(dt, &coObjects);
 	}
 	//update enemies
@@ -371,6 +373,7 @@ void SceneManagement::Update(DWORD dt)
 		{
 			enemies[i]->SetDestroy();
 		}
+		GetCoObjects(objects.at(i), coObjects);
 		enemies[i]->Update(dt, &coObjects);
 	}
 
@@ -382,6 +385,7 @@ void SceneManagement::Update(DWORD dt)
 	//update items
 	for (std::size_t i = 0; i < items.size(); i++)
 	{
+		GetCoObjects(objects.at(i), coObjects);
 		items[i]->Update(dt, &coObjects);
 	}
 
@@ -432,6 +436,80 @@ void SceneManagement::SceneUpdate()
 {
 }
 
+void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects)
+{
+	// lấy ds những object dùng xét va chạm với object truyền vào
+
+	if (dynamic_cast<Item *>(obj))
+	{
+		for (auto object: this->objects)
+		{
+			if (dynamic_cast<Ground *>(object))
+			{
+				coObjects.push_back(object);
+			}
+		}
+	}
+	else if (dynamic_cast<Enemy *>(obj))
+	{
+		for (auto object : this->objects)
+		{
+			if (dynamic_cast<Ground *>(object))
+			{
+				coObjects.push_back(object);
+			}
+		}
+	}
+	else if (dynamic_cast<SubWeapon *>(obj)
+				|| dynamic_cast<Whip *>(obj))
+	{
+		for (auto object : this->enemies)
+		{
+			coObjects.push_back(object);
+		}
+		for (auto object : this->objects)
+		{
+			if (dynamic_cast<Ground *>(object) 
+				|| dynamic_cast<Candle *>(object)
+				|| dynamic_cast<Torch *>(object)
+				|| dynamic_cast<CBrick *>(object))
+			{
+				coObjects.push_back(object);
+			}
+		}
+	}
+	else if (dynamic_cast<CSimon *>(obj))
+	{
+		for (auto object : this->objects)
+		{
+			if (dynamic_cast<Ground *>(object)
+				|| dynamic_cast<BoundMap *>(object)
+				|| dynamic_cast<CBrick *>(object)
+				|| dynamic_cast<Entry *>(object)
+				|| dynamic_cast<NextScene *>(object)
+				|| dynamic_cast<StairTrigger *>(object)
+				|| dynamic_cast<Door *>(object)
+				|| dynamic_cast<Candle *>(object)
+				|| dynamic_cast<Torch *>(object)
+				|| dynamic_cast<CBrick *>(object))
+			{
+				coObjects.push_back(object);
+			}
+		}
+		for (auto object : this->items)
+		{
+			coObjects.push_back(object);
+		}
+		for (auto object : this->enemies)
+		{
+			coObjects.push_back(object);
+		}
+
+
+	}
+
+}
+
 void SceneManagement::FreezeEnemy(bool flag)
 {
 	for (int i = 0; i < enemies.size(); i++)
@@ -444,6 +522,7 @@ void SceneManagement::FreezeEnemy(bool flag)
 void SceneManagement::LoadScene()
 {
 	CTextures * textures = CTextures::GetInstance();
+	Camera::GetInstance()->SetAllowScrollCam(false);
 	cmap->GetObjects().clear();
 	switch (this->currentScene)
 	{
@@ -677,7 +756,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				panther = new Panther();
 				//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
 				panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(panther);
+				enemies.push_back(panther);
 			}
 
 		}

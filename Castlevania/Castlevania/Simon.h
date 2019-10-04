@@ -108,7 +108,7 @@ class CSimon : public CGameObject
 public:
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
-			= isActack = isAutoWalk = isJumping = isUseSubWeapon = false;
+			= isActack = isAutoWalk = isJumping =isHitDoor= isUseSubWeapon = false;
 		this->stepOnStairDirection = -1;
 		this->lastState = -1; 
 		this->delay_attack_start = 0;

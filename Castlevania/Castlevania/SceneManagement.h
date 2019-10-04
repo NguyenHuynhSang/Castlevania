@@ -84,7 +84,8 @@ public:
 		Camera::GetInstance()->SetCamera(0, 0);
 		
 	}
-
+	
+	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
 	void FreezeEnemy(bool flag);
 	void LoadScene();
 	void GoNextScene();
