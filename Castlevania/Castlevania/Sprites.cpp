@@ -20,10 +20,10 @@ CSprites *CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprite::Draw(int nx,float x, float y, int alpha)
+void CSprite::Draw(int nx, float x, float y, int alpha)
 {
 	CGame * game = CGame::GetInstance();
-	game->Draw(nx,x, y, texture, left, top, right, bottom, alpha);
+	game->Draw(nx, x, y, texture, left, top, right, bottom, alpha);
 }
 
 void CSprites::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
@@ -42,24 +42,21 @@ LPSPRITE CSprites::Get(string id)
 void CAnimation::Add(string spriteId, DWORD time)
 {
 	int t = time;
-	if (time == 0) t=this->defaultTime;
+	if (time == 0) t = this->defaultTime;
 
 	LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
 	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
 	frames.push_back(frame);
 }
 
-void CAnimation::Render(int nx,float x, float y, int alpha)
+void CAnimation::Render(int nx, float x, float y, int alpha)
 {
 
 	DWORD now = GetTickCount();
-	if (isDone ) {
-		return;
-	}
-	if (currentFrame == -1) 
+	if (currentFrame == -1)
 	{
 		this->isDone = false;
-		currentFrame = 0; 
+		currentFrame = 0;
 		lastFrameTime = now;
 	}
 	else
@@ -70,20 +67,21 @@ void CAnimation::Render(int nx,float x, float y, int alpha)
 			currentFrame++;
 			lastFrameTime = now;
 			if (currentFrame == frames.size()) {
-				currentFrame = 0;
-				
-			
 				if (!this->isLoop) {
 					DebugOut(L"Animation done \n");
 					this->isDone = true;
-					return;
+					this->currentFrame--; 
 				}
-				
+				else
+				{
+					// start new cycle
+					currentFrame = 0;
+				}
 			}
 		}
-		
+
 	}
-	frames[currentFrame]->GetSprite()->Draw(nx,x, y, alpha);
+	frames[currentFrame]->GetSprite()->Draw(nx, x, y, alpha);
 }
 
 CAnimations * CAnimations::__instance = NULL;

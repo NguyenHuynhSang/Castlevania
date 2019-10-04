@@ -148,13 +148,10 @@ void Whip::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 Whip::Whip()
 {
-	AddAnimation("WHIP_ANI_NORMAL");
-	AddAnimation("WHIP_ANI_CHAIN");
-	AddAnimation("WHIP_ANI_MORNINGSTAR");
-	// set loop để khi render hết frame cuối k render lại frame 0
-	this->animations[WHIP_ANI_NORMAL]->SetAnimationLoop(false);
-	this->animations[WHIP_ANI_CHAIN]->SetAnimationLoop(false);
-	this->animations[WHIP_ANI_MORNINGSTAR]->SetAnimationLoop(false);
+	AddAnimation("WHIP_ANI_NORMAL", false);
+	AddAnimation("WHIP_ANI_CHAIN", false);
+	AddAnimation("WHIP_ANI_MORNINGSTAR", false);
+
 }
 
 

@@ -6,10 +6,12 @@
 
 #define DOOR_STATE_CLOSE 0
 #define DOOR_STATE_OPEN 100
+#define DOOR_STATE_CLOSING 200
+
 
 #define DOOR_ANI_CLOSE 0
 #define DOOR_ANI_OPEN 1
-
+#define DOOR_ANI_CLOSING 2
 
 
 

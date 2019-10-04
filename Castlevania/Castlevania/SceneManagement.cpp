@@ -168,18 +168,43 @@ void SceneManagement::CamUpdate(DWORD dt)
 		}
 		else
 		{
-			if (simon->CheckAutoWalk()) {	
+			if (simon->CheckIsHitDoor()) {	
 				float camx, camy;
 				Camera::GetInstance()->GetCamera(camx, camy);
-				if (camx < sceneBox.right-32) // move 255 px
+				if (camx < sceneBox.right-32-SCREEN_WIDTH/2) // move 255 px
 				{	
-					DebugOut(L"camX=%f  \n", camx);
 					float camVx = 0.1f;
 					camx += camVx * dt;
 					Camera::GetInstance()->SetCamera(camx, camy);
 				}
+				else
+				{
+					door->SetState(DOOR_STATE_OPEN);
+				}
 			
 			}
+		}
+
+		if (door->GetState()==DOOR_STATE_OPEN)
+		{
+			if (simon->CheckAutoWalk()==false)
+			{
+				simon->SetLastPosition(simon->x);
+			}
+			simon->SetAutoWalk(true);
+			simon->SetState(SIMON_STATE_WALKING_RIGHT);
+			if (simon->SimonAutoWalkaStep(simon->GetLastPosition() + 200))
+			{
+				float camx, camy;
+				Camera::GetInstance()->GetCamera(camx, camy);
+				if (camx < sceneBox.right - 32 ) // move 255 px
+				{
+					float camVx = 0.1f;
+					camx += camVx * dt;
+					Camera::GetInstance()->SetCamera(camx, camy);
+				}
+			}
+		
 		}
 	}
 	else

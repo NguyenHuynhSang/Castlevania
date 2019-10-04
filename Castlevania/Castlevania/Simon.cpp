@@ -260,6 +260,17 @@ void CSimon::HandleUseSubWeapon()
 	}
 }
 
+bool CSimon::SimonAutoWalkaStep(float step)
+{
+	if (this->x>step)
+	{
+		this->SetState(SIMON_STATE_IDLE);
+		return true;
+	}
+	return false;
+
+}
+
 
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -484,12 +495,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				Door *door = dynamic_cast<Door *>(e->obj);
 				if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
 				{
-					door->SetState(DOOR_STATE_OPEN);
+					this->isHitDoor = true;
 					if (e->nx != 0)
 					{
-						x += dx;
+						/*x += dx;
 						this->isAutoWalk = true;
-						this->SetState(SIMON_STATE_WALKING_RIGHT);
+						this->SetState(SIMON_STATE_WALKING_RIGHT);*/
 					}
 				}
 

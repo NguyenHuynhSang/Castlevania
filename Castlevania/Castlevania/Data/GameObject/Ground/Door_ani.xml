@@ -8,5 +8,13 @@
 			<frame spriteID="DOOR_OPEN_01" />
 			<frame spriteID="DOOR_OPEN_02" />
 		</animation>
+
+		<animation ID="DOOR_ANI_CLOSING" defaulttime="1000">
+			<frame spriteID="DOOR_OPEN_02" />
+			<frame spriteID="DOOR_OPEN_01" />
+			<frame spriteID="DOOR_CLOSE" />
+		</animation>
+
+
 	</animations>
 </resource>

@@ -97,12 +97,14 @@ class CSimon : public CGameObject
 	bool startOnStair = false;
 	bool isColliceWithStair = false;
 	bool isFirstStepOnStair = false;
+	bool isHitDoor = false;
 	int stepOnStairDirection = -1;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
 	void HandleFirstStepOnStair();
 	void HandlePerStepOnStair();
+	float lastPosition;// dùng để walk through door
 public:
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
@@ -113,6 +115,12 @@ public:
 		this->attack_start = 0;
 		this->untouchable_start = 0;
 		this->untouchable = 0;
+	}
+	void SetLastPosition(float ps) {
+		this->lastPosition = ps;
+	}
+	float GetLastPosition() {
+		return this->lastPosition;
 	}
 	void StartDelayAttack() {
 		this->delay_attack_start = GetTickCount();
@@ -146,6 +154,11 @@ public:
 	bool CheckStairOnStair() {
 		return this->startOnStair;
 	}
+	bool CheckIsHitDoor() {
+		return this->isHitDoor;
+	}
+
+	bool SimonAutoWalkaStep(float step);
 
 	bool CheckCanStepUp() {
 		if (this->stepOnStairDirection == DIR_UPLEFT || this->stepOnStairDirection == DIR_UPRIGHT)

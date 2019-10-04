@@ -173,10 +173,11 @@ void CGameObject::RenderSpriteBox()
 	CGame::GetInstance()->Draw(nx, x, y, sbbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
-void CGameObject::AddAnimation(string aniId)
+void CGameObject::AddAnimation(string aniId, bool isLoop)
 {
 	
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
+	ani->SetAnimationLoop(isLoop);
 	animations.push_back(ani);
 }
 

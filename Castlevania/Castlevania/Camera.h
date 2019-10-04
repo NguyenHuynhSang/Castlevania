@@ -6,9 +6,16 @@ class Camera
 private:
 	float camX = 0.0f;
 	float camY = 0.0f;
+	bool allowScrollCam;
 	static Camera * __instance;
 public:
 	Camera();
+	void SetAllowScrollCam(bool flag) {
+		this->allowScrollCam = flag;
+	}
+	bool CheckIsAllowScrollCam() {
+		return this->allowScrollCam;
+	}
 	static Camera * GetInstance();
 	void GetCamera(float &x, float &y) {
 		x = this->camX;

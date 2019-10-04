@@ -90,7 +90,7 @@ public:
 		float &nx, 
 		float &ny);
 
-	void AddAnimation(string aniId);
+	void AddAnimation(string aniId,bool isLoop=true);
 	bool IsColliding(CGameObject *a, CGameObject *b) {
 		float top, left, right, button;
 		a->GetBoundingBox(left, top, right, button);
