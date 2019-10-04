@@ -25,9 +25,7 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
-	if (this->x > Camera::GetInstance()->GetCamera().x + SCREEN_WIDTH / 2) {
-		return;
-	}
+
 	vx = -nx* BAT_FLY_SPEED_X;
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -59,6 +57,13 @@ VampieBat::VampieBat():Enemy()
 {
 	AddAnimation("BAT_ANI_FLYING");
 	AddAnimation("BAT_ANI_IDLE");
+}
+
+VampieBat::VampieBat(float oy) :Enemy()
+{
+	AddAnimation("BAT_ANI_FLYING");
+	AddAnimation("BAT_ANI_IDLE");
+	this->oy = oy;
 }
 
 

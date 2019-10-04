@@ -929,6 +929,14 @@ void CSimon::SetState(int state)
 		this->startOnStair = false; // cho phép nhấn tiếp
 		//tránh trường hợp khi simon attack y thay đổi làm floor
 		// làm tròn xuống 1px
+		if (nx > 0)
+		{
+			this->stepOnStairDirection = DIR_UPRIGHT;
+		}
+		else
+		{
+			this->stepOnStairDirection = DIR_UPLEFT;
+		}
 		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
 		{
 			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };

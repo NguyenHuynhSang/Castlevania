@@ -25,6 +25,7 @@ public:
 		this->oy = this->y;
 	}
 	VampieBat();
+	VampieBat(float oy);
 	~VampieBat();
 };
 

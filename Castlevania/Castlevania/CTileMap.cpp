@@ -148,6 +148,10 @@ void CTileMap::Render()
 	int beginCol = ((int)camX) / 32;
 	//+1 vì nếu vẽ vừa đủ cột cuối cùng mỗi khi render sẽ nhấp nháy
 	int endCol = ((int)camX + SCREEN_WIDTH) / 32 + 1;
+	if (endCol>=this->mapCol)
+	{
+		endCol = this->mapCol;
+	}
 	int beginRow = (int)camY / 32;
 	for (int i = beginRow; i < mapRow; i++)
 	{

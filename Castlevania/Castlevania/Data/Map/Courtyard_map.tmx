@@ -572,6 +572,7 @@
  <objectgroup id="7" name="NextScene">
   <object id="23" name="NextScene" x="1500" y="109" width="8" height="176.5">
    <properties>
+    <property name="nextscene" type="int" value="1"/>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
@@ -584,17 +585,5 @@
  </objectgroup>
  <objectgroup id="10" name="Castle" visible="0">
   <object id="28" gid="158" x="1408" y="289" width="96" height="288"/>
- </objectgroup>
- <objectgroup color="#550000" id="11" name="CamBox">
-  <object id="33" name="CamBox" type="CamBox" gid="159" x="0" y="64" width="64" height="64">
-   <properties>
-    <property name="camstate" type="int" value="0"/>
-   </properties>
-  </object>
-  <object id="34" name="CamBox" type="CamBox" gid="159" x="1023" y="64" width="64" height="64">
-   <properties>
-    <property name="camstate" type="int" value="1"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>

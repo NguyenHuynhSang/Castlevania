@@ -1,16 +1,17 @@
 #include "HandleSpawnEnemy.h"
-
+#include"SceneManagement.h"
 #include"Zombie.h"
 #include"Fishman.h"
 #include"Fireball.h"
-#include"SceneManagement.h"
+#include"VampieBat.h"
+
 
 
 HandleSpawnEnemy * HandleSpawnEnemy::__instance = NULL;
 
 
 
-void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float x,float y,int nx)
+void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float x,float y,int nx,float oy)
 {
 	if (stopSpawn)
 	{
@@ -46,6 +47,12 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 	case EDFIREBALL: {
 		enemy = new Fireball(nx);
 		enemy->SetPositionInWorld(x , y);
+		SceneManagement::GetInstance()->SpawnEnemy(enemy);
+		break;
+	}
+	case EDBAT: {
+		enemy = new VampieBat(oy);
+		enemy->SetPositionInWorld(x, y);
 		SceneManagement::GetInstance()->SpawnEnemy(enemy);
 		break;
 	}

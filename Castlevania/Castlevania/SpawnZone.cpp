@@ -27,7 +27,7 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		DebugOut(L"Spawn \n");
 		HandleSpawnEnemy::GetInstance()->SpawnEnemy(this->enemyDef, this->num
-			, this->defaultTime, this->x, this->y);
+			, this->defaultTime, this->x, this->y,1,this->y);
 		this->isSpawn = false;
 		spawn_start = GetTickCount();
 	}

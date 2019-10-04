@@ -89,6 +89,18 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_E:
 		scene->JumpToState(GSTATE_03);
 		break;
+	case DIK_R:
+		scene->JumpToState(GSTATE_04);
+		break;
+	case DIK_T:
+		scene->JumpToState(GSTATE_05);
+		break;
+	case DIK_Y:
+		scene->JumpToState(GSTATE_06);
+		break;
+	case DIK_U:
+		scene->JumpToState(GSTATE_07);
+		break;
 	case DIK_TAB:
 		scene->FreezeEnemy(true);
 		break;
