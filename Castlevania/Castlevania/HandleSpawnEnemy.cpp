@@ -54,6 +54,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 	case EDBAT: {
 		enemy = new VampieBat(oy);
 		enemy->SetPositionInWorld(x, y);
+		enemy->SetNx(nx);
 		SceneManagement::GetInstance()->SpawnEnemy(enemy);
 		break;
 	}

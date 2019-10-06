@@ -14,7 +14,6 @@ void SpawnZone::Render()
 
 void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	DebugOut(L"nx=%d \n",this->nx);
 	if (!this->isSpawn)
 	{
 		float camx, camy;
@@ -22,7 +21,6 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (CGameObject::AABB(this->x,this->y,this->x+this->width,this->y+this->height,
 							camx,camy,camx+SCREEN_WIDTH,camy+SCREEN_HEIGHT))
 		{
-			DebugOut(L"INCAM \n");
 			this->spawn_start = 0;
 		}
 		else
@@ -42,14 +40,12 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		if (this->spawn_start!=0 && GetTickCount()- this->spawn_start>this->defaultTime)
 		{
-			DebugOut(L"true \n");
 			this->isSpawn = true;
 
 		}
 	}
 	else
 	{
-		DebugOut(L"Spawn \n");
 		HandleSpawnEnemy::GetInstance()->SpawnEnemy(this->enemyDef, this->num
 			, this->defaultTime, this->x, this->y,this->nx,this->y);
 		this->isSpawn = false;

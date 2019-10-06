@@ -26,7 +26,7 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	vx = -nx* BAT_FLY_SPEED_X;
+	vx = nx* BAT_FLY_SPEED_X;
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

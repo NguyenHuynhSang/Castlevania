@@ -267,7 +267,7 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
+	DebugOut(L"SImon vy=%f vx=%f \n", this->vx, this->vy);
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -341,7 +341,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
-
 	// turn off collision when die 
 	if (state != SIMON_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
@@ -352,7 +351,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-
+	
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -362,6 +361,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
+	
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
@@ -503,22 +503,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
 					if (!this->isOnStair)
 					{
+						
 						this->SetState(SIMON_STATE_DEFLECT);
 						CGameObject::Update(dt); // cap nhat lai dx dy
 						x += dx;
 						y += dy;
+						
 					}
-					if (untouchable != 1)
-						StartUntouchable();
+					if (untouchable != 1) {
+						StartUntouchable(); 
+						break; // không xét tiếp va chạm khi defect
+					}
+						
 
-					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
+					DebugOut(L"Va cham sweptaabb vy=%f vx=%f \n", this->vy, this->vx);
 
 				}
 				else if (e->nx == 0) {
 					y += dy;
 				}
-
-
 			}
 			else if (dynamic_cast<Item *>(e->obj)) {
 				Item *item = dynamic_cast<Item *>(e->obj);
@@ -598,11 +601,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 		}
+
 	}
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
+	DebugOut(L"Va cham xong sweptaabb vy=%f vx=%f \n", this->vy, this->vx);
 
 	for (std::size_t i = 0; i < coObjects->size(); i++)
 	{
@@ -732,7 +736,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
-
+	DebugOut(L"SImon after update vy=%f vx=%f \n", this->vx, this->vy);
 }
 
 void CSimon::Render()
@@ -980,13 +984,14 @@ void CSimon::SetState(int state)
 	}
 	case SIMON_STATE_DEFLECT:
 	{
+		DebugOut(L"Simon start DEFLECT \n");
 		if (this->isActack)
 		{
 			this->isActack = false;
 			ResetSpriteFrame();
 			ResetActack_Time();
 		}
-		this->vy = -SIMON_DEFLECT_SPEED_X;
+		this->vy = -SIMON_DEFLECT_SPEED_Y;
 		this->vx = -SIMON_DEFLECT_SPEED_X;
 
 		break;
