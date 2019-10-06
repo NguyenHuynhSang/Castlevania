@@ -24,6 +24,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 		for (size_t i = 0; i < num; i++)
 		{
 			enemy = new Zombie();
+			enemy->SetNx(nx);
 			enemy->SetPositionInWorld(x + i * 50 + 34, y);
 			SceneManagement::GetInstance()->SpawnEnemy(enemy);
 

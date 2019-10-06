@@ -28,8 +28,6 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (this->isFreeze)
 	{
-		this->vx = 0;
-		this->vy = 0;
 		return;
 	}
 	if (!this->isActive)

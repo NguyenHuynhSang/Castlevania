@@ -8,7 +8,7 @@
 void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
-	top = y;
+	top = y+2;
 	right = left + ZOMBIE_BBOX_WIDTH;
 	bottom = top + ZOMBIE_BBOX_HEIGHT;
 }
@@ -41,7 +41,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// 
 		// Simple fall down
 	vy += ZOMBIE_GRAVITY * dt;
-	vx = ZOMBIE_WALKING_SPEED * -nx;
+	vx = ZOMBIE_WALKING_SPEED * nx;
 
 	if (coEvents.size() == 0)
 	{

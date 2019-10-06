@@ -151,7 +151,7 @@ HandleSpawnItem::HandleSpawnItem()
 
 HandleSpawnItem::~HandleSpawnItem()
 {
-	delete item;
+
 }
 
 HandleSpawnItem * HandleSpawnItem::GetInstance()

@@ -1,40 +1,39 @@
 ﻿#pragma once
 #include<vector>
-#define NUM_CELLS  10
-#define CELL_SIZE  20
+#include"GameObject.h"
+#include<vector>
+#define CELL_SIZE  256
 
-class Unit {
+class Unit
+{
 	friend class Grid;
-	//init unit thuoc grid
-public:
-	Unit(Grid* grid, float x, float y);
-	void MoveTo(float newX, float newY);
-private:
-	//mỗi unit có position và thuộc grid nào
 	float x_;
 	float y_;
-	Grid* grid;
-	// Tạo thành dslk đôi
+	Grid* grid_;
+	// ds lien ket doi
 	Unit* prev_;
 	Unit* next_;
+public:
+	Unit(Grid * grid, float x, float y);
+	~Unit();
 };
+
+
 class Grid
 {
 private:
-	int cellWidth;
-	int cellHeight;
-	int mapWidth;
-	int mapHeight;
+	unsigned int mapWidth;
+	unsigned int mapHeight;
+	unsigned int cellSize= CELL_SIZE;
 
-	int numCellCol;
-	int numCellRow;
-	std::vector<std::vector<Unit*>> cells_;
+	unsigned int numXCell;
+	unsigned int numYcell;
+
+	std::vector<std::vector<Unit *>> cells_;
 public:
-	void handleMelee();
-	void handleCell(Unit* unit);
-	void Add(Unit* unit);
-	void Move(Unit* unit, float x, float y);
-	Grid();
+	void Add(Unit *unit);
+	void Move(Unit *unit,float x,float y);
+	Grid(unsigned int mapWidth, unsigned int mapHeight);
 	~Grid();
 };
 

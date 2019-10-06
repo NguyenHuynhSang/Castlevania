@@ -28,29 +28,21 @@
 #include"StopWatch.h"
 CSimon::CSimon() :CGameObject()
 {
-	level = SIMON_LEVEL_BIG;
 	untouchable = 0;
 	whip = new Whip();
 	this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle left big  1
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle right small  2
-	this->AddAnimation("SIMON_ANI_IDLE");		// idle left small 3
-	this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  4
-	this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  5
-	this->AddAnimation("SIMON_ANI_IDLE");		// walk right small  6
-	this->AddAnimation("SIMON_ANI_IDLE");		// walk left big  7
-	this->AddAnimation("SIMON_ANI_IDLE");		// die   8
-	this->AddAnimation("SIMON_ANI_SITTING");       // sit   9
-	this->AddAnimation("SIMON_ANI_STAND_ATTACK");       // stand attack   10
-	this->AddAnimation("SIMON_ANI_SIT_ATTACK");       // sit attack   11
-	this->AddAnimation("SIMON_ANI_DEFLECT");    //12
-	this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //13
-	this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //14
-	this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //15
-	this->AddAnimation("SIMON_ANI_IDLE_DOWNSTAIR");    //16
-	this->AddAnimation("SIMON_ANI_STEP_DOWNSTAIR");    //17
-	this->AddAnimation("SIMON_ANI_UPSTAIR_ATTACK");    //18
-	this->AddAnimation("SIMON_ANI_DOWNSTAIR_ATTACK"); //19
+	this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  1
+	this->AddAnimation("SIMON_ANI_SITTING");       // sit   2
+	this->AddAnimation("SIMON_ANI_STAND_ATTACK", false);       // stand attack   3
+	this->AddAnimation("SIMON_ANI_SIT_ATTACK",false);       // sit attack   4
+	this->AddAnimation("SIMON_ANI_DEFLECT");    //5
+	this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //6
+	this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //7
+	this->AddAnimation("SIMON_ANI_STEP_UPSTAIR");    //8
+	this->AddAnimation("SIMON_ANI_IDLE_DOWNSTAIR");    //9
+	this->AddAnimation("SIMON_ANI_STEP_DOWNSTAIR");    //10
+	this->AddAnimation("SIMON_ANI_UPSTAIR_ATTACK", false);    //11
+	this->AddAnimation("SIMON_ANI_DOWNSTAIR_ATTACK", false); //12
 	//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
 }
 
@@ -589,9 +581,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
 				if (this->isAutoWalk) {
+					NextScene *nexecene = dynamic_cast<NextScene *>(e->obj);
 					(e->obj)->SetDestroy();
 					// clean up collision events
-					SceneManagement::GetInstance()->GoNextScene();
+					SceneManagement::GetInstance()->JumpToState(nexecene->CheckSceneDef());
 				}
 				else
 				{
@@ -820,17 +813,17 @@ void CSimon::Render()
 		return;
 	}
 	else if (state == SIMON_STATE_DIE)
-		ani = SIMON_ANI_DIE;
+		ani = 0;
 	else
 	{
 		if (vx == 0)
 		{
-			if (nx > 0) ani = SIMON_ANI_BIG_IDLE_RIGHT;
-			else ani = SIMON_ANI_BIG_IDLE_RIGHT;
+			if (nx > 0) ani = SIMON_ANI_IDLE;
+			else ani = SIMON_ANI_IDLE;
 		}
 		else if (vx > 0)
-			ani = SIMON_ANI_BIG_WALKING_RIGHT;
-		else ani = SIMON_ANI_BIG_WALKING_RIGHT;
+			ani = SIMON_ANI_WALKING;
+		else ani = SIMON_ANI_WALKING;
 	}
 
 
@@ -909,10 +902,10 @@ void CSimon::SetState(int state)
 		{
 			this->stepOnStairDirection = DIR_DOWNLEFT;
 		}
-		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
+		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK
+			&& this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK)
 		{
-			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
-
+		this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
 		}
 		else
 		{
@@ -937,10 +930,10 @@ void CSimon::SetState(int state)
 		{
 			this->stepOnStairDirection = DIR_UPLEFT;
 		}
-		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
+		if (this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK 
+			&& this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
 		{
 			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
-
 		}
 		else
 		{

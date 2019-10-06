@@ -1,6 +1,6 @@
 #pragma once
 #include"Enemy.h"
-#define ZOMBIE_BBOX_WIDTH 34
+#define ZOMBIE_BBOX_WIDTH 30
 #define ZOMBIE_BBOX_HEIGHT 64
 
 #define ZOMBIE_GRAVITY			0.002f
@@ -18,7 +18,7 @@ public:
 
 	Zombie() :Enemy() {
 		AddAnimation("ZOMBIE_ANI_WALKING");
-		
+		nx = -1;
 	};
 	~Zombie();
 };

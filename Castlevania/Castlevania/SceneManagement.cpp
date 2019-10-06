@@ -156,7 +156,10 @@ void SceneManagement::HandleSpawningItem()
 
 void SceneManagement::CamUpdate(DWORD dt)
 {
-	DebugOut(L"current scene =%d \n", this->currentScene);
+	if (isNextScene)
+	{
+		return;
+	}
 	float cx, cy;
 	simon->GetPosition(cx, cy);
 	cx -= SCREEN_WIDTH / 2;
@@ -369,7 +372,7 @@ void SceneManagement::Update(DWORD dt)
 	//update enemies
 	for (std::size_t i = 0; i < enemies.size(); i++) //object
 	{
-		if (enemies[i]->x<-64 || enemies[i]->x>cmap->GetMapWidth() + 64 || enemies[i]->y > SCREEN_HEIGHT)
+		if (enemies[i]->x<sceneBox.left -64 || enemies[i]->x>this->sceneBox.right + 64 || enemies[i]->y > SCREEN_HEIGHT)
 		{
 			enemies[i]->SetDestroy();
 		}
@@ -488,10 +491,12 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 				|| dynamic_cast<Entry *>(object)
 				|| dynamic_cast<NextScene *>(object)
 				|| dynamic_cast<StairTrigger *>(object)
+				|| dynamic_cast<MoneyBagTrigger *>(object)
 				|| dynamic_cast<Door *>(object)
 				|| dynamic_cast<Candle *>(object)
 				|| dynamic_cast<Torch *>(object)
 				|| dynamic_cast<CBrick *>(object))
+
 			{
 				coObjects.push_back(object);
 			}
@@ -528,6 +533,7 @@ void SceneManagement::LoadScene()
 	{
 	case GSTATE_01:
 
+	
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 		LoadObjects(GSTATE_01);
@@ -626,6 +632,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			//	DebugOut(L"[Complete]Load Simon position in game world \n");
+		//	m_grid->AddObject(simon);
 		}
 		objects.push_back(simon);
 
@@ -635,6 +642,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(ground);
+		//	m_grid->AddObject(ground);
 		}
 
 
@@ -646,6 +654,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			entry->SetSize(child->GetWidth(), child->GetHeight());
 			entry->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(entry);
+		//	m_grid->AddObject(entry);
 		}
 
 
@@ -660,6 +669,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
 			}
 			objects.push_back(trigger);
+		//	m_grid->AddObject(trigger);
 		}
 
 
@@ -671,6 +681,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
 			objects.push_back(nextScene);
+		//	m_grid->AddObject(nextScene);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
@@ -681,6 +692,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound->SetPosition(child->GetX(), child->GetY());
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			objects.push_back(bound);
+		//	m_grid->AddObject(bound);
 		}
 
 
@@ -690,6 +702,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			torch->SetItem(child->GetPropertyByKey("item"));
 			objects.push_back(torch);
+			//m_grid->AddObject(torch);
 		}
 		break;
 	}
@@ -1303,7 +1316,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GSTATE_02;
+	this->currentScene = GSTATE_01;
 
 	cmap = CTileMap::GetInstance();
 	hub = new Hub();

@@ -112,7 +112,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_C: {
-		if (scene->GetSimon()->GetActack_Time() == 0 && scene->GetSimon()->GetCurrentSubWeapon() != -1)
+		if (scene->GetSimon()->GetActack_Time() == 0
+			&& scene->GetSimon()->GetCurrentSubWeapon() != -1
+			&& !scene->GetSimon()->CheckAttack())
 		{
 			scene->GetSimon()->SimonUseSubWeapon();
 			scene->GetSimon()->StartUseSubWeapon();
@@ -121,7 +123,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 
 	}
 	case DIK_F:
-		if (!scene->GetSimon()->CheckAttack()) {
+		if (!scene->GetSimon()->CheckAttack()
+			&& !scene->GetSimon()->CheckIsUseSubWeapon())
+		{
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->CheckIsOnStair())
 			{
@@ -161,7 +165,6 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		break;
 	case DIK_A: // reset
 		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
-		scene->GetSimon()->SetLevel(SIMON_LEVEL_BIG);
 		scene->GetSimon()->SetPosition(50.0f, 0.0f);
 		scene->GetSimon()->SetSpeed(0, 0);
 		break;

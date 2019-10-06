@@ -31,6 +31,7 @@
 #include"Water.h"
 #include"Door.h"
 #include"Hub.h"
+#include"Grid.h"
 class SceneManagement
 {
 private:

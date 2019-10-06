@@ -11,6 +11,9 @@ protected:
 	DWORD spawn_start;
 	bool isFreeze = false;
 public:
+	void SetNx(int nx) {
+		this->nx = nx;
+	}
 	void UpdateEnemy();
 	void SetFreeze(bool flag) {
 		this->isFreeze = flag;

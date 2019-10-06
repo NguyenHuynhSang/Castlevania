@@ -29,29 +29,19 @@
 #define SIMON_STATE_UPSTAIR_ATTACK 1600
 #define SIMON_STATE_DOWNSTAIR_ATTACK 1700
 
-#define SIMON_ANI_BIG_IDLE_RIGHT		0
-#define SIMON_ANI_BIG_IDLE_LEFT			1
-#define SIMON_ANI_SMALL_IDLE_RIGHT		2
-#define SIMON_ANI_SMALL_IDLE_LEFT			3
-
-#define SIMON_ANI_BIG_WALKING_RIGHT			4
-#define SIMON_ANI_BIG_WALKING_LEFT	    5
-#define SIMON_ANI_SMALL_WALKING_RIGHT		6
-#define SIMON_ANI_SMALL_WALKING_LEFT   7
-#define SIMON_ANI_DIE				     8
-#define SIMON_ANI_SITTING                  9
-#define SIMON_ANI_STAND_ATTACK           10
-#define SIMON_ANI_SIT_ATTACK           11
-#define SIMON_ANI_DEFLECT               12
-#define SIMON_ANI_IDLE_UPWHIP              13
-#define SIMON_ANI_IDLE_UPSTAIR          14
-#define SIMON_ANI_STEP_UPSTAIR            15
-#define SIMON_ANI_IDLE_DOWNSTAIR         16
-#define SIMON_ANI_STEP_DOWNSTAIR            17
-#define SIMON_ANI_UPSTAIR_ATTACK            18
-#define SIMON_ANI_DOWNSTAIR_ATTACK         19
-#define	SIMON_LEVEL_SMALL	1
-#define	SIMON_LEVEL_BIG		2
+#define SIMON_ANI_IDLE		0
+#define SIMON_ANI_WALKING			1
+#define SIMON_ANI_SITTING                  2
+#define SIMON_ANI_STAND_ATTACK           3
+#define SIMON_ANI_SIT_ATTACK           4
+#define SIMON_ANI_DEFLECT               5
+#define SIMON_ANI_IDLE_UPWHIP              6
+#define SIMON_ANI_IDLE_UPSTAIR          7
+#define SIMON_ANI_STEP_UPSTAIR            8
+#define SIMON_ANI_IDLE_DOWNSTAIR         9
+#define SIMON_ANI_STEP_DOWNSTAIR            10
+#define SIMON_ANI_UPSTAIR_ATTACK            11
+#define SIMON_ANI_DOWNSTAIR_ATTACK         12
 
 #define SIMON_BIG_BBOX_WIDTH  32
 #define SIMON_BIG_BBOX_HEIGHT 62
@@ -212,6 +202,7 @@ public:
 	}
 	void StartUseSubWeapon() {
 		this->isUseSubWeapon = true;
+		this->animations[SIMON_ANI_STAND_ATTACK]->ResetAnimation();
 		this->attack_start = GetTickCount();
 	}
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }

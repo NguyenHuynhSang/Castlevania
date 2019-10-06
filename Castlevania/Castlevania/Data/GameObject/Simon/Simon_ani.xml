@@ -17,12 +17,10 @@
 			<frame spriteID="SIMON_STAND_ATTACK_01" />
 			<frame spriteID="SIMON_STAND_ATTACK_02" />
 			<frame spriteID="SIMON_STAND_ATTACK_03" />
-			<frame spriteID="SIMON_STAND_ATTACK_03" />	
 		</animation>
 		<animation ID="SIMON_ANI_SIT_ATTACK" defaulttime="100">
 			<frame spriteID="SIMON_SITTING_ATTACK_01" />
 			<frame spriteID="SIMON_SITTING_ATTACK_02" />
-			<frame spriteID="SIMON_SITTING_ATTACK_03" />
 			<frame spriteID="SIMON_SITTING_ATTACK_03" />
 		</animation>
 
@@ -60,14 +58,12 @@
 		<animation ID="SIMON_ANI_UPSTAIR_ATTACK" defaulttime="100">
 			<frame spriteID="SIMON_UPSTAIR_ATTACK_01" />
 			<frame spriteID="SIMON_UPSTAIR_ATTACK_02" />
-			<frame spriteID="SIMON_UPSTAIR_ATTACK_03" />
 			<frame spriteID="SIMON_UPSTAIR_ATTACK_03" />	
 		</animation>
 		<animation ID="SIMON_ANI_DOWNSTAIR_ATTACK" defaulttime="100">
 			<frame spriteID="SIMON_DOWNSTAIR_ATTACK_01" />
 			<frame spriteID="SIMON_DOWNSTAIR_ATTACK_02" />
 			<frame spriteID="SIMON_DOWNSTAIR_ATTACK_03" />
-			<frame spriteID="SIMON_DOWNSTAIR_ATTACK_03" />	
 		</animation>
 		
 	</animations>
