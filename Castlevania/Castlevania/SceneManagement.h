@@ -52,7 +52,8 @@ private:
 	Water* water;
 	Door* door;
 	Hub* hub;
-
+	Grid * grid;
+	std::vector<Unit*> listUnit;
 	RECT sceneBox;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
@@ -69,6 +70,8 @@ private:
 	int currentScene;
 	void HandleSpawningItem();
 	void CamUpdate(DWORD dt);
+	void GetListUnitFromGrid();
+	void UpdateGrid();
 public:
 
 	static SceneManagement * GetInstance();

@@ -229,6 +229,38 @@ void SceneManagement::CamUpdate(DWORD dt)
 
 }
 
+void SceneManagement::GetListUnitFromGrid()
+{
+	listUnit.clear();
+	this->objects.clear();
+	grid->GetListUnit(listUnit);
+	for (size_t i = 0; i < listUnit.size(); i++)
+	{
+		this->objects.push_back(listUnit[i]->GetGameObject());
+	}
+
+
+
+}
+
+void SceneManagement::UpdateGrid()
+{
+	for (size_t i = 0; i < listUnit.size(); i++)
+	{
+		LPGAMEOBJECT obj = listUnit[i]->GetGameObject();
+		if (dynamic_cast<Ground *>(obj))
+		{
+			continue;
+		}
+		float x_, y_;
+		obj->GetPosition(x_, y_);
+		grid->Move(listUnit[i], x_, y_);
+
+	}
+
+
+}
+
 SceneManagement *SceneManagement::GetInstance()
 {
 	if (__instance == NULL) __instance = new SceneManagement();
@@ -262,7 +294,7 @@ void SceneManagement::Update(DWORD dt)
 		this->isNextScene = false;
 		return;
 	}
-
+	GetListUnitFromGrid();
 	// Update camera to follow simon
 	float cx, cy;
 	simon->GetPosition(cx, cy);
@@ -395,15 +427,21 @@ void SceneManagement::Update(DWORD dt)
 
 
 	CamUpdate(dt);
-
+	/// cap nhat lai vi tri cac unit trong grid
+	UpdateGrid();
 }
 void SceneManagement::Render()
 {
 	if (this->isNextScene) return;
 	hub->Render();
-	float cx, cy;
-	Camera::GetInstance()->GetCamera(cx, cy);
 	cmap->Render();
+	for (std::size_t i = 1; i < objects.size(); i++)
+	{
+			objects[i]->Render();
+	}
+	/*float cx, cy;
+	Camera::GetInstance()->GetCamera(cx, cy);
+	
 	for (std::size_t i = 1; i < objects.size(); i++)
 	{
 		if (objects[i]->x > cx&&objects[i]->x < cx + SCREEN_WIDTH)
@@ -430,7 +468,8 @@ void SceneManagement::Render()
 	for (std::size_t i = 0; i < this->items.size(); i++)
 		this->items[i]->Render();
 	for (std::size_t i = 0; i < this->effects.size(); i++)
-		this->effects[i]->Render();
+		this->effects[i]->Render();*/
+
 	simon->Render();
 
 
@@ -536,6 +575,7 @@ void SceneManagement::LoadScene()
 	
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
+		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_01);
 		break;
 
@@ -627,12 +667,14 @@ void SceneManagement::LoadObjects(int currentscene)
 	{
 	case GSTATE_01:
 	{
+		Unit * unit;
 		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			//	DebugOut(L"[Complete]Load Simon position in game world \n");
 		//	m_grid->AddObject(simon);
+			unit = new Unit(this->grid, simon, simon->x, simon->y);
 		}
 		objects.push_back(simon);
 
@@ -641,7 +683,8 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(ground);
+			//objects.push_back(ground);
+			unit = new Unit(this->grid, ground, ground->x, ground->y);
 		//	m_grid->AddObject(ground);
 		}
 
@@ -653,7 +696,8 @@ void SceneManagement::LoadObjects(int currentscene)
 			entry = new Entry();
 			entry->SetSize(child->GetWidth(), child->GetHeight());
 			entry->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(entry);
+			//objects.push_back(entry);
+			unit = new Unit(this->grid, entry, entry->x, entry->y);
 		//	m_grid->AddObject(entry);
 		}
 
@@ -668,7 +712,8 @@ void SceneManagement::LoadObjects(int currentscene)
 			for (const auto& smallchild : moneyBagObject->second) {
 				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
 			}
-			objects.push_back(trigger);
+			unit = new Unit(this->grid, trigger, trigger->x, trigger->y);
+		//	objects.push_back(trigger);
 		//	m_grid->AddObject(trigger);
 		}
 
@@ -680,7 +725,8 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(nextScene);
+			//objects.push_back(nextScene);
+			unit = new Unit(this->grid, nextScene, nextScene->x, nextScene->y);
 		//	m_grid->AddObject(nextScene);
 		}
 
@@ -691,7 +737,8 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
-			objects.push_back(bound);
+			//objects.push_back(bound);
+			unit = new Unit(this->grid, bound, bound->x, bound->y);
 		//	m_grid->AddObject(bound);
 		}
 
@@ -701,7 +748,8 @@ void SceneManagement::LoadObjects(int currentscene)
 			torch = new Torch();
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			torch->SetItem(child->GetPropertyByKey("item"));
-			objects.push_back(torch);
+		//	objects.push_back(torch);
+			unit = new Unit(this->grid, torch, torch->x, torch->y);
 			//m_grid->AddObject(torch);
 		}
 		break;
