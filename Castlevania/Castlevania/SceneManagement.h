@@ -57,6 +57,7 @@ private:
 	RECT sceneBox;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> groundObjects;
 	vector<LPGAMEOBJECT> items;
 	vector<LPGAMEOBJECT> effects;
 	vector<LPGAMEOBJECT> enemies;
@@ -98,7 +99,9 @@ public:
 		return this->isNextScene;
 	}
 	void SpawnItem(Item* item) {
+	
 		this->items.push_back(item);
+
 	}
 	void SpawnEnemy(Enemy* enemy) {
 		this->enemies.push_back(enemy);

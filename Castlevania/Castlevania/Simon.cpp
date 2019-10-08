@@ -267,7 +267,6 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	DebugOut(L"SImon vy=%f vx=%f \n", this->vx, this->vy);
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -500,7 +499,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<Enemy *>(e->obj)) {
 				if (untouchable_start == 0) {
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
-					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
 					if (!this->isOnStair)
 					{
 						
@@ -514,10 +512,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						StartUntouchable(); 
 						break; // không xét tiếp va chạm khi defect
 					}
-						
-
-					DebugOut(L"Va cham sweptaabb vy=%f vx=%f \n", this->vy, this->vx);
-
 				}
 				else if (e->nx == 0) {
 					y += dy;
@@ -606,7 +600,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	DebugOut(L"Va cham xong sweptaabb vy=%f vx=%f \n", this->vy, this->vx);
 
 	for (std::size_t i = 0; i < coObjects->size(); i++)
 	{
@@ -621,7 +614,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (CGameObject::IsColliding(this, f))
 				{
 					if (dynamic_cast<MorningStar *>(e)) {
-						DebugOut(L"Morning star logic \n");
 						SetState(SIMON_STATE_POWERUP);
 						if (isActack) {
 							ResetActack_Time();
@@ -736,7 +728,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
-	DebugOut(L"SImon after update vy=%f vx=%f \n", this->vx, this->vy);
 }
 
 void CSimon::Render()

@@ -22,6 +22,7 @@ public:
 		return this->object;
 		
 	}
+
 	~Unit();
 };
 
@@ -34,11 +35,12 @@ private:
 	unsigned int cellSize= CELL_SIZE;
 
 	unsigned int numXCell;
-	unsigned int numYcell;
+	unsigned int numYCell;
 
 	// mang 2 chieu luu unit
 	// trong cell co the co nhieu unit 
 	std::vector<std::vector<Unit *>> cells_;
+	void GetAllUnitInCell(Unit *);
 public:
 	void Add(Unit *unit);
 	void Move(Unit *unit,float x,float y);
@@ -46,6 +48,7 @@ public:
 	void GetListUnit(vector<Unit*>& listUnits);
 	Grid(unsigned int mapWidth, unsigned int mapHeight);
 	void Render();
+	void RemoveUnit(Unit* unit);
 	~Grid();
 };
 

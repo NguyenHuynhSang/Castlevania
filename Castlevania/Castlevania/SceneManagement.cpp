@@ -233,13 +233,22 @@ void SceneManagement::GetListUnitFromGrid()
 {
 	listUnit.clear();
 	this->objects.clear();
+	for (size_t i = 0; i < items.size(); i++)
+	{
+		Unit* unit = new Unit(this->grid, items[i], items[i]->x, items[i]->y);
+	}
+	items.clear();
 	grid->GetListUnit(listUnit);
+	for (size_t i = 0; i < groundObjects.size(); i++)
+	{
+		this->objects.push_back(groundObjects[i]);
+	}
 	for (size_t i = 0; i < listUnit.size(); i++)
 	{
 		this->objects.push_back(listUnit[i]->GetGameObject());
 	}
 
-
+	DebugOut(L"listUnit=%d \n",listUnit.size());
 
 }
 
@@ -248,14 +257,9 @@ void SceneManagement::UpdateGrid()
 	for (size_t i = 0; i < listUnit.size(); i++)
 	{
 		LPGAMEOBJECT obj = listUnit[i]->GetGameObject();
-		if (dynamic_cast<Ground *>(obj))
-		{
-			continue;
-		}
 		float x_, y_;
 		obj->GetPosition(x_, y_);
 		grid->Move(listUnit[i], x_, y_);
-
 	}
 
 
@@ -287,8 +291,6 @@ int SceneManagement::CheckNumOfFishMan()
 void SceneManagement::Update(DWORD dt)
 {
 
-	// We know that Simon is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
 	if (this->isNextScene) {
 		LoadScene();
 		this->isNextScene = false;
@@ -301,89 +303,7 @@ void SceneManagement::Update(DWORD dt)
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
 
-	//clean object
-	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = objects.erase(it);
-			DebugOut(L"[DELETE] OBJECT \n");
-		}
-		else ++it;
-	}
-	//clean subweapon
-	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = subWeapon.erase(it);
-			DebugOut(L"[DELETE] SUBWEAPON \n");
-		}
-		else ++it;
-	}
-	//clean enemy
-	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = enemies.erase(it);
-			DebugOut(L"[DELETE] ENEMY \n");
-		}
-		else ++it;
-	}
-	//clean effects
-	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = effects.erase(it);
-			DebugOut(L"[DELETE] EFFECT \n");
-		}
-		else ++it;
-	}
-	//clean item
-	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			delete (*it);
-			it = items.erase(it);
-			DebugOut(L"[DELETE] ITEM \n");
-		}
-		else ++it;
-	}
-
-
-
-
-
 	vector<LPGAMEOBJECT> coObjects;
-	//for (std::size_t i = 1; i < objects.size(); i++)
-	//{
-	//	if (dynamic_cast<Ground *>(objects[i]) || dynamic_cast<Water *>(objects[i]))
-	//	{
-	//		coObjects.push_back(objects[i]);
-	//		continue;
-	//	}
-	//	else if (objects[i]->x > cx && objects[i]->x < cx + SCREEN_WIDTH + 128)
-	//	{
-	//		coObjects.push_back(objects[i]);
-	//	}
-
-	//}
-	//for (std::size_t i = 0; i < subWeapon.size(); i++)
-	//{
-	//	coObjects.push_back(subWeapon[i]);
-	//}
-	//for (std::size_t i = 0; i < enemies.size(); i++)
-	//{
-	//	if (enemies[i]->x > cx && enemies[i]->x < cx + SCREEN_WIDTH)
-	//	{
-	//		coObjects.push_back(enemies[i]);
-	//	}
-	//}
-	//for (std::size_t i = 0; i < items.size(); i++)  //item
-	//{
-	//	coObjects.push_back(items[i]);
-	//}
 
 	//update object
 	for (std::size_t i = 0; i < objects.size(); i++) //object
@@ -417,14 +337,6 @@ void SceneManagement::Update(DWORD dt)
 	{
 		effects[i]->Update(dt, &coObjects);
 	}
-	//update items
-	for (std::size_t i = 0; i < items.size(); i++)
-	{
-		GetCoObjects(objects.at(i), coObjects);
-		items[i]->Update(dt, &coObjects);
-	}
-
-
 
 	CamUpdate(dt);
 	/// cap nhat lai vi tri cac unit trong grid
@@ -439,6 +351,8 @@ void SceneManagement::Render()
 	{
 			objects[i]->Render();
 	}
+
+
 	/*float cx, cy;
 	Camera::GetInstance()->GetCamera(cx, cy);
 	
@@ -470,6 +384,8 @@ void SceneManagement::Render()
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();*/
 
+	for (std::size_t i = 0; i < this->effects.size(); i++)
+		this->effects[i]->Render();
 	simon->Render();
 
 
@@ -532,9 +448,11 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 				|| dynamic_cast<StairTrigger *>(object)
 				|| dynamic_cast<MoneyBagTrigger *>(object)
 				|| dynamic_cast<Door *>(object)
+				|| dynamic_cast<Item *>(object)
 				|| dynamic_cast<Candle *>(object)
 				|| dynamic_cast<Torch *>(object)
 				|| dynamic_cast<CBrick *>(object))
+
 
 			{
 				coObjects.push_back(object);
@@ -672,20 +590,17 @@ void SceneManagement::LoadObjects(int currentscene)
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			//	DebugOut(L"[Complete]Load Simon position in game world \n");
-		//	m_grid->AddObject(simon);
 			unit = new Unit(this->grid, simon, simon->x, simon->y);
 		}
-		objects.push_back(simon);
 
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
 		for (const auto& child : groundObject->second) {
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			//objects.push_back(ground);
-			unit = new Unit(this->grid, ground, ground->x, ground->y);
-		//	m_grid->AddObject(ground);
+			groundObjects.push_back(ground);
+			//unit = new Unit(this->grid, ground, ground->x, ground->y);
+
 		}
 
 

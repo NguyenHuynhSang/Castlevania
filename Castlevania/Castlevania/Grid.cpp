@@ -71,6 +71,7 @@ void Grid::Move(Unit * unit, float x, float y)
 		cells_[oldCellY][oldCellX] = unit->next_;
 	}
 
+
 	// Add it back to the grid at its new cell.
 	Add(unit);
 
@@ -81,7 +82,7 @@ void Grid::Move(Unit * unit, float x, float y)
 
 void Grid::Update(float dt)
 {
-	for (int i = 0; i < numYcell; i++)
+	for (int i = 0; i < numYCell; i++)
 	{
 		for (int j = 0; j < numXCell; j++)
 		{
@@ -90,7 +91,7 @@ void Grid::Update(float dt)
 			// chi render nhung cell co unit
 			while (unit != NULL)
 			{
-				
+
 			}
 		}
 	}
@@ -98,22 +99,58 @@ void Grid::Update(float dt)
 
 void Grid::GetListUnit(vector<Unit*>& listUnits)
 {
-
 	float camx, camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
 	int startCol = camx / this->cellSize;
 	int endCol = ceil((float)(camx + SCREEN_WIDTH) / this->cellSize);
-	for (int i = 0; i < this->numYcell; i++)
+	//clean destroyed unit
+
+	for (size_t i = 0; i < this->numYCell; i++)
+	{
+		for (size_t j = 0; j < numXCell; j++)
+		{
+			Unit * unit = this->cells_[i][j];
+			while (unit!=NULL)
+			{
+				if (unit->GetGameObject()->isDestroyed)
+				{
+					Unit * next = unit->next_;
+					RemoveUnit(unit);
+					unit = next;
+				}
+				else
+				{
+					unit = unit->next_;
+				}
+			}
+			
+			
+		}
+	}
+
+
+
+
+	for (int i = 0; i < this->numYCell; i++)
 	{
 		for (int j = startCol; j < endCol; j++)
 		{
 			Unit * unit = this->cells_[i][j];
-
 			// chi render nhung cell co unit
+
 			while (unit != NULL)
 			{
-				listUnits.push_back(unit);
-				unit = unit->next_;
+				if (unit->GetGameObject() != NULL)
+				{
+
+					listUnits.push_back(unit);
+					unit = unit->next_;
+
+				}
+				else
+				{
+					DebugOut(L"Khong delete duoc unit\n");
+				}
 			}
 		}
 	}
@@ -123,18 +160,18 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 
 Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 	mapWidth(mapWidth),
-	mapHeight(mapHeight+80)
+	mapHeight(mapHeight + 80)
 {
-	this->numXCell = ceil((float)this->mapWidth / this->cellSize)+1;
-	this->numYcell = ceil((float)this->mapHeight / this->cellSize);
+	this->numXCell = ceil((float)this->mapWidth / this->cellSize) + 1;
+	this->numYCell = ceil((float)this->mapHeight / this->cellSize);
 	// clear grid
 
-	this->cells_.resize(numYcell);
+	this->cells_.resize(numYCell);
 
-	for (int i = 0; i < numYcell; i++)
+	for (int i = 0; i < numYCell; i++)
 		cells_[i].resize(numXCell);
 
-	for (size_t i = 0; i < numYcell; i++)
+	for (size_t i = 0; i < numYCell; i++)
 	{
 		for (size_t j = 0; j < numXCell; j++)
 		{
@@ -150,7 +187,7 @@ void Grid::Render()
 	Camera::GetInstance()->GetCamera(camx, camy);
 	int startCol = camx / this->cellSize;
 	int endCol = ceil((float)(camx + SCREEN_WIDTH) / this->cellSize);
-	for (int i = 0; i < this->numYcell; i++)
+	for (int i = 0; i < this->numYCell; i++)
 	{
 		for (int j = startCol; j < endCol; j++)
 		{
@@ -165,6 +202,30 @@ void Grid::Render()
 	}
 
 
+}
+
+void Grid::RemoveUnit(Unit* unit)
+{
+	// tìm vị trí củ của cell chứa unit 
+	int oldCellX = (int)(unit->x_ / this->cellSize);
+	int oldCellY = (int)(unit->y_ / this->cellSize);
+	// bỏ liên kết của unit với cell cũ
+	if (unit->prev_ != NULL)
+	{
+		unit->prev_->next_ = unit->next_;
+	}
+	if (unit->next_ != NULL)
+	{
+		unit->next_->prev_ = unit->prev_;
+	}
+
+	// If it's the head of a list, remove it.
+
+	if (cells_[oldCellY][oldCellX] == unit)
+	{
+		cells_[oldCellY][oldCellX] = unit->next_;
+	}
+	delete unit->GetGameObject();
 }
 
 Grid::~Grid()
