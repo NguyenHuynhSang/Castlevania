@@ -55,7 +55,7 @@ public:
 	
 	bool setDestroy=false;
 	bool isDestroyed = false;
-	bool isCollide = true;
+	bool isActive = false;
 public: 
 	void SetDestroy() {
 		this->setDestroy = true;
@@ -63,8 +63,11 @@ public:
 	bool CheckDestroyed() {
 		return this->isDestroyed;
 	}
-	void TurnOffCollision() {
-		this->isCollide = false;
+	void SetActive() {
+		this->isActive = true;
+	}
+	bool CheckActive() {
+		return this->isActive;
 	}
 	void SetPosition(float x, float y) { this->x = x, this->y = y+ GAME_WORLD_Y; }// cộng thêm phần board
 	void SetPositionInWorld(float x, float y) { this->x = x, this->y = y; }// cộng thêm phần board

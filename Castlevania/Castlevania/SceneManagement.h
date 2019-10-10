@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _SCENE_CLASS
 #define _SCENE_CLASS
 #include<Windows.h>
@@ -57,8 +57,12 @@ private:
 	RECT sceneBox;
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
-	vector<LPGAMEOBJECT> groundObjects;
 
+	// luôn update
+	vector<LPGAMEOBJECT> groundObjects;
+	vector<LPGAMEOBJECT> spawnObjects;
+
+	// list các loại object dùng để quản lý và truy xuất nhanh
 	vector<LPGAMEOBJECT> items;
 	vector<LPGAMEOBJECT> effects;
 	vector<LPGAMEOBJECT> enemies;
@@ -92,6 +96,10 @@ public:
 	void Update(DWORD dt);
 	void Render();
 	void SceneUpdate();
+
+	void GetPlayerPosition(float &x, float &y) {
+		simon->GetPosition(x, y);
+	}
 	void ResetCam() {
 		Camera::GetInstance()->SetCamera(0, 0);
 		

@@ -53,7 +53,6 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 	if (this->setDestroy) {
-		this->TurnOffCollision();
 		switch (this->state)
 		{
 		case MONEYBAG_STATE_FULLCOLOR: {

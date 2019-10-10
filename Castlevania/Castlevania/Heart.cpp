@@ -36,7 +36,6 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	this->UpdateItem();
 	if (this->setDestroy) {
-		this->TurnOffCollision();
 		this->isDestroyed = true;
 		return;
 	}

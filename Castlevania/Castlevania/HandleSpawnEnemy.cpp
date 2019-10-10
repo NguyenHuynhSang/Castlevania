@@ -4,15 +4,18 @@
 #include"Fishman.h"
 #include"Fireball.h"
 #include"VampieBat.h"
-
-
+#include"Camera.h"
 
 HandleSpawnEnemy * HandleSpawnEnemy::__instance = NULL;
 
 
 
-void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float x,float y,int nx,float oy)
+void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, float x, float y, int nx, float oy)
 {
+	float cx, cy;
+	float px, py;
+	Camera::GetInstance()->GetCamera(cx, cy);
+	SceneManagement::GetInstance()->GetPlayerPosition(px, py);
 	if (stopSpawn)
 	{
 		return;
@@ -25,14 +28,25 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 		{
 			enemy = new Zombie();
 			enemy->SetNx(nx);
-			enemy->SetPositionInWorld(x + i * 50 + 34, y);
+			int rank = rand() % 2;
+			if (rank == 1)
+			{
+				enemy->SetPositionInWorld(cx + SCREEN_WIDTH + i * 50 + 34, y);
+				enemy->SetNx(-1);
+			}
+			else
+			{
+				enemy->SetPositionInWorld(cx - i * 50 - 34, y);
+				enemy->SetNx(1);
+
+			}
 			SceneManagement::GetInstance()->SpawnEnemy(enemy);
 
 		}
 		break;
 	}
 	case EDFISHMAN: {
-		if (SceneManagement::GetInstance()->CheckNumOfFishMan()>=2)
+		if (SceneManagement::GetInstance()->CheckNumOfFishMan() >= 2)
 		{
 			return;
 		}
@@ -47,7 +61,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime,float
 	}
 	case EDFIREBALL: {
 		enemy = new Fireball(nx);
-		enemy->SetPositionInWorld(x , y);
+		enemy->SetPositionInWorld(x, y);
 		SceneManagement::GetInstance()->SpawnEnemy(enemy);
 		break;
 	}

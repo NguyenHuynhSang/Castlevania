@@ -43,7 +43,7 @@ private:
 
 public:
 	void Add(Unit *unit);
-	void Move(Unit *unit,float x,float y);
+	void Update(Unit *unit,float x,float y);
 	void Update(float dt);
 	void GetListUnit(vector<Unit*>& listUnits);
 	Grid(unsigned int mapWidth, unsigned int mapHeight);

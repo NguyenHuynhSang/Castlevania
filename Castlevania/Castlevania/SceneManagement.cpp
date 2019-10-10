@@ -146,7 +146,7 @@ void SceneManagement::LoadResource()
 
 
 	simon = new CSimon();
-	
+
 }
 
 void SceneManagement::HandleSpawningItem()
@@ -239,7 +239,7 @@ void SceneManagement::GetListUnitFromGrid()
 		Unit* unit = new Unit(this->grid, qItem.front());
 		qItem.pop();
 	}
-	
+
 	while (!qEnemy.empty())
 	{
 		Unit* unit = new Unit(this->grid, qEnemy.front());
@@ -260,7 +260,7 @@ void SceneManagement::GetListUnitFromGrid()
 		this->objects.push_back(listUnit[i]->GetGameObject());
 	}
 
-	DebugOut(L"listUnit=%d \n",listUnit.size());
+	DebugOut(L"listUnit=%d \n", listUnit.size());
 
 }
 
@@ -271,7 +271,7 @@ void SceneManagement::UpdateGrid()
 		LPGAMEOBJECT obj = listUnit[i]->GetGameObject();
 		float x_, y_;
 		obj->GetPosition(x_, y_);
-		grid->Move(listUnit[i], x_, y_);
+		grid->Update(listUnit[i], x_, y_);
 	}
 
 
@@ -308,12 +308,16 @@ void SceneManagement::Update(DWORD dt)
 		this->isNextScene = false;
 		return;
 	}
+
+	// update trước để spawn enemy và xử lý va chạm ở frame hiện tại
+	for (size_t i = 0; i < spawnObjects.size(); i++)
+	{
+		spawnObjects[i]->Update(dt);
+
+	}
+
 	GetListUnitFromGrid();
 	// Update camera to follow simon
-	float cx, cy;
-	simon->GetPosition(cx, cy);
-	cx -= SCREEN_WIDTH / 2;
-	cy -= SCREEN_HEIGHT / 2;
 
 	vector<LPGAMEOBJECT> coObjects;
 	coObjects.clear();
@@ -334,6 +338,13 @@ void SceneManagement::Update(DWORD dt)
 		effects[i]->Update(dt);
 	}
 
+
+	
+
+
+	CamUpdate(dt);
+	/// cap nhat lai vi tri cac unit trong grid
+	UpdateGrid();
 
 	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
 
@@ -364,13 +375,14 @@ void SceneManagement::Update(DWORD dt)
 		}
 		else ++it;
 	}
+	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
 
+		if ((*it)->isDestroyed) {
+			it = subWeapon.erase(it);
+		}
+		else ++it;
+	}
 
-
-
-	CamUpdate(dt);
-	/// cap nhat lai vi tri cac unit trong grid
-	UpdateGrid();
 }
 void SceneManagement::Render()
 {
@@ -379,10 +391,16 @@ void SceneManagement::Render()
 	cmap->Render();
 	for (std::size_t i = 0; i < objects.size(); i++)
 	{
-			objects[i]->Render();
+		objects[i]->Render();
 	}
+
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
+
+	for (size_t i = 0; i < spawnObjects.size(); i++)
+	{
+		spawnObjects[i]->Render();
+	}
 	simon->Render();
 
 
@@ -397,7 +415,7 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 
 	if (dynamic_cast<Item *>(obj))
 	{
-		for (auto object: this->objects)
+		for (auto object : this->objects)
 		{
 			if (dynamic_cast<Ground *>(object))
 			{
@@ -416,7 +434,7 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 		}
 	}
 	else if (dynamic_cast<SubWeapon *>(obj)
-				|| dynamic_cast<Whip *>(obj))
+		|| dynamic_cast<Whip *>(obj))
 	{
 		for (auto object : this->enemies)
 		{
@@ -424,7 +442,7 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 		}
 		for (auto object : this->objects)
 		{
-			if (dynamic_cast<Ground *>(object) 
+			if (dynamic_cast<Ground *>(object)
 				|| dynamic_cast<Candle *>(object)
 				|| dynamic_cast<Torch *>(object)
 				|| dynamic_cast<CBrick *>(object))
@@ -480,7 +498,7 @@ void SceneManagement::LoadScene()
 	{
 	case GSTATE_01:
 
-	
+
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
@@ -560,24 +578,30 @@ void SceneManagement::JumpToState(int state)
 void SceneManagement::LoadObjects(int currentscene)
 {
 	DebugOut(L"Load object \n");
-	for (UINT i = 1; i < objects.size(); i++) {
-		if (dynamic_cast<CSimon *>(objects.at(i)))
+	for (UINT i = 0; i < objects.size(); i++) {
+		if (dynamic_cast<Enemy *>(objects.at(i))
+			|| dynamic_cast<Item *>(objects.at(i))
+			|| dynamic_cast<Ground *>(objects.at(i))
+			|| dynamic_cast<SubWeapon *>(objects.at(i))
+			)
 		{
 			continue;
 		}
 		else
 		{
-			delete objects[i]; 
+			delete objects[i];
 		}
-	} 
+	}
 	for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
 	for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
 	for (UINT i = 0; i < groundObjects.size(); i++) delete groundObjects[i];
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
+	for (UINT i = 0; i < spawnObjects.size(); i++) delete spawnObjects[i];
 	Unit * unit;
 	objects.clear();
 	enemies.clear();
+	groundObjects.clear();
 	items.clear();
 	effects.clear();
 	subWeapon.clear();
@@ -586,7 +610,7 @@ void SceneManagement::LoadObjects(int currentscene)
 	{
 	case GSTATE_01:
 	{
-	
+
 		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
@@ -613,7 +637,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			entry->SetPosition(child->GetX(), child->GetY());
 			//objects.push_back(entry);
 			unit = new Unit(this->grid, entry);
-		//	m_grid->AddObject(entry);
+			//	m_grid->AddObject(entry);
 		}
 
 
@@ -628,8 +652,8 @@ void SceneManagement::LoadObjects(int currentscene)
 				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
 			}
 			unit = new Unit(this->grid, trigger);
-		//	objects.push_back(trigger);
-		//	m_grid->AddObject(trigger);
+			//	objects.push_back(trigger);
+			//	m_grid->AddObject(trigger);
 		}
 
 
@@ -642,7 +666,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetPosition(child->GetX(), child->GetY());
 			//objects.push_back(nextScene);
 			unit = new Unit(this->grid, nextScene);
-		//	m_grid->AddObject(nextScene);
+			//	m_grid->AddObject(nextScene);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
@@ -654,7 +678,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			//objects.push_back(bound);
 			unit = new Unit(this->grid, bound);
-		//	m_grid->AddObject(bound);
+			//	m_grid->AddObject(bound);
 		}
 
 
@@ -663,7 +687,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			torch = new Torch();
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			torch->SetItem(child->GetPropertyByKey("item"));
-		//	objects.push_back(torch);
+			//	objects.push_back(torch);
 			unit = new Unit(this->grid, torch);
 			//m_grid->AddObject(torch);
 		}
@@ -720,7 +744,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 				spawnZone->SetPosition(child->GetX(), child->GetY());
-				unit = new Unit(this->grid, spawnZone);
+				this->spawnObjects.push_back(spawnZone);
 			}
 
 		}
@@ -1175,9 +1199,9 @@ void SceneManagement::LoadObjects(int currentscene)
 		break;
 	}
 
-	case GSTATE_07: 
+	case GSTATE_07:
 	{
-		
+
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
@@ -1231,7 +1255,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 
-	
+
 
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {

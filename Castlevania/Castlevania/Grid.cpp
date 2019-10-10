@@ -1,5 +1,8 @@
 ﻿#include "Grid.h"
 #include"Camera.h"
+#include"Item.h"
+#include"Enemy.h"
+#include"SubWeapon.h"
 Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 	: grid_(gird),
 	object(object),
@@ -17,10 +20,10 @@ Unit::~Unit()
 
 void Grid::Add(Unit * unit)
 {
+	
 	//tính vị trí của unit
 	int cellX = (int)(unit->x_ / this->cellSize);
 	int cellY = (int)(unit->y_ / this->cellSize);
-
 	// thêm vào trước ds unit ở ô đó
 	unit->prev_ = NULL;
 	unit->next_ = cells_[cellY][cellX];
@@ -34,8 +37,38 @@ void Grid::Add(Unit * unit)
 
 }
 
-void Grid::Move(Unit * unit, float x, float y)
+void Grid::Update(Unit * unit, float x, float y)
 {
+	float cx_, cy_;
+
+	Camera::GetInstance()->GetCamera(cx_, cy_);
+
+	if (x>cx_ && x<cx_+SCREEN_WIDTH && y>0 && y< cy_+SCREEN_HEIGHT)
+	{
+		unit->GetGameObject()->SetActive();
+	}
+	if (x < -15 || x > mapWidth || y<0 || y > SCREEN_HEIGHT ) // -15px for bound map
+	{
+		unit->GetGameObject()->DestroyImmediate();
+	}
+	if (unit->GetGameObject()->CheckActive())
+	{
+		
+		 if (x<cx_|| x>cx_ + SCREEN_WIDTH
+			|| y<cy_ || y>cy_ + SCREEN_HEIGHT)
+		{
+			if (dynamic_cast<Item *>(unit->GetGameObject())
+				|| dynamic_cast<Enemy *>(unit->GetGameObject())
+				|| dynamic_cast<SubWeapon *>(unit->GetGameObject()))
+			{
+				unit->GetGameObject()->DestroyImmediate();
+			}
+		}
+
+	}
+
+
+
 	// tìm vị trí củ của cell chứa unit 
 	int oldCellX = (int)(unit->x_ / this->cellSize);
 	int oldCellY = (int)(unit->y_ / this->cellSize);
@@ -109,19 +142,7 @@ void Grid::Move(Unit * unit, float x, float y)
 
 void Grid::Update(float dt)
 {
-	for (int i = 0; i < numYCell; i++)
-	{
-		for (int j = 0; j < numXCell; j++)
-		{
-			Unit * unit = this->cells_[i][j];
 
-			// chi render nhung cell co unit
-			while (unit != NULL)
-			{
-
-			}
-		}
-	}
 }
 
 void Grid::GetListUnit(vector<Unit*>& listUnits)
@@ -129,35 +150,9 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 	float camx, camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
 	int startCol = camx / this->cellSize;
-	int endCol = ceil((float)(camx + SCREEN_WIDTH) / this->cellSize);
-	//clean destroyed unit
-
-	//for (size_t i = 0; i < this->numYCell; i++)
-	//{
-	//	for (size_t j = 0; j < numXCell; j++)
-	//	{
-	//		Unit * unit = this->cells_[i][j];
-	//		while (unit!=NULL)
-	//		{
-	//			if (unit->GetGameObject()->isDestroyed)
-	//			{
-	//				Unit * next = unit->next_;
-	//				RemoveUnit(unit);
-	//				unit = next;
-	//			}
-	//			else
-	//			{
-	//				unit = unit->next_;
-	//			}
-	//		}
-	//		
-	//		
-	//	}
-	//}
-
-
-
-
+	startCol = startCol > 0 ? startCol + -1 : 0;
+	int endCol = (camx + SCREEN_WIDTH) / this->cellSize;
+	endCol = endCol > numXCell ? numXCell : endCol + 1;
 	for (int i = 0; i < this->numYCell; i++)
 	{
 		for (int j = startCol; j < endCol; j++)
@@ -169,14 +164,13 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 			{
 				if (!unit->GetGameObject()->CheckDestroyed())
 				{
-
 					listUnits.push_back(unit);
 					unit = unit->next_;
 
 				}
 				else
 				{
-					
+
 				}
 			}
 		}
@@ -189,7 +183,7 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 	mapWidth(mapWidth),
 	mapHeight(mapHeight + 80)
 {
-	this->numXCell = ceil((float)this->mapWidth / this->cellSize) + 1;
+	this->numXCell = ceil((float)this->mapWidth / this->cellSize);
 	this->numYCell = ceil((float)this->mapHeight / this->cellSize);
 	// clear grid
 
@@ -210,25 +204,6 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 
 void Grid::Render()
 {
-	float camx, camy;
-	Camera::GetInstance()->GetCamera(camx, camy);
-	int startCol = camx / this->cellSize;
-	int endCol = ceil((float)(camx + SCREEN_WIDTH) / this->cellSize);
-	for (int i = 0; i < this->numYCell; i++)
-	{
-		for (int j = startCol; j < endCol; j++)
-		{
-			Unit * unit = this->cells_[i][j];
-
-			// chi render nhung cell co unit
-			while (unit != NULL)
-			{
-				unit->GetGameObject()->Render();
-			}
-		}
-	}
-
-
 }
 
 void Grid::RemoveUnit(Unit* unit)

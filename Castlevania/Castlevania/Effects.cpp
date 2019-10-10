@@ -3,7 +3,6 @@
 
 Effects::Effects()
 {
-	this->TurnOffCollision() ;
 	this->lifetime_start = GetTickCount();
 }
 

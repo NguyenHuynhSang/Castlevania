@@ -17,7 +17,7 @@ void Torch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 	if (this->setDestroy) {
-		this->TurnOffCollision();
+
 		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_FLAME, this->x + 10, this->y + TORCH_BBOX_HEIGHT / 4);
 		HandleSpawnItem::GetInstance()->SpawnItem(this->itemDef, this->x, this->y);
 		isDestroyed = true;
