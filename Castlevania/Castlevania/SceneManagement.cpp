@@ -146,7 +146,7 @@ void SceneManagement::LoadResource()
 
 
 	simon = new CSimon();
-	objects.push_back(simon);
+	
 }
 
 void SceneManagement::HandleSpawningItem()
@@ -233,11 +233,23 @@ void SceneManagement::GetListUnitFromGrid()
 {
 	listUnit.clear();
 	this->objects.clear();
-	for (size_t i = 0; i < items.size(); i++)
+
+	while (!qItem.empty())
 	{
-		Unit* unit = new Unit(this->grid, items[i], items[i]->x, items[i]->y);
+		Unit* unit = new Unit(this->grid, qItem.front());
+		qItem.pop();
 	}
-	items.clear();
+	
+	while (!qEnemy.empty())
+	{
+		Unit* unit = new Unit(this->grid, qEnemy.front());
+		qEnemy.pop();
+	}
+	while (!qSubWeapon.empty())
+	{
+		Unit* unit = new Unit(this->grid, qSubWeapon.front());
+		qSubWeapon.pop();
+	}
 	grid->GetListUnit(listUnit);
 	for (size_t i = 0; i < groundObjects.size(); i++)
 	{
@@ -304,39 +316,64 @@ void SceneManagement::Update(DWORD dt)
 	cy -= SCREEN_HEIGHT / 2;
 
 	vector<LPGAMEOBJECT> coObjects;
+	coObjects.clear();
 
+
+	GetCoObjects(simon, coObjects);
+	simon->Update(dt, &coObjects);
 	//update object
+	coObjects.clear();
 	for (std::size_t i = 0; i < objects.size(); i++) //object
 	{
 		GetCoObjects(objects.at(i), coObjects);
 		objects[i]->Update(dt, &coObjects);
 	}
-	//update subweapon
-	for (std::size_t i = 0; i < subWeapon.size(); i++) //object
-	{
-		if (subWeapon[i]->x<0 || subWeapon[i]->x>cmap->GetMapWidth() || subWeapon[i]->y > SCREEN_HEIGHT)
-		{
-			subWeapon[i]->SetDestroy();
-		}
-		GetCoObjects(objects.at(i), coObjects);
-		subWeapon[i]->Update(dt, &coObjects);
-	}
-	//update enemies
-	for (std::size_t i = 0; i < enemies.size(); i++) //object
-	{
-		if (enemies[i]->x<sceneBox.left -64 || enemies[i]->x>this->sceneBox.right + 64 || enemies[i]->y > SCREEN_HEIGHT)
-		{
-			enemies[i]->SetDestroy();
-		}
-		GetCoObjects(objects.at(i), coObjects);
-		enemies[i]->Update(dt, &coObjects);
-	}
-
 	//update efftects
 	for (std::size_t i = 0; i < effects.size(); i++) //effect
 	{
-		effects[i]->Update(dt, &coObjects);
+		effects[i]->Update(dt);
 	}
+
+
+	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			if (dynamic_cast<Item*>(*it))
+			{
+				int a = 2;
+			}
+			it = objects.erase(it);
+		}
+		else ++it;
+	}
+
+	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = enemies.erase(it);
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = items.erase(it);
+		}
+		else ++it;
+	}
+
+
+	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			delete (*it);
+			it = effects.erase(it);
+		}
+		else ++it;
+	}
+
+
+
 
 	CamUpdate(dt);
 	/// cap nhat lai vi tri cac unit trong grid
@@ -347,43 +384,10 @@ void SceneManagement::Render()
 	if (this->isNextScene) return;
 	hub->Render();
 	cmap->Render();
-	for (std::size_t i = 1; i < objects.size(); i++)
+	for (std::size_t i = 0; i < objects.size(); i++)
 	{
 			objects[i]->Render();
 	}
-
-
-	/*float cx, cy;
-	Camera::GetInstance()->GetCamera(cx, cy);
-	
-	for (std::size_t i = 1; i < objects.size(); i++)
-	{
-		if (objects[i]->x > cx&&objects[i]->x < cx + SCREEN_WIDTH)
-		{
-			objects[i]->Render();
-		}
-	}
-
-	for (std::size_t i = 0; i < subWeapon.size(); i++)
-	{
-		if (subWeapon[i]->x > cx&&subWeapon[i]->x < cx + SCREEN_WIDTH)
-		{
-			subWeapon[i]->Render();
-		}
-	}
-
-	for (std::size_t i = 0; i < enemies.size(); i++) {
-		if (enemies[i]->x > cx&&enemies[i]->x < cx + SCREEN_WIDTH)
-		{
-			enemies[i]->Render();
-		}
-	}
-
-	for (std::size_t i = 0; i < this->items.size(); i++)
-		this->items[i]->Render();
-	for (std::size_t i = 0; i < this->effects.size(); i++)
-		this->effects[i]->Render();*/
-
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
 	simon->Render();
@@ -451,6 +455,7 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 				|| dynamic_cast<Item *>(object)
 				|| dynamic_cast<Candle *>(object)
 				|| dynamic_cast<Torch *>(object)
+				|| dynamic_cast<Enemy *>(object)
 				|| dynamic_cast<CBrick *>(object))
 
 
@@ -503,6 +508,7 @@ void SceneManagement::LoadScene()
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02);
 		break;
 	case GSTATE_03:
@@ -569,12 +575,22 @@ void SceneManagement::JumpToState(int state)
 void SceneManagement::LoadObjects(int currentscene)
 {
 	DebugOut(L"Load object \n");
-	for (UINT i = 1; i < objects.size(); i++) delete objects[i]; // mặc định object[0] là Simon 
+	for (UINT i = 1; i < objects.size(); i++) {
+		if (dynamic_cast<CSimon *>(objects.at(i)))
+		{
+			continue;
+		}
+		else
+		{
+			delete objects[i]; 
+		}
+	} 
 	for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
 	for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
+	for (UINT i = 0; i < groundObjects.size(); i++) delete groundObjects[i];
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
-
+	Unit * unit;
 	objects.clear();
 	enemies.clear();
 	items.clear();
@@ -585,12 +601,11 @@ void SceneManagement::LoadObjects(int currentscene)
 	{
 	case GSTATE_01:
 	{
-		Unit * unit;
+	
 		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
 			simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-			unit = new Unit(this->grid, simon, simon->x, simon->y);
 		}
 
 		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
@@ -612,7 +627,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			entry->SetSize(child->GetWidth(), child->GetHeight());
 			entry->SetPosition(child->GetX(), child->GetY());
 			//objects.push_back(entry);
-			unit = new Unit(this->grid, entry, entry->x, entry->y);
+			unit = new Unit(this->grid, entry);
 		//	m_grid->AddObject(entry);
 		}
 
@@ -627,7 +642,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			for (const auto& smallchild : moneyBagObject->second) {
 				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
 			}
-			unit = new Unit(this->grid, trigger, trigger->x, trigger->y);
+			unit = new Unit(this->grid, trigger);
 		//	objects.push_back(trigger);
 		//	m_grid->AddObject(trigger);
 		}
@@ -641,7 +656,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
 			//objects.push_back(nextScene);
-			unit = new Unit(this->grid, nextScene, nextScene->x, nextScene->y);
+			unit = new Unit(this->grid, nextScene);
 		//	m_grid->AddObject(nextScene);
 		}
 
@@ -653,7 +668,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound->SetPosition(child->GetX(), child->GetY());
 			//DebugOut(L"[Complete]Load Simon position in game world \n");
 			//objects.push_back(bound);
-			unit = new Unit(this->grid, bound, bound->x, bound->y);
+			unit = new Unit(this->grid, bound);
 		//	m_grid->AddObject(bound);
 		}
 
@@ -664,7 +679,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			torch->SetItem(child->GetPropertyByKey("item"));
 		//	objects.push_back(torch);
-			unit = new Unit(this->grid, torch, torch->x, torch->y);
+			unit = new Unit(this->grid, torch);
 			//m_grid->AddObject(torch);
 		}
 		break;
@@ -702,7 +717,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(ground);
+			this->groundObjects.push_back(ground);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
@@ -710,7 +725,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound = new BoundMap();
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(bound);
+			unit = new Unit(this->grid, bound);
 		}
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
@@ -720,7 +735,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 				spawnZone->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(spawnZone);
+				unit = new Unit(this->grid, spawnZone);
 			}
 
 		}
@@ -732,7 +747,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				panther = new Panther();
 				//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
 				panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				enemies.push_back(panther);
+				unit = new Unit(this->grid, panther);
 			}
 
 		}
@@ -746,7 +761,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				stair->SetDirection(child->GetPropertyByKey("dir"));
 				stair->SetSize(child->GetWidth(), child->GetHeight());
 				stair->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(stair);
+				unit = new Unit(this->grid, stair);
 			}
 
 		}
@@ -758,7 +773,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			{
 				candle = new Candle();
 				candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(candle);
+				unit = new Unit(this->grid, candle);
 			}
 
 		}
@@ -771,7 +786,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				brick->SetState(child->GetPropertyByKey("brickstate"));
 				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
 				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(brick);
+				unit = new Unit(this->grid, brick);
 			}
 
 		}
@@ -782,7 +797,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			{
 				door = new Door();
 				door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(door);
+				unit = new Unit(this->grid, door);
 			}
 
 		}

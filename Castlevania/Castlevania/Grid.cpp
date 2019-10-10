@@ -1,10 +1,10 @@
 ﻿#include "Grid.h"
 #include"Camera.h"
-Unit::Unit(Grid * gird, LPGAMEOBJECT object, float x, float y)
+Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 	: grid_(gird),
 	object(object),
-	x_(x),
-	y_(y)
+	x_(object->x),
+	y_(object->y)
 {
 	grid_->Add(this);
 }
@@ -29,6 +29,7 @@ void Grid::Add(Unit * unit)
 	{
 		unit->next_->prev_ = unit;
 	}
+
 }
 
 void Grid::Move(Unit * unit, float x, float y)
@@ -47,6 +48,30 @@ void Grid::Move(Unit * unit, float x, float y)
 	// nhưng vẫn nằm trong cell cũ
 	unit->x_ = x;
 	unit->y_ = y;
+
+	if (unit->GetGameObject()->CheckDestroyed())
+	{
+		// bỏ liên kết của unit với cell cũ
+		if (unit->prev_ != NULL)
+		{
+			unit->prev_->next_ = unit->next_;
+		}
+		if (unit->next_ != NULL)
+		{
+			unit->next_->prev_ = unit->prev_;
+		}
+
+		// If it's the head of a list, remove it.
+
+		if (cells_[oldCellY][oldCellX] == unit)
+		{
+			cells_[oldCellY][oldCellX] = unit->next_;
+		}
+		delete unit->GetGameObject();
+		delete unit;
+		return;
+	}
+
 
 	// nếu k ra khỏi cell 
 	if (oldCellX == cellX && oldCellY == cellY)
@@ -73,8 +98,9 @@ void Grid::Move(Unit * unit, float x, float y)
 
 
 	// Add it back to the grid at its new cell.
-	Add(unit);
 
+
+	Add(unit);
 
 
 
@@ -105,28 +131,28 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 	int endCol = ceil((float)(camx + SCREEN_WIDTH) / this->cellSize);
 	//clean destroyed unit
 
-	for (size_t i = 0; i < this->numYCell; i++)
-	{
-		for (size_t j = 0; j < numXCell; j++)
-		{
-			Unit * unit = this->cells_[i][j];
-			while (unit!=NULL)
-			{
-				if (unit->GetGameObject()->isDestroyed)
-				{
-					Unit * next = unit->next_;
-					RemoveUnit(unit);
-					unit = next;
-				}
-				else
-				{
-					unit = unit->next_;
-				}
-			}
-			
-			
-		}
-	}
+	//for (size_t i = 0; i < this->numYCell; i++)
+	//{
+	//	for (size_t j = 0; j < numXCell; j++)
+	//	{
+	//		Unit * unit = this->cells_[i][j];
+	//		while (unit!=NULL)
+	//		{
+	//			if (unit->GetGameObject()->isDestroyed)
+	//			{
+	//				Unit * next = unit->next_;
+	//				RemoveUnit(unit);
+	//				unit = next;
+	//			}
+	//			else
+	//			{
+	//				unit = unit->next_;
+	//			}
+	//		}
+	//		
+	//		
+	//	}
+	//}
 
 
 
@@ -140,7 +166,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 
 			while (unit != NULL)
 			{
-				if (unit->GetGameObject() != NULL)
+				if (!unit->GetGameObject()->CheckDestroyed())
 				{
 
 					listUnits.push_back(unit);
@@ -149,7 +175,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 				}
 				else
 				{
-					DebugOut(L"Khong delete duoc unit\n");
+					
 				}
 			}
 		}

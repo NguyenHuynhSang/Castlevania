@@ -58,11 +58,18 @@ private:
 	ResourceManagement * resource;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> groundObjects;
+
 	vector<LPGAMEOBJECT> items;
 	vector<LPGAMEOBJECT> effects;
 	vector<LPGAMEOBJECT> enemies;
-
 	vector<LPGAMEOBJECT> subWeapon;
+
+
+	std::queue<Enemy*> qEnemy;
+	std::queue<Item*> qItem;
+	std::queue<SubWeapon *> qSubWeapon;
+
+
 	CTileMap* cmap;
 	static SceneManagement * __instance;
 	bool isNextScene;
@@ -101,16 +108,19 @@ public:
 	void SpawnItem(Item* item) {
 	
 		this->items.push_back(item);
-
+		qItem.push(item);
+		
 	}
 	void SpawnEnemy(Enemy* enemy) {
 		this->enemies.push_back(enemy);
+		qEnemy.push(enemy);
 	}
 	void SpawnEffect(Effects* eff) {
 		this->effects.push_back(eff);
 	}
 	void SpawnSubWeapon(SubWeapon* subW) {
 		this->subWeapon.push_back(subW);
+		qSubWeapon.push(subW);
 	}
 	void LoadObjects(int currentScene);
 	SceneManagement();

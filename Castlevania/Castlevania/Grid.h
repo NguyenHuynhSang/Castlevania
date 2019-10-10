@@ -17,8 +17,8 @@ class Unit
 	Unit* prev_;
 	Unit* next_;
 public:
-	Unit(Grid * grid, LPGAMEOBJECT object, float x, float y);
-	LPGAMEOBJECT GetGameObject() {
+	Unit(Grid * grid, LPGAMEOBJECT object);
+	LPGAMEOBJECT const  GetGameObject() {
 		return this->object;
 		
 	}

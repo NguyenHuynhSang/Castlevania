@@ -188,10 +188,6 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	for (xml_node<> *child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
 	
 		int id = std::atoi(child->first_attribute("id")->value()); // lay ID
-		if (id == 6)
-		{
-			int a = 2;
-		}
 		vector<LPTILEOBJECT> ObjectInGroup;
 		object = new TileObject();
 		for (xml_node<> *smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
