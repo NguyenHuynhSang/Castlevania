@@ -40,7 +40,7 @@ private:
 	// mang 2 chieu luu unit
 	// trong cell co the co nhieu unit 
 	std::vector<std::vector<Unit *>> cells_;
-	void GetAllUnitInCell(Unit *);
+
 public:
 	void Add(Unit *unit);
 	void Move(Unit *unit,float x,float y);

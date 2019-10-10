@@ -86,7 +86,7 @@ void CGame::Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left,
 
 	float camx,camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
-	D3DXVECTOR3 p(std::floor(x - camx), floor(y - camy), 0);
+	D3DXVECTOR3 p(floor(x - camx), floor(y - camy), 0);
 	RECT r;
 	r.left = left;
 	r.top = top;

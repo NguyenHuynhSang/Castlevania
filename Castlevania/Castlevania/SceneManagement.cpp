@@ -338,15 +338,10 @@ void SceneManagement::Update(DWORD dt)
 	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
 
 		if ((*it)->isDestroyed) {
-			if (dynamic_cast<Item*>(*it))
-			{
-				int a = 2;
-			}
 			it = objects.erase(it);
 		}
 		else ++it;
 	}
-
 	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
 
 		if ((*it)->isDestroyed) {
@@ -361,8 +356,6 @@ void SceneManagement::Update(DWORD dt)
 		}
 		else ++it;
 	}
-
-
 	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
 
 		if ((*it)->isDestroyed) {
@@ -463,15 +456,6 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 				coObjects.push_back(object);
 			}
 		}
-		for (auto object : this->items)
-		{
-			coObjects.push_back(object);
-		}
-		for (auto object : this->enemies)
-		{
-			coObjects.push_back(object);
-		}
-
 
 	}
 
@@ -491,6 +475,7 @@ void SceneManagement::LoadScene()
 	CTextures * textures = CTextures::GetInstance();
 	Camera::GetInstance()->SetAllowScrollCam(false);
 	cmap->GetObjects().clear();
+	delete grid;
 	switch (this->currentScene)
 	{
 	case GSTATE_01:

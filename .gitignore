@@ -71,3 +71,5 @@ Castlevania/Release/Castlevania.iobj
 *.ipdb
 *.pdb
 *.log
+*.pdb
+*.ilk

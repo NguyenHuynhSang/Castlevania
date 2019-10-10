@@ -11,6 +11,8 @@ Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 
 Unit::~Unit()
 {
+	DebugOut(L"Destructor Unit \n");
+	delete object;
 }
 
 void Grid::Add(Unit * unit)
@@ -67,7 +69,6 @@ void Grid::Move(Unit * unit, float x, float y)
 		{
 			cells_[oldCellY][oldCellX] = unit->next_;
 		}
-		delete unit->GetGameObject();
 		delete unit;
 		return;
 	}
