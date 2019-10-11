@@ -107,6 +107,7 @@ public:
 	
 	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
 	void FreezeEnemy(bool flag);
+	void KillAllEnemy();
 	void LoadScene();
 	void GoNextScene();
 	void JumpToState(int state);

@@ -3,7 +3,7 @@ d:\git\castlevania\castlevania\castlevania\grid.cpp(152): warning C4244: 'initia
 d:\git\castlevania\castlevania\castlevania\grid.cpp(154): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 d:\git\castlevania\castlevania\castlevania\grid.cpp(155): warning C4018: '>': signed/unsigned mismatch
 d:\git\castlevania\castlevania\castlevania\grid.cpp(156): warning C4018: '<': signed/unsigned mismatch
-d:\git\castlevania\castlevania\castlevania\grid.cpp(186): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
 d:\git\castlevania\castlevania\castlevania\grid.cpp(187): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
-d:\git\castlevania\castlevania\castlevania\grid.cpp(192): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\grid.cpp(188): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
+d:\git\castlevania\castlevania\castlevania\grid.cpp(193): warning C4018: '<': signed/unsigned mismatch
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

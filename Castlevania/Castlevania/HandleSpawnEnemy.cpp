@@ -67,8 +67,29 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	}
 	case EDBAT: {
 		enemy = new VampieBat(oy);
-		enemy->SetPositionInWorld(x, y);
-		enemy->SetNx(nx);
+		for (size_t i = 0; i < num; i++)
+		{
+			int rank = rand() % 2;
+			if (rank == 1)
+			{
+				enemy->SetPositionInWorld(cx + SCREEN_WIDTH + i * 50 + 34, y);
+				enemy->SetNx(-1);
+			}
+			else
+			{
+				enemy->SetPositionInWorld(cx - i * 50 - 34, y);
+				enemy->SetNx(1);
+
+			}
+		}
+		SceneManagement::GetInstance()->SpawnEnemy(enemy);
+		break;
+	}
+	case EDPANTHER: {
+		enemy = new Panther();
+		enemy->SetPositionInWorld(x,y);
+		enemy->SetNx(1); //test
+		DebugOut(L"Spawn Panther \n");
 		SceneManagement::GetInstance()->SpawnEnemy(enemy);
 		break;
 	}

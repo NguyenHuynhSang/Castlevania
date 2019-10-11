@@ -164,7 +164,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 	simon->GetPosition(cx, cy);
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;
-	if (currentScene == GSTATE_02 || currentScene == GSTATE_06)
+	if (currentScene == GSCENE_01_GH || currentScene == GSCENE_02_N)
 	{
 		if (cx > sceneBox.left && cx < sceneBox.right - SCREEN_WIDTH)
 		{
@@ -217,7 +217,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 
 		}
 	}
-	else if (currentScene == GSTATE_03 || currentScene == GSTATE_05 || currentScene == GSTATE_07)
+	else if (currentScene == GSTATE_02 || currentScene == GSTATE_02_B || currentScene == GSCENE_03)
 	{
 		if (cx > sceneBox.left && cx < sceneBox.right - SCREEN_WIDTH)
 			Camera::GetInstance()->SetCamera(cx, 0.0f);
@@ -260,7 +260,7 @@ void SceneManagement::GetListUnitFromGrid()
 		this->objects.push_back(listUnit[i]->GetGameObject());
 	}
 
-	DebugOut(L"listUnit=%d \n", listUnit.size());
+	//DebugOut(L"listUnit=%d \n", listUnit.size());
 
 }
 
@@ -397,12 +397,19 @@ void SceneManagement::Render()
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
 
-	for (size_t i = 0; i < spawnObjects.size(); i++)
-	{
-		spawnObjects[i]->Render();
-	}
+	//for (size_t i = 0; i < spawnObjects.size(); i++)
+	//{
+	//	spawnObjects[i]->Render();
+	//}
 	simon->Render();
 
+	if (this->currentScene==GSCENE_01)
+	{
+		if (simon->CheckAutoWalk())
+		{
+
+		}
+	}
 
 }
 void SceneManagement::SceneUpdate()
@@ -488,6 +495,19 @@ void SceneManagement::FreezeEnemy(bool flag)
 	}
 }
 
+void SceneManagement::KillAllEnemy()
+{
+	for (size_t i = 0; i < this->enemies.size(); i++)
+	{
+		if (this->enemies[i]->CheckActive())
+		{
+			this->enemies[i]->SetDestroy();
+		}
+	}
+
+
+}
+
 void SceneManagement::LoadScene()
 {
 	CTextures * textures = CTextures::GetInstance();
@@ -496,17 +516,26 @@ void SceneManagement::LoadScene()
 	delete grid;
 	switch (this->currentScene)
 	{
-	case GSTATE_01:
+	case GSCENE_01:
 
 
 		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
-		LoadObjects(GSTATE_01);
+		LoadObjects(GSCENE_01);
 		break;
 
 
+	case GSCENE_01_GH:
+		cmap->ClearObject();
+		cmap = CTileMap::GetInstance();
+		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
+		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
+		LoadObjects(GSCENE_01_GH);
+		break;
 	case GSTATE_02:
+	{
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
@@ -514,47 +543,39 @@ void SceneManagement::LoadScene()
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02);
 		break;
-	case GSTATE_03:
-	{
-		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
-		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
-		LoadObjects(GSTATE_03);
-		break;
 	}
-	case GSTATE_04:
+	case GSTATE_02_UDG:
 	{
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Underground_map.tmx", textures->Get(ID_TEX_TILESET_3));
 		cmap->LoadObjects("Data\\Map\\Underground_map.tmx");
-		LoadObjects(GSTATE_04);
+		LoadObjects(GSTATE_02_UDG);
 		break;
 	}
-	case GSTATE_05:
+	case GSTATE_02_B:
 	{
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
-		LoadObjects(GSTATE_05);
+		LoadObjects(GSTATE_02_B);
 		break;
 	}
-	case GSTATE_06: {
+	case GSCENE_02_N: {
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
-		LoadObjects(GSTATE_06);
+		LoadObjects(GSCENE_02_N);
 		break;
 	}
-	case GSTATE_07: {
+	case GSCENE_03: {
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
 		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
-		LoadObjects(GSTATE_07);
+		LoadObjects(GSCENE_03);
 		break;
 	}
 	}
@@ -563,7 +584,7 @@ void SceneManagement::LoadScene()
 void SceneManagement::GoNextScene()
 {
 	this->currentScene++;
-	if (this->currentScene > GSTATE_07) currentScene = GSTATE_07;
+	if (this->currentScene > GSCENE_03) currentScene = GSCENE_03;
 	this->isNextScene = true;
 
 
@@ -582,6 +603,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		if (dynamic_cast<Enemy *>(objects.at(i))
 			|| dynamic_cast<Item *>(objects.at(i))
 			|| dynamic_cast<Ground *>(objects.at(i))
+			|| dynamic_cast<CSimon *>(objects.at(i))
 			|| dynamic_cast<SubWeapon *>(objects.at(i))
 			)
 		{
@@ -589,6 +611,8 @@ void SceneManagement::LoadObjects(int currentscene)
 		}
 		else
 		{
+			
+
 			delete objects[i];
 		}
 	}
@@ -606,9 +630,10 @@ void SceneManagement::LoadObjects(int currentscene)
 	effects.clear();
 	subWeapon.clear();
 	simon->ResetState();
+	spawnObjects.clear();
 	switch (this->currentScene)
 	{
-	case GSTATE_01:
+	case GSCENE_01:
 	{
 
 		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
@@ -694,24 +719,23 @@ void SceneManagement::LoadObjects(int currentscene)
 		break;
 	}
 
-	case GSTATE_02:
+	case GSCENE_01_GH:
 	{
 		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 				//	DebugOut(L"[Complete]Load Simon position in game world \n");
 			}
 
 		}
-		objects.push_back(simon);
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
 		for (const auto& child : camObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
 			{
 				int l = child->GetX();
 				int t = child->GetY();
@@ -739,7 +763,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
 		for (const auto& child : spawnObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
 			{
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
@@ -749,22 +773,9 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 
-		auto pantherObject = cmap->GetObjects().find(ID_TILE_OBJECT_PANTHER);
-		for (const auto& child : pantherObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
-			{
-				panther = new Panther();
-				//panther->SetRespawnPosition(child->GetX(), child->GetY() - child->GetHeight() + GAME_WORLD_Y);
-				panther->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				unit = new Unit(this->grid, panther);
-			}
-
-		}
-
-
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
 			{
 				stair = new StairTrigger();
 				stair->SetDirection(child->GetPropertyByKey("dir"));
@@ -778,11 +789,90 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto candleObject = cmap->GetObjects().find(ID_TILE_OBJECT_CANDLE);
 		for (const auto& child : candleObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
 			{
 				candle = new Candle();
 				candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 				unit = new Unit(this->grid, candle);
+			}
+
+		}
+
+		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
+		for (const auto& child : brickObject->second) {
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
+			{
+				brick = new CBrick();
+				brick->SetState(child->GetPropertyByKey("brickstate"));
+				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
+				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				unit = new Unit(this->grid, brick);
+			}
+
+		}
+
+		auto doorObject = cmap->GetObjects().find(ID_TILE_OBJECT_GS2_DOOR);
+		for (const auto& child : doorObject->second) {
+			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
+			{
+				door = new Door();
+				door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				unit = new Unit(this->grid, door);
+			}
+
+		}
+		break;
+	}
+	case GSTATE_02:
+	{
+		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
+		for (const auto& child : simonPos->second) {
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				//	DebugOut(L"[Complete]Load Simon position in game world \n");
+			}
+
+		}
+
+
+		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
+		for (const auto& child : camObject->second) {
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				int l = child->GetX();
+				int t = child->GetY();
+				int r = child->GetX() + child->GetWidth();
+				int b = child->GetY() + child->GetHeight();
+				sceneBox = { l,t,r,b };
+				Camera::GetInstance()->SetCamera(l, 0);
+			}
+		}
+
+		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
+		for (const auto& child : groundObject->second) {
+			ground = new Ground();
+			ground->SetSize(child->GetWidth(), child->GetHeight());
+			ground->SetPosition(child->GetX(), child->GetY());
+			groundObjects.push_back(ground);
+		}
+
+		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
+		for (const auto& child : boundObject->second) {
+			bound = new BoundMap();
+			bound->SetSize(child->GetWidth(), child->GetHeight());
+			bound->SetPosition(child->GetX(), child->GetY());
+			unit = new Unit(this->grid, bound);
+		}
+
+		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
+		for (const auto& child : spawnObject->second) {
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
+			{
+				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
+				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
+				spawnZone->SetPosition(child->GetX(), child->GetY());
+				this->spawnObjects.push_back(spawnZone);
 			}
 
 		}
@@ -800,95 +890,15 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 
-		auto doorObject = cmap->GetObjects().find(ID_TILE_OBJECT_GS2_DOOR);
-		for (const auto& child : doorObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
-			{
-				door = new Door();
-				door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				unit = new Unit(this->grid, door);
-			}
-
-		}
-		break;
-	}
-	case GSTATE_03:
-	{
-		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
-		for (const auto& child : simonPos->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
-			{
-				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				//	DebugOut(L"[Complete]Load Simon position in game world \n");
-			}
-
-		}
-		objects.push_back(simon);
-
-
-		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
-		for (const auto& child : camObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
-			{
-				int l = child->GetX();
-				int t = child->GetY();
-				int r = child->GetX() + child->GetWidth();
-				int b = child->GetY() + child->GetHeight();
-				sceneBox = { l,t,r,b };
-				Camera::GetInstance()->SetCamera(l, 0);
-			}
-		}
-
-		auto groundObject = cmap->GetObjects().find(ID_TILE_OBJECT_GROUND);
-		for (const auto& child : groundObject->second) {
-			ground = new Ground();
-			ground->SetSize(child->GetWidth(), child->GetHeight());
-			ground->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(ground);
-		}
-
-		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
-		for (const auto& child : boundObject->second) {
-			bound = new BoundMap();
-			bound->SetSize(child->GetWidth(), child->GetHeight());
-			bound->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(bound);
-		}
-
-		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
-		for (const auto& child : spawnObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
-			{
-				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
-				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
-				spawnZone->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(spawnZone);
-			}
-
-		}
-
-		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
-		for (const auto& child : brickObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
-			{
-				brick = new CBrick();
-				brick->SetState(child->GetPropertyByKey("brickstate"));
-				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
-				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(brick);
-			}
-
-		}
-
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				stair = new StairTrigger();
 				stair->SetDirection(child->GetPropertyByKey("dir"));
 				stair->SetSize(child->GetWidth(), child->GetHeight());
 				stair->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(stair);
+				unit = new Unit(this->grid, stair);
 			}
 
 		}
@@ -901,11 +911,11 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(nextScene);
+			unit = new Unit(this->grid, nextScene);
 		}
 		break;
 	}
-	case GSTATE_04:
+	case GSTATE_02_UDG:
 	{
 		Camera::GetInstance()->SetCamera(0.0f, 0.0f);
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
@@ -996,13 +1006,13 @@ void SceneManagement::LoadObjects(int currentscene)
 		break;
 
 	}
-	case GSTATE_05:
+	case GSTATE_02_B:
 	{
 
 
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_05)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02_B)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 				//	DebugOut(L"[Complete]Load Simon position in game world \n");
@@ -1015,7 +1025,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
 		for (const auto& child : camObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				int l = child->GetX();
 				int t = child->GetY();
@@ -1044,7 +1054,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
 		for (const auto& child : spawnObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
@@ -1056,7 +1066,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
 		for (const auto& child : brickObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				brick = new CBrick();
 				brick->SetState(child->GetPropertyByKey("brickstate"));
@@ -1069,7 +1079,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				stair = new StairTrigger();
 				stair->SetDirection(child->GetPropertyByKey("dir"));
@@ -1093,11 +1103,11 @@ void SceneManagement::LoadObjects(int currentscene)
 		break;
 	}
 
-	case GSTATE_06:
+	case GSCENE_02_N:
 	{
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_06)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_02_N)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 				//	DebugOut(L"[Complete]Load Simon position in game world \n");
@@ -1110,7 +1120,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
 		for (const auto& child : camObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				int l = child->GetX();
 				int t = child->GetY();
@@ -1139,7 +1149,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
 		for (const auto& child : spawnObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
@@ -1151,7 +1161,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
 		for (const auto& child : brickObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_03)
+			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				brick = new CBrick();
 				brick->SetState(child->GetPropertyByKey("brickstate"));
@@ -1164,7 +1174,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_06)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_02_N)
 			{
 				stair = new StairTrigger();
 				stair->SetDirection(child->GetPropertyByKey("dir"));
@@ -1188,7 +1198,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto doorObject = cmap->GetObjects().find(ID_TILE_OBJECT_GS2_DOOR);
 		for (const auto& child : doorObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_06)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_02_N)
 			{
 				door = new Door();
 				door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -1199,12 +1209,12 @@ void SceneManagement::LoadObjects(int currentscene)
 		break;
 	}
 
-	case GSTATE_07:
+	case GSCENE_03:
 	{
 
 		auto simonPos = cmap->GetObjects().find(ID_TILE_OBJECT_SIMON);
 		for (const auto& child : simonPos->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 				//	DebugOut(L"[Complete]Load Simon position in game world \n");
@@ -1216,7 +1226,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
 		for (const auto& child : camObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				int l = child->GetX();
 				int t = child->GetY();
@@ -1245,7 +1255,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
 		for (const auto& child : spawnObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
@@ -1259,7 +1269,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				stair = new StairTrigger();
 				stair->SetDirection(child->GetPropertyByKey("dir"));
@@ -1273,7 +1283,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto candleObject = cmap->GetObjects().find(ID_TILE_OBJECT_CANDLE);
 		for (const auto& child : candleObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				candle = new Candle();
 				candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
@@ -1284,7 +1294,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto brickObject = cmap->GetObjects().find(ID_TiLE_OBJECT_BREAKING_BRICK);
 		for (const auto& child : brickObject->second) {
-			if (child->GetPropertyByKey("scenedef") == GSTATE_07)
+			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				brick = new CBrick();
 				brick->SetState(child->GetPropertyByKey("brickstate"));
@@ -1303,7 +1313,7 @@ void SceneManagement::LoadObjects(int currentscene)
 SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
-	this->currentScene = GSTATE_01;
+	this->currentScene = GSCENE_01;
 
 	cmap = CTileMap::GetInstance();
 	hub = new Hub();

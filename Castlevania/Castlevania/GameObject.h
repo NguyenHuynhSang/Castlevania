@@ -55,7 +55,7 @@ public:
 	
 	bool setDestroy=false;
 	bool isDestroyed = false;
-	bool isActive = false;
+	bool isObjectActive = false;
 public: 
 	void SetDestroy() {
 		this->setDestroy = true;
@@ -64,10 +64,10 @@ public:
 		return this->isDestroyed;
 	}
 	void SetActive() {
-		this->isActive = true;
+		this->isObjectActive = true;
 	}
 	bool CheckActive() {
-		return this->isActive;
+		return this->isObjectActive;
 	}
 	void SetPosition(float x, float y) { this->x = x, this->y = y+ GAME_WORLD_Y; }// cộng thêm phần board
 	void SetPositionInWorld(float x, float y) { this->x = x, this->y = y; }// cộng thêm phần board

@@ -99,13 +99,13 @@
 
 
 const enum GameState {
-	GSTATE_01,
+	GSCENE_01,
+	GSCENE_01_GH,
 	GSTATE_02,
-	GSTATE_03,
-	GSTATE_04,
-	GSTATE_05, // back to 03
-	GSTATE_06, // back to 03 other stair
-	GSTATE_07,
+	GSTATE_02_UDG,
+	GSTATE_02_B, // back to 03
+	GSCENE_02_N, // back to 03 other stair
+	GSCENE_03,
 };
 
 const enum ItemID {

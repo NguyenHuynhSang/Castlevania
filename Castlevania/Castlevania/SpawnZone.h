@@ -7,8 +7,8 @@ private:
 	int num;
 	DWORD spawn_start;
 	int defaultTime;
-	bool CheckInCam();
 	bool isSpawn = false;
+	bool spawnPanther = false;
 public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);

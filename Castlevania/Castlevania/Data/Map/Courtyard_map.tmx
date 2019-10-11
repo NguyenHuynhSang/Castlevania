@@ -530,7 +530,7 @@
   </data>
  </layer>
  <objectgroup id="2" name="BoundMap">
-  <object id="1" name="Start" x="-24" y="-1" width="23" height="352"/>
+  <object id="1" name="Start" x="-8.66667" y="-1" width="7.66667" height="352"/>
   <object id="2" name="end" x="1503.5" y="-1" width="24" height="353"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">

@@ -1,7 +1,7 @@
 #pragma once
 #include"Enemy.h"
-#define ZOMBIE_BBOX_WIDTH 30
-#define ZOMBIE_BBOX_HEIGHT 64
+#define ZOMBIE_BBOX_WIDTH 32
+#define ZOMBIE_BBOX_HEIGHT 60
 
 #define ZOMBIE_GRAVITY			0.002f
 #define ZOMBIE_WALKING_SPEED			0.10f

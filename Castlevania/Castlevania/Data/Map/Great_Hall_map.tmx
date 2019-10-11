@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="202">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="207">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
  <tileset firstgid="109" source="ObjectTile/SIMON.tsx"/>
  <tileset firstgid="181" source="ObjectTile/ZOMBIE.tsx"/>
- <tileset firstgid="183" source="ObjectTile/PANTHER.tsx"/>
- <tileset firstgid="187" source="ObjectTile/Candle.tsx"/>
- <tileset firstgid="189" source="ObjectTile/Brick.tsx"/>
- <tileset firstgid="191" source="ObjectTile/Door.tsx"/>
- <tileset firstgid="192" source="ObjectTile/camBlock.tsx"/>
+ <tileset firstgid="182" source="ObjectTile/PANTHER.tsx"/>
+ <tileset firstgid="186" source="ObjectTile/Candle.tsx"/>
+ <tileset firstgid="188" source="ObjectTile/Brick.tsx"/>
+ <tileset firstgid="190" source="ObjectTile/Door.tsx"/>
+ <tileset firstgid="191" source="ObjectTile/camBlock.tsx"/>
  <layer id="1" name="background" width="176" height="12" locked="1">
   <data>
    <tile gid="1"/>
@@ -2211,7 +2211,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="SpawnZone">
-  <object id="168" x="3761.83" y="33.3333" width="251" height="64">
+  <object id="168" name="SpawnBat" x="3077.83" y="33.3333" width="893" height="150">
    <properties>
     <property name="enemydef" type="int" value="2"/>
     <property name="num" type="int" value="2"/>
@@ -2219,7 +2219,7 @@
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="170" x="3819.17" y="244" width="251" height="64">
+  <object id="170" name="SpawnBat" x="3098.17" y="218" width="973" height="92">
    <properties>
     <property name="enemydef" type="int" value="2"/>
     <property name="num" type="int" value="2"/>
@@ -2243,7 +2243,7 @@
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="194" x="26.833" y="29.333" width="1725" height="287">
+  <object id="194" name="SpawnZombie" x="26.833" y="29.333" width="1725" height="287">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
@@ -2251,19 +2251,35 @@
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="197" x="2936.5" y="214" width="251" height="64">
-   <properties>
-    <property name="enemydef" type="int" value="2"/>
-    <property name="num" type="int" value="2"/>
-    <property name="respawntime" type="int" value="8000"/>
-    <property name="scenedef" type="int" value="2"/>
-   </properties>
-  </object>
-  <object id="201" x="2304.5" y="31" width="800" height="286">
+  <object id="201" name="SpawnZombie" x="2304.5" y="31" width="800" height="286">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
     <property name="respawntime" type="int" value="6000"/>
+    <property name="scenedef" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="203" name="SpawnPanther" x="1393.5" y="159.5" width="64" height="32">
+   <properties>
+    <property name="enemydef" type="int" value="1"/>
+    <property name="num" type="int" value="3"/>
+    <property name="respawntime" type="int" value="100"/>
+    <property name="scenedef" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="205" name="SpawnPanther" x="1711" y="91" width="64" height="32">
+   <properties>
+    <property name="enemydef" type="int" value="1"/>
+    <property name="num" type="int" value="3"/>
+    <property name="respawntime" type="int" value="100"/>
+    <property name="scenedef" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="206" name="SpawnPanther" x="1942" y="156" width="64" height="32">
+   <properties>
+    <property name="enemydef" type="int" value="1"/>
+    <property name="num" type="int" value="3"/>
+    <property name="respawntime" type="int" value="100"/>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
@@ -2273,23 +2289,6 @@
    <properties>
     <property name="nextscene" type="int" value="3"/>
     <property name="scenedef" type="int" value="2"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="8" name="panther">
-  <object id="48" gid="183" x="1950.16" y="190.667" width="64" height="32">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="49" gid="183" x="1376.84" y="190.833" width="64" height="32">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="50" gid="183" x="1735.83" y="127.5" width="64" height="32">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
@@ -2342,7 +2341,7 @@
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="118" name="StairTop" type="Stair" x="3408.5" y="100.25" width="32" height="32">
+  <object id="118" name="StairTop" type="Stair" x="3408.5" y="98.9167" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
     <property name="scenedef" type="int" value="2"/>
@@ -2427,155 +2426,155 @@
   <object id="111" gid="151" x="1790" y="130" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#ffaa00" id="11" name="Candle">
-  <object id="83" name="Candle" type="Candle" gid="187" x="154.167" y="206.167" width="16" height="32">
+  <object id="83" name="Candle" type="Candle" gid="186" x="154.167" y="206.167" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="123" name="Candle" type="Candle" gid="187" x="269.5" y="264" width="16" height="32">
+  <object id="123" name="Candle" type="Candle" gid="186" x="269.5" y="264" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="124" name="Candle" type="Candle" gid="187" x="371.5" y="209.5" width="16" height="32">
+  <object id="124" name="Candle" type="Candle" gid="186" x="371.5" y="209.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="125" name="Candle" type="Candle" gid="187" x="524" y="277" width="16" height="32">
+  <object id="125" name="Candle" type="Candle" gid="186" x="524" y="277" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="126" name="Candle" type="Candle" gid="187" x="614" y="196" width="16" height="32">
+  <object id="126" name="Candle" type="Candle" gid="186" x="614" y="196" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="127" name="Candle" type="Candle" gid="187" x="770.5" y="261.5" width="16" height="32">
+  <object id="127" name="Candle" type="Candle" gid="186" x="770.5" y="261.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="128" name="Candle" type="Candle" gid="187" x="903.5" y="183" width="16" height="32">
+  <object id="128" name="Candle" type="Candle" gid="186" x="903.5" y="183" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="129" name="Candle" type="Candle" gid="187" x="1030.5" y="254.5" width="16" height="32">
+  <object id="129" name="Candle" type="Candle" gid="186" x="1030.5" y="254.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="130" name="Candle" type="Candle" gid="187" x="1307.5" y="264" width="16" height="32">
+  <object id="130" name="Candle" type="Candle" gid="186" x="1307.5" y="264" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="131" name="Candle" type="Candle" gid="187" x="1293" y="107" width="16" height="32">
+  <object id="131" name="Candle" type="Candle" gid="186" x="1293" y="107" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="132" name="Candle" type="Candle" gid="187" x="1564.5" y="53.5" width="16" height="32">
+  <object id="132" name="Candle" type="Candle" gid="186" x="1564.5" y="53.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="133" name="Candle" type="Candle" gid="187" x="1753.5" y="54" width="16" height="32">
+  <object id="133" name="Candle" type="Candle" gid="186" x="1753.5" y="54" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="134" name="Candle" type="Candle" gid="187" x="1991.5" y="120.5" width="16" height="32">
+  <object id="134" name="Candle" type="Candle" gid="186" x="1991.5" y="120.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="135" name="Candle" type="Candle" gid="187" x="2199.5" y="281" width="16" height="32">
+  <object id="135" name="Candle" type="Candle" gid="186" x="2199.5" y="281" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="136" name="Candle" type="Candle" gid="187" x="2330.5" y="281" width="16" height="32">
+  <object id="136" name="Candle" type="Candle" gid="186" x="2330.5" y="281" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="137" name="Candle" type="Candle" gid="187" x="2458" y="283.5" width="16" height="32">
+  <object id="137" name="Candle" type="Candle" gid="186" x="2458" y="283.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="138" name="Candle" type="Candle" gid="187" x="2072.5" y="275" width="16" height="32">
+  <object id="138" name="Candle" type="Candle" gid="186" x="2072.5" y="275" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="139" name="Candle" type="Candle" gid="187" x="2652" y="269" width="16" height="32">
+  <object id="139" name="Candle" type="Candle" gid="186" x="2652" y="269" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="140" name="Candle" type="Candle" gid="187" x="2849" y="58.5" width="16" height="32">
+  <object id="140" name="Candle" type="Candle" gid="186" x="2849" y="58.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="141" name="Candle" type="Candle" gid="187" x="2956.5" y="65.5" width="16" height="32">
+  <object id="141" name="Candle" type="Candle" gid="186" x="2956.5" y="65.5" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="183" name="Candle" type="Candle" gid="187" x="4226.67" y="64.6667" width="16" height="32">
+  <object id="183" name="Candle" type="Candle" gid="186" x="4226.67" y="64.6667" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="184" name="Candle" type="Candle" gid="187" x="4456" y="130.667" width="16" height="32">
+  <object id="184" name="Candle" type="Candle" gid="186" x="4456" y="130.667" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="185" name="Candle" type="Candle" gid="187" x="4887.33" y="271.333" width="16" height="32">
+  <object id="185" name="Candle" type="Candle" gid="186" x="4887.33" y="271.333" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="186" name="Candle" type="Candle" gid="187" x="5022" y="269.333" width="16" height="32">
+  <object id="186" name="Candle" type="Candle" gid="186" x="5022" y="269.333" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="187" name="Candle" type="Candle" gid="187" x="4638.67" y="125.333" width="16" height="32">
+  <object id="187" name="Candle" type="Candle" gid="186" x="4638.67" y="125.333" width="16" height="32">
    <properties>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#aaaa7f" id="14" name="Brick">
-  <object id="151" name="Brick" type="Brick" gid="189" x="2016.25" y="224" width="32" height="32">
+  <object id="151" name="Brick" type="Brick" gid="188" x="2016.25" y="224" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="0"/>
     <property name="itemdef" type="int" value="5"/>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="152" name="Brick" type="Brick" gid="190" x="3584" y="320" width="32" height="32">
+  <object id="152" name="Brick" type="Brick" gid="189" x="3584" y="320" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="1"/>
     <property name="itemdef" type="int" value="5"/>
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="153" name="Brick" type="Brick" gid="190" x="3584" y="288" width="32" height="32">
+  <object id="153" name="Brick" type="Brick" gid="189" x="3584" y="288" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="1"/>
     <property name="itemdef" type="int" value="-1"/>
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="176" gid="189" x="5472" y="288" width="32" height="32">
+  <object id="176" gid="188" x="5472" y="288" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="0"/>
     <property name="itemdef" type="int" value="0"/>
@@ -2584,12 +2583,12 @@
   </object>
  </objectgroup>
  <objectgroup color="#aa007f" id="15" name="Door">
-  <object id="159" name="Door" type="Door" gid="191" x="3056" y="128" width="16" height="96">
+  <object id="159" name="Door" type="Door" gid="190" x="3056" y="128" width="16" height="96">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="160" name="Door" type="Door" gid="191" x="4080" y="128" width="16" height="96">
+  <object id="160" name="Door" type="Door" gid="190" x="4080" y="128" width="16" height="96">
    <properties>
     <property name="scenedef" type="int" value="5"/>
    </properties>

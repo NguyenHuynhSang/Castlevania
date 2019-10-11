@@ -562,8 +562,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 				(e->obj)->isDestroyed = true;
 
-				this->SetAutoWalk(true);
+				this->SetAutoWalk(true);	
 				SetState(SIMON_STATE_WALKING_RIGHT);
+				break; // khong xet tiep va cham voi cac object khac
 			}
 			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
 				DebugOut(L"Money bag \n");
@@ -583,16 +584,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					// clean up collision events
 					SceneManagement::GetInstance()->JumpToState(nexecene->CheckSceneDef());
 				}
-				else
-				{
-					NextScene *nexecene = dynamic_cast<NextScene *>(e->obj);
-					(e->obj)->SetDestroy();
-					// clean up collision events
-					SceneManagement::GetInstance()->JumpToState(nexecene->CheckSceneDef());
-				}
-
-
-
 			}
 		}
 

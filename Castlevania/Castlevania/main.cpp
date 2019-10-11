@@ -37,15 +37,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	float sx, sy;
 	scene->GetSimon()->GetPosition(sx, sy);
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	if (scene->GetSimon()->CheckAutoWalk()) {
 		return;
 	}
-	//if ((scene->GetSimon()->GetPowerUpTime() != 0) && GetTickCount() - scene->GetSimon()->GetPowerUpTime() > SIMON_POWERUP_TIME)
-	//{
-	//	scene->GetSimon()->SetState(SIMON_STATE_IDLE);
-	//	scene->GetSimon()->ResetPowerUpTime();
-	//}
+
 	if (scene->GetSimon()->GetPowerUpTime() != 0)
 	{
 		return;
@@ -81,28 +76,28 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDMONEYBAGRED, sx, sy - 64, false);
 		break;
 	case DIK_Q:
-		scene->JumpToState(GSTATE_01);
+		scene->JumpToState(GSCENE_01);
 		break;
 	case DIK_W:
-		scene->JumpToState(GSTATE_02);
+		scene->JumpToState(GSCENE_01_GH);
 		break;
 	case DIK_E:
-		scene->JumpToState(GSTATE_03);
+		scene->JumpToState(GSTATE_02);
 		break;
 	case DIK_R:
-		scene->JumpToState(GSTATE_04);
+		scene->JumpToState(GSTATE_02_UDG);
 		break;
 	case DIK_T:
-		scene->JumpToState(GSTATE_05);
+		scene->JumpToState(GSTATE_02_B);
 		break;
 	case DIK_Y:
-		scene->JumpToState(GSTATE_06);
+		scene->JumpToState(GSCENE_02_N);
 		break;
 	case DIK_U:
-		scene->JumpToState(GSTATE_07);
+		scene->JumpToState(GSCENE_03);
 		break;
 	case DIK_TAB:
-		scene->FreezeEnemy(true);
+		scene->KillAllEnemy();
 		break;
 	case DIK_H:
 		scene->GetSimon()->SetAutoWalk(true);
