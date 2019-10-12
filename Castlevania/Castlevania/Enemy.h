@@ -10,6 +10,7 @@ protected:
 	unsigned int hp;
 	DWORD spawn_start;
 	bool isFreeze = false;
+
 public:
 	void SetNx(int nx) {
 		this->nx = nx;

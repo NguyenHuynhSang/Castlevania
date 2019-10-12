@@ -1,4 +1,4 @@
-#include "SpawnZone.h"
+﻿#include "SpawnZone.h"
 #include"HandleSpawnEnemy.h"
 #include"Camera.h"
 
@@ -15,8 +15,8 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		float camx, camy;
 		Camera::GetInstance()->GetCamera(camx, camy);
-		if (CGameObject::AABB(this->x,this->y,this->x+this->width,this->y+this->height,
-							camx,camy,camx+SCREEN_WIDTH,camy+SCREEN_HEIGHT))
+		if (CGameObject::AABB(this->x, this->y, this->x + this->width, this->y + this->height,
+			camx, camy, camx + SCREEN_WIDTH, camy + SCREEN_HEIGHT))
 		{
 			if (spawn_start == 0)
 			{
@@ -36,7 +36,7 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->spawn_start = 0;
 			this->spawnPanther = false;
 		}
-		if (this->spawn_start!=0 && GetTickCount()- this->spawn_start>this->defaultTime)
+		if (this->spawn_start != 0 && GetTickCount() - this->spawn_start > this->defaultTime)
 		{
 			this->isSpawn = true;
 
@@ -44,8 +44,7 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		DebugOut(L"Start Spawning \n");
-		if (this->enemyDef==EDPANTHER)
+		if (this->enemyDef == EDPANTHER)
 		{
 			if (!this->spawnPanther)
 			{
@@ -53,14 +52,14 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					, this->defaultTime, this->x, this->y, this->nx, this->y);
 				this->spawnPanther = true;
 			}
-		
+
 		}
 		else
 		{
 			HandleSpawnEnemy::GetInstance()->SpawnEnemy(this->enemyDef, this->num
 				, this->defaultTime, this->x, this->y + this->height - 68, this->nx, this->y);
 		}
-		
+
 		this->isSpawn = false;
 		spawn_start = GetTickCount();
 	}
@@ -83,7 +82,10 @@ SpawnZone::SpawnZone(int enemyDef, int num, int time)
 		this->num = num;
 	}
 	this->defaultTime = time;
-	isSpawn = true;
+	if (this->enemyDef == EDPANTHER)
+		isSpawn = false; // nếu là panther thì k spawn frame đầu 
+	else
+		isSpawn = true;
 	spawn_start = 0;
 	this->nx = -1;
 }

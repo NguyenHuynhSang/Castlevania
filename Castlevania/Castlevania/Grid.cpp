@@ -37,6 +37,8 @@ void Grid::Add(Unit * unit)
 
 }
 
+
+
 void Grid::Update(Unit * unit, float x, float y)
 {
 	float cx_, cy_;
@@ -233,4 +235,3 @@ void Grid::RemoveUnit(Unit* unit)
 Grid::~Grid()
 {
 }
-

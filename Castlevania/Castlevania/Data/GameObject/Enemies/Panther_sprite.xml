@@ -2,7 +2,7 @@
 <resource>
 	<spritesheet TextureAtlas="PANTHER.png">
 		<sprite ID="PANTHER_SPRITE_LIEDOWN">
-			<frame x="0" y="0" width="64" height="32" />
+			<frame x="196" y="0" width="64" height="32" />
 		</sprite>
 		<sprite ID="PANTHER_SPRITE_RUN_01">
 			<frame x="64" y="0" width="64" height="32" />
@@ -11,7 +11,7 @@
 			<frame x="128" y="0" width="64" height="32" />
 		</sprite>
 		<sprite ID="PANTHER_SPRITE_JUMP">
-			<frame x="196" y="0" width="64" height="32" />
+			<frame x="0" y="0" width="64" height="32" />
 		</sprite>
 	</spritesheet>
 </resource>

@@ -12,7 +12,7 @@ protected:
 public:
 	void UpdateEffect() {
 		if (GetTickCount() - this->lifetime_start > EFFECTS_LIFE_TIME) {
-			this->SetDestroy();
+			this->DestroyImmediate();
 		}
 	}
 	virtual void GetSpriteBox(float& _width, float& _height) {

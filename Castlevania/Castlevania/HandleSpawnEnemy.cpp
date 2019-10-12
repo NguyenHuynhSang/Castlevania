@@ -88,7 +88,11 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	case EDPANTHER: {
 		enemy = new Panther();
 		enemy->SetPositionInWorld(x,y);
-		enemy->SetNx(1); //test
+		if (x>px)
+			enemy->SetNx(-1); 
+		else
+			enemy->SetNx(1); 
+		
 		DebugOut(L"Spawn Panther \n");
 		SceneManagement::GetInstance()->SpawnEnemy(enemy);
 		break;
