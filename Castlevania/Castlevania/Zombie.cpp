@@ -1,7 +1,7 @@
 ﻿#include "Zombie.h"
 #include"Debug.h"
 #include"Ground.h"
-
+#include"BoundMap.h"
 
 
 
@@ -64,6 +64,23 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
 
+			}
+			else if (dynamic_cast<BoundMap *>(e->obj))
+			{
+				if (this->isObjectActive)
+				{
+					if (e->nx==-1)
+					{
+						this->nx = -this->nx;
+					}
+				}
+				else {
+					if (e->nx != 0)
+						x += dx;
+					else if (e->ny < 0) {
+						y += dy;
+					}
+				}
 			}
 			else {
 				if (e->nx != 0)

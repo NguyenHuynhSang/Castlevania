@@ -9,6 +9,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_UI_HP, L"Data\\UI\\HP.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_BRICK, L"Data\\GameObject\\Ground\\Brick.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
@@ -45,6 +46,10 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml", texSimon);
 	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
 
+
+	LPDIRECT3DTEXTURE9 texHP = textures->Get(ID_TEX_UI_HP);
+	resource->LoadSprites("Data\\UI\\HP_sprite.xml", texHP);
+	
 	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
 	resource->LoadSprites("Data\\GameObject\\Weapons\\Whip_sprite.xml", texWhip);
 	resource->LoadAnimations("Data\\GameObject\\Weapons\\Whip_ani.xml", animations);
@@ -302,13 +307,14 @@ int SceneManagement::CheckNumOfFishMan()
 }
 void SceneManagement::Update(DWORD dt)
 {
-
+	
 	if (this->isNextScene) {
 		LoadScene();
 		this->isNextScene = false;
 		return;
 	}
 
+	hub->Update();
 	// update trước để spawn enemy và xử lý va chạm ở frame hiện tại
 	for (size_t i = 0; i < spawnObjects.size(); i++)
 	{
@@ -387,7 +393,7 @@ void SceneManagement::Update(DWORD dt)
 void SceneManagement::Render()
 {
 	if (this->isNextScene) return;
-	hub->Render();
+	
 	cmap->Render();
 	for (std::size_t i = 0; i < objects.size(); i++)
 	{
@@ -397,19 +403,10 @@ void SceneManagement::Render()
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
 
-	//for (size_t i = 0; i < spawnObjects.size(); i++)
-	//{
-	//	spawnObjects[i]->Render();
-	//}
+	hub->Render();
 	simon->Render();
 
-	if (this->currentScene==GSCENE_01)
-	{
-		if (simon->CheckAutoWalk())
-		{
 
-		}
-	}
 
 }
 void SceneManagement::SceneUpdate()
@@ -434,7 +431,8 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 	{
 		for (auto object : this->objects)
 		{
-			if (dynamic_cast<Ground *>(object))
+			if (dynamic_cast<Ground *>(object)
+				|| dynamic_cast<BoundMap *>(object))
 			{
 				coObjects.push_back(object);
 			}
@@ -1316,7 +1314,7 @@ SceneManagement::SceneManagement()
 	this->currentScene = GSCENE_01;
 
 	cmap = CTileMap::GetInstance();
-	hub = new Hub();
+	hub = new Hub(this);
 }
 
 

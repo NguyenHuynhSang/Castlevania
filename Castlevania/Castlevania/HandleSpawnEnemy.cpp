@@ -112,6 +112,7 @@ void HandleSpawnEnemy::FreezeEnemy(bool flag)
 }
 HandleSpawnEnemy::HandleSpawnEnemy()
 {
+	
 }
 
 

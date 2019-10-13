@@ -8,11 +8,12 @@
 #include"AxeItem.h"
 #include"IStopWatch.h"
 #include"PorkChop.h"
-HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
+HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 {
+	Item * item;
 	DebugOut(L"Spawn item \n");
 	switch (itemDef)
 	{
@@ -106,6 +107,7 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 
 void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 {
+	Item * item;
 	DebugOut(L"Spawn random item \n");
 	int rank = 0 + rand() % (200 + 1 - 0);
 	if (rank<100)

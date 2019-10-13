@@ -151,7 +151,7 @@ void CGameObject::RenderBoundingBox()
 	// Vẽ lại vị  trí bouding box có tọa độ rõ ràng k vẽ từ tọa độ object
 	//==> tọa độ object sẽ khác với bouding box
 
-	CGame::GetInstance()->Draw(nx,l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 64);
+	CGame::GetInstance()->Draw(true, nx,l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 64);
 }
 
 void CGameObject::RenderSpriteBox()
@@ -169,7 +169,7 @@ void CGameObject::RenderSpriteBox()
 	rect.bottom = (int)b - (int)y;
 	// Vẽ lại vị  trí bouding box có tọa độ rõ ràng k vẽ từ tọa độ object
 	//==> tọa độ object sẽ khác với bouding box
-	CGame::GetInstance()->Draw(nx, x, y, sbbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	CGame::GetInstance()->Draw(true,nx, x, y, sbbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
 void CGameObject::AddAnimation(string aniId, bool isLoop)

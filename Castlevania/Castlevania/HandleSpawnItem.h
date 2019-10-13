@@ -4,7 +4,6 @@
 #include"Item.h"
 class HandleSpawnItem
 {
-	Item * item;
 	static HandleSpawnItem * __instance;
 public:
 	void SpawnItem(int itemDef,float x,float y,bool isHiding=true);

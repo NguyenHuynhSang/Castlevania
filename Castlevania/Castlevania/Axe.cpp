@@ -121,6 +121,8 @@ void Axe::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 Axe::Axe() :SubWeapon()
 {
+	this->damage = 1;
+	this->heartCostPerUse = 1;
 	AddAnimation("AXE_SUBWEAPON_ANI");
 	this->vx = AXE_SPEED_VX;
 	this->vy = -AXE_SPEED_VY;

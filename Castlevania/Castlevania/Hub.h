@@ -1,11 +1,15 @@
 #pragma once
 #include<string>
 #include"Game.h"
+class SceneManagement;
+class CSprite;
 class Hub
 {
 	CGame* game;
+	SceneManagement* scene;
 	int score;
-	int simonHP;
+	int playerHP;
+	int playerEnery;
 	int bossHP;
 	int gameTime;
 	int currentWeapon;
@@ -15,7 +19,7 @@ class Hub
 public:
 	void Update();
 	void Render();
-	Hub();
+	Hub(SceneManagement* scene);
 	~Hub();
 };
 

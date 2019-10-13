@@ -67,20 +67,28 @@
 #define SIMON_DELAY_ACCTACK_BYSUBWEBPON_TIME 50
 #define SIMON_ATTACK_TIME 350
 #define SIMON_POWERUP_TIME 1000
+
+#define SIMON_MAX_HP 16
+#define SIMON_MAX_ENERY 99
 class CSimon : public CGameObject
 {
-	int level;
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD attack_start = 0;
 	DWORD upwhip_start = 0;
 	DWORD delay_attack_start = 0;
-	void Renderer(int ani);
+	int hp_;
+	int score_;
+	int enery_;
+
+
 	Whip* whip;
+
+
+	int subWeaponDef = -1;
 	bool isJumping = false;
 	bool isAutoWalk = false;
 	bool isActack = false;
-	int subWeaponDef=-1;
 	bool isUseSubWeapon = false;
 	bool isSpawnSubWeapon = false;
 	bool isOnStair = false;
@@ -95,6 +103,7 @@ class CSimon : public CGameObject
 	void HandleFirstStepOnStair();
 	void HandlePerStepOnStair();
 	float lastPosition;// dùng để walk through door
+	void Renderer(int ani);
 public:
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
@@ -106,6 +115,48 @@ public:
 		this->untouchable_start = 0;
 		this->untouchable = 0;
 	}
+
+	int GetHP() {
+		return this->hp_;
+	}
+	int SetHP(float hp) {
+		this->hp_ = hp;
+		if (this->hp_>SIMON_MAX_HP)
+		{
+			this->hp_ = SIMON_MAX_HP;
+		}
+		else if (this->hp_<0)
+		{
+			this->hp_ = 0;
+		}
+	}
+
+	int GetEnery() {
+		return this->enery_;
+	}
+	void SetEnery(int enery) {
+
+		this->enery_ = enery;
+		if (this->enery_>SIMON_MAX_ENERY)
+		{
+			this->enery_ = SIMON_MAX_ENERY;
+		}
+		else if (this->enery_ < 0)
+		{
+			this->enery_ = 0;
+		}
+	}
+
+	int GetScore() {
+		return this->score_;
+	}
+
+	void SetScore(int score) {
+		this->score_ = score;
+	}
+
+
+
 	void SetLastPosition(float ps) {
 		this->lastPosition = ps;
 	}
@@ -193,7 +244,6 @@ public:
 		this->upwhip_start = 0;
 	}
 	void SetState(int state);
-	void SetLevel(int l) { level = l; }
 	void SimonUseSubWeapon();
 	DWORD GetActack_Time() { return attack_start; }
 	void ResetActack_Time() { attack_start = 0; }

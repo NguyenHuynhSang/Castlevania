@@ -26,6 +26,8 @@ void StopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 StopWatch::StopWatch()
 {
 	this->stopwatch_start = GetTickCount();
+	this->damage = 0;
+	this->heartCostPerUse = 5;
 }
 
 

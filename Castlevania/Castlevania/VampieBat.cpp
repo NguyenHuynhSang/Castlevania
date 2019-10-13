@@ -50,7 +50,7 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void VampieBat::Render()
 {
-	animations[0]->Render(0, x, y);
+	animations[0]->Render(nx, x, y);
 }
 
 VampieBat::VampieBat():Enemy()

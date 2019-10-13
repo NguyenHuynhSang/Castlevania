@@ -38,14 +38,14 @@ void CTileMap::LoadTileSets(const std::string & filePath)
 		firtGrid = std::atoi(child->first_attribute("firstgid")->value());
 		string name = "", source = "";
 		xml_attribute<>* nameAttribute = child->first_attribute("name");
-		
+
 		if (nameAttribute == NULL) {
 			tileSet = new CTileSet(firtGrid, name, tilewidth, tileheight, tilecount, columns, source, texwidth, texheight);
 			this->listTileSet.insert(std::make_pair(firtGrid, tileSet));
 			continue; // bỏ qua những tileset thiếu thông tin
 		}
 
-		
+
 		name = std::string(child->first_attribute("name")->value());
 		tilewidth = std::atoi(child->first_attribute("tilewidth")->value());
 		tileheight = std::atoi(child->first_attribute("tileheight")->value());
@@ -96,7 +96,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 	this->tileSheetCol = columns;
 	this->tileSheetRow = tilesetrow;
 
-	
+
 
 
 	matrix = new int*[mapRow];
@@ -148,14 +148,12 @@ void CTileMap::Render()
 	int beginCol = ((int)camX) / 32;
 	//+1 vì nếu vẽ vừa đủ cột cuối cùng mỗi khi render sẽ nhấp nháy
 	int endCol = ((int)camX + SCREEN_WIDTH) / 32 + 1;
-	if (endCol>=this->mapCol)
-	{
+	if (endCol >= this->mapCol)
 		endCol = this->mapCol;
-	}
 	int beginRow = (int)camY / 32;
 	for (int i = beginRow; i < mapRow; i++)
 	{
-	
+
 		for (int j = beginCol; j < endCol; j++)
 		{
 			int id = matrix[i][j];
@@ -186,7 +184,7 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	LPTILEOBJECT object;
 	ObjectLayer*objectLayer = ObjectLayer::GetInstance();
 	for (xml_node<> *child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
-	
+
 		int id = std::atoi(child->first_attribute("id")->value()); // lay ID
 		vector<LPTILEOBJECT> ObjectInGroup;
 		object = new TileObject();
@@ -210,14 +208,14 @@ void CTileMap::LoadObjects(const std::string& filePath)
 				for (xml_node<> *prochild = propertiesNode->first_node(); prochild; prochild = prochild->next_sibling())
 				{
 					string name = std::string(prochild->first_attribute("name")->value());
-					int value= std::atoi(prochild->first_attribute("value")->value());
+					int value = std::atoi(prochild->first_attribute("value")->value());
 					DebugOut(L"Value =%d \n", value);
-					object->AddProperty(name, value);	
+					object->AddProperty(name, value);
 				}
 				objectLayer->Add(id, object);
 				ObjectInGroup.push_back(objectLayer->GetTileObject(id));
 			}
-			
+
 		}
 		this->listObject.insert(std::make_pair(id, ObjectInGroup)); // 
 	}

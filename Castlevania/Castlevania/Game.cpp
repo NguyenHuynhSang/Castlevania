@@ -81,12 +81,20 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(bool followCam,int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
-
+	D3DXVECTOR3 p;
 	float camx,camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
-	D3DXVECTOR3 p(floor(x - camx), floor(y - camy), 0);
+	if (followCam)
+	{
+		p = { floor(x - camx), floor(y - camy), 0 };
+	}
+	else
+	{
+		p = { x, y, 0 };
+	}
+
 	RECT r;
 	r.left = left;
 	r.top = top;

@@ -1,45 +1,6 @@
-﻿  Axe.cpp
-  AxeItem.cpp
-  BattleCross.cpp
-  BoundMap.cpp
-  Fireball.cpp
-  DebrisBrick.cpp
-  Brick.cpp
-  DaggerItem.cpp
-  define.h
-  Entry.cpp
-  Fishman.cpp
-  Ground.cpp
-  HandleSpawnEffects.cpp
-  HandleSpawnEnemy.cpp
-d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(27): warning C4018: '<': signed/unsigned mismatch
-d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(53): warning C4018: '<': signed/unsigned mismatch
-d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(70): warning C4018: '<': signed/unsigned mismatch
-  HandleSpawnItem.cpp
-  Heart.cpp
-  IStopWatch.cpp
-  Item.cpp
-  LargeHeart.cpp
-  MoneyBag.cpp
-  Generating Code...
-  Compiling...
-  MoneyBagTrigger.cpp
-  MorningStar.cpp
-  NextScene.cpp
-  Panther.cpp
-  PorkChop.cpp
-  ScoreText.cpp
-  Simon.cpp
-d:\git\castlevania\castlevania\castlevania\simon.cpp(705): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\git\castlevania\castlevania\castlevania\simon.cpp(710): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Flame.cpp
-  SpawnZone.cpp
-d:\git\castlevania\castlevania\castlevania\spawnzone.cpp(39): warning C4018: '>': signed/unsigned mismatch
-  StairTrigger.cpp
-  StopWatch.cpp
-  BBoxObjects.cpp
-  Water.cpp
-  Whip.cpp
-  Zombie.cpp
-  Generating Code...
+﻿  Hub.cpp
+d:\git\castlevania\castlevania\castlevania\simon.h(123): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\git\castlevania\castlevania\castlevania\hub.cpp(17): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\hub.cpp(19): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
+d:\git\castlevania\castlevania\castlevania\hub.cpp(20): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

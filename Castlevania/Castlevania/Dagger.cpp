@@ -118,6 +118,8 @@ void Dagger::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 Dagger::Dagger() :SubWeapon()
 {
+	this->damage = 1;
+	this->heartCostPerUse = 1;
 	AddAnimation("DAGGER_ITEM_ANI");
 
 }

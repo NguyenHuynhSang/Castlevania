@@ -15,19 +15,19 @@
 #include"MorningStar.h"
 #include"SpawnZone.h"
 #include "Candle.h"
-#include"Dagger.h"
-#include"SubWeapon.h"
 #include"DaggerItem.h"
 #include"Brick.h"
 #include"Water.h"
 #include"HandleSpawnEffects.h"
 #include"Door.h"
-#include"Axe.h"
 #include"AxeItem.h"
 #include"IStopWatch.h"
-#include"StopWatch.h"
+#include"HandleSpawnSubWeapon.h"
 CSimon::CSimon() :CGameObject()
 {
+	this->hp_ = 16;
+	this->score_ = 0;
+	this->enery_ = 5;
 	untouchable = 0;
 	whip = new Whip();
 	this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
@@ -225,31 +225,7 @@ void CSimon::HandlePerStepOnStair()
 
 void CSimon::HandleUseSubWeapon()
 {
-	switch (this->subWeaponDef)
-	{
-	case SWDDAGGER:
-	{
-		SubWeapon *sw = new Dagger();
-		sw->SetPositionInWorld(this->x, this->y);
-		sw->SetNx(this->nx);
-		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
-		break;
-	}
-	case SWDAXE: {
-		SubWeapon *sw = new Axe();
-		sw->SetPositionInWorld(this->x, this->y);
-		sw->SetNx(this->nx);
-		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
-		break;
-	}
-	case SWDSTOPWATCH: {
-		SubWeapon *sw = StopWatch::GetInstance();
-		StopWatch * sub = dynamic_cast<StopWatch *>(sw);
-		sub->StartStopWatch();
-		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
-		break;
-	}
-	}
+
 }
 
 bool CSimon::SimonAutoWalkaStep(float step)
@@ -328,6 +304,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	this->HandlePerStepOnStair();
 	// Simple fall down
 	if (!this->startOnStair
+		&& !this->isOnStair
 		&& state != SIMON_STATE_UPSTAIR_IDLE
 		&& state != SIMON_STATE_DOWNSTAIR_IDLE
 		&& state != SIMON_STATE_UPSTAIR_ATTACK
@@ -385,12 +362,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						}
 						else {
 							this->isJumping = false;
-
 							if (ny != 0) vy = 0;
-							/*	if (!isAutoWalk)
-								{
-									if (nx != 0) vx = 0;
-								}*/
 							if (this->isActack || this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
 							}
@@ -411,10 +383,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						//if (nx != 0) vx = 0;
 						if (ny != 0) vy = 0;
 					}
-
 				}
-
-
 			}
 			else if (dynamic_cast<Water *>(e->obj)) {
 				if (e->nx != 0)
@@ -487,12 +456,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
 				{
 					this->isHitDoor = true;
-					if (e->nx != 0)
-					{
-						/*x += dx;
-						this->isAutoWalk = true;
-						this->SetState(SIMON_STATE_WALKING_RIGHT);*/
-					}
 				}
 
 			}
@@ -501,12 +464,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
 					if (!this->isOnStair)
 					{
-						
 						this->SetState(SIMON_STATE_DEFLECT);
-						CGameObject::Update(dt); // cap nhat lai dx dy
 						x += dx;
-						y += dy;
-						
+						y += dy;	
 					}
 					if (untouchable != 1) {
 						StartUntouchable(); 
@@ -714,7 +674,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (!this->isSpawnSubWeapon)
 		{
-			HandleUseSubWeapon();
+			if (this->subWeaponDef==SWDSTOPWATCH)
+			{
+				this->SetEnery(-5);
+			}
+			else
+			{
+				this->SetEnery(-1);
+			}
+			HandleSpawnSubWeapon::GetInstance()->SpawnSubWeapon(this->subWeaponDef,this->x,this->y,this->nx);
 			this->isSpawnSubWeapon = true;
 		}
 	}

@@ -264,6 +264,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="HandleSpawnSubWeapon.h">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -445,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="HandleSpawnSubWeapon.cpp">
+      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
