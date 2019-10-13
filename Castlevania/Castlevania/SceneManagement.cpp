@@ -167,7 +167,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 	}
 	float cx, cy;
 	simon->GetPosition(cx, cy);
-	cx -= SCREEN_WIDTH / 2;
+	cx -= SCREEN_WIDTH / 2-SIMON_BIG_BBOX_WIDTH;
 	cy -= SCREEN_HEIGHT / 2;
 	if (currentScene == GSCENE_01_GH || currentScene == GSCENE_02_N)
 	{

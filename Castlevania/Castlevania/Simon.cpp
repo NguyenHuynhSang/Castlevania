@@ -356,7 +356,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 					}
 					else
-						if (this->state == SIMON_STATE_DEFLECT && this->vy > 0) {
+						if (this->state == SIMON_STATE_DEFLECT) {
 							this->state = SIMON_STATE_IDLE;
 							DebugOut(L"Reset ground SIMON_STATE_IDLE \n ");
 						}
@@ -379,7 +379,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						y += dy;
 					}
 					else {
-
+			
 						//if (nx != 0) vx = 0;
 						if (ny != 0) vy = 0;
 					}
@@ -473,8 +473,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						break; // không xét tiếp va chạm khi defect
 					}
 				}
-				else if (e->nx == 0) {
-					y += dy;
+				else {
+					if (e->nx!=0)
+					{
+						x += dx;
+					}
+					if (e->ny != 0)
+					{
+						if (this->isJumping)
+						{
+							y += dy;
+						}	
+					}
 				}
 			}
 			else if (dynamic_cast<Item *>(e->obj)) {
@@ -487,6 +497,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						y += dy;
 				}
 				else {
+					this->AddEnery(item->GetHeartPoint());
 					if (dynamic_cast<MorningStar *>(e->obj)) {
 						DebugOut(L"Morning star logic \n");
 						SetState(SIMON_STATE_POWERUP);
@@ -508,7 +519,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
-
+					
 					if (!item->isDestroyed)
 					{
 						item->SetDestroy();
@@ -560,10 +571,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 
 			Item * f = dynamic_cast<Item*> (e);
+	
 			if (!f->CheckisHiding())
 			{
 				if (CGameObject::IsColliding(this, f))
 				{
+					if (!f->CheckisHiding())
+					{
+						this->AddEnery(f->GetHeartPoint());
+					}
 					if (dynamic_cast<MorningStar *>(e)) {
 						SetState(SIMON_STATE_POWERUP);
 						if (isActack) {
@@ -676,11 +692,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			if (this->subWeaponDef==SWDSTOPWATCH)
 			{
-				this->SetEnery(-5);
+				this->AddEnery(-5);
 			}
 			else
 			{
-				this->SetEnery(-1);
+				this->AddEnery(-1);
 			}
 			HandleSpawnSubWeapon::GetInstance()->SpawnSubWeapon(this->subWeaponDef,this->x,this->y,this->nx);
 			this->isSpawnSubWeapon = true;

@@ -31,6 +31,10 @@ public:
 	void SetIsHiding(bool flag) {
 		this->isHiding = flag;
 	}
+
+	int GetHeartPoint() {
+		return this->heart;
+	}
 	Item() :CGameObject(), score(0), heart(0) {
 		this->lifetime_start = GetTickCount();
 		wait_start = GetTickCount();

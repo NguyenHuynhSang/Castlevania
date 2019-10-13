@@ -96,6 +96,7 @@ Heart::Heart(float ox): Item()
 {
 	AddAnimation("HEART_ANI_SMALL");
 	this->ox = ox;
+	this->heart = 1;
 }
 
 

@@ -43,8 +43,7 @@
 #define SIMON_ANI_UPSTAIR_ATTACK            11
 #define SIMON_ANI_DOWNSTAIR_ATTACK         12
 
-#define SIMON_BIG_BBOX_WIDTH  32
-#define SIMON_BIG_BBOX_HEIGHT 62
+
 
 #define SIMON_SPRITE_BOX_WIDTH 60
 #define SIMON_SPRITE_BOX_HEIGHT 66
@@ -147,6 +146,11 @@ public:
 		}
 	}
 
+
+	void AddEnery(int point) {
+		this->enery_ += point;
+		SetEnery(enery_);
+	}
 	int GetScore() {
 		return this->score_;
 	}

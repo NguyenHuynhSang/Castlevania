@@ -101,6 +101,13 @@
 #define GAME_STATE_03 3
 
 
+
+
+#define SIMON_BIG_BBOX_WIDTH  32
+#define SIMON_BIG_BBOX_HEIGHT 62
+
+
+
 const enum GameState {
 	GSCENE_01,
 	GSCENE_01_GH,

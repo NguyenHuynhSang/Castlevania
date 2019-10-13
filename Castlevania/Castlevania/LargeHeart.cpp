@@ -92,6 +92,7 @@ void LargeHeart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 LargeHeart::LargeHeart() :Item()
 {
 	AddAnimation("HEART_ANI_BIG");
+	this->heart = 5;
 }
 
 
