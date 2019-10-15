@@ -75,7 +75,6 @@ private:
 
 
 	CTileMap* cmap;
-	static SceneManagement * __instance;
 	bool isNextScene;
 	bool isAutoScrollCam = false;		
 	void LoadResource();
@@ -86,7 +85,6 @@ private:
 	void UpdateGrid();
 public:
 
-	static SceneManagement * GetInstance();
 	void OnCreate();
 	int CheckNumOfFishMan();
 	CSimon* GetSimon() {

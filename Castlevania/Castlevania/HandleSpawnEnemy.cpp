@@ -15,7 +15,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	float cx, cy;
 	float px, py;
 	Camera::GetInstance()->GetCamera(cx, cy);
-	SceneManagement::GetInstance()->GetPlayerPosition(px, py);
+	scene->GetPlayerPosition(px, py);
 	if (stopSpawn)
 	{
 		return;
@@ -40,13 +40,13 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 				enemy->SetNx(1);
 
 			}
-			SceneManagement::GetInstance()->SpawnEnemy(enemy);
+			scene->SpawnEnemy(enemy);
 
 		}
 		break;
 	}
 	case EDFISHMAN: {
-		if (SceneManagement::GetInstance()->CheckNumOfFishMan() >= 2)
+		if (scene->CheckNumOfFishMan() >= 2)
 		{
 			return;
 		}
@@ -54,7 +54,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 		{
 			enemy = new Fishman();
 			enemy->SetPositionInWorld(x + i * 150 + 150, y);
-			SceneManagement::GetInstance()->SpawnEnemy(enemy);
+			scene->SpawnEnemy(enemy);
 
 		}
 		break;
@@ -62,7 +62,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	case EDFIREBALL: {
 		enemy = new Fireball(nx);
 		enemy->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnEnemy(enemy);
+		scene->SpawnEnemy(enemy);
 		break;
 	}
 	case EDBAT: {
@@ -82,7 +82,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 
 			}
 		}
-		SceneManagement::GetInstance()->SpawnEnemy(enemy);
+		scene->SpawnEnemy(enemy);
 		break;
 	}
 	case EDPANTHER: {
@@ -94,7 +94,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 			enemy->SetNx(1); 
 		
 		DebugOut(L"Spawn Panther \n");
-		SceneManagement::GetInstance()->SpawnEnemy(enemy);
+		scene->SpawnEnemy(enemy);
 		break;
 	}
 	}
@@ -108,7 +108,11 @@ HandleSpawnEnemy *HandleSpawnEnemy::GetInstance()
 void HandleSpawnEnemy::FreezeEnemy(bool flag)
 {
 	this->stopSpawn = flag;
-	SceneManagement::GetInstance()->FreezeEnemy(this->stopSpawn);
+	scene->FreezeEnemy(this->stopSpawn);
+}
+void HandleSpawnEnemy::Init(SceneManagement * scene)
+{
+	this->scene = scene;
 }
 HandleSpawnEnemy::HandleSpawnEnemy()
 {
@@ -118,4 +122,5 @@ HandleSpawnEnemy::HandleSpawnEnemy()
 
 HandleSpawnEnemy::~HandleSpawnEnemy()
 {
+	delete scene;
 }

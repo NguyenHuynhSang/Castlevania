@@ -11,14 +11,14 @@ HandleSpawnEffects * HandleSpawnEffects::__instance = NULL;
 
 void HandleSpawnEffects::SpawnEffect(int effectDef, float x, float y)
 {
-
+	Effects* effect;
 	switch (effectDef)
 	{
 		case EFD_FLAME : 
 		{
 			effect = new Flame();
 			effect->SetPositionInWorld(x , y);
-			SceneManagement::GetInstance()->SpawnEffect(effect);
+			scene->SpawnEffect(effect);
 			break;
 		}
 		case EFD_DEBRIS:
@@ -30,7 +30,7 @@ void HandleSpawnEffects::SpawnEffect(int effectDef, float x, float y)
 				float vy = (float)(-100 + rand() % 200) / 1000;
 				effect = new DebrisBrick(vx, vy);
 				effect->SetPositionInWorld(x, y);
-				SceneManagement::GetInstance()->SpawnEffect(effect);
+				scene->SpawnEffect(effect);
 			}
 			break;
 		}
@@ -43,32 +43,32 @@ void HandleSpawnEffects::SpawnEffect(int effectDef, float x, float y)
 				float vy = (float)(-100 + rand() % 200) / 1000;
 				effect = new Bubble(vx, vy);
 				effect->SetPositionInWorld(x,y);
-				SceneManagement::GetInstance()->SpawnEffect(effect);
+				scene->SpawnEffect(effect);
 			}
 			break;
 		}
 		case EFD_ST100: {
 			effect = new ScoreText(SCORETEXT_STATE_100);
 			effect->SetPositionInWorld(x, y);
-			SceneManagement::GetInstance()->SpawnEffect(effect);
+			scene->SpawnEffect(effect);
 			break;
 		}
 		case EFD_ST400: {
 			effect = new ScoreText(SCORETEXT_STATE_400);
 			effect->SetPositionInWorld(x, y);
-			SceneManagement::GetInstance()->SpawnEffect(effect);
+			scene->SpawnEffect(effect);
 			break;
 		}
 		case EFD_ST700: {
 			effect = new ScoreText(SCORETEXT_STATE_700);
 			effect->SetPositionInWorld(x, y);
-			SceneManagement::GetInstance()->SpawnEffect(effect);
+			scene->SpawnEffect(effect);
 			break;
 		}
 		case EFD_ST1000: {
 			effect = new ScoreText(SCORETEXT_STATE_1000);
 			effect->SetPositionInWorld(x, y);
-			SceneManagement::GetInstance()->SpawnEffect(effect);
+			scene->SpawnEffect(effect);
 			break;
 		}
 	}
@@ -77,6 +77,11 @@ void HandleSpawnEffects::SpawnEffect(int effectDef, float x, float y)
 
 HandleSpawnEffects::HandleSpawnEffects()
 {
+}
+
+void HandleSpawnEffects::Init(SceneManagement* scene)
+{
+	this->scene = scene;
 }
 
 HandleSpawnEffects * HandleSpawnEffects::GetInstance()
@@ -88,5 +93,5 @@ HandleSpawnEffects * HandleSpawnEffects::GetInstance()
 
 HandleSpawnEffects::~HandleSpawnEffects()
 {
-	delete effect;
+	delete scene;
 }

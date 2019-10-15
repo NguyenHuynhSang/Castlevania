@@ -21,35 +21,35 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		item = new Heart(x);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDLargeHeart: {
 		item = new LargeHeart();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDDagger: {
 		item = new DaggerItem();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDAXE: {
 		item = new AxeItem();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDWhip: {
 		item = new MorningStar();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 
@@ -58,7 +58,7 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		item->SetState(MONEYBAG_STATE_FULLCOLOR);
 		item->SetIsHiding(isHiding);
 		item->SetPosition(x, y); // vì tọa độ được load vào chưa -80
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDMONEYBAGWHITE: {
@@ -66,7 +66,7 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		item->SetState(MONEYBAG_STATE_WHITE);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case  ITDMONEYBAGBLUE: 
@@ -75,7 +75,7 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		item->SetState(MONEYBAG_STATE_BLUE);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case  ITDMONEYBAGRED:
@@ -84,21 +84,21 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		item->SetState(MONEYBAG_STATE_RED);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDSTOPWATCH: {
 		item = new IStopWatch();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	case ITDROAST: {
 		item = new PorkChop();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 		break;
 	}
 	
@@ -115,14 +115,14 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 		item = new Heart(x);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 	}
 	else if (rank<150)
 	{
 		item = new LargeHeart();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 	}
 	else if (rank<180)
 	{
@@ -130,7 +130,7 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 		item->SetState(MONEYBAG_STATE_RED);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 	
 	}
 	else
@@ -139,7 +139,7 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 		item->SetState(MONEYBAG_STATE_WHITE);
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
-		SceneManagement::GetInstance()->SpawnItem(item);
+		scene->SpawnItem(item);
 	}
 
 }
@@ -153,7 +153,7 @@ HandleSpawnItem::HandleSpawnItem()
 
 HandleSpawnItem::~HandleSpawnItem()
 {
-
+	delete scene;
 }
 
 HandleSpawnItem * HandleSpawnItem::GetInstance()

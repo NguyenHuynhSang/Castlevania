@@ -14,21 +14,21 @@ void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y,int 
 		SubWeapon *sw = new Dagger();
 		sw->SetPositionInWorld(x,y);
 		sw->SetNx(nx);
-		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+		scene->SpawnSubWeapon(sw);
 		break;
 	}
 	case SWDAXE: {
 		SubWeapon *sw = new Axe();
 		sw->SetPositionInWorld(x, y);
 		sw->SetNx(nx);
-		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+		scene->SpawnSubWeapon(sw);
 		break;
 	}
 	case SWDSTOPWATCH: {
 		SubWeapon *sw = StopWatch::GetInstance();
 		StopWatch * sub = dynamic_cast<StopWatch *>(sw);
 		sub->StartStopWatch();
-		SceneManagement::GetInstance()->SpawnSubWeapon(sw);
+		scene->SpawnSubWeapon(sw);
 		break;
 	}
 	}
@@ -36,6 +36,11 @@ void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y,int 
 
 HandleSpawnSubWeapon::HandleSpawnSubWeapon()
 {
+}
+
+void HandleSpawnSubWeapon::Init(SceneManagement* scene)
+{
+	this->scene = scene;
 }
 
 

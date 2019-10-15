@@ -445,7 +445,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#aaaaff" id="11" name="spawnZone">
-  <object id="20" name="Spawn" type="Spawn" x="0.666667" y="316.667" width="896.667" height="66">
+  <object id="20" name="Spawn" type="Spawn" x="0.666667" y="2.667" width="896.667" height="285">
    <properties>
     <property name="enemydef" type="int" value="3"/>
     <property name="num" type="int" value="2"/>

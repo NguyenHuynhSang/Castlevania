@@ -432,7 +432,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	keyHandler = new CSampleKeyHander();
 	game->InitKeyboard(keyHandler);
 
-	scene = SceneManagement::GetInstance();
+	scene = new SceneManagement();
 	scene->OnCreate();
 	D3DXVECTOR2 vector(0, 0);
 

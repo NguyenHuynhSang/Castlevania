@@ -549,12 +549,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-				if (this->isAutoWalk) {
 					NextScene *nexecene = dynamic_cast<NextScene *>(e->obj);
 					(e->obj)->SetDestroy();
-					// clean up collision events
-					SceneManagement::GetInstance()->JumpToState(nexecene->CheckSceneDef());
-				}
+					this->nextScene = nexecene->CheckSceneDef();
 			}
 		}
 
