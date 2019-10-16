@@ -429,7 +429,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="water">
-  <object id="13" name="Water" type="Water" x="1.66667" y="293.5" width="888.833" height="12.1667"/>
+  <object id="13" name="Water" type="Water" x="1.66667" y="287" width="888.833" height="12.1667"/>
   <object id="14" name="Water" type="Water" x="962" y="299" width="62" height="52"/>
  </objectgroup>
  <objectgroup id="10" name="stair">
@@ -445,7 +445,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#aaaaff" id="11" name="spawnZone">
-  <object id="20" name="Spawn" type="Spawn" x="0.666667" y="2.667" width="896.667" height="285">
+  <object id="20" name="Spawn" type="Spawn" x="0.666667" y="2.667" width="896.667" height="301">
    <properties>
     <property name="enemydef" type="int" value="3"/>
     <property name="num" type="int" value="2"/>

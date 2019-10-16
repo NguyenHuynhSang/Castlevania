@@ -16,8 +16,8 @@ void Hub::Render()
 	game->DrawUIText(this->_UIinfor, bound);
 	for (size_t i = 0; i < this->playerHP; i++)
 	{
-		CSprites::GetInstance()->Get("PLAYER_HP_SPRITE")->Draw(0,105 + i * 10, 32,255,false);
-		CSprites::GetInstance()->Get("BOSS_HP_SPRITE")->Draw(0, 105 + i * 10, 50, 255, false);
+		CSprites::GetInstance()->Get("PLAYER_HP_SPRITE")->Draw(0,105 + i * 9, 32,255,false);
+		CSprites::GetInstance()->Get("BOSS_HP_SPRITE")->Draw(0, 105 + i * 9, 50, 255, false);
 	}
 
 }

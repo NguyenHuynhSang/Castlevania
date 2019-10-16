@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="208">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="209">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2199,14 +2199,14 @@
     <property name="scenedef" type="int" value="5"/>
    </properties>
   </object>
-  <object id="192" name="Simon" type="Simon" gid="112" x="4192" y="126.333" width="60" height="66">
-   <properties>
-    <property name="scenedef" type="int" value="6"/>
-   </properties>
-  </object>
   <object id="207" name="Simon" type="Simon" gid="112" x="2310" y="315" width="60" height="66">
    <properties>
     <property name="scenedef" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="208" name="Simon" type="Simon" gid="112" x="5066" y="310" width="60" height="66">
+   <properties>
+    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
  </objectgroup>
@@ -2594,7 +2594,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#6a00ff" id="16" name="Cam" visible="0" locked="1">
+ <objectgroup color="#6a00ff" id="16" name="Cam">
   <object id="164" name="SCENEBOUND" type="SCENEBOUND" x="0" y="0" width="3088" height="378">
    <properties>
     <property name="scenedef" type="int" value="1"/>
@@ -2605,7 +2605,7 @@
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="175" name="SCENEBOX" type="SCENEBOX" x="4078.67" y="0" width="1566.67" height="380.667">
+  <object id="175" name="SCENEBOX" type="SCENEBOX" x="4078.67" y="0" width="1574.67" height="380.667">
    <properties>
     <property name="scenedef" type="int" value="6"/>
    </properties>

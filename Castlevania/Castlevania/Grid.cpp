@@ -153,7 +153,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 	Camera::GetInstance()->GetCamera(camx, camy);
 	int startCol = camx / this->cellSize;
 	startCol = startCol > 0 ? startCol + -1 : 0;
-	int endCol = (camx + SCREEN_WIDTH) / this->cellSize;
+	int endCol = ((int)camx + SCREEN_WIDTH) / this->cellSize;
 	endCol = endCol > numXCell ? numXCell : endCol + 1;
 	for (int i = 0; i < this->numYCell; i++)
 	{
@@ -185,7 +185,7 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 	mapWidth(mapWidth),
 	mapHeight(mapHeight + 80)
 {
-	this->numXCell = ceil((float)this->mapWidth / this->cellSize);
+	this->numXCell = ceil((float)this->mapWidth / this->cellSize)+1;
 	this->numYCell = ceil((float)this->mapHeight / this->cellSize);
 	// clear grid
 
