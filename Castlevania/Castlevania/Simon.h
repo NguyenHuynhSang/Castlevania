@@ -104,19 +104,7 @@ class CSimon : public CGameObject
 	float lastPosition;// dùng để walk through door
 	void Renderer(int ani);
 
-
-	int nextScene=-1; //pass next scene id to scene manager;
 public:
-	int GetNextScene() 
-	{
-		return nextScene;
-	}
-
-	void ResetNextScene() {
-		this->nextScene = -1;
-	};
-
-
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
 			= isActack = isAutoWalk = isJumping =isHitDoor= isUseSubWeapon = false;

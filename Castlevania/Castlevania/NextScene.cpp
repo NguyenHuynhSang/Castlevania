@@ -4,7 +4,7 @@
 
 NextScene::NextScene()
 {
-
+	isColliceWithPlayer = false;
 }
 
 

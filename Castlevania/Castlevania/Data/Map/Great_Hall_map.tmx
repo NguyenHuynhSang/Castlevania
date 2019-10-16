@@ -2359,7 +2359,7 @@
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="177" name="StairTop" type="Stair" x="4304" y="36.6667" width="32" height="32">
+  <object id="177" name="StairTop" type="Stair" x="4304" y="35.3334" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
     <property name="scenedef" type="int" value="6"/>
@@ -2371,13 +2371,13 @@
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="179" name="StairTop" type="Stair" x="4683.33" y="100" width="32" height="32">
+  <object id="179" name="StairTop" type="Stair" x="4686.66" y="98.6667" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="180" name="StairBottom" type="Stair" x="4812.67" y="302.708" width="32" height="15.9167">
+  <object id="180" name="StairBottom" type="Stair" x="4812.67" y="306.708" width="32" height="11.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
     <property name="scenedef" type="int" value="6"/>

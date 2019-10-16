@@ -308,12 +308,7 @@ int SceneManagement::CheckNumOfFishMan()
 }
 void SceneManagement::Update(DWORD dt)
 {
-	if (simon->GetNextScene()!=-1)
-	{
-		int nextScene = simon->GetNextScene();
-		this->JumpToState(nextScene);
-		simon->ResetNextScene();
-	}
+
 
 
 	if (this->isNextScene) {
@@ -321,6 +316,9 @@ void SceneManagement::Update(DWORD dt)
 		this->isNextScene = false;
 		return;
 	}
+
+
+
 
 	hud->Update();
 	// update trước để spawn enemy và xử lý va chạm ở frame hiện tại
@@ -345,6 +343,16 @@ void SceneManagement::Update(DWORD dt)
 	{
 		GetCoObjects(objects.at(i), coObjects);
 		objects[i]->Update(dt, &coObjects);
+		if (dynamic_cast<NextScene*> (objects[i]))
+		{
+			NextScene *nextscene = dynamic_cast<NextScene *>(objects[i]);
+			if (nextscene->CheckIsColliceWithPlayer())
+			{
+				int nextSceneID = nextscene->CheckSceneDef();
+				this->JumpToState(nextSceneID);
+				nextscene->DestroyImmediate();
+			}
+		}
 	}
 	//update efftects
 	for (std::size_t i = 0; i < effects.size(); i++) //effect
@@ -521,6 +529,7 @@ void SceneManagement::LoadScene()
 	CTextures * textures = CTextures::GetInstance();
 	Camera::GetInstance()->SetAllowScrollCam(false);
 	cmap->GetObjects().clear();
+	cmap->ClearObject();
 	delete grid;
 	switch (this->currentScene)
 	{
@@ -530,17 +539,14 @@ void SceneManagement::LoadScene()
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_01);
 		break;
-
-
 	case GSCENE_01_GH:
-		cmap->ClearObject();
+		
 		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_01_GH);
 		break;
 	case GSTATE_02:
 	{
-		cmap->ClearObject();
 		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02);
@@ -548,8 +554,6 @@ void SceneManagement::LoadScene()
 	}
 	case GSTATE_02_UDG:
 	{
-		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
 		cmap->LoadGameData("Data\\Map\\Underground_map.tmx", textures->Get(ID_TEX_TILESET_3));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02_UDG);
@@ -557,22 +561,18 @@ void SceneManagement::LoadScene()
 	}
 	case GSTATE_02_B:
 	{
-		cmap->ClearObject();
 		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02_B);
 		break;
 	}
 	case GSCENE_02_N: {
-		cmap->ClearObject();
 		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_02_N);
 		break;
 	}
 	case GSCENE_03: {
-		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
 		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_03);

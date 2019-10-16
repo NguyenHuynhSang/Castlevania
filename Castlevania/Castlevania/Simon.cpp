@@ -548,9 +548,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-					NextScene *nexecene = dynamic_cast<NextScene *>(e->obj);
-					(e->obj)->SetDestroy();
-					this->nextScene = nexecene->CheckSceneDef();
+					NextScene *nextscene = dynamic_cast<NextScene *>(e->obj);
+					nextscene->SetColliceWithPlayer(true);
 			}
 		}
 
