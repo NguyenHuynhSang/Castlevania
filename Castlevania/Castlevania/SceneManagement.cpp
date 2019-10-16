@@ -1031,7 +1031,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 		simon->SetState(SIMON_STATE_UPSTAIR_IDLE);
-		objects.push_back(simon);
+	
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
@@ -1052,7 +1052,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(ground);
+			groundObjects.push_back(ground);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
@@ -1060,7 +1060,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound = new BoundMap();
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(bound);
+			unit = new Unit(this->grid, bound);
 		}
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
@@ -1070,7 +1070,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 				spawnZone->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(spawnZone);
+				this->spawnObjects.push_back(spawnZone);
 			}
 
 		}
@@ -1083,7 +1083,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				brick->SetState(child->GetPropertyByKey("brickstate"));
 				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
 				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(brick);
+				unit = new Unit(this->grid, brick);
 			}
 
 		}
@@ -1096,7 +1096,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				stair->SetDirection(child->GetPropertyByKey("dir"));
 				stair->SetSize(child->GetWidth(), child->GetHeight());
 				stair->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(stair);
+				unit = new Unit(this->grid, stair);
 			}
 
 		}
@@ -1109,7 +1109,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(nextScene);
+			unit = new Unit(this->grid, nextScene);
 		}
 		break;
 	}
@@ -1126,7 +1126,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 		simon->SetState(SIMON_STATE_UPSTAIR_IDLE);
-		objects.push_back(simon);
+		
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
@@ -1147,7 +1147,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(ground);
+			this->groundObjects.push_back(ground);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
@@ -1155,7 +1155,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound = new BoundMap();
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(bound);
+			unit = new Unit(this->grid, bound);
 		}
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
@@ -1165,7 +1165,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 				spawnZone->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(spawnZone);
+				this->spawnObjects.push_back(spawnZone);
 			}
 
 		}
@@ -1178,7 +1178,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				brick->SetState(child->GetPropertyByKey("brickstate"));
 				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
 				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(brick);
+				unit = new Unit(this->grid, brick);
 			}
 
 		}
@@ -1191,7 +1191,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				stair->SetDirection(child->GetPropertyByKey("dir"));
 				stair->SetSize(child->GetWidth(), child->GetHeight());
 				stair->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(stair);
+				unit = new Unit(this->grid, stair);
 			}
 
 		}
@@ -1203,7 +1203,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(nextScene);
+			unit = new Unit(this->grid, nextScene);
 		}
 
 
@@ -1213,7 +1213,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			{
 				door = new Door();
 				door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(door);
+				unit = new Unit(this->grid, door);
 			}
 
 		}
@@ -1232,7 +1232,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			}
 
 		}
-		objects.push_back(simon);
+		
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
@@ -1253,7 +1253,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground = new Ground();
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(ground);
+			this->groundObjects.push_back(ground);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
@@ -1261,7 +1261,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			bound = new BoundMap();
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
-			objects.push_back(bound);
+			unit = new Unit(this->grid, bound);
 		}
 
 		auto spawnObject = cmap->GetObjects().find(ID_TILE_OBJECT_SPAWNZONE);
@@ -1271,7 +1271,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 				spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 				spawnZone->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(spawnZone);
+				this->spawnObjects.push_back(spawnZone);
 			}
 
 		}
@@ -1286,7 +1286,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				stair->SetDirection(child->GetPropertyByKey("dir"));
 				stair->SetSize(child->GetWidth(), child->GetHeight());
 				stair->SetPosition(child->GetX(), child->GetY());
-				objects.push_back(stair);
+				unit = new Unit(this->grid, stair);
 			}
 
 		}
@@ -1298,7 +1298,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			{
 				candle = new Candle();
 				candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(candle);
+				unit = new Unit(this->grid, candle);
 			}
 
 		}
@@ -1311,7 +1311,7 @@ void SceneManagement::LoadObjects(int currentscene)
 				brick->SetState(child->GetPropertyByKey("brickstate"));
 				brick->SetItemDef(child->GetPropertyByKey("itemdef"));
 				brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				objects.push_back(brick);
+				unit = new Unit(this->grid, brick);
 			}
 
 		}
