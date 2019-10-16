@@ -165,7 +165,7 @@ void Fishman::SetState(int state)
 	case FISHMAN_STATE_WALKING:
 	{
 		walking_start = GetTickCount();
-		this->vx = -nx * FISHMAN_WALKING_SPEED;
+		this->vx = nx * FISHMAN_WALKING_SPEED;
 		break;
 	}
 	case FISHMAN_STATE_SHOOTING:

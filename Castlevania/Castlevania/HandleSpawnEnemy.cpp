@@ -53,6 +53,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 		for (size_t i = 0; i < num; i++)
 		{
 			enemy = new Fishman();
+			enemy->SetNx(1);
 			enemy->SetPositionInWorld(x + i * 150 + 150, y);
 			scene->SpawnEnemy(enemy);
 

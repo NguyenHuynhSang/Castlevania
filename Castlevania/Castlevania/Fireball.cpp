@@ -28,7 +28,7 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CGameObject::Update(dt);
 
-		this->vx = -BULLET_SPEED_VX * nx;
+		this->vx = BULLET_SPEED_VX * nx;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
