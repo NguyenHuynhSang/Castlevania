@@ -23,12 +23,14 @@ class CTileMap
 	// dùng lưu id của objectgroup và các object nằm trong group đó
 	std::map<int,std::vector<LPTILEOBJECT>> listObject ; 
 	std::map<unsigned int, LPTILESET> listTileSet;
-	
+	void LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
+	void LoadObjects(const std::string& filePath);
 public:
 	void LoadTileSets(const std::string& filePath);
-	void LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
+	
 	void Render();
-	void LoadObjects(const std::string& filePath);
+	
+	void LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
 	void ClearObject() {
 		this->listObject.clear();
 	}

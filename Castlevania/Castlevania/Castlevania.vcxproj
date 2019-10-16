@@ -48,7 +48,7 @@
     <ClInclude Include="HandleSpawnItem.h" />
     <ClInclude Include="HandleSpawnSubWeapon.h" />
     <ClInclude Include="Heart.h" />
-    <ClInclude Include="Hub.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="IStopWatch.h" />
     <ClInclude Include="Item.h" />
@@ -114,7 +114,7 @@
     <ClCompile Include="HandleSpawnItem.cpp" />
     <ClCompile Include="HandleSpawnSubWeapon.cpp" />
     <ClCompile Include="Heart.cpp" />
-    <ClCompile Include="Hub.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="IStopWatch.cpp" />
     <ClCompile Include="Item.cpp" />

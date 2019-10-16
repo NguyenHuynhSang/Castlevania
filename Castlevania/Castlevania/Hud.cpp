@@ -1,7 +1,7 @@
-#include "Hub.h"
+#include "Hud.h"
 #include"SceneManagement.h"
 
-void Hub::Update()
+void Hud::Update()
 {
 	this->playerEnery = scene->GetSimon()->GetEnery();
 	string enery_ = playerEnery < 10 ? "0" + std::to_string(playerEnery) : std::to_string(playerEnery);
@@ -11,7 +11,7 @@ void Hub::Update()
 	_UIinfor += "ENEMY                   -00\n";
 }
 
-void Hub::Render()
+void Hud::Render()
 {
 	game->DrawUIText(this->_UIinfor, bound);
 	for (size_t i = 0; i < this->playerHP; i++)
@@ -22,7 +22,7 @@ void Hub::Render()
 
 }
 
-Hub::Hub(SceneManagement* scene)
+Hud::Hud(SceneManagement* scene)
 {
 	this->scene = scene;
 	SetRect(&bound, 0, 15, SCREEN_WIDTH, 80);
@@ -33,7 +33,7 @@ Hub::Hub(SceneManagement* scene)
 }
 
 
-Hub::~Hub()
+Hud::~Hud()
 {
 	
 }

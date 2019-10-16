@@ -395,7 +395,7 @@
   </data>
  </layer>
  <objectgroup color="#00aaff" id="2" name="boundmap">
-  <object id="2" x="-26" y="-0.5" width="26" height="383.5"/>
+  <object id="2" x="-9.5" y="-0.5" width="9.5" height="383.5"/>
   <object id="3" x="1008.5" y="-3.5" width="19" height="384"/>
   <object id="4" x="0" y="352" width="1022.5" height="31.5"/>
  </objectgroup>

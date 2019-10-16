@@ -275,7 +275,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			this->animations[SIMON_ANI_SIT_ATTACK]->ResetAnimation();
 			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
-			DebugOut(L"REset frame \n");
 		}
 		whip->Update(dt, coObjects);
 		whip->SetDirection(nx);
@@ -770,7 +769,11 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_SIT_ATTACK) {
 
 		ani = SIMON_ANI_SIT_ATTACK;
-		whip->Render();
+		if (!this->isUseSubWeapon)
+		{
+			whip->Render();
+		}
+
 		Renderer(ani);
 		return;
 	}
@@ -973,7 +976,8 @@ void CSimon::SetState(int state)
 
 void CSimon::SimonUseSubWeapon()
 {
-	this->state = SIMON_STATE_STAND_ATTACK;
+	
+
 }
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)

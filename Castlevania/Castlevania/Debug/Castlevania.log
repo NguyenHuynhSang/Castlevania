@@ -2,5 +2,5 @@
 d:\git\castlevania\castlevania\castlevania\simon.h(135): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(27): warning C4018: '<': signed/unsigned mismatch
 d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(53): warning C4018: '<': signed/unsigned mismatch
-d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(80): warning C4018: '<': signed/unsigned mismatch
+d:\git\castlevania\castlevania\castlevania\handlespawnenemy.cpp(79): warning C4018: '<': signed/unsigned mismatch
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

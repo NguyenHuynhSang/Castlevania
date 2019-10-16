@@ -3,7 +3,7 @@
 #include"Game.h"
 class SceneManagement;
 class CSprite;
-class Hub
+class Hud
 {
 	CGame* game;
 	SceneManagement* scene;
@@ -19,7 +19,7 @@ class Hub
 public:
 	void Update();
 	void Render();
-	Hub(SceneManagement* scene);
-	~Hub();
+	Hud(SceneManagement* scene);
+	~Hud();
 };
 

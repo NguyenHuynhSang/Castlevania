@@ -39,6 +39,8 @@ Door::Door()
 	AddAnimation("DOOR_ANI_CLOSE", false);
 	AddAnimation("DOOR_ANI_OPEN", false);
 	AddAnimation("DOOR_ANI_CLOSING", false);
+	animations[DOOR_ANI_OPEN]->ResetAnimation();
+	animations[DOOR_ANI_CLOSING]->ResetAnimation();
 }
 
 

@@ -57,11 +57,11 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 
-	case DIK_1: 
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDWhip, sx, sy - 64,false);
+	case DIK_1:
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDWhip, sx, sy - 64, false);
 		break;
 	case DIK_2:
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDDagger, sx, sy - 64,false);
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDDagger, sx, sy - 64, false);
 		break;
 	case DIK_3:
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDAXE, sx, sy - 64, false);
@@ -103,7 +103,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		scene->GetSimon()->SetAutoWalk(true);
 		break;
 	case DIK_SPACE:
-		if (!scene->GetSimon()->CheckIsJumping() && scene->GetSimon()->GetState() != SIMON_STATE_SIT && !scene->GetSimon()->CheckAttack()) // dùng atack time khỏi phải dùng state attack nhiều lần
+		if (!scene->GetSimon()->CheckIsJumping()
+			&& scene->GetSimon()->GetState() != SIMON_STATE_SIT
+			&& !scene->GetSimon()->CheckAttack()
+			&& !scene->GetSimon()->CheckIsOnStair()) // dùng atack time khỏi phải dùng state attack nhiều lần
 			scene->GetSimon()->SetState(SIMON_STATE_JUMP);
 		break;
 	case DIK_C: {
@@ -111,7 +114,6 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			&& scene->GetSimon()->GetCurrentSubWeapon() != -1
 			&& !scene->GetSimon()->CheckAttack())
 		{
-			scene->GetSimon()->SimonUseSubWeapon();
 			scene->GetSimon()->StartUseSubWeapon();
 		}
 		break;
@@ -124,7 +126,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			scene->GetSimon()->StartActack();
 			if (scene->GetSimon()->CheckIsOnStair())
 			{
-	
+
 				if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPLEFT
 					|| scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPRIGHT
 					&& scene->GetSimon()->GetState() == SIMON_STATE_UPSTAIR_IDLE)
@@ -143,13 +145,11 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			else {
 				if (scene->GetSimon()->GetState() == SIMON_STATE_SIT)
 				{
-				
-					
 					scene->GetSimon()->SetState(SIMON_STATE_SIT_ATTACK);
 				}
 				else {
-				
-					
+
+
 					scene->GetSimon()->SetState(SIMON_STATE_STAND_ATTACK);
 				}
 
@@ -200,7 +200,24 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 	if ((scene->GetSimon()->GetActack_Time() != 0) && GetTickCount() - scene->GetSimon()->GetActack_Time() > SIMON_ATTACK_TIME)
 	{
-		scene->GetSimon()->SetState(SIMON_STATE_IDLE);
+		if (scene->GetSimon()->CheckIsOnStair())
+		{
+			if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPLEFT
+				|| scene->GetSimon()->CheckStepOnStairDirection() == DIR_UPRIGHT)
+			{
+				scene->GetSimon()->SetLastState(SIMON_STATE_UPSTAIR_ATTACK);
+				scene->GetSimon()->SetState(SIMON_STATE_UPSTAIR_IDLE);
+			}
+			else if (scene->GetSimon()->CheckStepOnStairDirection() == DIR_DOWNLEFT
+				|| scene->GetSimon()->CheckStepOnStairDirection() == DIR_DOWNRIGHT)
+			{
+				scene->GetSimon()->SetLastState(SIMON_STATE_DOWNSTAIR_ATTACK);
+				scene->GetSimon()->SetState(SIMON_STATE_DOWNSTAIR_IDLE);
+			}
+
+		}
+		else
+			scene->GetSimon()->SetState(SIMON_STATE_IDLE);
 		scene->GetSimon()->StartDelayAttack();
 		scene->GetSimon()->ResetActack_Time();
 		scene->GetSimon()->ResetSpriteFrame();

@@ -268,15 +268,38 @@ public:
 		return this->isActack;
 	}
 	void StartUseSubWeapon() {
+		if (this->CheckIsOnStair())
+		{
+			if (this->state == SIMON_STATE_UPSTAIR_IDLE)
+			{
+				SetState(SIMON_STATE_UPSTAIR_ATTACK);
+			}
+			else if (this->state == SIMON_STATE_DOWNSTAIR_IDLE)
+			{
+				SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+
+			}
+		}
+		else
+		{
+			SetState(SIMON_STATE_STAND_ATTACK);
+		
+		}
+		this->attack_start = GetTickCount();
 		this->isUseSubWeapon = true;
 		this->animations[SIMON_ANI_STAND_ATTACK]->ResetAnimation();
-		this->attack_start = GetTickCount();
+		this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
+		this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
+		
 	}
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartActack() {
 		this->isActack = true;
 	};
 
+	void SetLastState(int state) {
+		this->lastState = state;
+	}
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetSpriteFrame() {
 		this->ResetFrame(SIMON_ANI_STAND_ATTACK);

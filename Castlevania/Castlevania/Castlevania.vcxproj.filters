@@ -255,9 +255,6 @@
     <ClInclude Include="PorkChop.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
-    <ClInclude Include="Hub.h">
-      <Filter>Hub</Filter>
-    </ClInclude>
     <ClInclude Include="StopWatch.h">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClInclude>
@@ -266,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="HandleSpawnSubWeapon.h">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
+      <Filter>Hub</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,9 +440,6 @@
     <ClCompile Include="PorkChop.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
-    <ClCompile Include="Hub.cpp">
-      <Filter>Hub</Filter>
-    </ClCompile>
     <ClCompile Include="StopWatch.cpp">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
     </ClCompile>
@@ -451,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="HandleSpawnSubWeapon.cpp">
       <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Hud.cpp">
+      <Filter>Hub</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,7 @@
 #include"SubWeapon.h"
 #include"Water.h"
 #include"Door.h"
-#include"Hub.h"
+#include"Hud.h"
 #include"Grid.h"
 class SceneManagement
 {
@@ -51,7 +51,7 @@ private:
 	SpawnZone *spawnZone;
 	Water* water;
 	Door* door;
-	Hub* hub;
+	Hud* hud;
 	Grid * grid;
 	std::vector<Unit*> listUnit;
 	RECT sceneBox;

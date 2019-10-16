@@ -322,7 +322,7 @@ void SceneManagement::Update(DWORD dt)
 		return;
 	}
 
-	hub->Update();
+	hud->Update();
 	// update trước để spawn enemy và xử lý va chạm ở frame hiện tại
 	for (size_t i = 0; i < spawnObjects.size(); i++)
 	{
@@ -411,7 +411,7 @@ void SceneManagement::Render()
 	for (std::size_t i = 0; i < this->effects.size(); i++)
 		this->effects[i]->Render();
 
-	hub->Render();
+	hud->Render();
 	simon->Render();
 
 
@@ -526,9 +526,7 @@ void SceneManagement::LoadScene()
 	{
 	case GSCENE_01:
 
-
-		cmap->LoadMap("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
-		cmap->LoadObjects("Data\\Map\\Courtyard_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Courtyard_map.tmx", textures->Get(ID_TEX_TILESET_1));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_01);
 		break;
@@ -536,18 +534,14 @@ void SceneManagement::LoadScene()
 
 	case GSCENE_01_GH:
 		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
-		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_01_GH);
 		break;
 	case GSTATE_02:
 	{
 		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
-		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02);
 		break;
@@ -556,8 +550,7 @@ void SceneManagement::LoadScene()
 	{
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Underground_map.tmx", textures->Get(ID_TEX_TILESET_3));
-		cmap->LoadObjects("Data\\Map\\Underground_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Underground_map.tmx", textures->Get(ID_TEX_TILESET_3));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02_UDG);
 		break;
@@ -565,18 +558,14 @@ void SceneManagement::LoadScene()
 	case GSTATE_02_B:
 	{
 		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
-		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSTATE_02_B);
 		break;
 	}
 	case GSCENE_02_N: {
 		cmap->ClearObject();
-		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
-		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_02_N);
 		break;
@@ -584,8 +573,7 @@ void SceneManagement::LoadScene()
 	case GSCENE_03: {
 		cmap->ClearObject();
 		cmap = CTileMap::GetInstance();
-		cmap->LoadMap("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
-		cmap->LoadObjects("Data\\Map\\Great_Hall_map.tmx");
+		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_03);
 		break;
@@ -660,27 +648,21 @@ void SceneManagement::LoadObjects(int currentscene)
 			ground->SetSize(child->GetWidth(), child->GetHeight());
 			ground->SetPosition(child->GetX(), child->GetY());
 			groundObjects.push_back(ground);
-			//unit = new Unit(this->grid, ground, ground->x, ground->y);
-
 		}
 
 
 
 		auto entryObject = cmap->GetObjects().find(ID_TILE_OBJECT_ENTRY);
 		for (const auto& child : entryObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			entry = new Entry();
 			entry->SetSize(child->GetWidth(), child->GetHeight());
 			entry->SetPosition(child->GetX(), child->GetY());
-			//objects.push_back(entry);
 			unit = new Unit(this->grid, entry);
-			//	m_grid->AddObject(entry);
 		}
 
 
 		auto triggerObject = cmap->GetObjects().find(ID_TILE_OBJECT_TRIGGER);
 		for (const auto& child : triggerObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			trigger = new MoneyBagTrigger();
 			trigger->SetSize(child->GetWidth(), child->GetHeight());
 			trigger->SetPosition(child->GetX(), child->GetY());
@@ -689,33 +671,24 @@ void SceneManagement::LoadObjects(int currentscene)
 				trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
 			}
 			unit = new Unit(this->grid, trigger);
-			//	objects.push_back(trigger);
-			//	m_grid->AddObject(trigger);
 		}
 
 
 		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
 		for (const auto& child : nextsceneObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			nextScene = new NextScene();
 			nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
 			nextScene->SetPosition(child->GetX(), child->GetY());
-			//objects.push_back(nextScene);
 			unit = new Unit(this->grid, nextScene);
-			//	m_grid->AddObject(nextScene);
 		}
 
 		auto boundObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOUNDMAP);
 		for (const auto& child : boundObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			bound = new BoundMap();
 			bound->SetSize(child->GetWidth(), child->GetHeight());
 			bound->SetPosition(child->GetX(), child->GetY());
-			//DebugOut(L"[Complete]Load Simon position in game world \n");
-			//objects.push_back(bound);
 			unit = new Unit(this->grid, bound);
-			//	m_grid->AddObject(bound);
 		}
 
 
@@ -724,9 +697,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			torch = new Torch();
 			torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 			torch->SetItem(child->GetPropertyByKey("item"));
-			//	objects.push_back(torch);
 			unit = new Unit(this->grid, torch);
-			//m_grid->AddObject(torch);
 		}
 		break;
 	}
@@ -739,7 +710,6 @@ void SceneManagement::LoadObjects(int currentscene)
 			if (child->GetPropertyByKey("scenedef") == GSCENE_01_GH)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				//	DebugOut(L"[Complete]Load Simon position in game world \n");
 			}
 
 		}
@@ -842,7 +812,6 @@ void SceneManagement::LoadObjects(int currentscene)
 			if (child->GetPropertyByKey("scenedef") == GSTATE_02)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				//	DebugOut(L"[Complete]Load Simon position in game world \n");
 			}
 
 		}
@@ -918,7 +887,6 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto nextsceneObject = cmap->GetObjects().find(ID_TILE_OBJECT_NEXTSCENE);
 		for (const auto& child : nextsceneObject->second) {
-			//DebugOut(L"[Complete]Load Torch position in game world \n");
 			nextScene = new NextScene();
 			nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
 			nextScene->SetSize(child->GetWidth(), child->GetHeight());
@@ -1325,9 +1293,8 @@ SceneManagement::SceneManagement()
 {
 	this->isNextScene = false;
 	this->currentScene = GSCENE_01;
-
 	cmap = CTileMap::GetInstance();
-	hub = new Hub(this);
+	hud = new Hud(this);
 }
 
 

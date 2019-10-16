@@ -138,7 +138,6 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 	}
 
 
-
 }
 void CTileMap::Render()
 {
@@ -227,6 +226,12 @@ void CTileMap::LoadObjects(const std::string& filePath)
 		}
 	}*/
 
+}
+
+void CTileMap::LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet)
+{
+	LoadMap(filePath, texTileSet);
+	LoadObjects(filePath);
 }
 
 
