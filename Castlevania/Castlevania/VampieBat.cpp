@@ -18,6 +18,7 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->setDestroy)
 	{
+		this->UpdateEnemy();
 		this->isDestroyed = true;
 		return;
 	}

@@ -23,7 +23,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	switch (enemyDef)
 	{
 	case EDZOMBIE:
-	{
+ 	{
 		for (size_t i = 0; i < num; i++)
 		{
 			enemy = new Zombie();

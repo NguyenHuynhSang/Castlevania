@@ -11,6 +11,10 @@ void SpawnZone::Render()
 
 void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (stopSpawn)
+	{
+		return;
+	}
 	if (!this->isSpawn)
 	{
 		float camx, camy;

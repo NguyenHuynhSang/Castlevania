@@ -21,8 +21,8 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_CANDLE, L"Data\\GameObject\\Ground\\Candle.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_DOOR, L"Data\\GameObject\\Ground\\Door.png", D3DCOLOR_XRGB(255, 0, 255));
-	
-	
+
+
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -31,7 +31,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_STOPWATCH, L"Data\\GameObject\\Items\\StopWatch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_ROAST, L"Data\\GameObject\\Items\\ROAST.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_INVICIBILITYPOTION, L"Data\\GameObject\\Items\\INVICIBILITY_ITEM.png", D3DCOLOR_XRGB(255, 0, 255));
-	
+
 
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -103,7 +103,7 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Items\\InticibilityPotion_sprite.xml", texIPotion);
 	resource->LoadAnimations("Data\\GameObject\\Items\\InticibilityPotion_ani.xml", animations);
 
-	
+
 
 
 	LPDIRECT3DTEXTURE9 texAxe = textures->Get(ID_TEX_AXE);
@@ -191,6 +191,17 @@ void SceneManagement::CamUpdate(DWORD dt)
 		else
 		{
 			if (simon->CheckIsHitDoor()) {
+
+				for (size_t i = 0; i < this->spawnObjects.size(); i++)
+				{
+					SpawnZone * spawner = dynamic_cast<SpawnZone*>(spawnObjects[i]);
+					spawner->StopSpawnEnemy();
+				}
+				for (size_t i = 0; i < enemies.size(); i++)
+				{
+					enemies[i]->DestroyImmediate();
+				}
+
 				float camx, camy;
 				Camera::GetInstance()->GetCamera(camx, camy);
 				if (camx < sceneBox.right - 32 - SCREEN_WIDTH / 2) // move 255 px
@@ -551,7 +562,7 @@ void SceneManagement::LoadScene()
 		LoadObjects(GSCENE_01);
 		break;
 	case GSCENE_01_GH:
-		
+
 		cmap->LoadGameData("Data\\Map\\Great_Hall_map.tmx", textures->Get(ID_TEX_TILESET_2));
 		grid = new Grid(cmap->GetMapWidth(), cmap->GetMapHeight());
 		LoadObjects(GSCENE_01_GH);
@@ -1010,7 +1021,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 		simon->SetState(SIMON_STATE_UPSTAIR_IDLE);
-	
+
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
@@ -1105,7 +1116,7 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 		simon->SetState(SIMON_STATE_UPSTAIR_IDLE);
-		
+
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);
@@ -1211,7 +1222,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			}
 
 		}
-		
+
 
 
 		auto camObject = cmap->GetObjects().find(ID_TILE_OBJECT_CAMBOUNDBOX);

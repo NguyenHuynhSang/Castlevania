@@ -2210,7 +2210,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#aa55ff" id="6" name="SpawnZone" visible="0" locked="1">
+ <objectgroup color="#aa55ff" id="6" name="SpawnZone">
   <object id="168" name="SpawnBat" x="3077.83" y="33.3333" width="893" height="150">
    <properties>
     <property name="enemydef" type="int" value="2"/>
@@ -2235,7 +2235,7 @@
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="174" x="4437.83" y="124" width="251" height="64">
+  <object id="174" x="4418.83" y="124" width="251" height="64">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="1"/>
@@ -2247,7 +2247,7 @@
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="respawntime" type="int" value="6000"/>
+    <property name="respawntime" type="int" value="7000"/>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
@@ -2255,7 +2255,7 @@
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="respawntime" type="int" value="6000"/>
+    <property name="respawntime" type="int" value="7000"/>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
