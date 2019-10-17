@@ -1,9 +1,9 @@
 #pragma once
 #include"SubWeapon.h"
 
-#define AXE_GRAVITY 0.0018f
+#define AXE_GRAVITY 0.001f
 #define AXE_SPEED_VX 0.2f
-#define AXE_SPEED_VY 0.6f
+#define AXE_SPEED_VY 0.45f
 
 #define AXE_BBOX_WIDTH 30
 #define AXE_BBOX_HEIGHT 28

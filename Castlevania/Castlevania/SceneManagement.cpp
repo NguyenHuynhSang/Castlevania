@@ -192,16 +192,15 @@ void SceneManagement::CamUpdate(DWORD dt)
 		{
 			if (simon->CheckIsHitDoor()) {
 
+
+
+				// Có gì đó sai sai chỗ này làm game crash
 				for (size_t i = 0; i < this->spawnObjects.size(); i++)
 				{
 					SpawnZone * spawner = dynamic_cast<SpawnZone*>(spawnObjects[i]);
-					spawner->StopSpawnEnemy();
+					spawner->DestroyImmediate();
 				}
-				for (size_t i = 0; i < enemies.size(); i++)
-				{
-					enemies[i]->DestroyImmediate();
-				}
-
+				spawnObjects.clear();
 				float camx, camy;
 				Camera::GetInstance()->GetCamera(camx, camy);
 				if (camx < sceneBox.right - 32 - SCREEN_WIDTH / 2) // move 255 px
@@ -426,7 +425,13 @@ void SceneManagement::Update(DWORD dt)
 		}
 		else ++it;
 	}
+	for (vector<LPGAMEOBJECT>::iterator it = spawnObjects.begin(); it != spawnObjects.end(); ) {
 
+		if ((*it)->isDestroyed) {
+			it = spawnObjects.erase(it);
+		}
+		else ++it;
+	}
 }
 void SceneManagement::Render()
 {

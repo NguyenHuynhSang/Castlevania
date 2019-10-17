@@ -56,7 +56,7 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	//RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
 }
 
@@ -266,7 +266,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 			}
 			else {
-				SetState(SIMON_STATE_IDLE);
+				this->state=SIMON_STATE_IDLE;
 			}
 			whip->ResetLastFrame();
 			ResetSpriteFrame();
@@ -981,10 +981,10 @@ void CSimon::SimonUseSubWeapon()
 
 void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	left = x + 12;
+	left = x + 13;
 	top = y;
 
-	right = left + SIMON_BIG_BBOX_WIDTH;
+	right = left + SIMON_BIG_BBOX_WIDTH-2;
 	bottom = top + SIMON_BIG_BBOX_HEIGHT;
 
 
