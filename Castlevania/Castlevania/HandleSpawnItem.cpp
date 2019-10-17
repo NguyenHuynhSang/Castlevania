@@ -8,7 +8,7 @@
 #include"AxeItem.h"
 #include"IStopWatch.h"
 #include"PorkChop.h"
-
+#include"InvisibilityPotion.h"
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
@@ -101,7 +101,13 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		scene->SpawnItem(item);
 		break;
 	}
-	
+	case ITDIPOTION: {
+		item = new InvisibilityPotion();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+		break;
+	}
 	}
 }
 

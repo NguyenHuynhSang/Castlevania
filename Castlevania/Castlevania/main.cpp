@@ -67,7 +67,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDAXE, sx, sy - 64, false);
 		break;
 	case DIK_4:
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDSTOPWATCH, sx, sy - 64, false);
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDIPOTION, sx, sy - 64, false);
 		break;
 	case DIK_5:
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDROAST, sx, sy - 64, false);

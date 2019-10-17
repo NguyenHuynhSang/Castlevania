@@ -267,6 +267,9 @@
     <ClInclude Include="Hud.h">
       <Filter>Hub</Filter>
     </ClInclude>
+    <ClInclude Include="InvisibilityPotion.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -451,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="Hud.cpp">
       <Filter>Hub</Filter>
+    </ClCompile>
+    <ClCompile Include="InvisibilityPotion.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

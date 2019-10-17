@@ -21,6 +21,8 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TORCH, L"Data\\GameObject\\Ground\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_CANDLE, L"Data\\GameObject\\Ground\\Candle.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_DOOR, L"Data\\GameObject\\Ground\\Door.png", D3DCOLOR_XRGB(255, 0, 255));
+	
+	
 	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -28,6 +30,9 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_AXE, L"Data\\GameObject\\Items\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_STOPWATCH, L"Data\\GameObject\\Items\\StopWatch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_ROAST, L"Data\\GameObject\\Items\\ROAST.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_INVICIBILITYPOTION, L"Data\\GameObject\\Items\\INVICIBILITY_ITEM.png", D3DCOLOR_XRGB(255, 0, 255));
+	
+
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -93,6 +98,12 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texItemRoast = textures->Get(ID_TEX_ITEM_ROAST);
 	resource->LoadSprites("Data\\GameObject\\Items\\Roast_sprite.xml", texItemRoast);
 	resource->LoadAnimations("Data\\GameObject\\Items\\Roast_ani.xml", animations);
+
+	LPDIRECT3DTEXTURE9 texIPotion = textures->Get(ID_TEX_ITEM_INVICIBILITYPOTION);
+	resource->LoadSprites("Data\\GameObject\\Items\\InticibilityPotion_sprite.xml", texIPotion);
+	resource->LoadAnimations("Data\\GameObject\\Items\\InticibilityPotion_ani.xml", animations);
+
+	
 
 
 	LPDIRECT3DTEXTURE9 texAxe = textures->Get(ID_TEX_AXE);

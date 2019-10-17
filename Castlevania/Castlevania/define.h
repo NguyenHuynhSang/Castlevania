@@ -42,6 +42,9 @@
 #define ID_TEX_ITEM_AXE      504
 #define ID_TEX_ITEM_STOPWATCH 505
 #define ID_TEX_ITEM_ROAST   506
+#define ID_TEX_ITEM_INVICIBILITYPOTION   507
+
+
 
 #define ID_TEX_EFFECT_FLAME 600
 #define ID_TEX_EFFECT_DEBRIS 601
@@ -129,7 +132,8 @@ const enum ItemID {
 	ITDMONEYBAGRED,
 	ITDAXE,
 	ITDSTOPWATCH,
-	ITDROAST
+	ITDROAST,
+	ITDIPOTION, //InticibilityPotion
 };
 
 const enum StairDir {

@@ -50,6 +50,7 @@
     <ClInclude Include="Heart.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="InputController.h" />
+    <ClInclude Include="InvisibilityPotion.h" />
     <ClInclude Include="IStopWatch.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LargeHeart.h" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="InputController.cpp" />
+    <ClCompile Include="InvisibilityPotion.cpp" />
     <ClCompile Include="IStopWatch.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LargeHeart.cpp" />
