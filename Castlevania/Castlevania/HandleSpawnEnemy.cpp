@@ -26,6 +26,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
  	{
 		for (size_t i = 0; i < num; i++)
 		{
+			DebugOut(L" spawn Zombie \n");
 			enemy = new Zombie();
 			enemy->SetNx(nx);
 			int rank = rand() % 2;
@@ -37,7 +38,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 			else
 			{
 				enemy->SetPositionInWorld(cx - i * 50 - 34, y);
-				enemy->SetNx(1);
+				enemy->SetNx(-1); // debug (1)
 
 			}
 			scene->SpawnEnemy(enemy);

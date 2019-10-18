@@ -2210,7 +2210,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#aa55ff" id="6" name="SpawnZone" visible="0">
+ <objectgroup color="#aa55ff" id="6" name="SpawnZone">
   <object id="168" name="SpawnBat" x="3077.83" y="33.3333" width="893" height="150">
    <properties>
     <property name="enemydef" type="int" value="2"/>
@@ -2254,7 +2254,7 @@
   <object id="201" name="SpawnZombie" x="2304.5" y="31" width="755" height="286">
    <properties>
     <property name="enemydef" type="int" value="0"/>
-    <property name="num" type="int" value="3"/>
+    <property name="num" type="int" value="1"/>
     <property name="respawntime" type="int" value="7000"/>
     <property name="scenedef" type="int" value="1"/>
    </properties>
@@ -2552,7 +2552,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#aaaa7f" id="14" name="Brick">
+ <objectgroup color="#aaaa7f" id="14" name="Brick" visible="0">
   <object id="151" name="Brick" type="Brick" gid="188" x="2016.25" y="224" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="0"/>

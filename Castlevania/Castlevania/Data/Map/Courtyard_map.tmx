@@ -584,6 +584,6 @@
   <object id="26" gid="155" x="1257.5" y="318" width="31" height="30"/>
  </objectgroup>
  <objectgroup id="10" name="Castle" visible="0">
-  <object id="28" gid="158" x="1408" y="289" width="96" height="288"/>
+  <object id="28" gid="158" x="1407" y="288" width="96" height="288"/>
  </objectgroup>
 </map>

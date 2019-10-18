@@ -75,7 +75,10 @@ Fireball::Fireball(int nx) : Enemy()
 {
 	AddAnimation("FIREBALL_ANI");
 	this->nx = nx;
+	this->hp = 1;
+	this->score = 100;
 }
+
 
 
 Fireball::~Fireball()

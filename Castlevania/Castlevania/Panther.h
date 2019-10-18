@@ -1,8 +1,8 @@
 #pragma once
 #include"Enemy.h"
-#define PANTHER_GRAVITY 0.002f
-#define PANTHER_RUNNING_SPEED 0.28f
-#define PANTHER_JUMPING_SPEED 0.35f
+#define PANTHER_GRAVITY 0.001f
+#define PANTHER_RUNNING_SPEED 0.3f
+#define PANTHER_JUMPING_SPEED 0.2f
 
 #define PANTHER_STATE_LIEDOWN 0
 #define PANTHER_STATE_JUMP 100
@@ -32,7 +32,8 @@ public:
 		AddAnimation("PANTHER_ANI_JUMP");
 		AddAnimation("PANTHER_ANI_RUNNING");
 		this->isActive = false;
-
+		this->hp = 1;
+		this->score = 200;
 	};
 	~Panther();
 };

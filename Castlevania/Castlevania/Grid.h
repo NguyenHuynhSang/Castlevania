@@ -14,8 +14,8 @@ class Unit
 	LPGAMEOBJECT object;
 
 	// ds lien ket doi
-	Unit* prev_;
-	Unit* next_;
+	Unit* prev_=NULL;
+	Unit* next_ = NULL;
 public:
 	Unit(Grid * grid, LPGAMEOBJECT object);
 	LPGAMEOBJECT const  GetGameObject() {
@@ -40,6 +40,7 @@ private:
 	// mang 2 chieu luu unit
 	// trong cell co the co nhieu unit 
 	std::vector<std::vector<Unit *>> cells_;
+
 
 public:
 	void Add(Unit *unit);

@@ -983,16 +983,7 @@ void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom
 {
 	left = x + 13;
 	top = y;
-
 	right = left + SIMON_BIG_BBOX_WIDTH-2;
 	bottom = top + SIMON_BIG_BBOX_HEIGHT;
-
-
-
-
-	/*left += 10;
-	top += 10;*/
-
-	//	DebugOut(L"BBOX l=%f t=%f r=%f b=%f \n ",left, top,right,bottom);
 }
 

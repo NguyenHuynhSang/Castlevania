@@ -186,8 +186,11 @@ Fishman::Fishman() :Enemy()
 	AddAnimation("FISHMAN_ANI_WALKING");
 	AddAnimation("FISHMAN_ANI_SHOOTING");
 	this->SetState(FISHMAN_STATE_JUMP);
-	
+	this->hp = 1;
+	this->score = 300;
 }
+	
+
 
 
 Fishman::~Fishman()

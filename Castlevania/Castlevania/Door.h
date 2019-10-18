@@ -18,8 +18,24 @@
 
 class Door:public CGameObject
 {
+	bool doorClosed;
+	bool doorOpened;
 public:
 	virtual void Render();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
+	bool CheckIsDoorClosed() {
+		return this->doorClosed;
+
+	}
+	bool CheckIsDoorOpened() {
+		return this->doorOpened;
+	};
+
+	void ResetDoor() {
+		this->doorOpened = false;
+		this->doorClosed = false;
+	
+	};
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {
 	};

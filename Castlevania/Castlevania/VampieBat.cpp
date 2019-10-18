@@ -65,6 +65,8 @@ VampieBat::VampieBat(float oy) :Enemy()
 	AddAnimation("BAT_ANI_FLYING");
 	AddAnimation("BAT_ANI_IDLE");
 	this->oy = oy;
+	this->hp = 1;
+	this->score = 200;
 }
 
 

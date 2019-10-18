@@ -20,6 +20,21 @@ void Door::Render()
 	animations[ani]->Render(0, x, y);
 }
 
+void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	if (this->animations[DOOR_ANI_OPEN]->CheckAnimationDone())
+	{
+		this->doorClosed = false;
+		this->doorOpened = true;
+	}
+
+	if (this->animations[DOOR_ANI_CLOSING]->CheckAnimationDone())
+	{
+		this->doorClosed = true;
+		this->doorOpened = false;
+	}
+}
+
 
 
 void Door::GetBoundingBox(float & l, float & t, float & r, float & b)
@@ -41,6 +56,9 @@ Door::Door()
 	AddAnimation("DOOR_ANI_CLOSING", false);
 	animations[DOOR_ANI_OPEN]->ResetAnimation();
 	animations[DOOR_ANI_CLOSING]->ResetAnimation();
+
+	this->doorClosed = false;
+	this->doorClosed = false;
 }
 
 

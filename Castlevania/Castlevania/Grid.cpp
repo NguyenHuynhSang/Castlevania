@@ -2,6 +2,7 @@
 #include"Camera.h"
 #include"Item.h"
 #include"Enemy.h"
+#include"Candle.h"
 #include"SubWeapon.h"
 Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 	: grid_(gird),
@@ -20,7 +21,7 @@ Unit::~Unit()
 
 void Grid::Add(Unit * unit)
 {
-	
+
 	//tính vị trí của unit
 	int cellX = (int)(unit->x_ / this->cellSize);
 	int cellY = (int)(unit->y_ / this->cellSize);
@@ -35,6 +36,31 @@ void Grid::Add(Unit * unit)
 		unit->next_->prev_ = unit;
 	}
 
+	// thêm vào sau ds;
+	//unit->next_ = NULL;
+	//Unit * lastNode= cells_[cellY][cellX];
+	//if (cells_[cellY][cellX]==NULL)
+	//{
+	//	unit->prev_ = NULL;
+	//	cells_[cellY][cellX] = unit;
+	//}
+	//else
+	//{
+	//	while (lastNode->next_ != NULL)
+	//	{
+	//		lastNode = lastNode->next_;
+
+	//	}
+	//	unit->prev_ = lastNode;
+	//	if (unit->prev_ != NULL)
+	//	{
+	//		unit->prev_->next_ = unit;
+	//	}
+	//}
+	
+
+
+
 }
 
 
@@ -45,18 +71,18 @@ void Grid::Update(Unit * unit, float x, float y)
 
 	Camera::GetInstance()->GetCamera(cx_, cy_);
 
-	if (x>cx_ && x<cx_+SCREEN_WIDTH && y>0 && y< cy_+SCREEN_HEIGHT)
+	if (x > cx_ && x < cx_ + SCREEN_WIDTH && y>0 && y < cy_ + SCREEN_HEIGHT)
 	{
 		unit->GetGameObject()->SetActive();
 	}
-	if (x < -15 || x > mapWidth || y<0 || y > SCREEN_HEIGHT ) // -15px for bound map
+	if (x < -15 || x > mapWidth || y<0 || y > SCREEN_HEIGHT) // -15px for bound map
 	{
 		unit->GetGameObject()->DestroyImmediate();
 	}
 	if (unit->GetGameObject()->CheckActive())
 	{
-		
-		 if (x<cx_|| x>cx_ + SCREEN_WIDTH
+
+		if (x<cx_ || x>cx_ + SCREEN_WIDTH
 			|| y<cy_ || y>cy_ + SCREEN_HEIGHT)
 		{
 			if (dynamic_cast<Item *>(unit->GetGameObject())
@@ -115,6 +141,25 @@ void Grid::Update(Unit * unit, float x, float y)
 		return;
 	}
 
+	if (dynamic_cast<Enemy*>(unit->GetGameObject()))
+	{
+		if (cellY==1 && cellX==10)
+		{
+		
+			Unit * unitincell = this->cells_[cellY][cellX];
+			while (unitincell!=NULL)
+			{
+				if (dynamic_cast<Candle *>(unitincell->GetGameObject()))
+				{
+					DebugOut(L"Current cellY=%d cell X=%d \n", cellY, cellX);
+				}
+				unitincell = unitincell->next_;
+			}
+		
+	
+		}
+	
+	}
 	// bỏ liên kết của unit với cell cũ
 	if (unit->prev_ != NULL)
 	{
@@ -185,7 +230,7 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 	mapWidth(mapWidth),
 	mapHeight(mapHeight + 80)
 {
-	this->numXCell = ceil((float)this->mapWidth / this->cellSize)+1;
+	this->numXCell = ceil((float)this->mapWidth / this->cellSize) + 1;
 	this->numYCell = ceil((float)this->mapHeight / this->cellSize);
 	// clear grid
 
@@ -206,6 +251,7 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 
 void Grid::Render()
 {
+
 }
 
 void Grid::RemoveUnit(Unit* unit)

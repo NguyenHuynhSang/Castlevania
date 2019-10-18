@@ -191,14 +191,20 @@ void SceneManagement::CamUpdate(DWORD dt)
 		else
 		{
 			if (simon->CheckIsHitDoor()) {
-
-
-
-				// Có gì đó sai sai chỗ này làm game crash
 				for (size_t i = 0; i < this->spawnObjects.size(); i++)
 				{
 					SpawnZone * spawner = dynamic_cast<SpawnZone*>(spawnObjects[i]);
 					spawner->DestroyImmediate();
+				}
+				for (size_t i = 0; i < this->objects.size(); i++)
+				{
+					if (dynamic_cast<Enemy *>(objects[i]))
+					{
+						Enemy *e = dynamic_cast<Enemy *>(objects[i]);
+						e->DestroyImmediate();
+					}
+
+
 				}
 				spawnObjects.clear();
 				float camx, camy;
@@ -223,8 +229,12 @@ void SceneManagement::CamUpdate(DWORD dt)
 			{
 				simon->SetLastPosition(simon->x);
 			}
-			simon->SetAutoWalk(true);
-			simon->SetState(SIMON_STATE_WALKING_RIGHT);
+			if (door->CheckIsDoorOpened())
+			{
+				simon->SetAutoWalk(true);
+				simon->SetState(SIMON_STATE_WALKING_RIGHT);
+			}
+		
 			if (simon->SimonAutoWalkaStep(simon->GetLastPosition() + 150))
 			{
 				float camx, camy;
@@ -232,13 +242,17 @@ void SceneManagement::CamUpdate(DWORD dt)
 				if (camx < sceneBox.right - 32) // move 255 px
 				{
 					door->SetState(DOOR_STATE_CLOSING);
-					float camVx = 0.1f;
-					camx += camVx * dt;
-					Camera::GetInstance()->SetCamera(camx, camy);
+					if (door->CheckIsDoorClosed())
+					{
+						float camVx = 0.1f;
+						camx += camVx * dt;
+						Camera::GetInstance()->SetCamera(camx, camy);
+					}
+				
 				}
 				else
 				{
-
+					door->ResetDoor();
 					this->GoNextScene();
 				}
 			}
@@ -634,7 +648,7 @@ void SceneManagement::LoadObjects(int currentscene)
 			|| dynamic_cast<SubWeapon *>(objects.at(i))
 			)
 		{
-			continue;
+			continue; // tránh trường hợp con trỏ bị delete 2 lần
 		}
 		else
 		{
