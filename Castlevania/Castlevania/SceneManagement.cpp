@@ -489,7 +489,6 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 		for (auto object : this->objects)
 		{
 			if (dynamic_cast<Ground *>(object)
-				|| dynamic_cast<BoundMap *>(object)
 				|| dynamic_cast<Water *>(object))
 			{
 				coObjects.push_back(object);

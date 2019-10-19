@@ -88,7 +88,8 @@ void CGame::Draw(bool followCam,int nx, float x, float y, LPDIRECT3DTEXTURE9 tex
 	Camera::GetInstance()->GetCamera(camx, camy);
 	if (followCam)
 	{
-		p = { floor(x - camx), floor(y - camy), 0 };
+		p = { (float)floor(x - camx), (float)floor(y - camy), 0 };
+
 	}
 	else
 	{

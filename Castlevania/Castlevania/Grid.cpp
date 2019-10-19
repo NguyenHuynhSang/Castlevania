@@ -141,25 +141,6 @@ void Grid::Update(Unit * unit, float x, float y)
 		return;
 	}
 
-	if (dynamic_cast<Enemy*>(unit->GetGameObject()))
-	{
-		if (cellY==1 && cellX==10)
-		{
-		
-			Unit * unitincell = this->cells_[cellY][cellX];
-			while (unitincell!=NULL)
-			{
-				if (dynamic_cast<Candle *>(unitincell->GetGameObject()))
-				{
-					DebugOut(L"Current cellY=%d cell X=%d \n", cellY, cellX);
-				}
-				unitincell = unitincell->next_;
-			}
-		
-	
-		}
-	
-	}
 	// bỏ liên kết của unit với cell cũ
 	if (unit->prev_ != NULL)
 	{
@@ -196,7 +177,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 {
 	float camx, camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
-	int startCol = camx / this->cellSize;
+	int startCol = (int)camx / this->cellSize;
 	startCol = startCol > 0 ? startCol + -1 : 0;
 	int endCol = ((int)camx + SCREEN_WIDTH) / this->cellSize;
 	endCol = endCol > numXCell ? numXCell : endCol + 1;

@@ -68,7 +68,6 @@ void CAnimation::Render(int nx, float x, float y, int alpha)
 			lastFrameTime = now;
 			if (currentFrame == frames.size()) {
 				if (!this->isLoop) {
-					DebugOut(L"Animation done \n");
 					this->isDone = true;
 					this->currentFrame--; 
 				}

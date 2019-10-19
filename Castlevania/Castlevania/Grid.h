@@ -2,7 +2,7 @@
 #include<vector>
 #include"GameObject.h"
 #include<vector>
-#define CELL_SIZE  240
+#define CELL_SIZE  256
 class Grid;
 class Unit
 {

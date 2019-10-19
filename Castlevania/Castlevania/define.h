@@ -175,3 +175,11 @@ const enum class DIRECTION {
 	DOWN,
 };
 #endif
+
+
+
+
+
+#ifdef ENEMY DEFINE
+
+#endif // ENEMY DEFINE

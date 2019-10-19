@@ -10,6 +10,7 @@ private:
 	bool isSpawn = false;
 	bool spawnPanther = false;
 	bool stopSpawn = false;
+	bool firstSpawn;
 public:
 	void StopSpawnEnemy() {
 		this->stopSpawn = true;
