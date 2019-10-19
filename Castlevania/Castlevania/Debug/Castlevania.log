@@ -1,3 +1,5 @@
-﻿  main.cpp
-D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(123,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+﻿  Simon.cpp
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(126,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(683,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(688,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

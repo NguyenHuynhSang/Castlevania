@@ -107,13 +107,16 @@ class CSimon : public CGameObject
 public:
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
-			= isActack = isAutoWalk = isJumping =isHitDoor= isUseSubWeapon = false;
+			= isActack = isAutoWalk = isJumping = isHitDoor = isUseSubWeapon = false;
 		this->stepOnStairDirection = -1;
-		this->lastState = -1; 
+		this->lastState = -1;
 		this->delay_attack_start = 0;
 		this->attack_start = 0;
 		this->untouchable_start = 0;
 		this->untouchable = 0;
+
+	
+
 	}
 
 	int GetHP() {
@@ -121,11 +124,11 @@ public:
 	}
 	int SetHP(float hp) {
 		this->hp_ = hp;
-		if (this->hp_>SIMON_MAX_HP)
+		if (this->hp_ > SIMON_MAX_HP)
 		{
 			this->hp_ = SIMON_MAX_HP;
 		}
-		else if (this->hp_<0)
+		else if (this->hp_ < 0)
 		{
 			this->hp_ = 0;
 		}
@@ -137,7 +140,7 @@ public:
 	void SetEnery(int enery) {
 
 		this->enery_ = enery;
-		if (this->enery_>SIMON_MAX_ENERY)
+		if (this->enery_ > SIMON_MAX_ENERY)
 		{
 			this->enery_ = SIMON_MAX_ENERY;
 		}
@@ -243,7 +246,7 @@ public:
 	bool CheckIsJumping() { return this->isJumping; }
 	CSimon();
 	~CSimon();
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void ResetPowerUpTime() {
 		this->upwhip_start = 0;
@@ -271,14 +274,12 @@ public:
 		else
 		{
 			SetState(SIMON_STATE_STAND_ATTACK);
-		
+
 		}
 		this->attack_start = GetTickCount();
 		this->isUseSubWeapon = true;
-		this->animations[SIMON_ANI_STAND_ATTACK]->ResetAnimation();
-		this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
-		this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
-		
+
+
 	}
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartActack() {
@@ -288,13 +289,13 @@ public:
 	void SetLastState(int state) {
 		this->lastState = state;
 	}
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void ResetSpriteFrame() {
 		this->ResetFrame(SIMON_ANI_STAND_ATTACK);
 		this->ResetFrame(SIMON_ANI_SIT_ATTACK);
 		whip->ResetAnimationFrame();
 	}
-	virtual void GetSpriteBox(float &width, float &height) {
+	virtual void GetSpriteBox(float& width, float& height) {
 		width = SIMON_SPRITE_BOX_WIDTH; height = SIMON_SPRITE_BOX_HEIGHT;
 	}
 
@@ -302,7 +303,7 @@ public:
 
 enum class STAIRDIRECTION
 {
-	DEFAULT, 
+	DEFAULT,
 	UPLEFT,
 	UPRIGHT,
 	DOWNLEFT,

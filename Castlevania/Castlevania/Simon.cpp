@@ -251,6 +251,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	if (this->isActack &&!this->isAutoWalk) {
+		DebugOut(L"\n ATTACK");
 		if (whip->CheckLastFrame()) {
 			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
 			this->isActack = false;
@@ -284,7 +285,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		whip->SetDirection(nx);
 	}
 	if (this->startOnStair) {
-		DebugOut(L"trigger \n");
 		if (!this->isFirstStepOnStair)
 			HandleFirstStepOnStair();
 		else {
@@ -535,7 +535,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (ny != 0) vy = 0;
 
 				(e->obj)->isDestroyed = true;
-
+				this->isActack = false; // còn đánh thì dừng để k bị lock control
+				ResetSpriteFrame();
+				ResetActack_Time();
 				this->SetAutoWalk(true);
 				SetState(SIMON_STATE_WALKING_RIGHT);
 				break; // khong xet tiep va cham voi cac object khac
@@ -622,6 +624,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->isOnStair = false;
 						this->startOnStair = false;
 						this->isFirstStepOnStair = false;
+						this->isActack = false;
 						return;
 
 
