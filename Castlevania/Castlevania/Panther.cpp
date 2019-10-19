@@ -32,14 +32,14 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (!this->isActive)
 	{
-		if (this->nx==-1)
+		if (this->nx== DIRECTION::LEFT)
 		{
 			if (state == PANTHER_STATE_LIEDOWN && this->x < Camera::GetInstance()->GetCamera().x + SCREEN_WIDTH / 2 + 150) {
 				SetState(PANTHER_STATE_RUNNING);
 				this->isActive = true;
 			}
 		}
-		else {
+		else if(this->nx== DIRECTION::RIGHT){
 			if (state == PANTHER_STATE_LIEDOWN && this->x > Camera::GetInstance()->GetCamera().x +60) {
 				SetState(PANTHER_STATE_RUNNING);
 				this->isActive = true;
@@ -87,7 +87,8 @@ void Panther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (e->ny == -1) {
 					if (state  == PANTHER_STATE_JUMP)
 					{
-						this->nx = -this->nx; // đổi hướng
+						if (this->nx == DIRECTION::RIGHT) this->nx = DIRECTION::LEFT;
+						else if (this->nx == DIRECTION::LEFT) this->nx = DIRECTION::RIGHT;
 						this->SetState(PANTHER_STATE_RUNNING);
 						//vx = -PANTHER_RUNNING_SPEED;
 					}
@@ -155,7 +156,8 @@ void Panther::SetState(int state)
 		vy = -PANTHER_JUMPING_SPEED;
 		break;
 	case PANTHER_STATE_RUNNING:
-		vx = nx > 0 ? PANTHER_RUNNING_SPEED : -PANTHER_RUNNING_SPEED;
+		if (nx == DIRECTION::RIGHT) vx = PANTHER_RUNNING_SPEED;
+		else if (nx == DIRECTION::LEFT) vx = -PANTHER_RUNNING_SPEED;
 		// truyền vy vào để xét va chạm theo trục y tức là nó vẫn sẽ
 		//trả về va chạm khi đang trên ground
 		//dùng để check k còn trên ground => jump

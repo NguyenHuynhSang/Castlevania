@@ -26,7 +26,7 @@ private:
 public:
 	void SetDamage(int damage) { this->damage = damage; }
 	UINT GetDamage() { return damage; }
-	void SetDirection(int nx) { this->nx = nx; }
+	void SetDirection(DIRECTION nx) { this->nx = nx; }
 	void UpWhip() {
 		this->state++;
 		//this->state = WHIP_STATE_CHAIN;

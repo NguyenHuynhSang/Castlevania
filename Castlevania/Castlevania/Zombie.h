@@ -18,7 +18,7 @@ public:
 
 	Zombie() :Enemy() {
 		AddAnimation("ZOMBIE_ANI_WALKING");
-		nx = -1;
+		nx = DIRECTION::LEFT;
 		this->hp = 1;
 		this->score = 100;
 

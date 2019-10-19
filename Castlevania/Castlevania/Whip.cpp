@@ -23,9 +23,9 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 	{
 
 		LPGAMEOBJECT e = colliable_objects->at(i);
-		if (dynamic_cast<Torch *>(e))
+		if (dynamic_cast<Torch*>(e))
 		{
-			Torch * f = dynamic_cast<Torch*> (e);
+			Torch* f = dynamic_cast<Torch*> (e);
 			if (CGameObject::IsColliding(this, f))
 			{
 				if (!f->CheckDestroyed()) {
@@ -36,9 +36,9 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			}
 
 		}
-		else if (dynamic_cast<CBrick *>(e))
+		else if (dynamic_cast<CBrick*>(e))
 		{
-			CBrick * f = dynamic_cast<CBrick*> (e);
+			CBrick* f = dynamic_cast<CBrick*> (e);
 			if (CGameObject::IsColliding(this, f))
 			{
 				if (!f->CheckDestroyed()) {
@@ -48,9 +48,9 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 
 			}
 		}
-		else if (dynamic_cast<Candle *>(e))
+		else if (dynamic_cast<Candle*>(e))
 		{
-			Candle * f = dynamic_cast<Candle*> (e);
+			Candle* f = dynamic_cast<Candle*> (e);
 			if (CGameObject::IsColliding(this, f))
 			{
 				if (!f->CheckDestroyed()) {
@@ -61,14 +61,14 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			}
 
 		}
-		else if (dynamic_cast<Enemy *>(e)) {
-			Enemy * f = dynamic_cast<Enemy*> (e);
+		else if (dynamic_cast<Enemy*>(e)) {
+			Enemy* f = dynamic_cast<Enemy*> (e);
 			if (CGameObject::IsColliding(this, f)) {
 				if (!f->isDestroyed)
 				{
 					f->SetDestroy();
 				}
-				
+
 			}
 
 		}
@@ -109,13 +109,13 @@ bool Whip::CheckLastFrame()
 
 
 
-void Whip::GetBoundingBox(float & l, float & t, float & r, float & b)
+void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	if (nx > 0) {
+	if (nx == DIRECTION::RIGHT) {
 		l = x + 60 * 2 + 12;
 		t = y + 12;
 	}
-	else {
+	else if (nx == DIRECTION::LEFT) {
 		if (state != WHIP_STATE_MORNINGSTAR)
 			l = x + 55 - 4;
 		else

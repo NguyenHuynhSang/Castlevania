@@ -1,13 +1,28 @@
-#pragma once
-
-#include <Windows.h>
-class InputController
+﻿#pragma once
+#include <d3d9.h>
+#include <d3dx9.h>
+#include"Simon.h"
+#include"Game.h"
+#include"SceneManagement.h"
+#include"CKeyEventHandler.h"
+class InputController : public CKeyEventHandler
 {
+private:
+	SceneManagement* scene;
+	CSimon* player;
+	CGame* game;
+
+
+
 public:
-	virtual void KeyState(BYTE *state) = 0;
-	virtual void OnKeyDown(int KeyCode) = 0;
-	virtual void OnKeyUp(int KeyCode) = 0;
 	InputController();
-	~InputController();
+	void Init(SceneManagement* scene, CSimon* player) {
+		game = CGame::GetInstance();
+		this->scene = scene;
+		this->player = player;
+	}
+	virtual void KeyState(BYTE* states);
+	virtual void OnKeyDown(int KeyCode);
+	virtual void OnKeyUp(int KeyCode);
 };
 

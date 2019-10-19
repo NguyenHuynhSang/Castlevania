@@ -270,6 +270,9 @@
     <ClInclude Include="InvisibilityPotion.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
+    <ClInclude Include="CKeyEventHandler.h">
+      <Filter>Framework\Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -457,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="InvisibilityPotion.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyEventHandler.cpp">
+      <Filter>Framework\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

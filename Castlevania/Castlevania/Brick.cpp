@@ -26,8 +26,8 @@ void CBrick::Render()
 	{
 		ani = BRICK_ANI_BREAKING;
 	}
-	animations[ani]->Render(0,x, y);
-	RenderBoundingBox();
+	animations[ani]->Render(DIRECTION::DEFAULT,x, y);
+	//RenderBoundingBox();
 }
 
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

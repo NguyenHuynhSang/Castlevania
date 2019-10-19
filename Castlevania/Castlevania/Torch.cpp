@@ -6,8 +6,8 @@ void Torch::Render()
 	if (this->setDestroy) {
 		return;
 	}
-	animations[0]->Render(0, x, y);
-	RenderBoundingBox();
+	animations[0]->Render(DIRECTION::DEFAULT, x, y);
+	//RenderBoundingBox();
 
 }
 

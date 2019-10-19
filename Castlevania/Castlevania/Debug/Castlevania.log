@@ -1,7 +1,3 @@
-﻿  HandleSpawnEnemy.cpp
-D:\Git\Castlevania\Castlevania\Castlevania\define.h(183,1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+﻿  main.cpp
 D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(123,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\HandleSpawnEnemy.cpp(27,24): warning C4018: '<': signed/unsigned mismatch
-D:\Git\Castlevania\Castlevania\Castlevania\HandleSpawnEnemy.cpp(52,24): warning C4018: '<': signed/unsigned mismatch
-D:\Git\Castlevania\Castlevania\Castlevania\HandleSpawnEnemy.cpp(78,24): warning C4018: '<': signed/unsigned mismatch
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

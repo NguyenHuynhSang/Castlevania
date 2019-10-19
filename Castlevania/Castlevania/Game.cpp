@@ -81,7 +81,7 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(bool followCam,int nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(bool followCam, DIRECTION nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 	D3DXVECTOR3 p;
 	float camx,camy;
@@ -109,7 +109,7 @@ void CGame::Draw(bool followCam,int nx, float x, float y, LPDIRECT3DTEXTURE9 tex
 	spriteHandler->GetTransform(&oldTransform);
 
 	D3DXVECTOR2 center = D3DXVECTOR2(p.x + (right - left) / 2, p.y + (bottom - top) / 2);
-	D3DXVECTOR2 rotate = D3DXVECTOR2(nx < 0 ? -1 : 1, 1);
+	D3DXVECTOR2 rotate = D3DXVECTOR2(nx == DIRECTION::LEFT ? -1 : 1, 1);
 
 	// Xây dựng một ma trận 2D lưu thông tin biến đổi (scale, rotate)
 	D3DXMatrixTransformation2D(&newTransform, &center, 0.0f, &rotate, NULL, 0.0f, NULL);
@@ -130,7 +130,7 @@ int CGame::IsKeyDown(int KeyCode)
 	return (keyStates[KeyCode] & 0x80) > 0;
 }
 
-void CGame::InitKeyboard(InputController* handler)
+void CGame::InitKeyboard(CKeyEventHandler* handler)
 {
 	HRESULT
 		hr = DirectInput8Create

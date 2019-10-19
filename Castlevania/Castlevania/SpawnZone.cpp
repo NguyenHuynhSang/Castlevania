@@ -34,11 +34,11 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			if (this->x > camx + SCREEN_WIDTH)
 			{
-				nx = -1;
+				nx = DIRECTION::LEFT;
 			}
 			else if (this->x + this->width < camx)
 			{
-				nx = 1;
+				nx = DIRECTION::RIGHT;
 			}
 		}
 		else
@@ -100,7 +100,7 @@ SpawnZone::SpawnZone(int enemyDef, int num, int time)
 	else
 		firstSpawn = true;
 	spawn_start = 0;
-	this->nx = -1;
+	this->nx = DIRECTION::LEFT;
 }
 
 

@@ -25,7 +25,14 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->isDestroyed = true;
 		return;
 	}
-	this->vx = AXE_SPEED_VX*nx;
+	if (nx== DIRECTION::RIGHT)
+	{
+		this->vx = AXE_SPEED_VX;
+	}
+	else if (nx == DIRECTION::LEFT) {
+		this->vx = AXE_SPEED_VX;
+	}
+	
 	vy += AXE_GRAVITY * dt;
 
 	CGameObject::Update(dt);

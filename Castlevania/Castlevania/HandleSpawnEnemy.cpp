@@ -10,7 +10,7 @@ HandleSpawnEnemy * HandleSpawnEnemy::__instance = NULL;
 
 
 
-void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, float x, float y, int nx, float oy)
+void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, float x, float y, DIRECTION nx, float oy)
 {
 	float cx, cy;
 	float px, py;
@@ -31,12 +31,12 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 			if (rank == 1)
 			{
 				enemy->SetPositionInWorld(cx + SCREEN_WIDTH + i * 50 + 34, y);
-				enemy->SetNx(-1);
+				enemy->SetNx(DIRECTION::LEFT);
 			}
 			else
 			{
 				enemy->SetPositionInWorld(cx - i * 50 - 34, y);
-				enemy->SetNx(1);
+				enemy->SetNx(DIRECTION::RIGHT);
 
 			}
 			scene->SpawnEnemy(enemy);
@@ -55,13 +55,13 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 			enemy = new Fishman();
 			if (rank == 1)
 			{
-				enemy->SetNx(1);
+				enemy->SetNx(DIRECTION::RIGHT);
 				enemy->SetPositionInWorld(cx + i * 100 + 180, y+68);
 				scene->SpawnEnemy(enemy);
 			}
 			else 
 			{
-				enemy->SetNx(-1);
+				enemy->SetNx(DIRECTION::LEFT);
 				enemy->SetPositionInWorld(cx + i * 100 + 150, y+68);
 				scene->SpawnEnemy(enemy);
 			}
@@ -82,12 +82,12 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 			if (rank == 1)
 			{
 				enemy->SetPositionInWorld(cx + SCREEN_WIDTH + i * 50 + 34, y);
-				enemy->SetNx(-1);
+				enemy->SetNx(DIRECTION::LEFT);
 			}
 			else
 			{
 				enemy->SetPositionInWorld(cx - i * 50 - 34, y);
-				enemy->SetNx(1);
+				enemy->SetNx(DIRECTION::RIGHT);
 
 			}
 		}
@@ -98,9 +98,9 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 		enemy = new Panther();
 		enemy->SetPositionInWorld(x,y);
 		if (x>px)
-			enemy->SetNx(-1); 
+			enemy->SetNx(DIRECTION::LEFT);
 		else
-			enemy->SetNx(1); 
+			enemy->SetNx(DIRECTION::RIGHT);
 		
 		DebugOut(L"Spawn Panther \n");
 		scene->SpawnEnemy(enemy);

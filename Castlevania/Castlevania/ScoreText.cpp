@@ -21,7 +21,7 @@ void ScoreText::Render()
 	{
 		ani = SCORETEXT_ANI_1000;
 	}
-	animations[ani]->Render(0, x, y);
+	animations[ani]->Render(DIRECTION::DEFAULT, x, y);
 }
 
 void ScoreText::GetBoundingBox(float & l, float & t, float & r, float & b)

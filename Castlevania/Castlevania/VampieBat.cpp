@@ -2,7 +2,7 @@
 #include"Camera.h"
 
 
-void VampieBat::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void VampieBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -12,7 +12,7 @@ void VampieBat::GetBoundingBox(float & left, float & top, float & right, float &
 
 void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isDestroyed )
+	if (this->isDestroyed)
 	{
 		return;
 	}
@@ -26,8 +26,9 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
+	if (nx == DIRECTION::RIGHT) vx = BAT_FLY_SPEED_X;
+	else if (nx == DIRECTION::LEFT) vx = -BAT_FLY_SPEED_X;
 
-	vx = nx* BAT_FLY_SPEED_X;
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -38,12 +39,12 @@ void VampieBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
-		y = BAT_OY_HEIGHT * sin(x*BAT_FLY_SPEED_Y) + oy;
+		y = BAT_OY_HEIGHT * sin(x * BAT_FLY_SPEED_Y) + oy;
 	}
 	else
 	{
 		x += dx;
-		y = BAT_OY_HEIGHT * sin(x*BAT_FLY_SPEED_Y) + oy; 
+		y = BAT_OY_HEIGHT * sin(x * BAT_FLY_SPEED_Y) + oy;
 	}
 	// clean up collision events
 	for (std::size_t i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -54,7 +55,7 @@ void VampieBat::Render()
 	animations[0]->Render(nx, x, y);
 }
 
-VampieBat::VampieBat():Enemy()
+VampieBat::VampieBat() :Enemy()
 {
 	AddAnimation("BAT_ANI_FLYING");
 	AddAnimation("BAT_ANI_IDLE");

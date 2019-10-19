@@ -26,7 +26,9 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	CGameObject::Update(dt);
-	this->vx = DAGGER_SPEED_X * nx;
+	if (nx == DIRECTION::RIGHT) 	this->vx = DAGGER_SPEED_X;
+	else if (nx == DIRECTION::LEFT) 	this->vx = -DAGGER_SPEED_X;
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -53,44 +55,44 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Torch *>(e->obj)) {
+			if (dynamic_cast<Torch*>(e->obj)) {
 
-				Torch *torch = dynamic_cast<Torch *>(e->obj);
+				Torch* torch = dynamic_cast<Torch*>(e->obj);
 				if (!torch->isDestroyed)
 				{
 					torch->SetDestroy();
 				}
 				this->SetDestroy();
 			}
-			else if (dynamic_cast<CBrick *>(e->obj)) {
+			else if (dynamic_cast<CBrick*>(e->obj)) {
 
-				CBrick *brick = dynamic_cast<CBrick *>(e->obj);
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 				if (!brick->isDestroyed)
 				{
 					brick->SetDestroy();
 				}
 				this->SetDestroy();
 			}
-			else if (dynamic_cast<Fireball *>(e->obj)) {
+			else if (dynamic_cast<Fireball*>(e->obj)) {
 
-				Fireball *fireball = dynamic_cast<Fireball *>(e->obj);
+				Fireball* fireball = dynamic_cast<Fireball*>(e->obj);
 				if (!fireball->isDestroyed)
 				{
 					fireball->SetDestroy();
 				}
 				this->SetDestroy();
 			}
-			else if (dynamic_cast<Candle *> (e->obj)) {
+			else if (dynamic_cast<Candle*> (e->obj)) {
 				this->SetDestroy();
-				Candle *candle = dynamic_cast<Candle *>(e->obj);
+				Candle* candle = dynamic_cast<Candle*>(e->obj);
 				if (!candle->isDestroyed)
 				{
 					candle->SetDestroy();
 				}
 			}
-			else if (dynamic_cast<Enemy *>(e->obj)) {
+			else if (dynamic_cast<Enemy*>(e->obj)) {
 
-				Enemy *z = dynamic_cast<Enemy  *>(e->obj);
+				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{
 					z->SetDestroy();
@@ -108,7 +110,7 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-void Dagger::GetBoundingBox(float & l, float & t, float & r, float & b)
+void Dagger::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;

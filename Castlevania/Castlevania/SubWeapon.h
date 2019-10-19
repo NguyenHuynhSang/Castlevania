@@ -7,7 +7,7 @@ protected:
 	unsigned int heartCostPerUse;
 public:
 	SubWeapon();
-	void SetNx(int nx) {
+	void SetNx(DIRECTION nx) {
 		this->nx = nx;
 	}
 	virtual void GetSpriteBox(float& _width, float& _height) {

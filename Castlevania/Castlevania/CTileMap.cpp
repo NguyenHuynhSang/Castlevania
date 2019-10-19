@@ -3,16 +3,16 @@
 #include"debug.h"
 #include"Game.h"
 #include"Camera.h"
-CTileMap * CTileMap::__instance = NULL;
+CTileMap* CTileMap::__instance = NULL;
 
-CTileMap *CTileMap::GetInstance()
+CTileMap* CTileMap::GetInstance()
 {
 	if (__instance == NULL) __instance = new CTileMap();
 	return __instance;
 }
 
 // chủ yếu lấy ra cái background layer nếu muốn lấy thêm cần cập nhật sau
-void CTileMap::LoadTileSets(const std::string & filePath)
+void CTileMap::LoadTileSets(const std::string& filePath)
 {
 	char* fileLoc = new char[filePath.size() + 1]; // 1
 
@@ -31,7 +31,7 @@ void CTileMap::LoadTileSets(const std::string & filePath)
 	xml_node<>* rootNode = doc.first_node("map");
 	LPTILESET tileSet;
 	//lấy toàn bộ thông tin tileset trong map
-	for (xml_node<> *child = rootNode->first_node("tileset"); child; child = child->next_sibling())
+	for (xml_node<>* child = rootNode->first_node("tileset"); child; child = child->next_sibling())
 	{
 		unsigned int firtGrid = 0, tilewidth = 0, tileheight = 0, tilecount = 0, columns = 0,
 			texwidth = 0, texheight = 0;
@@ -84,8 +84,8 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 	this->mapRow = mapRow;
 	this->tileWidth = tilewidth;
 	this->tileHeight = tileheight;
-	this->mapHeight = this->mapRow*this->tileWidth;
-	this->mapWidth = this->mapCol*this->tileHeight;
+	this->mapHeight = this->mapRow * this->tileWidth;
+	this->mapWidth = this->mapCol * this->tileHeight;
 	//lấy thông tin tilesheet
 	// chỉ lấy cái tileset đầu tiên
 	xml_node<>* tilesetNode = rootNode->first_node("tileset");
@@ -99,7 +99,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 
 
 
-	matrix = new int*[mapRow];
+	matrix = new int* [mapRow];
 	for (std::size_t i = 0; i < mapRow; i++)
 	{
 		matrix[i] = new int[mapCol];
@@ -113,7 +113,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 
 	int i = 0, j = 0;
 	//matran tile
-	for (xml_node<> *child = dataNode->first_node(); child; child = child->next_sibling()) {
+	for (xml_node<>* child = dataNode->first_node(); child; child = child->next_sibling()) {
 		int n = std::stoi(child->first_attribute("gid")->value());
 		//DebugOut(L"Grid=%d \n", n);
 		matrix[i][j] = n;
@@ -132,7 +132,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 		for (std::size_t j = 0; j < this->tileSheetCol; j++)
 		{
 
-			CSprites::GetInstance()->Add(std::to_string(id), j*this->tileHeight, i*this->tileHeight, j*this->tileHeight + this->tileHeight, i*this->tileHeight + this->tileHeight, texTileSet);
+			CSprites::GetInstance()->Add(std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
 			id++;
 		}
 	}
@@ -156,7 +156,7 @@ void CTileMap::Render()
 		for (int j = beginCol; j < endCol; j++)
 		{
 			int id = matrix[i][j];
-			CSprites::GetInstance()->Get(std::to_string(id))->Draw(0, j*this->tileHeight, i*this->tileHeight + GAME_WORLD_Y);
+			CSprites::GetInstance()->Get(std::to_string(id))->Draw(DIRECTION::DEFAULT, j * this->tileHeight, i * this->tileHeight + GAME_WORLD_Y);
 		}
 	}
 
@@ -181,13 +181,13 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	xml_node<>* rootNode = doc.first_node("map");
 	//xml_node<>* tileset = rootNode->first_node("tileset");
 	LPTILEOBJECT object;
-	ObjectLayer*objectLayer = ObjectLayer::GetInstance();
-	for (xml_node<> *child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
+	ObjectLayer* objectLayer = ObjectLayer::GetInstance();
+	for (xml_node<>* child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
 
 		int id = std::atoi(child->first_attribute("id")->value()); // lay ID
 		vector<LPTILEOBJECT> ObjectInGroup;
 		object = new TileObject();
-		for (xml_node<> *smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
+		for (xml_node<>* smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
 			int x = 0, y = 0, w = 0, h = 0;
 			string proName = "";
 			x = std::atoi(smailchild->first_attribute("x")->value());
@@ -204,7 +204,7 @@ void CTileMap::LoadObjects(const std::string& filePath)
 				continue;
 			}
 			else {
-				for (xml_node<> *prochild = propertiesNode->first_node(); prochild; prochild = prochild->next_sibling())
+				for (xml_node<>* prochild = propertiesNode->first_node(); prochild; prochild = prochild->next_sibling())
 				{
 					string name = std::string(prochild->first_attribute("name")->value());
 					int value = std::atoi(prochild->first_attribute("value")->value());

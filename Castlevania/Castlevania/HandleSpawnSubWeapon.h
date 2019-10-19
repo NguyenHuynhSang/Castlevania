@@ -1,5 +1,5 @@
 #pragma once
-
+#include"define.h"
 class SceneManagement;
 class HandleSpawnSubWeapon
 {
@@ -7,7 +7,7 @@ class HandleSpawnSubWeapon
 	SceneManagement* scene;
 public:
 
-	void SpawnSubWeapon(int subWeaponDef,float x,float y,int nx);
+	void SpawnSubWeapon(int subWeaponDef,float x,float y, DIRECTION nx);
 	HandleSpawnSubWeapon();
 	void Init(SceneManagement* scene);
 	~HandleSpawnSubWeapon();

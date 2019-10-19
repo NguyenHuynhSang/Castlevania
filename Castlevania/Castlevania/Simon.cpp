@@ -34,7 +34,7 @@ CSimon::CSimon() :CGameObject()
 	this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  1
 	this->AddAnimation("SIMON_ANI_SITTING");       // sit   2
 	this->AddAnimation("SIMON_ANI_STAND_ATTACK", false);       // stand attack   3
-	this->AddAnimation("SIMON_ANI_SIT_ATTACK",false);       // sit attack   4
+	this->AddAnimation("SIMON_ANI_SIT_ATTACK", false);       // sit attack   4
 	this->AddAnimation("SIMON_ANI_DEFLECT");    //5
 	this->AddAnimation("SIMON_ANI_IDLE_UPWHIP");    //6
 	this->AddAnimation("SIMON_ANI_IDLE_UPSTAIR");    //7
@@ -83,7 +83,8 @@ void CSimon::HandleFirstStepOnStair()
 		}
 		else {
 			if (state == SIMON_STATE_WALKING_LEFT) {
-				nx = -nx;
+				if (nx == DIRECTION::LEFT) nx = DIRECTION::RIGHT;
+				else if (nx == DIRECTION::RIGHT) nx = DIRECTION::LEFT;
 			}
 			this->isAutoWalk = false;
 			this->isOnStair = true;
@@ -108,7 +109,8 @@ void CSimon::HandleFirstStepOnStair()
 		}
 		else {
 			if (state == SIMON_STATE_WALKING_RIGHT) {
-				nx = -nx;
+				if (nx == DIRECTION::LEFT) nx = DIRECTION::RIGHT;
+				else if (nx == DIRECTION::RIGHT) nx = DIRECTION::LEFT;
 			}
 			this->isAutoWalk = false;
 			this->isOnStair = true;
@@ -132,7 +134,8 @@ void CSimon::HandleFirstStepOnStair()
 		}
 		else {
 			if (state == SIMON_STATE_WALKING_RIGHT) {
-				nx = -nx;
+				if (nx == DIRECTION::LEFT) nx = DIRECTION::RIGHT;
+				else if (nx == DIRECTION::RIGHT) nx = DIRECTION::LEFT;
 			}
 			this->isAutoWalk = false;
 			this->isOnStair = true;
@@ -156,7 +159,8 @@ void CSimon::HandleFirstStepOnStair()
 		}
 		else {
 			if (state == SIMON_STATE_WALKING_LEFT) {
-				nx = -nx; // đảo hướng simon
+				if (nx == DIRECTION::LEFT) nx = DIRECTION::RIGHT;
+				else if (nx == DIRECTION::RIGHT) nx = DIRECTION::LEFT;
 			}
 			this->isAutoWalk = false;
 			this->isOnStair = true;
@@ -230,7 +234,7 @@ void CSimon::HandleUseSubWeapon()
 
 bool CSimon::SimonAutoWalkaStep(float step)
 {
-	if (this->x>step)
+	if (this->x > step)
 	{
 		this->SetState(SIMON_STATE_IDLE);
 		return true;
@@ -241,12 +245,12 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 
 
-void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	if (this->isActack) {
+	if (this->isActack &&!this->isAutoWalk) {
 		if (whip->CheckLastFrame()) {
 			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
 			this->isActack = false;
@@ -266,7 +270,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 			}
 			else {
-				this->state=SIMON_STATE_IDLE;
+				this->state = SIMON_STATE_IDLE;
 			}
 			whip->ResetLastFrame();
 			ResetSpriteFrame();
@@ -326,7 +330,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	
+
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -336,7 +340,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	else
 	{
-	
+
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
@@ -347,7 +351,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Ground *>(e->obj)) {
+			if (dynamic_cast<Ground*>(e->obj)) {
 				if (e->ny < 0) {
 					if (this->isOnStair) {
 						x += dx;
@@ -378,13 +382,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						y += dy;
 					}
 					else {
-			
+
 						//if (nx != 0) vx = 0;
 						if (ny != 0) vy = 0;
 					}
 				}
 			}
-			else if (dynamic_cast<Water *>(e->obj)) {
+			else if (dynamic_cast<Water*>(e->obj)) {
 				if (e->nx != 0)
 				{
 					x += dx;
@@ -395,7 +399,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
 			}
-			else if (dynamic_cast<CBrick *>(e->obj))
+			else if (dynamic_cast<CBrick*>(e->obj))
 			{
 				if (e->nx != 0)
 				{
@@ -417,63 +421,63 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					y += dy;
 				}
 			}
-			else if (dynamic_cast<Torch *>(e->obj)) {
+			else if (dynamic_cast<Torch*>(e->obj)) {
 				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0)
 					y += dy;
 			}
-			else if (dynamic_cast<Candle *>(e->obj)) {
+			else if (dynamic_cast<Candle*>(e->obj)) {
 				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0)
 					y += dy;
 			}
-			else if (dynamic_cast<SpawnZone *>(e->obj))
+			else if (dynamic_cast<SpawnZone*>(e->obj))
 			{
 				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0)
 					y += dy;
 			}
-			else if (dynamic_cast<StairTrigger *>(e->obj)) {
+			else if (dynamic_cast<StairTrigger*>(e->obj)) {
 				if (e->nx != 0)
 					x += dx;
 				else if (e->ny != 0) {
 					if (e->ny < 0)
 					{
 						this->vy = 0.1f;
-						this->dy = this->vy*dt;
+						this->dy = this->vy * dt;
 					}
 					y += dy;
 				}
 
 			}
-			else if (dynamic_cast<Door *>(e->obj))
+			else if (dynamic_cast<Door*>(e->obj))
 			{
-				Door *door = dynamic_cast<Door *>(e->obj);
+				Door* door = dynamic_cast<Door*>(e->obj);
 				if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
 				{
 					this->isHitDoor = true;
 				}
 
 			}
-			else if (dynamic_cast<Enemy *>(e->obj)) {
+			else if (dynamic_cast<Enemy*>(e->obj)) {
 				if (untouchable_start == 0) {
-					Enemy *enemy = dynamic_cast<Enemy *>(e->obj);
+					Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_DEFLECT);
 						x += dx;
-						y += dy;	
+						y += dy;
 					}
 					if (untouchable != 1) {
-						StartUntouchable(); 
+						StartUntouchable();
 						break; // không xét tiếp va chạm khi defect
 					}
 				}
 				else {
-					if (e->nx!=0)
+					if (e->nx != 0)
 					{
 						x += dx;
 					}
@@ -482,12 +486,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						if (this->isJumping)
 						{
 							y += dy;
-						}	
+						}
 					}
 				}
 			}
-			else if (dynamic_cast<Item *>(e->obj)) {
-				Item *item = dynamic_cast<Item *>(e->obj);
+			else if (dynamic_cast<Item*>(e->obj)) {
+				Item* item = dynamic_cast<Item*>(e->obj);
 				if (item->CheckisHiding())
 				{
 					if (e->nx != 0)
@@ -497,7 +501,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 				else {
 					this->AddEnery(item->GetHeartPoint());
-					if (dynamic_cast<MorningStar *>(e->obj)) {
+					if (dynamic_cast<MorningStar*>(e->obj)) {
 						DebugOut(L"Morning star logic \n");
 						SetState(SIMON_STATE_POWERUP);
 						if (isActack) {
@@ -506,39 +510,39 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						}
 						StartPowerUp();
 					}
-					else if (dynamic_cast<DaggerItem *>(e->obj))
+					else if (dynamic_cast<DaggerItem*>(e->obj))
 					{
 						this->subWeaponDef = SWDDAGGER;
 					}
-					else if (dynamic_cast<AxeItem *>(e->obj))
+					else if (dynamic_cast<AxeItem*>(e->obj))
 					{
 						this->subWeaponDef = SWDAXE;
 					}
-					else if (dynamic_cast<IStopWatch *>(e->obj))
+					else if (dynamic_cast<IStopWatch*>(e->obj))
 					{
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
-					
+
 					if (!item->isDestroyed)
 					{
 						item->SetDestroy();
 					}
 				}
 			}
-			else if (dynamic_cast<Entry *>(e->obj)) {
+			else if (dynamic_cast<Entry*>(e->obj)) {
 				DebugOut(L"Entry \n");
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
 
 				(e->obj)->isDestroyed = true;
 
-				this->SetAutoWalk(true);	
+				this->SetAutoWalk(true);
 				SetState(SIMON_STATE_WALKING_RIGHT);
 				break; // khong xet tiep va cham voi cac object khac
 			}
-			else if (dynamic_cast<MoneyBagTrigger *>(e->obj)) {
+			else if (dynamic_cast<MoneyBagTrigger*>(e->obj)) {
 				DebugOut(L"Money bag \n");
-				MoneyBagTrigger *trigger = dynamic_cast<MoneyBagTrigger *>(e->obj);
+				MoneyBagTrigger* trigger = dynamic_cast<MoneyBagTrigger*>(e->obj);
 				trigger->isDestroyed = true;
 				if (this->isAutoWalk) return;
 				if (e->ny != 0) vy = 0;
@@ -548,8 +552,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
-					NextScene *nextscene = dynamic_cast<NextScene *>(e->obj);
-					nextscene->SetColliceWithPlayer(true);
+				NextScene* nextscene = dynamic_cast<NextScene*>(e->obj);
+				nextscene->SetColliceWithPlayer(true);
 			}
 		}
 
@@ -562,11 +566,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 
 		LPGAMEOBJECT e = coObjects->at(i);
-		if (dynamic_cast<Item *>(e))
+		if (dynamic_cast<Item*>(e))
 		{
 
-			Item * f = dynamic_cast<Item*> (e);
-	
+			Item* f = dynamic_cast<Item*> (e);
+
 			if (!f->CheckisHiding())
 			{
 				if (CGameObject::IsColliding(this, f))
@@ -575,7 +579,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					{
 						this->AddEnery(f->GetHeartPoint());
 					}
-					if (dynamic_cast<MorningStar *>(e)) {
+					if (dynamic_cast<MorningStar*>(e)) {
 						SetState(SIMON_STATE_POWERUP);
 						if (isActack) {
 							ResetActack_Time();
@@ -583,19 +587,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 						}
 						StartPowerUp();
 					}
-					else if (dynamic_cast<DaggerItem *>(e))
+					else if (dynamic_cast<DaggerItem*>(e))
 					{
 						this->subWeaponDef = SWDDAGGER;
 					}
-					else if (dynamic_cast<AxeItem *>(e))
+					else if (dynamic_cast<AxeItem*>(e))
 					{
 						this->subWeaponDef = SWDAXE;
 					}
-					else if (dynamic_cast<IStopWatch *>(e))
+					else if (dynamic_cast<IStopWatch*>(e))
 					{
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
-					
+
 					//DebugOut(L"aabb \n");
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
@@ -607,7 +611,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 		}
 		else if (dynamic_cast<StairTrigger*>(e)) {
-			StairTrigger * f = dynamic_cast<StairTrigger*> (e);
+			StairTrigger* f = dynamic_cast<StairTrigger*> (e);
 
 			if (CGameObject::IsColliding(this, f))
 			{
@@ -642,7 +646,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		else if (dynamic_cast<Enemy*>(e))
 		{
-			Enemy *f = dynamic_cast<Enemy *>(e);
+			Enemy* f = dynamic_cast<Enemy*>(e);
 			if (CGameObject::IsColliding(this, f))
 			{
 				if (untouchable_start == 0) {
@@ -661,7 +665,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
 
 				}
-				else if (e->nx == 0) {
+				else if (e->nx == DIRECTION::DEFAULT) {
 					y += dy;
 				}
 			}
@@ -673,19 +677,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		|| state == SIMON_STATE_UPSTAIR_ATTACK
 		|| state == SIMON_STATE_DOWNSTAIR_ATTACK) {
 
-		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y);
+		whip->SetWhipPosition(x - 1.5 * SIMON_SPRITE_BOX_WIDTH, y);
 	}
 
 	else if (state == SIMON_STATE_SIT_ATTACK)
 	{
-		whip->SetWhipPosition(x - 1.5*SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
+		whip->SetWhipPosition(x - 1.5 * SIMON_SPRITE_BOX_WIDTH, y + SIMON_SPRITE_BOX_HEIGHT / 4);
 	}
 
 	if (this->isUseSubWeapon)
 	{
 		if (!this->isSpawnSubWeapon)
 		{
-			if (this->subWeaponDef==SWDSTOPWATCH)
+			if (this->subWeaponDef == SWDSTOPWATCH)
 			{
 				this->AddEnery(-5);
 			}
@@ -693,7 +697,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			{
 				this->AddEnery(-1);
 			}
-			HandleSpawnSubWeapon::GetInstance()->SpawnSubWeapon(this->subWeaponDef,this->x,this->y,this->nx);
+			HandleSpawnSubWeapon::GetInstance()->SpawnSubWeapon(this->subWeaponDef, this->x, this->y, this->nx);
 			this->isSpawnSubWeapon = true;
 		}
 	}
@@ -787,8 +791,8 @@ void CSimon::Render()
 	{
 		if (vx == 0)
 		{
-			if (nx > 0) ani = SIMON_ANI_IDLE;
-			else ani = SIMON_ANI_IDLE;
+			if (nx == DIRECTION::RIGHT) ani = SIMON_ANI_IDLE;
+			else if (nx == DIRECTION::LEFT)ani = SIMON_ANI_IDLE;
 		}
 		else if (vx > 0)
 			ani = SIMON_ANI_WALKING;
@@ -815,7 +819,7 @@ void CSimon::SetState(int state)
 		}
 		else
 			vx = SIMON_WALKING_SPEED;
-		nx = 1;
+		nx = DIRECTION::RIGHT;
 		break;
 	case SIMON_STATE_WALKING_LEFT:
 		if (this->isAutoWalk) {
@@ -823,7 +827,7 @@ void CSimon::SetState(int state)
 		}
 		else
 			vx = -SIMON_WALKING_SPEED;
-		nx = -1;
+		nx = DIRECTION::LEFT;
 		break;
 	case SIMON_STATE_JUMP:
 	{
@@ -834,24 +838,24 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_UPSTAIR_RIGHT: {
 		vy = -SIMON_UPSTAIR_VELOCITY;
 		vx = SIMON_UPSTAIR_VELOCITY;
-		nx = 1;
+		nx = DIRECTION::RIGHT;
 		break;
 	}
 	case SIMON_STATE_DOWNSTAIR_RIGHT: {
 		vy = SIMON_UPSTAIR_VELOCITY;
 		vx = SIMON_UPSTAIR_VELOCITY;
-		nx = 1;
+		nx = DIRECTION::RIGHT;
 		break;
 	}
 	case SIMON_STATE_UPSTAIR_LEFT: {
-		nx = -1;
+		nx = DIRECTION::LEFT;
 		vy = -SIMON_UPSTAIR_VELOCITY;
 		vx = -SIMON_UPSTAIR_VELOCITY;
 		break;
 	}
 	case SIMON_STATE_DOWNSTAIR_LEFT: {
 		DebugOut(L"State SIMON_STATE_DOWNSTAIR_LEFT \n");
-		nx = -1;
+		nx = DIRECTION::LEFT;
 		vy = SIMON_UPSTAIR_VELOCITY;
 		vx = -SIMON_UPSTAIR_VELOCITY;
 		break;
@@ -863,18 +867,18 @@ void CSimon::SetState(int state)
 		this->isOnStair = true;
 		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
 		this->startOnStair = false; // cho phép nhấn tiếp
-		if (nx > 0)
+		if (nx == DIRECTION::RIGHT)
 		{
 			this->stepOnStairDirection = DIR_DOWNRIGHT;
 		}
-		else
+		else if (nx == DIRECTION::LEFT)
 		{
 			this->stepOnStairDirection = DIR_DOWNLEFT;
 		}
 		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK
 			&& this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK)
 		{
-		this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
+			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
 		}
 		else
 		{
@@ -891,15 +895,15 @@ void CSimon::SetState(int state)
 		this->startOnStair = false; // cho phép nhấn tiếp
 		//tránh trường hợp khi simon attack y thay đổi làm floor
 		// làm tròn xuống 1px
-		if (nx > 0)
+		if (nx == DIRECTION::RIGHT)
 		{
 			this->stepOnStairDirection = DIR_UPRIGHT;
 		}
-		else
+		else if (nx == DIRECTION::LEFT)
 		{
 			this->stepOnStairDirection = DIR_UPLEFT;
 		}
-		if (this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK 
+		if (this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK
 			&& this->lastState != SIMON_STATE_UPSTAIR_ATTACK)
 		{
 			this->LastStepOnStairPos = { floor(this->x),floor(this->y) };
@@ -975,15 +979,15 @@ void CSimon::SetState(int state)
 
 void CSimon::SimonUseSubWeapon()
 {
-	
+
 
 }
 
-void CSimon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x + 13;
 	top = y;
-	right = left + SIMON_BIG_BBOX_WIDTH-2;
+	right = left + SIMON_BIG_BBOX_WIDTH - 2;
 	bottom = top + SIMON_BIG_BBOX_HEIGHT;
 }
 

@@ -3,10 +3,10 @@
 #include"Water.h"
 #include"HandleSpawnEffects.h"
 #include"HandleSpawnEnemy.h"
-void Fishman::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void Fishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
-	top = y+5;
+	top = y + 5;
 	right = x + FISHMAN_BBOX_WIDTH;
 	bottom = y + FISHMAN_BBOX_HEIGHT;
 }
@@ -29,10 +29,10 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//DebugOut(L"update \n");
 	CGameObject::Update(dt);
 
-	if (state==FISHMAN_ANI_WALKING)
+	if (state == FISHMAN_ANI_WALKING)
 	{
-		if (this->walking_start!=0
-			&&GetTickCount()-walking_start>FISHMAN_SHOOT_BULLES_TIME)
+		if (this->walking_start != 0
+			&& GetTickCount() - walking_start > FISHMAN_SHOOT_BULLES_TIME)
 		{
 			SetState(FISHMAN_STATE_SHOOTING);
 			this->walking_start = 0;
@@ -44,9 +44,9 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			&& GetTickCount() - shooting_start > FISHMAN_SHOOT_BULLES_TIME)
 		{
 			if ((rand() % 2) + 1 == 2)
-				this->nx = 1;
+				this->nx = DIRECTION::RIGHT;
 			else
-				this->nx = -1;
+				this->nx = DIRECTION::LEFT;
 			SetState(FISHMAN_ANI_WALKING);
 			this->shooting_start = 0;
 		}
@@ -76,7 +76,7 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Ground *>(e->obj)) {
+			if (dynamic_cast<Ground*>(e->obj)) {
 
 
 				if (e->ny != 0)
@@ -91,8 +91,8 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->isSetWalking = true;
 							DebugOut(L"Set state \n");
 						}
-						
-						
+
+
 					}
 					else {
 						x += dx;
@@ -104,16 +104,16 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (e->nx != 0)
 				{
 					x += dx;
-					
+
 				}
 
 			}
-			else if (dynamic_cast<Water *>(e->obj))
+			else if (dynamic_cast<Water*>(e->obj))
 			{
 				x += dx;
 				y += dy;
 				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
-		
+
 			}
 			else {
 				if (e->nx != 0)
@@ -140,7 +140,7 @@ void Fishman::Render()
 	}
 	else if (state == FISHMAN_STATE_WALKING)
 	{
-	
+
 		ani = FISHMAN_ANI_WALKING;
 		animations[ani]->Render(nx, x, y);
 	}
@@ -165,7 +165,10 @@ void Fishman::SetState(int state)
 	case FISHMAN_STATE_WALKING:
 	{
 		walking_start = GetTickCount();
-		this->vx = nx * FISHMAN_WALKING_SPEED;
+		if (nx == DIRECTION::RIGHT)
+			this->vx = FISHMAN_WALKING_SPEED;
+		else if(nx== DIRECTION::LEFT)
+			this->vx = -FISHMAN_WALKING_SPEED;
 		break;
 	}
 	case FISHMAN_STATE_SHOOTING:
@@ -173,7 +176,7 @@ void Fishman::SetState(int state)
 		this->shooting_start = GetTickCount();
 		this->vx = 0;
 		this->vy = 0;
-		HandleSpawnEnemy::GetInstance()->SpawnEnemy(EDFIREBALL,1,0, this->x, this->y+5,this->nx);
+		HandleSpawnEnemy::GetInstance()->SpawnEnemy(EDFIREBALL, 1, 0, this->x, this->y + 5, this->nx);
 		break;
 	}
 
@@ -189,7 +192,7 @@ Fishman::Fishman() :Enemy()
 	this->hp = 1;
 	this->score = 300;
 }
-	
+
 
 
 

@@ -26,6 +26,7 @@
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CKeyEventHandler.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="DebrisBrick.h" />
@@ -92,6 +93,7 @@
     <ClCompile Include="BoundMap.cpp" />
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CKeyEventHandler.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="DebrisBrick.cpp" />

@@ -12,7 +12,7 @@ class HandleSpawnEnemy
 	SceneManagement* scene;
 	static HandleSpawnEnemy * __instance;
 public:
-	void SpawnEnemy(int enemydef, int num,DWORD respawntime,float x,float y,int nx=1,float oy=0);
+	void SpawnEnemy(int enemydef, int num,DWORD respawntime,float x,float y, DIRECTION nx = DIRECTION::RIGHT,float oy=0);
 	static HandleSpawnEnemy * GetInstance();
 	void FreezeEnemy(bool flag);
 	void Init(SceneManagement * scene);

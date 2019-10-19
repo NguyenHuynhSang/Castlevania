@@ -32,10 +32,13 @@
 #include"Door.h"
 #include"Hud.h"
 #include"Grid.h"
+#include"InputController.h"
 class SceneManagement
 {
 private:
 	CGame *game;
+
+
 	CSimon *simon;
 	Whip* whip;
 	Torch * torch;

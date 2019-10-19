@@ -16,7 +16,7 @@ void Candle::Render()
 	if (this->setDestroy) {
 		return;
 	}
-	animations[0]->Render(0, x, y);
+	animations[0]->Render(DIRECTION::DEFAULT, x, y);
 }
 
 void Candle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

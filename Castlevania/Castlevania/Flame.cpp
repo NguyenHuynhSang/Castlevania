@@ -6,7 +6,7 @@ void Flame::Render()
 {
 	if (this->isDestroyed) return;
 
-	animations[0]->Render(0, x, y);
+	animations[0]->Render(DIRECTION::DEFAULT, x, y);
 }
 
 void Flame::GetBoundingBox(float & l, float & t, float & r, float & b)

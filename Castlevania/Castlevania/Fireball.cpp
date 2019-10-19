@@ -2,7 +2,7 @@
 
 
 
-void Fireball::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void Fireball::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -12,7 +12,7 @@ void Fireball::GetBoundingBox(float & left, float & top, float & right, float & 
 
 void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->isDestroyed )
+	if (this->isDestroyed)
 	{
 		return;
 	}
@@ -28,7 +28,9 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CGameObject::Update(dt);
 
-		this->vx = BULLET_SPEED_VX * nx;
+	if (nx == DIRECTION::RIGHT) this->vx = BULLET_SPEED_VX;
+	else if (nx == DIRECTION::LEFT) this->vx = -BULLET_SPEED_VX;
+
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -52,11 +54,11 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-				if (nx != 0)
-					x += dx;
-				else if (nx != 0)
-					y += dy;
-			
+			if (nx != 0)
+				x += dx;
+			else if (nx != 0)
+				y += dy;
+
 		}
 	}
 }
@@ -66,12 +68,12 @@ void Fireball::Render()
 	animations[0]->Render(nx, x, y);
 }
 
-Fireball::Fireball():Enemy()
+Fireball::Fireball() :Enemy()
 {
 	AddAnimation("FIREBALL_ANI");
 }
 
-Fireball::Fireball(int nx) : Enemy()
+Fireball::Fireball(DIRECTION nx) : Enemy()
 {
 	AddAnimation("FIREBALL_ANI");
 	this->nx = nx;

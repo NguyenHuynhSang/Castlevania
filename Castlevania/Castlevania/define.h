@@ -168,18 +168,17 @@ const enum EffectDef {
 	EFD_ST1000,
 };
 
-const enum class DIRECTION {
+
+enum class DIRECTION {
+	DEFAULT = 0,
 	LEFT = -1,
 	RIGHT = 1,
-	UP,
-	DOWN,
+	TOP = 2,
+    BOTTOM = -2,
 };
+
+
 #endif
 
 
 
-
-
-#ifdef ENEMY DEFINE
-
-#endif // ENEMY DEFINE

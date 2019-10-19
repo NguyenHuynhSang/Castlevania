@@ -12,7 +12,7 @@ protected:
 	bool isFreeze = false;
 
 public:
-	void SetNx(int nx) {
+	void SetNx(DIRECTION nx) {
 		this->nx = nx;
 	}
 	void UpdateEnemy();

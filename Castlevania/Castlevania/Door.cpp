@@ -17,7 +17,7 @@ void Door::Render()
 		ani = DOOR_ANI_CLOSING;
 	}
 
-	animations[ani]->Render(0, x, y);
+	animations[ani]->Render(DIRECTION::DEFAULT, x, y);
 }
 
 void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

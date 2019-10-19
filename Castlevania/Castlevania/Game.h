@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "InputController.h"
+#include"CKeyEventHandler.h"
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include"define.h"
@@ -29,7 +29,7 @@ class CGame
 	BYTE  keyStates[256];			// DirectInput keyboard state buffer 
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
-	InputController* keyHandler;
+	CKeyEventHandler* keyHandler;
 
 	// font 
 	ID3DXFont * font;
@@ -37,9 +37,9 @@ class CGame
 
 
 public:
-	void InitKeyboard(InputController* handler);
+	void InitKeyboard(CKeyEventHandler* handler);
 	void Init(HWND hWnd);
-	void Draw(bool followCam,int nx,float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom ,int alpha = 255);
+	void Draw(bool followCam, DIRECTION nx,float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom ,int alpha = 255);
 
 	int IsKeyDown(int KeyCode);
 	

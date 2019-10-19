@@ -5,7 +5,7 @@
 #include"StopWatch.h"
 HandleSpawnSubWeapon * HandleSpawnSubWeapon::__instance = NULL;
 
-void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y,int nx)
+void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y, DIRECTION nx)
 {
 	switch (subWeaponDef)
 	{

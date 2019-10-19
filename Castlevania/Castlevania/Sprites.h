@@ -3,7 +3,12 @@
 #include <d3dx9.h>
 #include <unordered_map>
 #include"debug.h"
+#include"define.h"
 using namespace std;
+
+
+
+
 
 class CSprite
 {
@@ -18,7 +23,7 @@ class CSprite
 public: 
 	CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
-	void Draw(int nx,float x, float y, int alpha = 255, bool followCam=true);
+	void Draw(DIRECTION nx,float x, float y, int alpha = 255, bool followCam=true);
 };
 
 typedef CSprite * LPSPRITE;
@@ -67,7 +72,7 @@ class CAnimation
 public:
 	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; this->isLoop = true; }
 	void Add(string spriteId, DWORD time = 0);
-	void Render(int nx,float x, float y, int alpha=255);
+	void Render(DIRECTION nx,float x, float y, int alpha=255);
 	void ResetAnimation() { lastFrameTime = -1; currentFrame = -1; this->isDone = false; }
 	int GetCurrentFrame() { return currentFrame; };
 	void SetAnimationLoop(bool isLoop) {

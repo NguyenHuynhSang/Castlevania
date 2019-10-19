@@ -20,7 +20,7 @@ CSprites *CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprite::Draw(int nx, float x, float y, int alpha,bool followCam)
+void CSprite::Draw(DIRECTION nx, float x, float y, int alpha,bool followCam)
 {
 	CGame * game = CGame::GetInstance();
 	game->Draw(followCam,nx, x, y, texture, left, top, right, bottom, alpha);
@@ -49,7 +49,7 @@ void CAnimation::Add(string spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void CAnimation::Render(int nx, float x, float y, int alpha)
+void CAnimation::Render(DIRECTION nx, float x, float y, int alpha)
 {
 
 	DWORD now = GetTickCount();

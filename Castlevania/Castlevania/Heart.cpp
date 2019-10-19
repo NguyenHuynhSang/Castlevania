@@ -8,7 +8,7 @@ void Heart::Render()
 	{
 		return;
 	}
-	animations[0]->Render(0, x, y);
+	animations[0]->Render(DIRECTION::DEFAULT, x, y);
 
 }
 

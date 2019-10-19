@@ -24,7 +24,7 @@ void MoneyBag::Render()
 	{
 		ani = MONEYBAG_ANI_WHITE;
 	}
-	animations[ani]->Render(0, x, y);
+	animations[ani]->Render(DIRECTION::DEFAULT, x, y);
 }
 
 void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)

@@ -299,3 +299,12 @@ public:
 	}
 
 };
+
+enum class STAIRDIRECTION
+{
+	DEFAULT, 
+	UPLEFT,
+	UPRIGHT,
+	DOWNLEFT,
+	DOWNRIGHT,
+};
