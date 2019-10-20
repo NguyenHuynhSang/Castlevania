@@ -178,6 +178,16 @@ enum class DIRECTION {
 };
 
 
+enum class STAIRDIRECTION
+{
+	DEFAULT=-1,
+	UPRIGHT,
+	UPLEFT,
+	DOWNRIGHT,
+	DOWNLEFT,
+
+};
+
 #endif
 
 

@@ -30,7 +30,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->vx = AXE_SPEED_VX;
 	}
 	else if (nx == DIRECTION::LEFT) {
-		this->vx = AXE_SPEED_VX;
+		this->vx = -AXE_SPEED_VX;
 	}
 	
 	vy += AXE_GRAVITY * dt;

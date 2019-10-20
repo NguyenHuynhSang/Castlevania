@@ -4,6 +4,9 @@
 #include"Enemy.h"
 #include"Candle.h"
 #include"SubWeapon.h"
+#include"Torch.h"
+#include"Brick.h"
+#include"Effects.h"
 Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 	: grid_(gird),
 	object(object),
@@ -175,6 +178,19 @@ void Grid::Update(float dt)
 
 void Grid::GetListUnit(vector<Unit*>& listUnits)
 {
+	// dùng để sắp xếp lại thứ tự các loại object
+	vector<Unit*> enemiesUnit;
+	vector<Unit*> itemUnit;
+	vector<Unit*> subWeaponUnit;
+	vector<Unit*> effectUnit;
+	enemiesUnit.clear();
+	itemUnit.clear();
+	subWeaponUnit.clear();
+	effectUnit.clear();
+
+
+
+
 	float camx, camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
 	int startCol = (int)camx / this->cellSize;
@@ -192,7 +208,29 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 			{
 				if (!unit->GetGameObject()->CheckDestroyed())
 				{
-					listUnits.push_back(unit);
+					LPGAMEOBJECT object = unit->GetGameObject();
+					if (dynamic_cast<Enemy*>(object))
+					{
+
+						enemiesUnit.push_back(unit);
+					}
+					else if (dynamic_cast<Item*>(object))
+					{
+						itemUnit.push_back(unit);
+					}
+					else if (dynamic_cast<SubWeapon*>(object))
+					{
+						subWeaponUnit.push_back(unit);
+
+					}
+					else if (dynamic_cast<Effects*>(object))
+					{
+						effectUnit.push_back(unit);
+					}
+					else 
+					{
+						listUnits.push_back(unit);
+					}
 					unit = unit->next_;
 
 				}
@@ -205,6 +243,13 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 	}
 
 
+
+
+	// lấy theo thứ tự
+	listUnits.insert(listUnits.end(), itemUnit.begin(), itemUnit.end());
+	listUnits.insert(listUnits.end(),enemiesUnit.begin(),enemiesUnit.end());
+	listUnits.insert(listUnits.end(), subWeaponUnit.begin(), subWeaponUnit.end());
+	listUnits.insert(listUnits.end(), effectUnit.begin(), effectUnit.end());
 }
 
 Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :

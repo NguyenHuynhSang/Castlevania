@@ -96,14 +96,14 @@ void InputController::OnKeyDown(int KeyCode)
 			if (player->CheckIsOnStair())
 			{
 
-				if (player->CheckStepOnStairDirection() == DIR_UPLEFT
-					|| player->CheckStepOnStairDirection() == DIR_UPRIGHT
+				if (player->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
+					|| player->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
 					&& player->GetState() == SIMON_STATE_UPSTAIR_IDLE)
 				{
 					player->SetState(SIMON_STATE_UPSTAIR_ATTACK);
 				}
-				else if (player->CheckStepOnStairDirection() == DIR_DOWNLEFT
-					|| player->CheckStepOnStairDirection() == DIR_DOWNRIGHT
+				else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
+					|| player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
 					&& player->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
 				{
 					player->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
@@ -172,14 +172,14 @@ void InputController::KeyState(BYTE* states)
 	{
 		if (player->CheckIsOnStair())
 		{
-			if (player->CheckStepOnStairDirection() == DIR_UPLEFT
-				|| player->CheckStepOnStairDirection() == DIR_UPRIGHT)
+			if (player->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
+				|| player->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT)
 			{
 				player->SetLastState(SIMON_STATE_UPSTAIR_ATTACK);
 				player->SetState(SIMON_STATE_UPSTAIR_IDLE);
 			}
-			else if (player->CheckStepOnStairDirection() == DIR_DOWNLEFT
-				|| player->CheckStepOnStairDirection() == DIR_DOWNRIGHT)
+			else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
+				|| player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT)
 			{
 				player->SetLastState(SIMON_STATE_DOWNSTAIR_ATTACK);
 				player->SetState(SIMON_STATE_DOWNSTAIR_IDLE);
@@ -207,10 +207,10 @@ void InputController::KeyState(BYTE* states)
 	{
 
 		if (player->GetState() == SIMON_STATE_DOWNSTAIR_IDLE) {
-			if (player->CheckStepOnStairDirection() == DIR_DOWNLEFT)
-				player->SetStepOnStairDirection(DIR_UPRIGHT);
-			else if (player->CheckStepOnStairDirection() == DIR_DOWNRIGHT)
-				player->SetStepOnStairDirection(DIR_UPLEFT);
+			if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT)
+				player->SetStepOnStairDirection(STAIRDIRECTION::UPRIGHT);
+			else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT)
+				player->SetStepOnStairDirection(STAIRDIRECTION::UPLEFT);
 			player->SetStartStepOnStair();
 			DebugOut(L"Simon up to down \n");
 			return;
@@ -230,10 +230,10 @@ void InputController::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_DOWN))
 	{
 		if (player->GetState() == SIMON_STATE_UPSTAIR_IDLE) {
-			if (player->CheckStepOnStairDirection() == DIR_UPRIGHT)
-				player->SetStepOnStairDirection(DIR_DOWNLEFT);
-			else if (player->CheckStepOnStairDirection() == DIR_UPLEFT) {
-				player->SetStepOnStairDirection(DIR_DOWNRIGHT);
+			if (player->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT)
+				player->SetStepOnStairDirection(STAIRDIRECTION::DOWNLEFT);
+			else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT) {
+				player->SetStepOnStairDirection(STAIRDIRECTION::DOWNRIGHT);
 			}
 			player->SetStartStepOnStair();
 			DebugOut(L"Simon up to down \n");

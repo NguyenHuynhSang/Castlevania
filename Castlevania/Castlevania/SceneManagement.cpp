@@ -292,6 +292,11 @@ void SceneManagement::GetListUnitFromGrid()
 		Unit* unit = new Unit(this->grid, qSubWeapon.front());
 		qSubWeapon.pop();
 	}
+	while (!qEffect.empty())
+	{
+		Unit* unit = new Unit(this->grid, qEffect.front());
+		qEffect.pop();
+	}
 	grid->GetListUnit(listUnit);
 	for (size_t i = 0; i < groundObjects.size(); i++)
 	{
@@ -302,7 +307,7 @@ void SceneManagement::GetListUnitFromGrid()
 		this->objects.push_back(listUnit[i]->GetGameObject());
 	}
 
-	//DebugOut(L"listUnit=%d \n", listUnit.size());
+	DebugOut(L"listUnit=%d \n", listUnit.size());
 
 }
 
@@ -389,15 +394,6 @@ void SceneManagement::Update(DWORD dt)
 			}
 		}
 	}
-	//update efftects
-	for (std::size_t i = 0; i < effects.size(); i++) //effect
-	{
-		effects[i]->Update(dt);
-	}
-
-
-
-
 
 	CamUpdate(dt);
 	/// cap nhat lai vi tri cac unit trong grid
@@ -427,7 +423,6 @@ void SceneManagement::Update(DWORD dt)
 	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
 
 		if ((*it)->isDestroyed) {
-			delete (*it);
 			it = effects.erase(it);
 		}
 		else ++it;
@@ -457,8 +452,6 @@ void SceneManagement::Render()
 		objects[i]->Render();
 	}
 
-	for (std::size_t i = 0; i < this->effects.size(); i++)
-		this->effects[i]->Render();
 
 	hud->Render();
 	simon->Render();
@@ -643,6 +636,7 @@ void SceneManagement::LoadObjects(int currentscene)
 		if (dynamic_cast<Enemy *>(objects.at(i))
 			|| dynamic_cast<Item *>(objects.at(i))
 			|| dynamic_cast<Ground *>(objects.at(i))
+			|| dynamic_cast<Effects*>(objects.at(i))
 			|| dynamic_cast<CSimon *>(objects.at(i))
 			|| dynamic_cast<SubWeapon *>(objects.at(i))
 			)

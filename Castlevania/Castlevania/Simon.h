@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include "Whip.h"
+
 #define SIMON_WALKING_SPEED		0.13f 
 #define SIMON_AUTOWALKING_SPEED		0.05f 
 //0.1f
@@ -81,9 +82,8 @@ class CSimon : public CGameObject
 	int enery_;
 
 
+
 	Whip* whip;
-
-
 	int subWeaponDef = -1;
 	bool isJumping = false;
 	bool isAutoWalk = false;
@@ -95,7 +95,7 @@ class CSimon : public CGameObject
 	bool isColliceWithStair = false;
 	bool isFirstStepOnStair = false;
 	bool isHitDoor = false;
-	int stepOnStairDirection = -1;
+	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;
 	D3DXVECTOR2 LastStepOnStairPos;
@@ -108,7 +108,7 @@ public:
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
 			= isActack = isAutoWalk = isJumping = isHitDoor = isUseSubWeapon = false;
-		this->stepOnStairDirection = -1;
+		this->onStairDirection = STAIRDIRECTION::DEFAULT; 
 		this->lastState = -1;
 		this->delay_attack_start = 0;
 		this->attack_start = 0;
@@ -190,11 +190,11 @@ public:
 		this->isUseSubWeapon = false;
 		this->isSpawnSubWeapon = false;
 	}
-	void SetStepOnStairDirection(int dir) {
-		this->stepOnStairDirection = dir;
+	void SetStepOnStairDirection(STAIRDIRECTION dir) {
+		this->onStairDirection = dir;
 	}
-	int CheckStepOnStairDirection() {
-		return this->stepOnStairDirection;
+	STAIRDIRECTION CheckStepOnStairDirection() {
+		return this->onStairDirection;
 	}
 	void HandleUseSubWeapon();
 	void StartOnStair(bool flag) {
@@ -210,12 +210,12 @@ public:
 	bool SimonAutoWalkaStep(float step);
 
 	bool CheckCanStepUp() {
-		if (this->stepOnStairDirection == DIR_UPLEFT || this->stepOnStairDirection == DIR_UPRIGHT)
+		if (this->onStairDirection == STAIRDIRECTION::UPLEFT || this->onStairDirection == STAIRDIRECTION::UPRIGHT)
 			return true;
 		return false;
 	}
 	bool CheckCanStepDown() {
-		if (this->stepOnStairDirection == DIR_DOWNLEFT || this->stepOnStairDirection == DIR_DOWNRIGHT)
+		if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT || this->onStairDirection == STAIRDIRECTION::DOWNRIGHT)
 			return true;
 		return false;
 	}
@@ -301,11 +301,3 @@ public:
 
 };
 
-enum class STAIRDIRECTION
-{
-	DEFAULT,
-	UPLEFT,
-	UPRIGHT,
-	DOWNLEFT,
-	DOWNRIGHT,
-};

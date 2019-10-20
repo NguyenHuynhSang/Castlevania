@@ -74,6 +74,7 @@ private:
 
 	std::queue<Enemy*> qEnemy;
 	std::queue<Item*> qItem;
+	std::queue<Effects*> qEffect;
 	std::queue<SubWeapon *> qSubWeapon;
 
 
@@ -126,6 +127,7 @@ public:
 		qEnemy.push(enemy);
 	}
 	void SpawnEffect(Effects* eff) {
+		this->qEffect.push(eff);
 		this->effects.push_back(eff);
 	}
 	void SpawnSubWeapon(SubWeapon* subW) {

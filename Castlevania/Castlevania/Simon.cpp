@@ -67,8 +67,8 @@ void CSimon::HandleFirstStepOnStair()
 	this->vy = 0;
 	DebugOut(L"HandleFirstStepOnStair \n");
 	//up right first step
-	if (stepOnStairDirection == -1) return;
-	else if (stepOnStairDirection == DIR_UPRIGHT) {
+	if (onStairDirection == STAIRDIRECTION::DEFAULT) return;
+	else if (onStairDirection == STAIRDIRECTION::UPRIGHT) {
 		DebugOut(L"Simon x=%f y=%f \n", this->x, this->y);
 
 		if (stairPos.x - this->x > SIMON_UPSTAIR_RIGHT_OFFSET) {
@@ -94,7 +94,7 @@ void CSimon::HandleFirstStepOnStair()
 			this->SetState(SIMON_STATE_UPSTAIR_RIGHT);
 		}
 	}
-	else if (stepOnStairDirection == DIR_UPLEFT) {
+	else if (onStairDirection == STAIRDIRECTION::UPLEFT) {
 		DebugOut(L"Simon x=%f y=%f \n", this->x, this->y);
 
 		if (stairPos.x - this->x < SIMON_UPSTAIR_LEFT_OFFSET) {
@@ -120,7 +120,7 @@ void CSimon::HandleFirstStepOnStair()
 			this->SetState(SIMON_STATE_UPSTAIR_RIGHT);
 		}
 	}
-	else if (stepOnStairDirection == DIR_DOWNLEFT)
+	else if (onStairDirection == STAIRDIRECTION::DOWNLEFT)
 	{
 		if (stairPos.x - this->x < SIMON_DOWNSTAIR_LEFT_OFFSET) {
 			this->isAutoWalk = true;
@@ -145,7 +145,7 @@ void CSimon::HandleFirstStepOnStair()
 			this->SetState(SIMON_STATE_DOWNSTAIR_LEFT);
 		}
 	}
-	else if (stepOnStairDirection == DIR_DOWNRIGHT)
+	else if (onStairDirection == STAIRDIRECTION::DOWNRIGHT)
 	{
 		if (stairPos.x - this->x > SIMON_DOWNSTAIR_RIGHT_OFFET) {
 			this->isAutoWalk = true;
@@ -257,14 +257,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->isActack = false;
 			if (this->isOnStair)
 			{
-				if (this->stepOnStairDirection == DIR_UPLEFT
-					|| this->stepOnStairDirection == DIR_UPRIGHT)
+				if (this->onStairDirection == STAIRDIRECTION::UPLEFT
+					|| this->onStairDirection == STAIRDIRECTION::UPRIGHT)
 				{
 					this->lastState = SIMON_STATE_UPSTAIR_ATTACK;
 					SetState(SIMON_STATE_UPSTAIR_IDLE);
 				}
-				else if (this->stepOnStairDirection == DIR_DOWNLEFT
-					|| this->stepOnStairDirection == DIR_DOWNRIGHT)
+				else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT
+					|| this->onStairDirection == STAIRDIRECTION::DOWNRIGHT)
 				{
 					this->lastState = SIMON_STATE_DOWNSTAIR_ATTACK;
 					SetState(SIMON_STATE_DOWNSTAIR_IDLE);
@@ -288,17 +288,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (!this->isFirstStepOnStair)
 			HandleFirstStepOnStair();
 		else {
-			if (this->stepOnStairDirection == DIR_UPRIGHT)
+			if (this->onStairDirection == STAIRDIRECTION::UPRIGHT)
 				SetState(SIMON_STATE_UPSTAIR_RIGHT);
-			else if (this->stepOnStairDirection == DIR_UPLEFT)
+			else if (this->onStairDirection == STAIRDIRECTION::UPLEFT)
 			{
 				SetState(SIMON_STATE_UPSTAIR_LEFT);
 			}
-			else if (this->stepOnStairDirection == DIR_DOWNLEFT)
+			else if (this->onStairDirection == STAIRDIRECTION::DOWNLEFT)
 			{
 				SetState(SIMON_STATE_DOWNSTAIR_LEFT);
 			}
-			else if (this->stepOnStairDirection == DIR_DOWNRIGHT)
+			else if (this->onStairDirection == STAIRDIRECTION::DOWNRIGHT)
 			{
 				SetState(SIMON_STATE_DOWNSTAIR_RIGHT);
 			}
@@ -630,9 +630,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					}
 					this->isColliceWithStair = true;
-					this->stepOnStairDirection = f->GetDirection();
+					this->onStairDirection = static_cast<STAIRDIRECTION>(f->GetDirection());
 					DebugOut(L"ColliceWithStair \n");
-					DebugOut(L"stepOnStairDirection=%d \n", this->stepOnStairDirection);
+					DebugOut(L"stepOnStairDirection=%d \n", this->onStairDirection);
 					this->stairPos = { f->x,f->y };
 					f->SetActive(true);
 					return;
@@ -643,7 +643,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				f->SetActive(false);
 				this->isColliceWithStair = false;
 				if (!this->isOnStair)
-					this->stepOnStairDirection = -1; //reset
+					this->onStairDirection = STAIRDIRECTION::DEFAULT; //reset
 				DebugOut(L"stop collice \n");
 			}
 		}
@@ -872,11 +872,11 @@ void CSimon::SetState(int state)
 		this->startOnStair = false; // cho phép nhấn tiếp
 		if (nx == DIRECTION::RIGHT)
 		{
-			this->stepOnStairDirection = DIR_DOWNRIGHT;
+			this->onStairDirection = STAIRDIRECTION::DOWNRIGHT;
 		}
 		else if (nx == DIRECTION::LEFT)
 		{
-			this->stepOnStairDirection = DIR_DOWNLEFT;
+			this->onStairDirection = STAIRDIRECTION::DOWNLEFT;
 		}
 		if (this->lastState != SIMON_STATE_UPSTAIR_ATTACK
 			&& this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK)
@@ -900,11 +900,11 @@ void CSimon::SetState(int state)
 		// làm tròn xuống 1px
 		if (nx == DIRECTION::RIGHT)
 		{
-			this->stepOnStairDirection = DIR_UPRIGHT;
+			this->onStairDirection = STAIRDIRECTION::UPRIGHT;
 		}
 		else if (nx == DIRECTION::LEFT)
 		{
-			this->stepOnStairDirection = DIR_UPLEFT;
+			this->onStairDirection = STAIRDIRECTION::UPLEFT;
 		}
 		if (this->lastState != SIMON_STATE_DOWNSTAIR_ATTACK
 			&& this->lastState != SIMON_STATE_UPSTAIR_ATTACK)

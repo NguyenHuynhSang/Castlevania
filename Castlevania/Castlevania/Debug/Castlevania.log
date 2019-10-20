@@ -1,5 +1,188 @@
-﻿  Simon.cpp
+﻿  SceneManagement.cpp
 D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(126,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(683,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(688,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(540,20): warning C4018: '<': signed/unsigned mismatch
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(676,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(676,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(682,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(682,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(683,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(683,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(692,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(692,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(693,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(693,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(701,56): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(701,36): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(702,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(702,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(705,69): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(705,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(715,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(715,38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(716,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(716,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(723,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(723,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(724,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(724,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(732,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(732,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(746,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(746,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(767,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(767,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(768,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(768,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(775,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(775,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(776,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(776,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(785,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(785,39): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(786,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(786,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(798,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(798,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(799,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(799,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(811,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(811,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(824,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(824,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(835,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(835,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(848,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(848,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(863,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(870,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(870,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(871,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(871,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(878,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(878,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(879,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(879,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(888,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(888,39): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(889,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(889,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(902,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(902,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(914,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(914,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(915,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(915,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(926,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(926,38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(927,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(927,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(939,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(939,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(946,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(946,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(947,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(947,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(955,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(955,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(956,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(956,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(965,56): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(965,36): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(966,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(966,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(969,69): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(969,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(979,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(979,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(980,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(980,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(987,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(987,38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(988,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(988,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(996,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(996,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(997,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(997,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1006,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1006,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1015,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1015,38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1016,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1016,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1030,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1030,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1048,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1055,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1055,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1056,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1056,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1063,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1063,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1064,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1064,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1073,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1073,39): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1074,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1074,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1087,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1087,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1099,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1099,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1100,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1100,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1112,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1112,38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1113,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1113,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1125,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1125,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1143,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1150,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1150,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1151,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1151,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1158,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1158,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1159,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1159,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1168,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1168,39): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1169,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1169,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1182,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1182,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1194,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1194,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1195,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1195,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1206,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1206,38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1207,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1207,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1217,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1217,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1232,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1232,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1249,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1256,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1256,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1257,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1257,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1264,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1264,34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1265,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1265,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1274,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1274,39): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1275,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1275,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1289,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1289,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1290,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1290,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1302,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1302,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1315,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\SceneManagement.cpp(1315,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe
