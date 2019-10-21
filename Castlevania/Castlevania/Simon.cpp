@@ -22,6 +22,7 @@
 #include"Door.h"
 #include"AxeItem.h"
 #include"IStopWatch.h"
+#include"Cross.h"
 #include"HandleSpawnSubWeapon.h"
 CSimon::CSimon() :CGameObject()
 {
@@ -56,8 +57,8 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	RenderBoundingBox();
-	//RenderSpriteBox();// = tọa độ simon trong world game để tính vị trí so với các object khác
+	//RenderBoundingBox();
+	
 }
 
 void CSimon::HandleFirstStepOnStair()
@@ -522,7 +523,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
-
+					else if (dynamic_cast<Cross*>(e->obj)) {
+						this->getCross = true;
+					}
 					if (!item->isDestroyed)
 					{
 						item->SetDestroy();
@@ -601,7 +604,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
-
+					else if (dynamic_cast<Cross*>(e)) {
+						this->getCross = true;
+					}
 					//DebugOut(L"aabb \n");
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();

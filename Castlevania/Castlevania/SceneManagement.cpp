@@ -8,9 +8,9 @@
 void SceneManagement::LoadResource()
 {
 	CTextures * textures = CTextures::GetInstance();
-	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", BACKGROUND_COLOR);
+	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", BACKGROUND_COLOR);
+	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", BACKGROUND_COLOR);
 	textures->Add(ID_TEX_UI_HP, L"Data\\UI\\HP.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_BRICK, L"Data\\GameObject\\Ground\\Brick.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -31,8 +31,8 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_STOPWATCH, L"Data\\GameObject\\Items\\StopWatch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_ROAST, L"Data\\GameObject\\Items\\ROAST.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_INVICIBILITYPOTION, L"Data\\GameObject\\Items\\INVICIBILITY_ITEM.png", D3DCOLOR_XRGB(255, 0, 255));
-
-
+	textures->Add(ID_TEX_ITEM_CROSS, L"Data\\GameObject\\Items\\Cross.png", D3DCOLOR_XRGB(255, 0, 255));
+	
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -99,6 +99,13 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Items\\Roast_sprite.xml", texItemRoast);
 	resource->LoadAnimations("Data\\GameObject\\Items\\Roast_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texItemCross = textures->Get(ID_TEX_ITEM_CROSS);
+	resource->LoadSprites("Data\\GameObject\\Items\\Cross_sprite.xml", texItemCross);
+	resource->LoadAnimations("Data\\GameObject\\Items\\Cross_ani.xml", animations);
+
+
+
+	
 	LPDIRECT3DTEXTURE9 texIPotion = textures->Get(ID_TEX_ITEM_INVICIBILITYPOTION);
 	resource->LoadSprites("Data\\GameObject\\Items\\InticibilityPotion_sprite.xml", texIPotion);
 	resource->LoadAnimations("Data\\GameObject\\Items\\InticibilityPotion_ani.xml", animations);
@@ -167,10 +174,7 @@ void SceneManagement::LoadResource()
 
 }
 
-void SceneManagement::HandleSpawningItem()
-{
-	//if(itemtoSpawn.push)
-}
+
 
 void SceneManagement::CamUpdate(DWORD dt)
 {
@@ -324,6 +328,28 @@ void SceneManagement::UpdateGrid()
 
 }
 
+void SceneManagement::HandleCrossEffect()
+{
+
+	if (simon->CheckIsGetCross())
+	{
+		if (this->cross_start == 0)
+		{
+			cross_start = GetTickCount64();
+		}
+		simon->ResetIsGetCross();
+		playCrossEffect = true;
+	}
+
+	if (this->cross_start!=0
+		&& GetTickCount64()- this->cross_start>CROSS_EFFECT_TIME)
+	{
+		playCrossEffect = false;
+	
+		this->cross_start = 0;
+	}
+}
+
 void SceneManagement::OnCreate()
 {
 	game = CGame::GetInstance();
@@ -358,9 +384,15 @@ void SceneManagement::Update(DWORD dt)
 	}
 
 
+	if (simon->CheckIsGetCross())
+	{
+		KillAllEnemy();
+	}
+	HandleCrossEffect();
 
 
 	hud->Update();
+
 	// update trước để spawn enemy và xử lý va chạm ở frame hiện tại
 	for (size_t i = 0; i < spawnObjects.size(); i++)
 	{
@@ -389,7 +421,7 @@ void SceneManagement::Update(DWORD dt)
 			if (nextscene->CheckIsColliceWithPlayer())
 			{
 				int nextSceneID = nextscene->CheckSceneDef();
-				this->JumpToState(nextSceneID);
+				this->JumpToScene(nextSceneID);
 				nextscene->DestroyImmediate();
 			}
 		}
@@ -548,7 +580,7 @@ void SceneManagement::KillAllEnemy()
 {
 	for (size_t i = 0; i < this->enemies.size(); i++)
 	{
-		if (this->enemies[i]->CheckActive())
+		if (this->enemies[i]->CheckActive()) // chỉ kill những enemy đang nằm trong cam
 		{
 			this->enemies[i]->SetDestroy();
 		}
@@ -623,7 +655,7 @@ void SceneManagement::GoNextScene()
 
 }
 
-void SceneManagement::JumpToState(int state)
+void SceneManagement::JumpToScene(int state)
 {
 	this->currentScene = state;
 	this->isNextScene = true;

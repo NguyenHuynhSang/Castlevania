@@ -136,19 +136,18 @@ void Fishman::Render()
 	if (state == FISHMAN_STATE_JUMP)
 	{
 		ani = FISHMAN_ANI_JUMP;
-		animations[ani]->Render(nx, x, y);
 	}
 	else if (state == FISHMAN_STATE_WALKING)
 	{
 
 		ani = FISHMAN_ANI_WALKING;
-		animations[ani]->Render(nx, x, y);
 	}
 	else
 	{
 		ani = FISHMAN_ANI_SHOOTING;
-		animations[ani]->Render(nx, x, y);
+	
 	}
+	animations[ani]->Render(nx, x, y);
 }
 
 void Fishman::SetState(int state)

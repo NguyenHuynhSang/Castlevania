@@ -7,7 +7,11 @@
 #define WINDOW_CLASS_NAME L"Castlevania"
 #define MAIN_WINDOW_TITLE L"Castlevania"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(5, 5, 5)
+#define CROSS_EFFECT_COLOR  D3DCOLOR_XRGB(173,173,173)
+
+
+
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 480
 #define GAME_WORLD_Y 80
@@ -16,6 +20,7 @@
 #define FONT_PATH L"Data\\prstart.ttf"
 
 #define EFFECTS_LIFE_TIME 500
+#define CROSS_EFFECT_TIME 500
 #define SCORETEXT_STATE_100 0
 #define SCORETEXT_STATE_400 100
 #define SCORETEXT_STATE_700 200 
@@ -43,7 +48,7 @@
 #define ID_TEX_ITEM_STOPWATCH 505
 #define ID_TEX_ITEM_ROAST   506
 #define ID_TEX_ITEM_INVICIBILITYPOTION   507
-
+#define ID_TEX_ITEM_CROSS   508
 
 
 #define ID_TEX_EFFECT_FLAME 600
@@ -134,6 +139,7 @@ const enum ItemID {
 	ITDSTOPWATCH,
 	ITDROAST,
 	ITDIPOTION, //InticibilityPotion
+	ITDCROSS 
 };
 
 const enum StairDir {

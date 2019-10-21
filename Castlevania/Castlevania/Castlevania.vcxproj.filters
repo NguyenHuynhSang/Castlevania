@@ -273,6 +273,9 @@
     <ClInclude Include="CKeyEventHandler.h">
       <Filter>Framework\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Cross.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -463,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="CKeyEventHandler.cpp">
       <Filter>Framework\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Cross.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

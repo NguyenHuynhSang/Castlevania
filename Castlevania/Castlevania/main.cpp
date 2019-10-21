@@ -69,8 +69,16 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		if (scene->CheckPlayCrossEffect())
+		{
+			int rank = rand() % 2;
+			if (rank==1)
+				d3ddv->ColorFill(bb, NULL, CROSS_EFFECT_COLOR);
+			else
+				d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		}
+		else
+			d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 		scene->Render();
@@ -180,10 +188,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	input = new InputController();
 	scene = new SceneManagement();
 	scene->OnCreate();
-	input->Init(scene,scene->GetSimon());
+	input->Init(scene, scene->GetSimon());
 	game->InitKeyboard(input);
 
-	
+
 	D3DXVECTOR2 vector(0, 0);
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);

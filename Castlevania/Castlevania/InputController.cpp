@@ -42,28 +42,28 @@ void InputController::OnKeyDown(int KeyCode)
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDROAST, sx, sy - 64, false);
 		break;
 	case DIK_6:
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDMONEYBAGRED, sx, sy - 64, false);
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDCROSS, sx, sy - 64, false);
 		break;
 	case DIK_Q:
-		scene->JumpToState(GSCENE_01);
+		scene->JumpToScene(GSCENE_01);
 		break;
 	case DIK_W:
-		scene->JumpToState(GSCENE_01_GH);
+		scene->JumpToScene(GSCENE_01_GH);
 		break;
 	case DIK_E:
-		scene->JumpToState(GSTATE_02);
+		scene->JumpToScene(GSTATE_02);
 		break;
 	case DIK_R:
-		scene->JumpToState(GSTATE_02_UDG);
+		scene->JumpToScene(GSTATE_02_UDG);
 		break;
 	case DIK_T:
-		scene->JumpToState(GSTATE_02_B);
+		scene->JumpToScene(GSTATE_02_B);
 		break;
 	case DIK_Y:
-		scene->JumpToState(GSCENE_02_N);
+		scene->JumpToScene(GSCENE_02_N);
 		break;
 	case DIK_U:
-		scene->JumpToState(GSCENE_03);
+		scene->JumpToScene(GSCENE_03);
 		break;
 	case DIK_TAB:
 		scene->KillAllEnemy();

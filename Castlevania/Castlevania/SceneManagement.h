@@ -56,6 +56,9 @@ private:
 	Door* door;
 	Hud* hud;
 	Grid * grid;
+
+
+	DWORD cross_start = 0;
 	std::vector<Unit*> listUnit;
 	RECT sceneBox;
 	ResourceManagement * resource;
@@ -80,15 +83,19 @@ private:
 
 	CTileMap* cmap;
 	bool isNextScene;
-	bool isAutoScrollCam = false;		
-	void LoadResource();
+	bool isAutoScrollCam = false;	
+	bool playCrossEffect = false;
 	int currentScene;
-	void HandleSpawningItem();
+	void LoadResource();
 	void CamUpdate(DWORD dt);
 	void GetListUnitFromGrid();
 	void UpdateGrid();
-public:
 
+public:
+	bool CheckPlayCrossEffect() {
+		return this->playCrossEffect;
+	};
+	void HandleCrossEffect();
 	void OnCreate();
 	int CheckNumOfFishMan();
 	CSimon* GetSimon() {
@@ -112,7 +119,7 @@ public:
 	void KillAllEnemy();
 	void LoadScene();
 	void GoNextScene();
-	void JumpToState(int state);
+	void JumpToScene(int state);
 	bool CheckNextScene() {
 		return this->isNextScene;
 	}

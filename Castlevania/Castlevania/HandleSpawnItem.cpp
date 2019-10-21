@@ -9,6 +9,7 @@
 #include"IStopWatch.h"
 #include"PorkChop.h"
 #include"InvisibilityPotion.h"
+#include"Cross.h"
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
@@ -108,6 +109,13 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		scene->SpawnItem(item);
 		break;
 	}
+	case ITDCROSS: {
+		item = new Cross();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+		break;
+	}
 	}
 }
 
@@ -115,7 +123,7 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 {
 	Item * item;
 	DebugOut(L"Spawn random item \n");
-	int rank = 0 + rand() % (200 + 1 - 0);
+	int rank = 0 + rand() % (300 + 1 - 0);
 	if (rank<100)
 	{
 		item = new Heart(x);
@@ -139,10 +147,30 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 		scene->SpawnItem(item);
 	
 	}
-	else
+	else if (rank<200)
 	{
 		item = new MoneyBag();
 		item->SetState(MONEYBAG_STATE_WHITE);
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+	}
+	else if (rank < 240) 
+	{
+		item = new AxeItem();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+	}
+	else if (rank<280)
+	{
+		item = new IStopWatch();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+	}
+	else {
+		item = new Cross();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
 		scene->SpawnItem(item);

@@ -9,6 +9,7 @@
 #define SIMON_DEFLECT_SPEED_X 0.2f
 #define SIMON_DEFLECT_SPEED_Y 0.35f
 #define SIMON_GRAVITY			0.0015f
+#define SIMON_FALLING_GRAVITY    0.003f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
 #define SIMON_UPSTAIR_VELOCITY 0.04f
 #define SIMON_STATE_IDLE			0
@@ -95,6 +96,7 @@ class CSimon : public CGameObject
 	bool isColliceWithStair = false;
 	bool isFirstStepOnStair = false;
 	bool isHitDoor = false;
+	bool getCross = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;
@@ -105,6 +107,14 @@ class CSimon : public CGameObject
 	void Renderer(int ani);
 
 public:
+	void ResetIsGetCross() 
+	{
+		this->getCross = false;
+	}
+	bool CheckIsGetCross() 
+	{
+		return this->getCross;
+	};
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
 			= isActack = isAutoWalk = isJumping = isHitDoor = isUseSubWeapon = false;
