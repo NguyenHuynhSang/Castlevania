@@ -81,15 +81,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				this->SetDestroy();
 			}
-			else if (dynamic_cast<Fireball *>(e->obj)) {
 
-				Fireball *fireball = dynamic_cast<Fireball *>(e->obj);
-				if (!fireball->isDestroyed)
-				{
-					fireball->SetDestroy();
-				}
-				this->SetDestroy();
-			}
 			else if (dynamic_cast<Candle *> (e->obj)) {
 				this->SetDestroy();
 				Candle *candle = dynamic_cast<Candle *>(e->obj);

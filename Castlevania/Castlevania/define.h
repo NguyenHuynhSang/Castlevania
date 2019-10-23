@@ -40,7 +40,7 @@
 #define ID_TEX_DOOR      120
 #define ID_TEX_AXE      130
 #define ID_TEX_VAMPRITEBAT      140
-
+#define ID_TEX_HOLYWATER      150
 
 
 #define ID_TEX_ITEM_HEART 500
@@ -52,6 +52,8 @@
 #define ID_TEX_ITEM_ROAST   506
 #define ID_TEX_ITEM_INVICIBILITYPOTION   507
 #define ID_TEX_ITEM_CROSS   508
+#define ID_TEX_ITEM_HOLYWATER   509
+
 
 
 #define ID_TEX_EFFECT_FLAME 600
@@ -130,7 +132,8 @@ const enum GameState {
 	GSCENE_03,
 };
 
-const enum ItemID {
+const enum ITEMDEF {
+	ITDRAMDOM=-1,
 	ITDHeart = 0,
 	ITDLargeHeart = 1,
 	ITDWhip = 2,
@@ -143,11 +146,12 @@ const enum ItemID {
 	ITDSTOPWATCH,
 	ITDROAST,
 	ITDIPOTION, //InticibilityPotion
-	ITDCROSS 
+	ITDCROSS ,
+	ITDHOLYWATER
 };
 
 
-const enum EnemyDef {
+const enum ENEMYDEF {
 	EDZOMBIE,
 	EDPANTHER,
 	EDBAT,
@@ -156,14 +160,14 @@ const enum EnemyDef {
 	EDVAMPIREBAT
 };
 
-const enum SubWeaponDef {
+const enum SWEAPONDEF {
 	SWDDAGGER,
 	SWDHOLLYWATER,
 	SWDAXE,
 	SWDSTOPWATCH
 };
 
-const enum EffectDef {
+const enum EFFECTDEF {
 	EFD_FLAME,
 	EFD_DEBRIS,
 	EFD_BUBBLE,

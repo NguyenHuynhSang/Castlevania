@@ -51,6 +51,8 @@
     <ClInclude Include="HandleSpawnItem.h" />
     <ClInclude Include="HandleSpawnSubWeapon.h" />
     <ClInclude Include="Heart.h" />
+    <ClInclude Include="HolyWater.h" />
+    <ClInclude Include="IHolyWater.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="InputController.h" />
     <ClInclude Include="InvisibilityPotion.h" />
@@ -122,6 +124,8 @@
     <ClCompile Include="HandleSpawnItem.cpp" />
     <ClCompile Include="HandleSpawnSubWeapon.cpp" />
     <ClCompile Include="Heart.cpp" />
+    <ClCompile Include="HolyWater.cpp" />
+    <ClCompile Include="IHolyWater.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="InputController.cpp" />
     <ClCompile Include="InvisibilityPotion.cpp" />

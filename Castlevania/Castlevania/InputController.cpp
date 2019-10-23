@@ -30,7 +30,7 @@ void InputController::OnKeyDown(int KeyCode)
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDWhip, sx, sy - 64, false);
 		break;
 	case DIK_2:
-		HandleSpawnItem::GetInstance()->SpawnItem(ITDDagger, sx, sy - 64, false);
+		HandleSpawnItem::GetInstance()->SpawnItem(ITDHOLYWATER, sx, sy - 64, false);
 		break;
 	case DIK_3:
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDAXE, sx, sy - 64, false);

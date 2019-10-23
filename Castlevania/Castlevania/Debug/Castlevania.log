@@ -1,8 +1,3 @@
-﻿  define.h
-  PhantomBat.cpp
-  Simon.cpp
-D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(137,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(700,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(705,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  HolyWater.cpp
+D:\Git\Castlevania\Castlevania\Castlevania\HolyWater.cpp(45,40): warning C4244: '=': conversion from 'ULONGLONG' to 'DWORD', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

@@ -25,6 +25,7 @@
 #include"Cross.h"
 #include"HandleSpawnSubWeapon.h"
 #include"PhantomBat.h"
+#include"IHolyWater.h"
 CSimon::CSimon() :CGameObject()
 {
 	this->hp_ = 16;
@@ -534,7 +535,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
 					else if (dynamic_cast<Cross*>(e->obj)) {
-						this->getCross = true;
+						this->getCross = true; 
+					}
+					else if (dynamic_cast<IHolyWater*>(e->obj)) {
+						this->subWeaponDef = SWDHOLLYWATER;
 					}
 					if (!item->isDestroyed)
 					{
@@ -616,6 +620,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					else if (dynamic_cast<Cross*>(e)) {
 						this->getCross = true;
+					}
+					else if (dynamic_cast<IHolyWater*>(e)) {
+						this->subWeaponDef = SWDHOLLYWATER;
 					}
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();

@@ -32,13 +32,17 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_ITEM_ROAST, L"Data\\GameObject\\Items\\ROAST.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_INVICIBILITYPOTION, L"Data\\GameObject\\Items\\INVICIBILITY_ITEM.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ITEM_CROSS, L"Data\\GameObject\\Items\\Cross.png", D3DCOLOR_XRGB(255, 0, 255));
-	
+	textures->Add(ID_TEX_ITEM_HOLYWATER, L"Data\\GameObject\\Items\\HOLY_WATER.png", D3DCOLOR_XRGB(255, 0, 255));
+
+
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_PANTHER, L"Data\\GameObject\\Enemies\\PANTHER.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_BAT, L"Data\\GameObject\\Enemies\\BAT.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_FISHMAN, L"Data\\GameObject\\Enemies\\Fishman.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_FIREBALL, L"Data\\GameObject\\Enemies\\FIREBALL.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_AXE, L"Data\\GameObject\\Sub_weapons\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_HOLYWATER, L"Data\\GameObject\\Sub_weapons\\HOLY_WATER.png", D3DCOLOR_XRGB(255, 0, 255));
+	
 	textures->Add(ID_TEX_VAMPRITEBAT, L"Data\\GameObject\\\Bosses\\VAMPIRE_BAT.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
@@ -118,11 +122,24 @@ void SceneManagement::LoadResource()
 
 
 
+	LPDIRECT3DTEXTURE9 texIHollyWater = textures->Get(ID_TEX_ITEM_HOLYWATER);
+	resource->LoadSprites("Data\\GameObject\\Items\\IHolyWater_sprite.xml", texIHollyWater);
+	resource->LoadAnimations("Data\\GameObject\\Items\\IHolyWater_ani.xml", animations);
+
+	
+
 	LPDIRECT3DTEXTURE9 texAxe = textures->Get(ID_TEX_AXE);
 	resource->LoadSprites("Data\\GameObject\\Sub_weapons\\Axe_sprite.xml", texAxe);
 	resource->LoadAnimations("Data\\GameObject\\Sub_weapons\\Axe_ani.xml", animations);
 
+	LPDIRECT3DTEXTURE9 texSWHolyWater = textures->Get(ID_TEX_HOLYWATER);
+	resource->LoadSprites("Data\\GameObject\\Sub_weapons\\HolyWater_sprite.xml", texSWHolyWater);
+	resource->LoadAnimations("Data\\GameObject\\Sub_weapons\\HolyWater_ani.xml", animations);
 
+
+
+
+	
 	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
@@ -532,14 +549,12 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 	else if (dynamic_cast<SubWeapon *>(obj)
 		|| dynamic_cast<Whip *>(obj))
 	{
-		for (auto object : this->enemies)
-		{
-			coObjects.push_back(object);
-		}
+
 		for (auto object : this->objects)
 		{
-			if (dynamic_cast<Ground *>(object)
+			if ( dynamic_cast<Ground *>(object)
 				|| dynamic_cast<Candle *>(object)
+				|| dynamic_cast<Enemy*>(object)
 				|| dynamic_cast<Torch *>(object)
 				|| dynamic_cast<CBrick *>(object))
 			{

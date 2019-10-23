@@ -282,6 +282,12 @@
     <ClInclude Include="BossZone.h">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
+    <ClInclude Include="IHolyWater.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -481,6 +487,12 @@
     </ClCompile>
     <ClCompile Include="BossZone.cpp">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+    </ClCompile>
+    <ClCompile Include="IHolyWater.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

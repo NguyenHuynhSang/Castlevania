@@ -3,6 +3,7 @@
 #include"Dagger.h"
 #include"Axe.h"
 #include"StopWatch.h"
+#include"HolyWater.h"
 HandleSpawnSubWeapon * HandleSpawnSubWeapon::__instance = NULL;
 
 void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y, DIRECTION nx)
@@ -30,6 +31,15 @@ void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y, DIR
 		sub->StartStopWatch();
 		scene->SpawnSubWeapon(sw);
 		break;
+	}
+	case SWDHOLLYWATER: {
+		SubWeapon* sw = new HolyWater(nx);
+		sw->SetPositionInWorld(x, y);
+		scene->SpawnSubWeapon(sw);
+		break;
+
+
+
 	}
 	}
 }

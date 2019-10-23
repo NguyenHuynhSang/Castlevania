@@ -10,6 +10,7 @@
 #include"PorkChop.h"
 #include"InvisibilityPotion.h"
 #include"Cross.h"
+#include"IHolyWater.h"
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
@@ -116,6 +117,14 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		scene->SpawnItem(item);
 		break;
 	}
+	case ITDHOLYWATER: {
+		item = new IHolyWater();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+		break;
+	}
+
 	}
 }
 
@@ -165,6 +174,13 @@ void HandleSpawnItem::SpawnRandomItem(float x, float y, bool isHiding)
 	else if (rank<280)
 	{
 		item = new IStopWatch();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+	}
+	else if (rank<290)
+	{
+		item = new IHolyWater();
 		item->SetIsHiding(isHiding);
 		item->SetPositionInWorld(x, y);
 		scene->SpawnItem(item);
