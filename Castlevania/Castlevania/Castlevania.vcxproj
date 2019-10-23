@@ -23,6 +23,7 @@
     <ClInclude Include="AxeItem.h" />
     <ClInclude Include="BattleCross.h" />
     <ClInclude Include="BlockingQueue.h" />
+    <ClInclude Include="BossZone.h" />
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="Camera.h" />
@@ -66,6 +67,7 @@
     <ClInclude Include="NextScene.h" />
     <ClInclude Include="ObjectProperty.h" />
     <ClInclude Include="Panther.h" />
+    <ClInclude Include="PhantomBat.h" />
     <ClInclude Include="PorkChop.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="ScoreText.h" />
@@ -82,7 +84,7 @@
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Torch.h" />
-    <ClInclude Include="VampieBat.h" />
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="Zombie.h" />
@@ -91,6 +93,7 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="AxeItem.cpp" />
     <ClCompile Include="BattleCross.cpp" />
+    <ClCompile Include="BossZone.cpp" />
     <ClCompile Include="BoundMap.cpp" />
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -132,6 +135,7 @@
     <ClCompile Include="NextScene.cpp" />
     <ClCompile Include="ObjectProperty.cpp" />
     <ClCompile Include="Panther.cpp" />
+    <ClCompile Include="PhantomBat.cpp" />
     <ClCompile Include="PorkChop.cpp" />
     <ClCompile Include="SceneManagement.cpp" />
     <ClCompile Include="ScoreText.cpp" />
@@ -148,7 +152,7 @@
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Torch.cpp" />
-    <ClCompile Include="VampieBat.cpp" />
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="Zombie.cpp" />

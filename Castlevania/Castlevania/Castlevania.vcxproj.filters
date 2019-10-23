@@ -58,20 +58,20 @@
     <Filter Include="ObjectsManagement\StaticObjects\Hidden">
       <UniqueIdentifier>{b570a370-9a47-4a1a-9f11-b12cc236d0c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement\PlayerAndTheirStuff">
-      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\PlayerAndTheirStuff\Weapons">
-      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\PlayerAndTheirStuff\SubWeapons">
-      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utilities\Grid">
       <UniqueIdentifier>{b832f5bf-88a0-4ee6-888e-7cc4b17d9897}</UniqueIdentifier>
     </Filter>
     <Filter Include="Hub">
       <UniqueIdentifier>{bfc83f90-cf3d-4e6a-a1bc-ffbe0f378a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\PlayerAndWeapon">
+      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\PlayerAndWeapon\Weapons">
+      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManagement\PlayerAndWeapon\SubWeapons">
+      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +112,7 @@
       <Filter>Library\RapidXML</Filter>
     </ClInclude>
     <ClInclude Include="Simon.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon</Filter>
     </ClInclude>
     <ClInclude Include="Torch.h">
       <Filter>ObjectsManagement\StaticObjects</Filter>
@@ -154,12 +154,9 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
     <ClInclude Include="Whip.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\Weapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Panther.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="VampieBat.h">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="SceneManagement.h">
@@ -202,13 +199,13 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
     <ClInclude Include="SubWeapon.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="Dagger.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="BattleCross.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="DebrisBrick.h">
       <Filter>Effects</Filter>
@@ -241,7 +238,7 @@
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClInclude>
     <ClInclude Include="Axe.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="AxeItem.h">
       <Filter>ObjectsManagement\Items</Filter>
@@ -256,13 +253,13 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
     <ClInclude Include="StopWatch.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="HandleSpawnSubWeapon.h">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="Hud.h">
       <Filter>Hub</Filter>
@@ -275,6 +272,15 @@
     </ClInclude>
     <ClInclude Include="Cross.h">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>ObjectsManagement\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PhantomBat.h">
+      <Filter>ObjectsManagement\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BossZone.h">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +312,7 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Simon.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon</Filter>
     </ClCompile>
     <ClCompile Include="define.h">
       <Filter>Utilities</Filter>
@@ -354,10 +360,7 @@
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Whip.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\Weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="VampieBat.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="ObjectProperty.cpp">
       <Filter>Utilities\MapReader</Filter>
@@ -396,13 +399,13 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
     <ClCompile Include="SubWeapon.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Dagger.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="BattleCross.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="DebrisBrick.cpp">
       <Filter>Effects</Filter>
@@ -435,7 +438,7 @@
       <Filter>ObjectsManagement\StaticObjects</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="AxeItem.cpp">
       <Filter>ObjectsManagement\Items</Filter>
@@ -450,13 +453,13 @@
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
     <ClCompile Include="StopWatch.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="HandleSpawnSubWeapon.cpp">
-      <Filter>ObjectsManagement\PlayerAndTheirStuff\SubWeapons</Filter>
+      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Hud.cpp">
       <Filter>Hub</Filter>
@@ -469,6 +472,15 @@
     </ClCompile>
     <ClCompile Include="Cross.cpp">
       <Filter>ObjectsManagement\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>ObjectsManagement\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PhantomBat.cpp">
+      <Filter>ObjectsManagement\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BossZone.cpp">
+      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

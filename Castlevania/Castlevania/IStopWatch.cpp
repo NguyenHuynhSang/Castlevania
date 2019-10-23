@@ -4,6 +4,10 @@
 
 void IStopWatch::Render()
 {
+	if (this->isHiding)
+	{
+		return;
+	}
 	animations[0]->Render(DIRECTION::DEFAULT, x, y);
 }
 

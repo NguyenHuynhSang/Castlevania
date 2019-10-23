@@ -24,6 +24,7 @@
 #include"IStopWatch.h"
 #include"Cross.h"
 #include"HandleSpawnSubWeapon.h"
+#include"PhantomBat.h"
 CSimon::CSimon() :CGameObject()
 {
 	this->hp_ = 16;
@@ -58,7 +59,7 @@ void CSimon::Renderer(int ani)
 	animations[ani]->Render(nx, x, y, alpha);
 
 	//RenderBoundingBox();
-	
+
 }
 
 void CSimon::HandleFirstStepOnStair()
@@ -251,7 +252,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	if (this->isActack &&!this->isAutoWalk) {
+	if (this->isActack && !this->isAutoWalk) {
 		DebugOut(L"\n ATTACK");
 		if (whip->CheckLastFrame()) {
 			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
@@ -362,7 +363,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else
 						if (this->state == SIMON_STATE_DEFLECT) {
 							this->state = SIMON_STATE_IDLE;
-							DebugOut(L"Reset ground SIMON_STATE_IDLE \n ");
+							this->isJumping = false;
 						}
 						else {
 							this->isJumping = false;
@@ -464,8 +465,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
-				if (untouchable_start == 0) {
-					Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+	 			Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+				if (dynamic_cast<PhantomBat*>(enemy)) //FOR TEST ONLY
+				{
+					PhantomBat* boss = dynamic_cast<PhantomBat*>(enemy);
+					this->isFightWithBoss = true;
+					if (e->nx != 0)
+					{
+						x += dx;
+					}
+					else if (e->ny != 0) y += dy;
+					boss->StartAwake();
+					continue;
+				}
+				else if (untouchable_start == 0) {
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_DEFLECT);
@@ -484,10 +497,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					if (e->ny != 0)
 					{
-						if (this->isJumping)
-						{
-							y += dy;
-						}
+						y += dy;
 					}
 				}
 			}
@@ -607,7 +617,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else if (dynamic_cast<Cross*>(e)) {
 						this->getCross = true;
 					}
-					//DebugOut(L"aabb \n");
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
 					}
@@ -662,8 +671,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
 					if (!this->isOnStair)
 					{
-						this->SetState(SIMON_STATE_DEFLECT);
-						CGameObject::Update(dt); // cap nhat lai dx dy
+						if (dynamic_cast<PhantomBat*>(f))
+						{
+
+						}
+						else this->SetState(SIMON_STATE_DEFLECT);
 						x += dx;
 						y += dy;
 					}

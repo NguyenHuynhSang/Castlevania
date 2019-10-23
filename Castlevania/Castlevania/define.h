@@ -39,6 +39,9 @@
 #define ID_TEX_FIREBALL 110
 #define ID_TEX_DOOR      120
 #define ID_TEX_AXE      130
+#define ID_TEX_VAMPRITEBAT      140
+
+
 
 #define ID_TEX_ITEM_HEART 500
 #define ID_TEX_ITEM_MORNINGSTAR 501
@@ -90,6 +93,7 @@
 #define ID_TiLE_OBJECT_BREAKING_BRICK 14
 #define ID_TILE_OBJECT_GS2_DOOR     15
 #define ID_TILE_OBJECT_CAMBOUNDBOX   16
+#define ID_TILE_OBJECT_BOSSBAT    17
 ///ITEM
 ///
 #define ITEM_STATE_HIDING 100
@@ -142,12 +146,6 @@ const enum ItemID {
 	ITDCROSS 
 };
 
-const enum StairDir {
-	DIR_UPRIGHT,
-	DIR_UPLEFT,
-	DIR_DOWNRIGHT,
-	DIR_DOWNLEFT
-};
 
 const enum EnemyDef {
 	EDZOMBIE,
@@ -155,6 +153,7 @@ const enum EnemyDef {
 	EDBAT,
 	EDFISHMAN,
 	EDFIREBALL,
+	EDVAMPIREBAT
 };
 
 const enum SubWeaponDef {

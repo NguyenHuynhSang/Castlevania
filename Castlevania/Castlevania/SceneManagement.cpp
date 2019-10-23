@@ -39,11 +39,16 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_FISHMAN, L"Data\\GameObject\\Enemies\\Fishman.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_FIREBALL, L"Data\\GameObject\\Enemies\\FIREBALL.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_AXE, L"Data\\GameObject\\Sub_weapons\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_VAMPRITEBAT, L"Data\\GameObject\\\Bosses\\VAMPIRE_BAT.png", D3DCOLOR_XRGB(255, 0, 255));
+
 
 	textures->Add(ID_TEX_EFFECT_FLAME, L"Data\\GameObject\\Effect\\Flame.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_DEBRIS, L"Data\\GameObject\\Effect\\Debris.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_BUBBLE, L"Data\\GameObject\\Effect\\Bubble.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_EFFECT_SCROTE_TEXT, L"Data\\GameObject\\Effect\\ScoreText.png", D3DCOLOR_XRGB(255, 0, 255));
+
+
+	
 
 	resource = ResourceManagement::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -141,6 +146,12 @@ void SceneManagement::LoadResource()
 
 
 
+	LPDIRECT3DTEXTURE9 texVampireBat = textures->Get(ID_TEX_VAMPRITEBAT);
+	resource->LoadSprites("Data\\GameObject\\Bosses\\VampireBat_sprite.xml", texVampireBat);
+	resource->LoadAnimations("Data\\GameObject\\Bosses\\VampireBat_ani.xml", animations);
+
+	
+
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
 	resource->LoadAnimations("Data\\GameObject\\Effect\\Flame_ani.xml", animations);
@@ -165,7 +176,6 @@ void SceneManagement::LoadResource()
 	LPDIRECT3DTEXTURE9 texBrick = textures->Get(ID_TEX_BRICK);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Brick_sprite.xml", texBrick);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Brick_ani.xml", animations);
-
 
 
 
@@ -265,7 +275,8 @@ void SceneManagement::CamUpdate(DWORD dt)
 	}
 	else if (currentScene == GSTATE_02 || currentScene == GSTATE_02_B || currentScene == GSCENE_03)
 	{
-		if (cx > sceneBox.left && cx < sceneBox.right - SCREEN_WIDTH)
+		if (cx > sceneBox.left && cx < sceneBox.right - SCREEN_WIDTH
+			&&!simon->CheckIsFightWithBoss())
 			Camera::GetInstance()->SetCamera(cx, 0.0f);
 	}
 	else {
@@ -305,6 +316,10 @@ void SceneManagement::GetListUnitFromGrid()
 	for (size_t i = 0; i < groundObjects.size(); i++)
 	{
 		this->objects.push_back(groundObjects[i]);
+	}
+	for (size_t i = 0; i < spawnObjects.size(); i++)
+	{
+		this->objects.push_back(spawnObjects[i]);
 	}
 	for (size_t i = 0; i < listUnit.size(); i++)
 	{
@@ -386,19 +401,13 @@ void SceneManagement::Update(DWORD dt)
 
 	if (simon->CheckIsGetCross())
 	{
-		KillAllEnemy();
+		KillAllEnemy();	
 	}
 	HandleCrossEffect();
 
 
 	hud->Update();
 
-	// update trước để spawn enemy và xử lý va chạm ở frame hiện tại
-	for (size_t i = 0; i < spawnObjects.size(); i++)
-	{
-		spawnObjects[i]->Update(dt);
-
-	}
 
 	GetListUnitFromGrid();
 	// Update camera to follow simon
@@ -664,24 +673,23 @@ void SceneManagement::JumpToScene(int state)
 void SceneManagement::LoadObjects(int currentscene)
 {
 	DebugOut(L"Load object \n");
-	for (UINT i = 0; i < objects.size(); i++) {
-		if (dynamic_cast<Enemy *>(objects.at(i))
-			|| dynamic_cast<Item *>(objects.at(i))
-			|| dynamic_cast<Ground *>(objects.at(i))
-			|| dynamic_cast<Effects*>(objects.at(i))
-			|| dynamic_cast<CSimon *>(objects.at(i))
-			|| dynamic_cast<SubWeapon *>(objects.at(i))
-			)
-		{
-			continue; // tránh trường hợp con trỏ bị delete 2 lần
-		}
-		else
-		{
-
-
-			delete objects[i];
-		}
-	}
+	//for (UINT i = 0; i < objects.size(); i++) {
+	//	if (dynamic_cast<Enemy *>(objects[i])
+	//		|| dynamic_cast<Item *>(objects[i])
+	//		|| dynamic_cast<Ground *>(objects[i])
+	//		|| dynamic_cast<Effects*>(objects[i])
+	//		|| dynamic_cast<CSimon*>(objects[i])
+	//		|| dynamic_cast<SpawnZone*>(objects[i])
+	//		|| dynamic_cast<SubWeapon*>(objects[i])
+	//		)
+	//	{
+	//		continue; // tránh trường hợp con trỏ bị delete 2 lần
+	//	}
+	//	else
+	//	{
+	//		delete objects[i];
+	//	}
+	//}
 	for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
 	for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
 	for (UINT i = 0; i < groundObjects.size(); i++) delete groundObjects[i];
@@ -1262,7 +1270,6 @@ void SceneManagement::LoadObjects(int currentscene)
 			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
 			{
 				simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				//	DebugOut(L"[Complete]Load Simon position in game world \n");
 			}
 
 		}
@@ -1310,8 +1317,6 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 
-
-
 		auto stairObject = cmap->GetObjects().find(ID_TILE_OBJECT_STAIR);
 		for (const auto& child : stairObject->second) {
 			if (child->GetPropertyByKey("scenedef") == GSCENE_03)
@@ -1350,6 +1355,12 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		}
 
+		auto bossBatObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOSSBAT);
+		for (const auto& child : bossBatObject->second) {
+				phantomBat = new PhantomBat();
+				phantomBat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+				unit = new Unit(this->grid, phantomBat);
+		}
 		break;
 	}
 	}

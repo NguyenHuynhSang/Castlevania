@@ -97,6 +97,7 @@ class CSimon : public CGameObject
 	bool isFirstStepOnStair = false;
 	bool isHitDoor = false;
 	bool getCross = false;
+	bool isFightWithBoss = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;
@@ -117,7 +118,7 @@ public:
 	};
 	void ResetState() {
 		isOnStair = startOnStair = isColliceWithStair = isFirstStepOnStair
-			= isActack = isAutoWalk = isJumping = isHitDoor = isUseSubWeapon = false;
+			= isActack = isAutoWalk = isJumping = isHitDoor = isUseSubWeapon = isFightWithBoss= false;
 		this->onStairDirection = STAIRDIRECTION::DEFAULT; 
 		this->lastState = -1;
 		this->delay_attack_start = 0;
@@ -160,7 +161,9 @@ public:
 		}
 	}
 
-
+	bool CheckIsFightWithBoss() {
+		return this->isFightWithBoss;
+	}
 	void AddEnery(int point) {
 		this->enery_ += point;
 		SetEnery(enery_);

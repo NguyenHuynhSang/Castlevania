@@ -193,9 +193,9 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 
 	float camx, camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
-	int startCol = (int)camx / this->cellSize;
+	int startCol = floor(camx / this->cellSize);
 	startCol = startCol > 0 ? startCol + -1 : 0;
-	int endCol = ((int)camx + SCREEN_WIDTH) / this->cellSize;
+	int endCol = floor((camx + SCREEN_WIDTH) / this->cellSize);
 	endCol = endCol > numXCell ? numXCell : endCol + 1;
 	for (int i = 0; i < this->numYCell; i++)
 	{

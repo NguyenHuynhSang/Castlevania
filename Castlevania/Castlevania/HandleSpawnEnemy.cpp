@@ -3,7 +3,7 @@
 #include"Zombie.h"
 #include"Fishman.h"
 #include"Fireball.h"
-#include"VampieBat.h"
+#include"Bat.h"
 #include"Camera.h"
 
 HandleSpawnEnemy * HandleSpawnEnemy::__instance = NULL;
@@ -77,7 +77,7 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	case EDBAT: {
 		for (size_t i = 0; i < num; i++)
 		{
-			enemy = new VampieBat(oy);
+			enemy = new Bat(oy);
 			int rank = rand() % 2;
 			if (rank == 1)
 			{

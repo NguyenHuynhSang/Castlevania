@@ -4,6 +4,10 @@
 
 void AxeItem::Render()
 {
+	if (this->isHiding)
+	{
+		return;
+	}
 	animations[0]->Render(DIRECTION::DEFAULT, x, y);
 }
 
@@ -85,7 +89,7 @@ void AxeItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-AxeItem::AxeItem()
+AxeItem::AxeItem() :Item()
 {
 	AddAnimation("AXE_ITEM_ANI");
 }

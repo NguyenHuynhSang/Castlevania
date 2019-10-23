@@ -6,7 +6,7 @@
 
 void SpawnZone::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

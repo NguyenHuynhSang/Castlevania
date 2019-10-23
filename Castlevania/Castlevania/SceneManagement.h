@@ -23,7 +23,7 @@
 #include"Entry.h"
 #include"MoneyBagTrigger.h"
 #include"Panther.h"
-#include"VampieBat.h"
+#include"Bat.h"
 #include"StairTrigger.h"
 #include"SpawnZone.h"
 #include"Candle.h"
@@ -33,6 +33,7 @@
 #include"Hud.h"
 #include"Grid.h"
 #include"InputController.h"
+#include"PhantomBat.h"
 class SceneManagement
 {
 private:
@@ -40,7 +41,9 @@ private:
 
 
 	CSimon *simon;
-	Whip* whip;
+	PhantomBat* phantomBat;
+
+
 	Torch * torch;
 	Ground *ground;
 	Entry* entry;
