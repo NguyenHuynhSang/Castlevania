@@ -1,9 +1,9 @@
 #include "SubWeapon.h"
 
 
-
 SubWeapon::SubWeapon()
 {
+	
 }
 
 

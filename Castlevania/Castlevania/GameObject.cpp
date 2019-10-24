@@ -172,6 +172,34 @@ void CGameObject::RenderSpriteBox()
 	CGame::GetInstance()->Draw(true,nx, x, y, sbbox, rect.left, rect.top, rect.right, rect.bottom, 32);
 }
 
+void CGameObject::RenderActiveBox(RECT rec,MYCOLOR color,int alpha)
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT rect;
+	LPDIRECT3DTEXTURE9 bbox;
+	switch (color)
+	{
+	case MYCOLOR::RED:
+		 bbox = CTextures::GetInstance()->Get(ID_TEX_SPRITE_BBOX);
+		break;
+	case MYCOLOR::BLUE:
+		 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+		break;
+	default:
+		 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+		break;
+	}
+
+
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = (int)rec.right - (int)rec.left;
+	rect.bottom = (int)rec.bottom - (int)rec.top;
+
+
+	CGame::GetInstance()->Draw(true, nx, rec.left, rec.top, bbox, rect.left, rect.top, rect.right, rect.bottom, alpha);
+}
+
 void CGameObject::AddAnimation(string aniId, bool isLoop)
 {
 	

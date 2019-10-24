@@ -6,6 +6,13 @@
 #include"HolyWater.h"
 HandleSpawnSubWeapon * HandleSpawnSubWeapon::__instance = NULL;
 
+void HandleSpawnSubWeapon::CheckNumOfSubWeaponUsed()
+{
+
+}
+
+
+
 void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y, DIRECTION nx)
 {
 	switch (subWeaponDef)
@@ -27,8 +34,7 @@ void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y, DIR
 	}
 	case SWDSTOPWATCH: {
 		SubWeapon* sw = new StopWatch();
-		StopWatch * sub = dynamic_cast<StopWatch *>(sw);
-		sub->StartStopWatch();
+		sw->SetPositionInWorld(x, y);
 		scene->SpawnSubWeapon(sw);
 		break;
 	}

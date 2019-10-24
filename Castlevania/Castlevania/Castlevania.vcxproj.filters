@@ -73,6 +73,9 @@
     <Filter Include="ObjectsManagement\PlayerAndWeapon\SubWeapons">
       <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectsManagement\Enemy\Boss">
+      <UniqueIdentifier>{4475eb4f-3267-4d52-afd1-de7feb278667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -276,9 +279,6 @@
     <ClInclude Include="Bat.h">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PhantomBat.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="BossZone.h">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClInclude>
@@ -287,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="HolyWater.h">
       <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+    </ClInclude>
+    <ClInclude Include="PhantomBat.h">
+      <Filter>ObjectsManagement\Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -482,9 +485,6 @@
     <ClCompile Include="Bat.cpp">
       <Filter>ObjectsManagement\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PhantomBat.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="BossZone.cpp">
       <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
     </ClCompile>
@@ -493,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="HolyWater.cpp">
       <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+    </ClCompile>
+    <ClCompile Include="PhantomBat.cpp">
+      <Filter>ObjectsManagement\Enemy\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -93,7 +93,7 @@ private:
 	void CamUpdate(DWORD dt);
 	void GetListUnitFromGrid();
 	void UpdateGrid();
-
+	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
 public:
 	bool CheckPlayCrossEffect() {
 		return this->playCrossEffect;
@@ -117,7 +117,7 @@ public:
 		
 	}
 	
-	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
+
 	void FreezeEnemy(bool flag);
 	void KillAllEnemy();
 	void LoadScene();

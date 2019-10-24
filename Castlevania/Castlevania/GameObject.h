@@ -84,6 +84,7 @@ public:
 
 	void RenderBoundingBox(); // dùng check va chạm
 	void RenderSpriteBox(); // vẽ khung lấy sprite dùng tính toán vị trí
+	void RenderActiveBox(RECT rec, MYCOLOR color,int alpha =64);
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void FilterCollision(

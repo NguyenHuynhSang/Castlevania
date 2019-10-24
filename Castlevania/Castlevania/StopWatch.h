@@ -15,14 +15,8 @@ public:
 	DWORD CheckFreezeTime() {
 		return this->stopwatch_start;
 	}
-	void StartStopWatch() {
-		if (this->stopwatch_start==0)
-		{
-			this->stopwatch_start = GetTickCount();
-		}
-	}
 
-	
+
 	StopWatch();
 	~StopWatch();
 };

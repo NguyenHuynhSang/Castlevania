@@ -6,7 +6,7 @@ class HandleSpawnSubWeapon
 	static HandleSpawnSubWeapon * __instance;
 	SceneManagement* scene;
 public:
-
+	void CheckNumOfSubWeaponUsed();
 	void SpawnSubWeapon(int subWeaponDef,float x,float y, DIRECTION nx);
 	HandleSpawnSubWeapon();
 	void Init(SceneManagement* scene);

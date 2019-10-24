@@ -197,6 +197,13 @@ enum class STAIRDIRECTION
 
 };
 
+
+enum class MYCOLOR
+{
+	RED,
+	BLUE
+};
+
 #endif
 
 

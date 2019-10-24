@@ -3,19 +3,21 @@
 
 
 
-
-#define VAMPIREBAT_SLOW_FLYING 0.2f
-#define VAMPIREBAT_FAST_FLYING 0.3f
-
-
 #define VAMPIREBAT_STATE_SLEEP 0
 #define VAMPIREBAT_STATE_IDLE 100
-#define VAMPIREBAT_STATE_FLY_SLOW 200
-#define VAMPIREBAT_STATE_FLY_FAST 300
+#define VAMPIREBAT_STATE_FLY_SLOW 700
+#define VAMPIREBAT_STATE_FLY_FAST 500
 
 #define VAMPIREBAT_ANI_SLEEP 0
 #define VAMPIREBAT_ANI_FLYING 1
 
+#define VAMPIREBAT_IDLE_TIME_LONG 1500
+#define VAMPIREBAT_IDLE_TIME_SHORT 500
+
+#define VAMPIREBAT_ATTACKSLOW_TIME 1000
+#define VAMPIREBAT_ATTACKFAST_TIME 500
+
+#define VAMPIREBAT_FLY_BACK_TIME 1000
 
 
 
@@ -26,19 +28,35 @@
 #define VAMPIREBAT_BBOX_WIDTH 100
 
 
+#define VAMPIREBAT_BBOX_SLOWACTACK 200
+#define VAMPIREBAT_BBOX_FASTACTACK 480
+
+
 
 class PhantomBat:public Enemy
 {
 private:
 	D3DXVECTOR2*  tagerPosition;
 	bool awake = false;
+	bool isActack = false;
+	bool flyToPos = false;
+	RECT activeArea;
+	DWORD attack_start;
+	DWORD flyback_start;
+	DWORD waiting_start;
+	unsigned int attack_time;
+	unsigned int waiting_time;
+	RECT slowActackArea;
+	RECT fastActackArea;
 public:
+	void SetActiveArea(RECT r) { this->activeArea = r; }
 	void StartAwake() { this->awake = true; };
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void GetSpriteBox(float& _width, float& _height) {
 	};
+	void SetState(int state);
 	PhantomBat();
 	~PhantomBat();
 

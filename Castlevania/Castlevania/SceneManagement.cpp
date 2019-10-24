@@ -407,8 +407,6 @@ int SceneManagement::CheckNumOfFishMan()
 void SceneManagement::Update(DWORD dt)
 {
 
-
-
 	if (this->isNextScene) {
 		LoadScene();
 		this->isNextScene = false;
@@ -524,7 +522,7 @@ void SceneManagement::SceneUpdate()
 void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects)
 {
 	// lấy ds những object dùng xét va chạm với object truyền vào
-
+	coObjects.clear();
 	if (dynamic_cast<Item *>(obj))
 	{
 		for (auto object : this->objects)
@@ -537,14 +535,21 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 	}
 	else if (dynamic_cast<Enemy *>(obj))
 	{
-		for (auto object : this->objects)
+		if (dynamic_cast<PhantomBat*>(obj))
 		{
-			if (dynamic_cast<Ground *>(object)
-				|| dynamic_cast<Water *>(object))
+			coObjects.push_back(simon); // past simon potion to boss
+		}
+		else {
+			for (auto object : this->objects)
 			{
-				coObjects.push_back(object);
+				if (dynamic_cast<Ground*>(object)
+					|| dynamic_cast<Water*>(object))
+				{
+					coObjects.push_back(object);
+				}
 			}
 		}
+	
 	}
 	else if (dynamic_cast<SubWeapon *>(obj)
 		|| dynamic_cast<Whip *>(obj))
@@ -595,8 +600,12 @@ void SceneManagement::FreezeEnemy(bool flag)
 {
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		Enemy * enemy = dynamic_cast<Enemy*> (enemies.at(i));
-		enemy->SetFreeze(flag);
+		if (enemies[i]->CheckActive())
+		{
+			Enemy* enemy = dynamic_cast<Enemy*> (enemies.at(i));
+			enemy->SetFreeze(flag);
+		}
+	
 	}
 }
 
