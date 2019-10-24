@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="232">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="233">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2639,7 +2639,7 @@
  <objectgroup id="17" name="BOSS">
   <object id="229" gid="192" x="5302" y="75" width="100" height="46"/>
  </objectgroup>
- <objectgroup color="#0055ff" id="18" name="BossBoder">
-  <object id="230" x="5136" y="0" width="495" height="319"/>
+ <objectgroup color="#0055ff" id="18" name="BossBorder">
+  <object id="232" x="5127" y="3" width="493" height="314"/>
  </objectgroup>
 </map>

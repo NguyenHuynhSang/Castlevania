@@ -1385,6 +1385,19 @@ void SceneManagement::LoadObjects(int currentscene)
 				phantomBat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 				unit = new Unit(this->grid, phantomBat);
 		}
+
+		auto bossBatBorder = cmap->GetObjects().find(ID_TILE_OBJECT_BOSSBAT_BORDER);
+		for (const auto& child : bossBatBorder->second) {
+			float l = 0, t = 0, r = 0, b = 0;
+			l = child->GetX();
+			t = child->GetY()+80;
+			r = l+ child->GetWidth();
+			b= t+child->GetHeight();
+			RECT rect = { l,t,r,b };
+			phantomBat->SetActiveArea(rect);
+		}
+    
+
 		break;
 	}
 	}

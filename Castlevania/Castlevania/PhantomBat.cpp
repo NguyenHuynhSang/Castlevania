@@ -45,11 +45,33 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += dx;
 	y += dy;
 
+	if (this->x<activeArea.left || (this->x + VAMPIREBAT_BBOX_WIDTH)>activeArea.right
+		|| (this->y + VAMPIREBAT_BBOX_HEIGHT) > activeArea.bottom || this->y < activeArea.top)
+	{
 
-	if (waiting_start!=0 && GetTickCount()-waiting_start>this->waiting_time)
+		if (this->flyback_start == 0)
+		{
+			this->flyback_start = GetTickCount();
+		}
+		float targetX = this->activeArea.left + rand() % (this->activeArea.right- this->activeArea.left);
+		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom- this->activeArea.top);
+
+		this->vx = (targetX - x) / VAMPIREBAT_FLY_BACK_TIME;
+		this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
+		this->flyToPos = true;
+		this->isActack = false;
+
+	}
+
+	if (waiting_start != 0 && GetTickCount() - waiting_start > this->waiting_time)
 	{
 		this->isActack = false;
+		this->flyToPos = false;
 		this->waiting_start = 0;
+	}
+	else if(waiting_start != 0)
+	{
+		return;
 	}
 	float cx, cy;//center x,y
 	this->slowActackArea.left = x - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_BBOX_WIDTH) / 2;
@@ -64,7 +86,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	this->fastActackArea.bottom = this->fastActackArea.top + VAMPIREBAT_BBOX_FASTACTACK;
 
 
-	if (!this->isActack &&!this->flyToPos)
+	if (!this->isActack && !this->flyToPos)
 	{
 		if (CGameObject::AABB(l, t, r, b, this->slowActackArea.left, this->slowActackArea.top, this->slowActackArea.right, this->slowActackArea.bottom))
 		{
@@ -92,32 +114,43 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (!this->flyToPos)
 			{
-				if (this->flyback_start==0)
+				if (this->flyback_start == 0)
 				{
 					this->flyback_start = GetTickCount();
 				}
-				float targetX =  5136+ rand() % (SCREEN_WIDTH);
-				float tagetY =  80+ rand() % (SCREEN_HEIGHT - 80);
-
-				this->vx = (targetX-x) / VAMPIREBAT_FLY_BACK_TIME;
-				this->vy = (tagetY-y) / VAMPIREBAT_FLY_BACK_TIME;
-				this->flyToPos = true;
-			}
+				float targetX = x;
+				while (abs(targetX-x)>100)
+				{
+					float targetX = this->activeArea.left + rand() % (this->activeArea.right - this->activeArea.left);
+				}
+				
 	
+				float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top);
+				
+			
+
+
+				this->vx = (targetX - x) / VAMPIREBAT_FLY_BACK_TIME;
+				this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
+				this->flyToPos = true;
+				this->isActack = false;
+			}
+
 		}
 	}
-	if (this->flyback_start!=0 &&GetTickCount()-this->flyback_start> VAMPIREBAT_FLY_BACK_TIME)
+	if (this->flyback_start != 0 && GetTickCount() - this->flyback_start > VAMPIREBAT_FLY_BACK_TIME)
 	{
 		this->flyback_start = 0;
 		this->flyToPos = false;
-		if (this->waiting_start==0)
+		if (this->waiting_start == 0)
 		{
 			waiting_start = GetTickCount();
 			int rank = rand() % 2;
-			if (rank==1)
+			if (rank == 1)
 			{
 				this->waiting_time = VAMPIREBAT_IDLE_TIME_LONG;
-			}else
+			}
+			else
 			{
 				this->waiting_time = VAMPIREBAT_IDLE_TIME_SHORT;
 			}
@@ -146,7 +179,7 @@ void PhantomBat::Render()
 		ani = VAMPIREBAT_ANI_FLYING;
 	}
 	animations[ani]->Render(DIRECTION::DEFAULT, x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	RenderActiveBox(this->slowActackArea, MYCOLOR::BLUE, 100);
 	RenderActiveBox(this->fastActackArea, MYCOLOR::RED);
 }
