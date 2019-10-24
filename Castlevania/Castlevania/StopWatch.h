@@ -5,7 +5,6 @@
 
 class StopWatch :public SubWeapon
 {
-	static StopWatch * __instance;
 
 	DWORD stopwatch_start;
 public:
@@ -23,7 +22,7 @@ public:
 		}
 	}
 
-	static StopWatch * GetInstance();
+	
 	StopWatch();
 	~StopWatch();
 };

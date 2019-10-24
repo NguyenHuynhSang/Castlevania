@@ -26,7 +26,7 @@ void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef,float x, float y, DIR
 		break;
 	}
 	case SWDSTOPWATCH: {
-		SubWeapon *sw = StopWatch::GetInstance();
+		SubWeapon* sw = new StopWatch();
 		StopWatch * sub = dynamic_cast<StopWatch *>(sw);
 		sub->StartStopWatch();
 		scene->SpawnSubWeapon(sw);

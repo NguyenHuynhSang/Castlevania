@@ -1,15 +1,12 @@
 #include "StopWatch.h"
 #include"HandleSpawnEnemy.h"
 
-StopWatch * StopWatch::__instance = NULL;
-
-StopWatch *StopWatch::GetInstance()
-{
-	if (__instance == NULL) __instance = new StopWatch();
-	return __instance;
-}
 void StopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (this->isDestroyed)
+	{
+		return;
+	}
 	if (this->stopwatch_start!=0)
 	{
 		HandleSpawnEnemy::GetInstance()->FreezeEnemy(true);
@@ -18,12 +15,12 @@ void StopWatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		HandleSpawnEnemy::GetInstance()->FreezeEnemy(false);
 		this->stopwatch_start = 0;
-		
+		this->DestroyImmediate();
 	}
 }
 
 
-StopWatch::StopWatch()
+StopWatch::StopWatch() :SubWeapon()
 {
 	this->stopwatch_start = GetTickCount();
 	this->damage = 0;

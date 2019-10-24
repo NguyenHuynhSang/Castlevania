@@ -67,6 +67,15 @@ void Grid::Add(Unit * unit)
 }
 
 
+bool AABB(float l, float t, float r, float b, float l1, float t1, float r1, float b1)
+{
+	float left = l1 - r;
+	float top = b1 - t;
+	float right = r1 - l;
+	float bottom = t1 - b;
+	//  xét ngược lại cho nhanh hơn
+	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
+}
 
 void Grid::Update(Unit * unit, float x, float y)
 {
@@ -74,31 +83,32 @@ void Grid::Update(Unit * unit, float x, float y)
 
 	Camera::GetInstance()->GetCamera(cx_, cy_);
 
-	if (x > cx_ && x < cx_ + SCREEN_WIDTH && y>0 && y < cy_ + SCREEN_HEIGHT)
+
+	float l, t, r, b;
+	unit->GetGameObject()->GetBoundingBox(l, t, r, b);
+	
+
+	if (AABB(l,t,r,b,cx_,cy_,cx_+SCREEN_WIDTH,cy_+SCREEN_HEIGHT))
 	{
 		unit->GetGameObject()->SetActive();
 	}
+	else
+	{
+		if (unit->GetGameObject()->CheckActive()) {
+			if (dynamic_cast<Item*>(unit->GetGameObject())
+				|| dynamic_cast<Enemy*>(unit->GetGameObject())
+				|| dynamic_cast<SubWeapon*>(unit->GetGameObject()))
+			{
+				unit->GetGameObject()->DestroyImmediate();
+			}
+		
+		}
+	}
+	//out of map? destroy immediate
 	if (x < -15 || x > mapWidth || y<0 || y > SCREEN_HEIGHT) // -15px for bound map
 	{
 		unit->GetGameObject()->DestroyImmediate();
 	}
-	if (unit->GetGameObject()->CheckActive())
-	{
-
-		if (x<cx_ || x>cx_ + SCREEN_WIDTH
-			|| y<cy_ || y>cy_ + SCREEN_HEIGHT)
-		{
-			if (dynamic_cast<Item *>(unit->GetGameObject())
-				|| dynamic_cast<Enemy *>(unit->GetGameObject())
-				|| dynamic_cast<SubWeapon *>(unit->GetGameObject()))
-			{
-				unit->GetGameObject()->DestroyImmediate();
-			}
-		}
-
-	}
-
-
 
 	// tìm vị trí củ của cell chứa unit 
 	int oldCellX = (int)(unit->x_ / this->cellSize);
@@ -307,3 +317,4 @@ void Grid::RemoveUnit(Unit* unit)
 Grid::~Grid()
 {
 }
+
