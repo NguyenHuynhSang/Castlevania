@@ -3,7 +3,7 @@
 #include"HandleSpawnEnemy.h"
 void PhantomBat::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x;
+	l = x+35;
 	t = y;
 
 	if (this->state == VAMPIREBAT_STATE_SLEEP)
@@ -55,8 +55,8 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += dx;
 	y += dy;
 
-	if (this->x<activeArea.left || (this->x + VAMPIREBAT_BBOX_WIDTH)>activeArea.right
-		|| (this->y + VAMPIREBAT_BBOX_HEIGHT) > activeArea.bottom || this->y < activeArea.top)
+	if (this->x<activeArea.left || (this->x + VAMPIREBAT_SPRITE_BBOX_WIDTH)>activeArea.right
+		|| (this->y + VAMPIREBAT_SPRITE_BBOX_HEIGHT) > activeArea.bottom || this->y < activeArea.top)
 	{
 
 		if (this->flyback_start == 0)
@@ -82,12 +82,12 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	this->slowActackArea.left = x - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_BBOX_WIDTH) / 2;
-	this->slowActackArea.top = y - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_BBOX_HEIGHT) / 2;
+	this->slowActackArea.left = x - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_SPRITE_BBOX_WIDTH) / 2;
+	this->slowActackArea.top = y - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_SPRITE_BBOX_HEIGHT) / 2;
 	this->slowActackArea.right = this->slowActackArea.left + VAMPIREBAT_BBOX_SLOWACTACK;
 	this->slowActackArea.bottom = this->slowActackArea.top + VAMPIREBAT_BBOX_SLOWACTACK;
-	this->fastActackArea.left = x - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_BBOX_WIDTH) / 2;
-	this->fastActackArea.top = y - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_BBOX_HEIGHT) / 2;
+	this->fastActackArea.left = x - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_SPRITE_BBOX_WIDTH) / 2;
+	this->fastActackArea.top = y - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_SPRITE_BBOX_HEIGHT) / 2;
 	this->fastActackArea.right = this->fastActackArea.left + VAMPIREBAT_BBOX_FASTACTACK;
 	this->fastActackArea.bottom = this->fastActackArea.top + VAMPIREBAT_BBOX_FASTACTACK;
 	if (this->attack_start==0 &&this->flyback_start==0 && this->flyback_start==0)
@@ -123,7 +123,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->flyback_start = GetTickCount();
 		}
 	
-		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top);
+		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top-80);
 		//this->vx = (targetX - x) / VAMPIREBAT_FLY_BACK_TIME;
 		this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
 	}
