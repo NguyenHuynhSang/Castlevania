@@ -13,7 +13,7 @@ public:
 	virtual void GetSpriteBox(float& _width, float& _height) {
 	};
 	Fireball();
-	Fireball(float vx,float vy);
+	Fireball(DIRECTION nx,float vy);
 	Fireball(DIRECTION nx);
 	~Fireball();
 };

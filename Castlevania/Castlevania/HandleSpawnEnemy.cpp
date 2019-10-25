@@ -109,6 +109,13 @@ void HandleSpawnEnemy::SpawnEnemy(int enemyDef, int num, DWORD respawntime, floa
 	}
 }
 
+void HandleSpawnEnemy::SpawnFireBall(float x, float y, DIRECTION nx, float vy)
+{
+	enemy = new Fireball(nx,vy);
+	enemy->SetPositionInWorld(x, y);
+	scene->SpawnEnemy(enemy);
+}
+
 HandleSpawnEnemy *HandleSpawnEnemy::GetInstance()
 {
 	if (__instance == NULL) __instance = new HandleSpawnEnemy();

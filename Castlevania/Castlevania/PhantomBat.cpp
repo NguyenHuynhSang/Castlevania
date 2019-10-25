@@ -75,10 +75,26 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (waiting_start != 0 && GetTickCount() - waiting_start > this->waiting_time)
 	{
+	
 		this->waiting_start = 0;
 	}
 	else if (waiting_start != 0)
 	{
+		if (this->outOfArea)
+		{
+			DIRECTION nx;
+			float fireBall_vy = ((t+(b-t)/2) - y) / 1000;
+			if ((x+35)>l+(r-l)/2)
+			{
+				nx = DIRECTION::LEFT;
+			}
+			else {
+				nx = DIRECTION::RIGHT;
+			}
+			HandleSpawnEnemy::GetInstance()->SpawnFireBall(x+35, y, nx, fireBall_vy);
+			this->outOfArea = false;
+
+		}
 		return;
 	}
 
@@ -111,7 +127,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else
 		{
 			this->attack_start = GetTickCount();
-
+			this->outOfArea = true;
 		}
 	}
 	if (this->attack_start != 0 && GetTickCount() - this->attack_start > this->attack_time)
@@ -124,7 +140,12 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	
 		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top-80);
-		//this->vx = (targetX - x) / VAMPIREBAT_FLY_BACK_TIME;
+		if (this->outOfArea)
+		{
+			float targetX = this->activeArea.left + rand() % (this->activeArea.right - this->activeArea.left);
+			this->vx = (targetX - x) / VAMPIREBAT_FLY_BACK_TIME;
+		}
+		
 		this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
 	}
 	if (this->flyback_start != 0 && GetTickCount() - this->flyback_start > VAMPIREBAT_FLY_BACK_TIME)

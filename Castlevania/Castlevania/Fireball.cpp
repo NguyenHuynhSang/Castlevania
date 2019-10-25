@@ -28,8 +28,7 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CGameObject::Update(dt);
 
-	if (nx == DIRECTION::RIGHT) this->vx = BULLET_SPEED_VX;
-	else if (nx == DIRECTION::LEFT) this->vx = -BULLET_SPEED_VX;
+
 
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -46,6 +45,7 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
+		y += dy;
 	}
 	else
 	{
@@ -56,7 +56,7 @@ void Fireball::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (nx != 0)
 				x += dx;
-			else if (nx != 0)
+			else if (ny != 0)
 				y += dy;
 
 		}
@@ -71,18 +71,33 @@ void Fireball::Render()
 Fireball::Fireball() :Enemy()
 {
 	AddAnimation("FIREBALL_ANI");
+	this->vy = 0;
 }
 
-Fireball::Fireball(float vx, float vy)
+Fireball::Fireball(DIRECTION nx, float vy)
 {
+	AddAnimation("FIREBALL_ANI");
+	this->hp = 1;
+	this->score = 100;
+	this->vx = vx;
+	this->vy = vy;
+
+	this->nx = nx;
+	if (nx == DIRECTION::RIGHT) this->vx = BULLET_SPEED_VX;
+	else if (nx == DIRECTION::LEFT) this->vx = -BULLET_SPEED_VX;
 }
+
+
 
 Fireball::Fireball(DIRECTION nx) : Enemy()
 {
 	AddAnimation("FIREBALL_ANI");
+	this->vy = 0;
 	this->nx = nx;
 	this->hp = 1;
 	this->score = 100;
+	if (nx == DIRECTION::RIGHT) this->vx = BULLET_SPEED_VX;
+	else if (nx == DIRECTION::LEFT) this->vx = -BULLET_SPEED_VX;
 }
 
 

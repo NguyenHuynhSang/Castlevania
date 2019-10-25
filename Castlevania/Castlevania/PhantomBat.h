@@ -43,6 +43,7 @@ private:
 	D3DXVECTOR2*  tagerPosition;
 	bool awake = false;
 	bool intro = false;
+	bool outOfArea=false;
 	RECT activeArea;
 	DWORD attack_start;
 	DWORD flyback_start;
