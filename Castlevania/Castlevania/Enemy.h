@@ -24,6 +24,11 @@ public:
 		this->spawn_start = GetTickCount();
 	}
 
+	unsigned int GetScore() 
+	{
+		return this->score;
+	}
+
 	Enemy() :CGameObject() {
 		score = hp = 0;
 		spawn_start = 0;

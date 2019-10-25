@@ -133,7 +133,7 @@ public:
 	int GetHP() {
 		return this->hp_;
 	}
-	int SetHP(float hp) {
+	void SetHP(float hp) {
 		this->hp_ = hp;
 		if (this->hp_ > SIMON_MAX_HP)
 		{
@@ -167,6 +167,11 @@ public:
 	void AddEnery(int point) {
 		this->enery_ += point;
 		SetEnery(enery_);
+	}
+
+	void AddHP(int point) {
+		this->hp_ += point;
+		SetHP(hp_);
 	}
 	int GetScore() {
 		return this->score_;

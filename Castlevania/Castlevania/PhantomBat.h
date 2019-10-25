@@ -50,8 +50,8 @@ private:
 	DWORD waiting_start;
 	unsigned int attack_time;
 	unsigned int waiting_time;
-	RECT slowActackArea;
-	RECT fastActackArea;
+	RECT slowAttackArea;
+	RECT fastAttackArea;
 public:
 	void SetActiveArea(RECT r) { this->activeArea = r; }
 	void StartAwake() { this->awake = true; };

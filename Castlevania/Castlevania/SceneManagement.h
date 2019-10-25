@@ -94,10 +94,30 @@ private:
 	void GetListUnitFromGrid();
 	void UpdateGrid();
 	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
+
+	unsigned int stateTime;
+
 public:
 	bool CheckPlayCrossEffect() {
 		return this->playCrossEffect;
 	};
+
+	void MinusTimeByOne() {
+
+
+			if (this->stateTime>0)
+			{
+				this->stateTime--;
+			}
+		
+	}
+
+	unsigned int GetTime() {
+
+
+		return this->stateTime;
+	}
+
 	void HandleCrossEffect();
 	void OnCreate();
 	int CheckNumOfFishMan();

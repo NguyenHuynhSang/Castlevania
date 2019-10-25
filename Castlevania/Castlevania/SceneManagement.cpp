@@ -11,7 +11,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", BACKGROUND_COLOR);
 	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", BACKGROUND_COLOR);
 	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", BACKGROUND_COLOR);
-	textures->Add(ID_TEX_UI_HP, L"Data\\UI\\HP.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_UI, L"Data\\UI\\UIpack.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_SIMON, L"Data\\GameObject\\Simon\\SIMON.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_BRICK, L"Data\\GameObject\\Ground\\Brick.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
@@ -63,8 +63,8 @@ void SceneManagement::LoadResource()
 	resource->LoadAnimations("Data\\GameObject\\Simon\\Simon_ani.xml", animations);
 
 
-	LPDIRECT3DTEXTURE9 texHP = textures->Get(ID_TEX_UI_HP);
-	resource->LoadSprites("Data\\UI\\HP_sprite.xml", texHP);
+	LPDIRECT3DTEXTURE9 texUI = textures->Get(ID_TEX_UI);
+	resource->LoadSprites("Data\\UI\\UI_sprite.xml", texUI);
 
 	LPDIRECT3DTEXTURE9 texWhip = textures->Get(ID_TEX_WHIP);
 	resource->LoadSprites("Data\\GameObject\\Weapons\\Whip_sprite.xml", texWhip);
@@ -385,6 +385,7 @@ void SceneManagement::HandleCrossEffect()
 void SceneManagement::OnCreate()
 {
 	game = CGame::GetInstance();
+	this->stateTime = GAMESTATE_TIME;
 	LoadResource();
 	LoadScene();
 	HandleSpawnItem::GetInstance()->Init(this);

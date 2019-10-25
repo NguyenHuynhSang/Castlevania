@@ -98,17 +98,17 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	this->slowActackArea.left = x - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_SPRITE_BBOX_WIDTH) / 2;
-	this->slowActackArea.top = y - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_SPRITE_BBOX_HEIGHT) / 2;
-	this->slowActackArea.right = this->slowActackArea.left + VAMPIREBAT_BBOX_SLOWACTACK;
-	this->slowActackArea.bottom = this->slowActackArea.top + VAMPIREBAT_BBOX_SLOWACTACK;
-	this->fastActackArea.left = x - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_SPRITE_BBOX_WIDTH) / 2;
-	this->fastActackArea.top = y - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_SPRITE_BBOX_HEIGHT) / 2;
-	this->fastActackArea.right = this->fastActackArea.left + VAMPIREBAT_BBOX_FASTACTACK;
-	this->fastActackArea.bottom = this->fastActackArea.top + VAMPIREBAT_BBOX_FASTACTACK;
+	this->slowAttackArea.left = x - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_SPRITE_BBOX_WIDTH) / 2;
+	this->slowAttackArea.top = y - (VAMPIREBAT_BBOX_SLOWACTACK - VAMPIREBAT_SPRITE_BBOX_HEIGHT) / 2;
+	this->slowAttackArea.right = this->slowAttackArea.left + VAMPIREBAT_BBOX_SLOWACTACK;
+	this->slowAttackArea.bottom = this->slowAttackArea.top + VAMPIREBAT_BBOX_SLOWACTACK;
+	this->fastAttackArea.left = x - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_SPRITE_BBOX_WIDTH) / 2;
+	this->fastAttackArea.top = y - (VAMPIREBAT_BBOX_FASTACTACK - VAMPIREBAT_SPRITE_BBOX_HEIGHT) / 2;
+	this->fastAttackArea.right = this->fastAttackArea.left + VAMPIREBAT_BBOX_FASTACTACK;
+	this->fastAttackArea.bottom = this->fastAttackArea.top + VAMPIREBAT_BBOX_FASTACTACK;
 	if (this->attack_start==0 &&this->flyback_start==0 && this->flyback_start==0)
 	{
-		if (CGameObject::AABB(l, t, r, b, this->slowActackArea.left, this->slowActackArea.top, this->slowActackArea.right, this->slowActackArea.bottom))
+		if (CGameObject::AABB(l, t, r, b, this->slowAttackArea.left, this->slowAttackArea.top, this->slowAttackArea.right, this->slowAttackArea.bottom))
 		{
 			this->vx = -(this->x - l) / VAMPIREBAT_ATTACKSLOW_TIME;
 			this->vy = -(this->y - t) / VAMPIREBAT_ATTACKSLOW_TIME;
@@ -116,7 +116,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->attack_start = GetTickCount();
 			this->attack_time = VAMPIREBAT_ATTACKSLOW_TIME;
 		}
-		else  if (CGameObject::AABB(l, t, r, b, this->fastActackArea.left, this->fastActackArea.top, this->fastActackArea.right, this->fastActackArea.bottom))
+		else  if (CGameObject::AABB(l, t, r, b, this->fastAttackArea.left, this->fastAttackArea.top, this->fastAttackArea.right, this->fastAttackArea.bottom))
 		{
 			this->vx = -(this->x - l) / VAMPIREBAT_ATTACKFAST_TIME;
 			this->vy = -(this->y - t) / VAMPIREBAT_ATTACKFAST_TIME;
@@ -181,8 +181,8 @@ void PhantomBat::Render()
 	}
 	animations[ani]->Render(DIRECTION::DEFAULT, x, y);
 	RenderBoundingBox();
-	RenderActiveBox(this->slowActackArea, MYCOLOR::BLUE, 100);
-	RenderActiveBox(this->fastActackArea, MYCOLOR::RED);
+	RenderActiveBox(this->slowAttackArea, MYCOLOR::BLUE, 100);
+	RenderActiveBox(this->fastAttackArea, MYCOLOR::RED);
 }
 
 PhantomBat::PhantomBat() :Enemy()

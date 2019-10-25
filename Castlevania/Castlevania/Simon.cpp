@@ -284,7 +284,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 		}
-		whip->Update(dt, coObjects);
+		whip->Update(dt,&this->score_, coObjects);
 		whip->SetDirection(nx);
 	}
 	if (this->startOnStair) {
@@ -483,6 +483,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					if (untouchable != 1) {
 						StartUntouchable();
+						this->AddHP(-2); //TEST
 						break; // không xét tiếp va chạm khi defect
 					}
 				}
@@ -677,8 +678,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						x += dx;
 						y += dy;
 					}
-					if (untouchable != 1)
+					if (untouchable != 1) {
 						StartUntouchable();
+						this->AddHP(-2); //TEST
+					}
+						
 
 					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
 

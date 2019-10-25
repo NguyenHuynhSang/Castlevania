@@ -36,7 +36,7 @@ public:
 		DebugOut(L"Whip state=%d",this->state);
 	}
 	void SetWhipPosition(float x, float y) { this->x = x; this->y = y; }
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Update(DWORD dt,int * score_, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
 	bool CheckLastFrame();
 	void ResetLastFrame() {

@@ -11,7 +11,7 @@
 
 
 
-void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	// Calculate dx, dy 
 	if (animations[currentAnimation]->GetCurrentFrame()
@@ -67,6 +67,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 				if (!f->isDestroyed)
 				{
 					f->SetDestroy();
+					*_score += f->GetScore();
 				}
 
 			}
