@@ -466,20 +466,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
-	 			Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
-				if (dynamic_cast<PhantomBat*>(enemy)) //FOR TEST ONLY
-				{
-					PhantomBat* boss = dynamic_cast<PhantomBat*>(enemy);
-					this->isFightWithBoss = true;
-					if (e->nx != 0)
-					{
-						x += dx;
-					}
-					else if (e->ny != 0) y += dy;
-					boss->StartAwake();
-					continue;
-				}
-				else if (untouchable_start == 0) {
+				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+		
+				 if (untouchable_start == 0) {
+					 if (dynamic_cast<PhantomBat*>(enemy)) //FOR TEST ONLY
+					 {
+						 PhantomBat* boss = dynamic_cast<PhantomBat*>(enemy);
+						 this->isFightWithBoss = true;
+						 boss->StartAwake();
+					 }
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_DEFLECT);
@@ -535,7 +530,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						this->subWeaponDef = SWDSTOPWATCH;
 					}
 					else if (dynamic_cast<Cross*>(e->obj)) {
-						this->getCross = true; 
+						this->getCross = true;
 					}
 					else if (dynamic_cast<IHolyWater*>(e->obj)) {
 						this->subWeaponDef = SWDHOLLYWATER;
@@ -678,11 +673,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
 					if (!this->isOnStair)
 					{
-						if (dynamic_cast<PhantomBat*>(f))
-						{
-
-						}
-						else this->SetState(SIMON_STATE_DEFLECT);
+						this->SetState(SIMON_STATE_DEFLECT);
 						x += dx;
 						y += dy;
 					}

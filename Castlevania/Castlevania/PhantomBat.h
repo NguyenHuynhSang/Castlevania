@@ -6,18 +6,18 @@
 #define VAMPIREBAT_STATE_SLEEP 0
 #define VAMPIREBAT_STATE_IDLE 100
 #define VAMPIREBAT_STATE_FLY_SLOW 1000
-#define VAMPIREBAT_STATE_FLY_FAST 700
+#define VAMPIREBAT_STATE_FLY_FAST 800
 
 #define VAMPIREBAT_ANI_SLEEP 0
 #define VAMPIREBAT_ANI_FLYING 1
 
 #define VAMPIREBAT_IDLE_TIME_LONG 1500
-#define VAMPIREBAT_IDLE_TIME_SHORT 1000
+#define VAMPIREBAT_IDLE_TIME_SHORT 800
 
 #define VAMPIREBAT_ATTACKSLOW_TIME 1000
-#define VAMPIREBAT_ATTACKFAST_TIME 500
+#define VAMPIREBAT_ATTACKFAST_TIME 700
 
-#define VAMPIREBAT_FLY_BACK_TIME 1000
+#define VAMPIREBAT_FLY_BACK_TIME 1200
 
 
 
@@ -38,8 +38,7 @@ class PhantomBat:public Enemy
 private:
 	D3DXVECTOR2*  tagerPosition;
 	bool awake = false;
-	bool isActack = false;
-	bool flyToPos = false;
+	bool intro = false;
 	RECT activeArea;
 	DWORD attack_start;
 	DWORD flyback_start;
@@ -56,7 +55,7 @@ public:
 	virtual void Render();
 	virtual void GetSpriteBox(float& _width, float& _height) {
 	};
-	void SetState(int state);
+
 	PhantomBat();
 	~PhantomBat();
 

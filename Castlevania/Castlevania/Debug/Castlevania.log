@@ -1,22 +1,18 @@
 ﻿  PhantomBat.cpp
 D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(137,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(56,17): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(57,16): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(77,32): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(78,31): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(83,32): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(84,31): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(91,138): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(91,110): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(91,84): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(91,57): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(100,144): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(100,116): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(100,90): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(100,63): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(124,20): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(128,18): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(76,12): warning C4101: 'cy': unreferenced local variable
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(76,8): warning C4101: 'cx': unreferenced local variable
-D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(194,2): warning C4065: switch statement contains 'default' but no 'case' labels
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(67,17): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(68,16): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(85,32): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(86,31): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(89,32): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(90,31): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(95,138): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(95,110): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(95,84): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(95,57): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(103,144): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(103,116): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(103,90): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(103,63): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\PhantomBat.cpp(126,16): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

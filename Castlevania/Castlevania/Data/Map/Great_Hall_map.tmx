@@ -2640,6 +2640,6 @@
   <object id="229" gid="192" x="5302" y="75" width="100" height="46"/>
  </objectgroup>
  <objectgroup color="#0055ff" id="18" name="BossBorder">
-  <object id="232" x="5127" y="3" width="493" height="314"/>
+  <object id="232" x="5127" y="3" width="493" height="318"/>
  </objectgroup>
 </map>

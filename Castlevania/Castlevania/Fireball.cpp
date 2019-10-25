@@ -73,6 +73,10 @@ Fireball::Fireball() :Enemy()
 	AddAnimation("FIREBALL_ANI");
 }
 
+Fireball::Fireball(float vx, float vy)
+{
+}
+
 Fireball::Fireball(DIRECTION nx) : Enemy()
 {
 	AddAnimation("FIREBALL_ANI");
