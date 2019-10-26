@@ -414,6 +414,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			else if (dynamic_cast<Water*>(e->obj)) {
+			
 				if (e->nx != 0)
 				{
 					x += dx;
@@ -423,6 +424,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y += dy;
 				}
 				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
+				this->SetState(SIMON_STATE_DIE);
+				break;
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))
 			{

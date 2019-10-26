@@ -376,6 +376,11 @@ void SceneManagement::Update(DWORD dt)
 	if (this->simon->CheckIsFightWithBoss() && !phantomBat->CheckAwake())
 	{
 		phantomBat->StartAwake();
+		bound = new BoundMap();
+		RECT bossActiceBox=phantomBat->GetActiveArea();
+		bound->SetPosition(bossActiceBox.left, bossActiceBox.top);
+		bound->SetSize(15,abs(bossActiceBox.bottom- bossActiceBox.top));
+		Unit* unit = new Unit(this->grid, bound);
 	}
 	if (this->timeCounter_start == 0)
 	{

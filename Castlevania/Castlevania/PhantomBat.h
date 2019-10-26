@@ -54,6 +54,7 @@ private:
 	RECT fastAttackArea;
 public:
 	void SetActiveArea(RECT r) { this->activeArea = r; }
+	RECT GetActiveArea() { return this->activeArea; }
 	void StartAwake() { this->awake = true; };
 	bool CheckAwake() {
 		return this->awake;
