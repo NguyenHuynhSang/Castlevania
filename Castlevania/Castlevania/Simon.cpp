@@ -262,7 +262,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	if (this->isActack && !this->isAutoWalk) {
-		DebugOut(L"\n ATTACK");
+	
 		if (whip->CheckLastFrame()) {
 			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
 			this->isActack = false;
@@ -292,6 +292,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 		}
+	
 		whip->Update(dt, &this->score_, coObjects);
 		whip->SetDirection(nx);
 	}
@@ -978,6 +979,7 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_STAND_ATTACK:
 	{
 		if (!this->isJumping) vx = 0;
+		whip->StartCalculatorCollice();
 		break;
 	}
 	case SIMON_STATE_UPSTAIR_ATTACK:
@@ -986,13 +988,14 @@ void CSimon::SetState(int state)
 		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
 		this->vx = 0;
 		this->vy = 0;
-
+		whip->StartCalculatorCollice();
 		break;
 	}
 	case SIMON_STATE_DOWNSTAIR_ATTACK: {
 		this->isOnStair = true;
 		this->isFirstStepOnStair = true; // dung` khi set state mac dinh cua simon
 		this->vx = 0;
+		whip->StartCalculatorCollice();
 		this->vy = 0;
 		break;
 	}
@@ -1006,11 +1009,22 @@ void CSimon::SetState(int state)
 			ResetActack_Time();
 		}
 		this->vy = -SIMON_DEFLECT_SPEED_Y;
-		this->vx = -SIMON_DEFLECT_SPEED_X;
+		if (nx==DIRECTION::LEFT)
+		{
+			this->vx = SIMON_DEFLECT_SPEED_X;
+		}
+		else
+		{
+			this->vx = -SIMON_DEFLECT_SPEED_X;
+		}
+		
 
 		break;
 	}
-	case SIMON_STATE_SIT_ATTACK:
+	case SIMON_STATE_SIT_ATTACK: 
+	{
+		whip->StartCalculatorCollice();
+	}
 	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
 		this->vx = 0;

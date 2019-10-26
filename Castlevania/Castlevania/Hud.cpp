@@ -77,7 +77,7 @@ void Hud::Render()
 	}
 	for (size_t i = this->bossHP; i < 16; i++)
 	{
-		CSprites::GetInstance()->Get("NOHP_UI_SPRITE")->Draw(DIRECTION::DEFAULT, 105 + i * 9, 32, 255, false);
+		CSprites::GetInstance()->Get("NOHP_UI_SPRITE")->Draw(DIRECTION::DEFAULT, 105 + i * 9, 50, 255, false);
 	}
 }
 

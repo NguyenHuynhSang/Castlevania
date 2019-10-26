@@ -73,15 +73,6 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				this->SetDestroy();
 			}
-			else if (dynamic_cast<Fireball*>(e->obj)) {
-
-				Fireball* fireball = dynamic_cast<Fireball*>(e->obj);
-				if (!fireball->isDestroyed)
-				{
-					fireball->SetDestroy();
-				}
-				this->SetDestroy();
-			}
 			else if (dynamic_cast<Candle*> (e->obj)) {
 				this->SetDestroy();
 				Candle* candle = dynamic_cast<Candle*>(e->obj);
@@ -95,7 +86,12 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{
-					z->SetDestroy();
+
+					z->SubtractHP(this->damage);
+					if (z->GetHp() == 0)
+					{
+						z->SetDestroy();
+					}
 				}
 				this->SetDestroy();
 			}

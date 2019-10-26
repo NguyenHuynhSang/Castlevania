@@ -3,10 +3,7 @@
 #include"HandleSpawnItem.h"
 void Enemy::UpdateEnemy()
 {
-	if (this->hp==0)
-	{
-		this->setDestroy=true;
-	}
+
 	if (this->setDestroy) {
 		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_FLAME, this->x + 10, this->y + 32 / 4);
 		HandleSpawnItem::GetInstance()->SpawnRandomItem(this->x, this->y);

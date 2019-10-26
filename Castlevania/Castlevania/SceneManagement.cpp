@@ -298,7 +298,6 @@ void SceneManagement::GetListUnitFromGrid()
 		this->objects.push_back(listUnit[i]->GetGameObject());
 	}
 
-	DebugOut(L"listUnit=%d \n", listUnit.size());
 
 }
 

@@ -92,8 +92,14 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{
-					z->SetDestroy();
+
+					z->SubtractHP(this->damage);
+					if (z->GetHp() == 0)
+					{
+						z->SetDestroy();
+					}
 				}
+				this->SetDestroy();
 			}
 			else {
 				if (e->nx != 0)

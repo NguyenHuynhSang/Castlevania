@@ -95,7 +95,12 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy *z = dynamic_cast<Enemy  *>(e->obj);
 				if (!z->isDestroyed)
 				{
-					z->SetDestroy();
+					
+					z->SubtractHP(this->damage);
+					if (z->GetHp() == 0)
+					{
+						z->SetDestroy();
+					}
 				}
 				this->SetDestroy();
 			}
@@ -120,7 +125,7 @@ void Axe::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 Axe::Axe() :SubWeapon()
 {
-	this->damage = 1;
+	this->damage = 2;
 	this->heartCostPerUse = 1;
 	AddAnimation("AXE_SUBWEAPON_ANI");
 	this->vx = AXE_SPEED_VX;

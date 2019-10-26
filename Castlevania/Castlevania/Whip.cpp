@@ -13,9 +13,14 @@
 
 void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 {
+
 	// Calculate dx, dy 
 	if (animations[currentAnimation]->GetCurrentFrame()
 		!= animations[currentAnimation]->GetLastFrame()) {
+		return;
+	}
+	if (collideOneTime)
+	{
 		return;
 	}
 	CGameObject::Update(dt);
@@ -66,14 +71,21 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 			if (CGameObject::IsColliding(this, f)) {
 				if (!f->isDestroyed)
 				{
-					f->SetDestroy();
-					*_score += f->GetScore();
+					f->SubtractHP(this->damage);
+					if (f->GetHp() == 0)
+					{
+						f->SetDestroy();
+						*_score += f->GetScore();
+					}
+				
 				}
-
+				this->SetDestroy();
+				DebugOut(L"Collice \n");
 			}
 
 		}
 	}
+	this->collideOneTime = true;
 }
 
 

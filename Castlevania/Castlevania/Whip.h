@@ -23,7 +23,11 @@ class Whip:public CGameObject
 private:
 	UINT  damage=1;
 	int currentAnimation = 0;
+	bool collideOneTime = false;
 public:
+	void StartCalculatorCollice() {
+		this->collideOneTime = false;
+	}
 	void SetDamage(int damage) { this->damage = damage; }
 	UINT GetDamage() { return damage; }
 	void SetDirection(DIRECTION nx) { this->nx = nx; }
