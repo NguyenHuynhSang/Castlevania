@@ -10,18 +10,18 @@
 #define WHIP_ANI_MORNINGSTAR 2
 
 #define WHIP_BBOX_NORMAL_WIDTH 55
-#define WHIP_BBOX_NORMAL_HEIGHT 15
+#define WHIP_BBOX_NORMAL_HEIGHT 20
 
 #define WHIP_BBOX_CHAIN_WIDTH 55
-#define WHIP_BBOX_CHAIN_HEIGHT 15
+#define WHIP_BBOX_CHAIN_HEIGHT 20
 
 #define WHIP_BBOX_MORNINGSTAR_WIDTH 85
-#define WHIP_BBOX_MORNINGSTAR_HEIGHT 15
+#define WHIP_BBOX_MORNINGSTAR_HEIGHT 20
 
-class Whip:public CGameObject
+class Whip :public CGameObject
 {
 private:
-	UINT  damage=1;
+	UINT  damage = 1;
 	int currentAnimation = 0;
 	bool collideOneTime = false;
 public:
@@ -37,11 +37,16 @@ public:
 		if (this->state >= 2) {
 			this->state = WHIP_STATE_MORNINGSTAR;
 		}
-		DebugOut(L"Whip state=%d",this->state);
+		DebugOut(L"Whip state=%d", this->state);
 	}
 	void SetWhipPosition(float x, float y) { this->x = x; this->y = y; }
-	virtual void Update(DWORD dt,int * score_, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	virtual void Update(DWORD dt, int* score_, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
+	void SetVelocity(float vx,float vy) {
+		this->vx = vx;
+		this->vy = vy;
+	
+	};
 	bool CheckLastFrame();
 	void ResetLastFrame() {
 		animations[currentAnimation]->ResetLastFrame();

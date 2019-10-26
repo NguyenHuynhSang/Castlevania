@@ -293,8 +293,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 		}
 	
+		whip->SetVelocity(this->vx, this->vy);
+		whip->SetDirection(this->nx);
 		whip->Update(dt, &this->score_, coObjects);
-		whip->SetDirection(nx);
+		
 	}
 	if (this->startOnStair) {
 		if (!this->isFirstStepOnStair)

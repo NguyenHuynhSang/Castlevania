@@ -19,73 +19,152 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 		!= animations[currentAnimation]->GetLastFrame()) {
 		return;
 	}
-	if (collideOneTime)
-	{
-		return;
-	}
+	
 	CGameObject::Update(dt);
-	for (std::size_t i = 0; i < colliable_objects->size(); i++)
+	if (!collideOneTime)
 	{
-
-		LPGAMEOBJECT e = colliable_objects->at(i);
-		if (dynamic_cast<Torch*>(e))
+		for (std::size_t i = 0; i < colliable_objects->size(); i++)
 		{
-			Torch* f = dynamic_cast<Torch*> (e);
-			if (CGameObject::IsColliding(this, f))
+
+			LPGAMEOBJECT e = colliable_objects->at(i);
+			if (dynamic_cast<Torch*>(e))
 			{
-				if (!f->CheckDestroyed()) {
-					f->SetDestroy();
-					//	DebugOut(L"Set destroy object \n");
-				}
-
-			}
-
-		}
-		else if (dynamic_cast<CBrick*>(e))
-		{
-			CBrick* f = dynamic_cast<CBrick*> (e);
-			if (CGameObject::IsColliding(this, f))
-			{
-				if (!f->CheckDestroyed()) {
-					f->SetDestroy();
-					//	DebugOut(L"Set destroy object \n");
-				}
-
-			}
-		}
-		else if (dynamic_cast<Candle*>(e))
-		{
-			Candle* f = dynamic_cast<Candle*> (e);
-			if (CGameObject::IsColliding(this, f))
-			{
-				if (!f->CheckDestroyed()) {
-					f->SetDestroy();
-					//	DebugOut(L"Set destroy object \n");
-				}
-
-			}
-
-		}
-		else if (dynamic_cast<Enemy*>(e)) {
-			Enemy* f = dynamic_cast<Enemy*> (e);
-			if (CGameObject::IsColliding(this, f)) {
-				if (!f->isDestroyed)
+				Torch* f = dynamic_cast<Torch*> (e);
+				if (CGameObject::IsColliding(this, f))
 				{
-					f->SubtractHP(this->damage);
-					if (f->GetHp() == 0)
-					{
+					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
-						*_score += f->GetScore();
+						//	DebugOut(L"Set destroy object \n");
 					}
-				
+
+				}
+
+			}
+			else if (dynamic_cast<CBrick*>(e))
+			{
+				CBrick* f = dynamic_cast<CBrick*> (e);
+				if (CGameObject::IsColliding(this, f))
+				{
+					if (!f->CheckDestroyed()) {
+						f->SetDestroy();
+						//	DebugOut(L"Set destroy object \n");
+					}
+
+				}
+			}
+			else if (dynamic_cast<Candle*>(e))
+			{
+				Candle* f = dynamic_cast<Candle*> (e);
+				if (CGameObject::IsColliding(this, f))
+				{
+					if (!f->CheckDestroyed()) {
+						f->SetDestroy();
+						//	DebugOut(L"Set destroy object \n");
+					}
+
+				}
+
+			}
+			else if (dynamic_cast<Enemy*>(e)) {
+				Enemy* f = dynamic_cast<Enemy*> (e);
+				if (CGameObject::IsColliding(this, f)) {
+					if (!f->isDestroyed)
+					{
+						f->SubtractHP(this->damage);
+						if (f->GetHp() == 0)
+						{
+							f->SetDestroy();
+							*_score += f->GetScore();
+						}
+
+					}
+					this->SetDestroy();
+					DebugOut(L"Collice \n");
+				}
+
+			}
+		}
+	}
+	
+	this->collideOneTime = true;
+
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+
+	CalcPotentialCollisions(colliable_objects, coEvents);
+
+
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
+		/*x += dx;
+		y += dy;*/
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<Torch*>(e->obj)) {
+
+				Torch* torch = dynamic_cast<Torch*>(e->obj);
+				if (!torch->isDestroyed)
+				{
+					torch->SetDestroy();
 				}
 				this->SetDestroy();
-				DebugOut(L"Collice \n");
+			}
+			else if (dynamic_cast<CBrick*>(e->obj)) {
+
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				if (!brick->isDestroyed)
+				{
+					brick->SetDestroy();
+				}
+				this->SetDestroy();
 			}
 
+			else if (dynamic_cast<Candle*> (e->obj)) {
+				this->SetDestroy();
+				Candle* candle = dynamic_cast<Candle*>(e->obj);
+				if (!candle->isDestroyed)
+				{
+					candle->SetDestroy();
+				}
+			}
+			else if (dynamic_cast<Enemy*>(e->obj)) {
+
+				Enemy* z = dynamic_cast<Enemy*>(e->obj);
+				if (!z->isDestroyed)
+				{
+
+					z->SubtractHP(this->damage);
+					if (z->GetHp() == 0)
+					{
+						z->SetDestroy();
+					}
+				}
+				this->SetDestroy();
+			}
+			else {
+
+				x += dx;
+
+				y += dy;
+			}
 		}
 	}
-	this->collideOneTime = true;
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 

@@ -102,6 +102,7 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y += dy;
 			}
 		}
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 
 }
