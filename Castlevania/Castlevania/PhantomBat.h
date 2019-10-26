@@ -55,6 +55,9 @@ private:
 public:
 	void SetActiveArea(RECT r) { this->activeArea = r; }
 	void StartAwake() { this->awake = true; };
+	bool CheckAwake() {
+		return this->awake;
+	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

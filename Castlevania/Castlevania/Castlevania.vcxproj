@@ -66,6 +66,7 @@
     <ClInclude Include="MoneyBag.h" />
     <ClInclude Include="MoneyBagTrigger.h" />
     <ClInclude Include="MorningStar.h" />
+    <ClInclude Include="MultiplyShotItem.h" />
     <ClInclude Include="NextScene.h" />
     <ClInclude Include="ObjectProperty.h" />
     <ClInclude Include="Panther.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="MoneyBag.cpp" />
     <ClCompile Include="MoneyBagTrigger.cpp" />
     <ClCompile Include="MorningStar.cpp" />
+    <ClCompile Include="MultiplyShotItem.cpp" />
     <ClCompile Include="NextScene.cpp" />
     <ClCompile Include="ObjectProperty.cpp" />
     <ClCompile Include="Panther.cpp" />

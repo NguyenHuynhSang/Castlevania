@@ -4,10 +4,10 @@
 #include"HandleSpawnEnemy.h"
 #include"HandleSpawnItem.h"
 #include"HandleSpawnSubWeapon.h"
-
+#include"BossZone.h"
 void SceneManagement::LoadResource()
 {
-	CTextures * textures = CTextures::GetInstance();
+	CTextures* textures = CTextures::GetInstance();
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", BACKGROUND_COLOR);
 	textures->Add(ID_TEX_TILESET_2, L"Data\\Map\\Great_Hall_bank.png", BACKGROUND_COLOR);
 	textures->Add(ID_TEX_TILESET_3, L"Data\\Map\\Underground_bank.png", BACKGROUND_COLOR);
@@ -33,7 +33,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_FIREBALL, L"Data\\GameObject\\Enemies\\FIREBALL.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_AXE, L"Data\\GameObject\\Sub_weapons\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_HOLYWATER, L"Data\\GameObject\\Sub_weapons\\HOLY_WATER.png", D3DCOLOR_XRGB(255, 0, 255));
-	
+
 	textures->Add(ID_TEX_VAMPRITEBAT, L"Data\\GameObject\\\Bosses\\VAMPIRE_BAT.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
@@ -43,11 +43,11 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_EFFECT_SCROTE_TEXT, L"Data\\GameObject\\Effect\\ScoreText.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
-	
+
 
 	resource = ResourceManagement::GetInstance();
-	CSprites * sprites = CSprites::GetInstance();
-	CAnimations * animations = CAnimations::GetInstance();
+	CSprites* sprites = CSprites::GetInstance();
+	CAnimations* animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 texSimon = textures->Get(ID_TEX_SIMON);
 	resource->LoadSprites("Data\\GameObject\\Simon\\Simon_sprite.xml", texSimon);
@@ -70,7 +70,7 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Ground\\Door_sprite.xml", texDoor);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Door_ani.xml", animations);
 
-	
+
 
 	LPDIRECT3DTEXTURE9 texItem = textures->Get(ID_TEX_ITEM_PACK);
 	resource->LoadSprites("Data\\GameObject\\Items\\Item_sprite.xml", texItem);
@@ -81,7 +81,7 @@ void SceneManagement::LoadResource()
 
 
 
-	
+
 
 	LPDIRECT3DTEXTURE9 texAxe = textures->Get(ID_TEX_AXE);
 	resource->LoadSprites("Data\\GameObject\\Sub_weapons\\Axe_sprite.xml", texAxe);
@@ -94,7 +94,7 @@ void SceneManagement::LoadResource()
 
 
 
-	
+
 	LPDIRECT3DTEXTURE9 texGhoul = textures->Get(ID_TEX_ZOMBIE);
 	resource->LoadSprites("Data\\GameObject\\Enemies\\Zombie_sprite.xml", texGhoul);
 	resource->LoadAnimations("Data\\GameObject\\Enemies\\Zombie_ani.xml", animations);
@@ -122,7 +122,7 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Bosses\\VampireBat_sprite.xml", texVampireBat);
 	resource->LoadAnimations("Data\\GameObject\\Bosses\\VampireBat_ani.xml", animations);
 
-	
+
 
 	LPDIRECT3DTEXTURE9 texEffectFlame = textures->Get(ID_TEX_EFFECT_FLAME);
 	resource->LoadSprites("Data\\GameObject\\Effect\\Flame_sprite.xml", texEffectFlame);
@@ -170,7 +170,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 	cy -= SCREEN_HEIGHT / 2;
 	if (currentScene == GSCENE_01_GH || currentScene == GSCENE_02_N)
 	{
-		if (cx > sceneBox.left && cx < sceneBox.right - SCREEN_WIDTH)
+		if (cx > sceneBox.left&& cx < sceneBox.right - SCREEN_WIDTH)
 		{
 			Camera::GetInstance()->SetCamera(cx, 0.0f);
 		}
@@ -179,14 +179,14 @@ void SceneManagement::CamUpdate(DWORD dt)
 			if (simon->CheckIsHitDoor()) {
 				for (size_t i = 0; i < this->spawnObjects.size(); i++)
 				{
-					SpawnZone * spawner = dynamic_cast<SpawnZone*>(spawnObjects[i]);
+					SpawnZone* spawner = dynamic_cast<SpawnZone*>(spawnObjects[i]);
 					spawner->DestroyImmediate();
 				}
 				for (size_t i = 0; i < this->objects.size(); i++)
 				{
-					if (dynamic_cast<Enemy *>(objects[i]))
+					if (dynamic_cast<Enemy*>(objects[i]))
 					{
-						Enemy *e = dynamic_cast<Enemy *>(objects[i]);
+						Enemy* e = dynamic_cast<Enemy*>(objects[i]);
 						e->DestroyImmediate();
 					}
 
@@ -220,7 +220,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 				simon->SetAutoWalk(true);
 				simon->SetState(SIMON_STATE_WALKING_RIGHT);
 			}
-		
+
 			if (simon->SimonAutoWalkaStep(simon->GetLastPosition() + 150))
 			{
 				float camx, camy;
@@ -234,7 +234,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 						camx += camVx * dt;
 						Camera::GetInstance()->SetCamera(camx, camy);
 					}
-				
+
 				}
 				else
 				{
@@ -247,8 +247,8 @@ void SceneManagement::CamUpdate(DWORD dt)
 	}
 	else if (currentScene == GSTATE_02 || currentScene == GSTATE_02_B || currentScene == GSCENE_03)
 	{
-		if (cx > sceneBox.left && cx < sceneBox.right - SCREEN_WIDTH
-			&&!simon->CheckIsFightWithBoss())
+		if (cx > sceneBox.left&& cx < sceneBox.right - SCREEN_WIDTH
+			&& !simon->CheckIsFightWithBoss())
 			Camera::GetInstance()->SetCamera(cx, 0.0f);
 	}
 	else {
@@ -327,11 +327,11 @@ void SceneManagement::HandleCrossEffect()
 		playCrossEffect = true;
 	}
 
-	if (this->cross_start!=0
-		&& GetTickCount64()- this->cross_start>CROSS_EFFECT_TIME)
+	if (this->cross_start != 0
+		&& GetTickCount64() - this->cross_start > CROSS_EFFECT_TIME)
 	{
 		playCrossEffect = false;
-	
+
 		this->cross_start = 0;
 	}
 }
@@ -362,7 +362,7 @@ int SceneManagement::CheckNumOfFishMan()
 void SceneManagement::Update(DWORD dt)
 {
 
-	if (this->simon->GetState()==SIMON_STATE_DIE)
+	if (this->simon->GetState() == SIMON_STATE_DIE)
 	{
 		if (this->reset_start == 0) reset_start = GetTickCount();
 		else if (GetTickCount() - this->reset_start > 2000) {
@@ -373,17 +373,21 @@ void SceneManagement::Update(DWORD dt)
 		}
 	}
 
-	if (this->timeCounter_start==0)
+	if (this->simon->CheckIsFightWithBoss() && !phantomBat->CheckAwake())
+	{
+		phantomBat->StartAwake();
+	}
+	if (this->timeCounter_start == 0)
 	{
 		timeCounter_start = GetTickCount();
 	}
-	else if(GetTickCount()-this->timeCounter_start>=1000)
+	else if (GetTickCount() - this->timeCounter_start >= 1000)
 	{
-		if (this->stateTime>0)
+		if (this->stateTime > 0)
 		{
 			this->stateTime--;
 		}
-	
+
 		this->timeCounter_start = 0;
 	}
 
@@ -396,7 +400,7 @@ void SceneManagement::Update(DWORD dt)
 
 	if (simon->CheckIsGetCross())
 	{
-		KillAllEnemy();	
+		KillAllEnemy();
 	}
 	HandleCrossEffect();
 
@@ -421,7 +425,7 @@ void SceneManagement::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 		if (dynamic_cast<NextScene*> (objects[i]))
 		{
-			NextScene *nextscene = dynamic_cast<NextScene *>(objects[i]);
+			NextScene* nextscene = dynamic_cast<NextScene*>(objects[i]);
 			if (nextscene->CheckIsColliceWithPlayer())
 			{
 				int nextSceneID = nextscene->CheckSceneDef();
@@ -503,17 +507,17 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 {
 	// lấy ds những object dùng xét va chạm với object truyền vào
 	coObjects.clear();
-	if (dynamic_cast<Item *>(obj))
+	if (dynamic_cast<Item*>(obj))
 	{
 		for (auto object : this->objects)
 		{
-			if (dynamic_cast<Ground *>(object))
+			if (dynamic_cast<Ground*>(object))
 			{
 				coObjects.push_back(object);
 			}
 		}
 	}
-	else if (dynamic_cast<Enemy *>(obj))
+	else if (dynamic_cast<Enemy*>(obj))
 	{
 		if (dynamic_cast<PhantomBat*>(obj))
 		{
@@ -529,42 +533,43 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 				}
 			}
 		}
-	
+
 	}
-	else if (dynamic_cast<SubWeapon *>(obj)
-		|| dynamic_cast<Whip *>(obj))
+	else if (dynamic_cast<SubWeapon*>(obj)
+		|| dynamic_cast<Whip*>(obj))
 	{
 
 		for (auto object : this->objects)
 		{
-			if ( dynamic_cast<Ground *>(object)
-				|| dynamic_cast<Candle *>(object)
+			if (dynamic_cast<Ground*>(object)
+				|| dynamic_cast<Candle*>(object)
 				|| dynamic_cast<Enemy*>(object)
-				|| dynamic_cast<Torch *>(object)
-				|| dynamic_cast<CBrick *>(object))
+				|| dynamic_cast<Torch*>(object)
+				|| dynamic_cast<CBrick*>(object))
 			{
 				coObjects.push_back(object);
 			}
 		}
 	}
-	else if (dynamic_cast<CSimon *>(obj))
+	else if (dynamic_cast<CSimon*>(obj))
 	{
 		for (auto object : this->objects)
 		{
-			if (dynamic_cast<Ground *>(object)
-				|| dynamic_cast<BoundMap *>(object)
-				|| dynamic_cast<CBrick *>(object)
-				|| dynamic_cast<Entry *>(object)
-				|| dynamic_cast<NextScene *>(object)
-				|| dynamic_cast<StairTrigger *>(object)
-				|| dynamic_cast<MoneyBagTrigger *>(object)
-				|| dynamic_cast<Door *>(object)
-				|| dynamic_cast<Item *>(object)
-				|| dynamic_cast<Candle *>(object)
-				|| dynamic_cast<Torch *>(object)
-				|| dynamic_cast<Enemy *>(object)
-				|| dynamic_cast<Water *>(object)
-				|| dynamic_cast<CBrick *>(object))
+			if (dynamic_cast<Ground*>(object)
+				|| dynamic_cast<BoundMap*>(object)
+				|| dynamic_cast<CBrick*>(object)
+				|| dynamic_cast<Entry*>(object)
+				|| dynamic_cast<NextScene*>(object)
+				|| dynamic_cast<StairTrigger*>(object)
+				|| dynamic_cast<MoneyBagTrigger*>(object)
+				|| dynamic_cast<Door*>(object)
+				|| dynamic_cast<Item*>(object)
+				|| dynamic_cast<Candle*>(object)
+				|| dynamic_cast<Torch*>(object)
+				|| dynamic_cast<Enemy*>(object)
+				|| dynamic_cast<Water*>(object)
+				|| dynamic_cast<BossZone*>(object)
+				|| dynamic_cast<CBrick*>(object))
 
 
 			{
@@ -585,7 +590,7 @@ void SceneManagement::FreezeEnemy(bool flag)
 			Enemy* enemy = dynamic_cast<Enemy*> (enemies.at(i));
 			enemy->SetFreeze(flag);
 		}
-	
+
 	}
 }
 
@@ -604,7 +609,7 @@ void SceneManagement::KillAllEnemy()
 
 void SceneManagement::LoadScene()
 {
-	CTextures * textures = CTextures::GetInstance();
+	CTextures* textures = CTextures::GetInstance();
 	Camera::GetInstance()->SetAllowScrollCam(false);
 	cmap->GetObjects().clear();
 	cmap->ClearObject();
@@ -700,7 +705,7 @@ void SceneManagement::LoadObjects(int currentscene)
 	for (UINT i = 0; i < items.size(); i++) delete items[i];
 	for (UINT i = 0; i < effects.size(); i++) delete effects[i];
 	for (UINT i = 0; i < spawnObjects.size(); i++) delete spawnObjects[i];
-	Unit * unit;
+	Unit* unit;
 	objects.clear();
 	enemies.clear();
 	groundObjects.clear();
@@ -1361,22 +1366,32 @@ void SceneManagement::LoadObjects(int currentscene)
 
 		auto bossBatObject = cmap->GetObjects().find(ID_TILE_OBJECT_BOSSBAT);
 		for (const auto& child : bossBatObject->second) {
-				phantomBat = new PhantomBat();
-				phantomBat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-				unit = new Unit(this->grid, phantomBat);
+			phantomBat = new PhantomBat();
+			phantomBat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+			unit = new Unit(this->grid, phantomBat);
 		}
 
 		auto bossBatBorder = cmap->GetObjects().find(ID_TILE_OBJECT_BOSSBAT_BORDER);
 		for (const auto& child : bossBatBorder->second) {
 			float l = 0, t = 0, r = 0, b = 0;
 			l = child->GetX();
-			t = child->GetY()+80;
-			r = l+ child->GetWidth();
-			b= t+child->GetHeight();
+			t = child->GetY() + 80;
+			r = l + child->GetWidth();
+			b = t + child->GetHeight();
 			RECT rect = { l,t,r,b };
 			phantomBat->SetActiveArea(rect);
 		}
-    
+
+		auto bossZone = cmap->GetObjects().find(ID_TILE_OBJECT_BOSSTRIGGER);
+		for (const auto& child : bossZone->second) {
+			BossZone* bzone = new BossZone();
+			bzone->SetSize(child->GetWidth(), child->GetHeight());
+			bzone->SetPosition(child->GetX(), child->GetY());
+			unit = new Unit(this->grid, bzone);
+		}
+
+
+
 
 		break;
 	}

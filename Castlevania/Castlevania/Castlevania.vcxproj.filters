@@ -291,6 +291,9 @@
     <ClInclude Include="PhantomBat.h">
       <Filter>ObjectsManagement\Enemy\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="MultiplyShotItem.h">
+      <Filter>ObjectsManagement\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -496,6 +499,9 @@
     </ClCompile>
     <ClCompile Include="PhantomBat.cpp">
       <Filter>ObjectsManagement\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiplyShotItem.cpp">
+      <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

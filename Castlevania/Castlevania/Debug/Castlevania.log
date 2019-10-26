@@ -1,4 +1,10 @@
-﻿  Whip.cpp
+﻿  Hud.cpp
 D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(148,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(185,9): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Hud.cpp(68,23): warning C4018: '<': signed/unsigned mismatch
+D:\Git\Castlevania\Castlevania\Castlevania\Hud.cpp(70,81): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Hud.cpp(73,23): warning C4018: '<': signed/unsigned mismatch
+D:\Git\Castlevania\Castlevania\Castlevania\Hud.cpp(75,80): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Hud.cpp(79,80): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Hud.cpp(83,80): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
   Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

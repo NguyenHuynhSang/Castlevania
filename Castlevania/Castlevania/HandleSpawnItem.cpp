@@ -11,6 +11,7 @@
 #include"InvisibilityPotion.h"
 #include"Cross.h"
 #include"IHolyWater.h"
+#include"MultiplyShotItem.h"
 HandleSpawnItem * HandleSpawnItem::__instance = NULL;
 
 void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
@@ -124,7 +125,13 @@ void HandleSpawnItem::SpawnItem(int itemDef, float x, float y, bool isHiding )
 		scene->SpawnItem(item);
 		break;
 	}
-
+	case ITDMULTIFLYSHOT: {
+		item = new MultiplyShotItem();
+		item->SetIsHiding(isHiding);
+		item->SetPositionInWorld(x, y);
+		scene->SpawnItem(item);
+		break;
+	}
 	}
 }
 

@@ -6,7 +6,10 @@ void Hud::Update()
 	this->playerEnery = scene->GetSimon()->GetEnery();
 	string enery_ = playerEnery < 10 ? "0" + std::to_string(playerEnery) : std::to_string(playerEnery);
 	this->playerHP= scene->GetSimon()->GetHP();
-	this->bossHP = scene->GetBossHP();
+	if (scene->GetBossHP() > 2) //TEST ONLY
+	{
+		this->bossHP = scene->GetBossHP();
+	}
 	unsigned int score_ = scene->GetSimon()->GetScore();
 	string score;
 	if (score_ <10)

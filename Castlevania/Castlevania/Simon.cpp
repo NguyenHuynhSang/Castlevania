@@ -26,6 +26,10 @@
 #include"HandleSpawnSubWeapon.h"
 #include"PhantomBat.h"
 #include"IHolyWater.h"
+#include"PorkChop.h"
+#include"MultiplyShotItem.h"
+#include"BossZone.h"
+#include"InvisibilityPotion.h"
 CSimon::CSimon() :CGameObject()
 {
 	this->hp_ = 16;
@@ -262,7 +266,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	if (this->isActack && !this->isAutoWalk) {
-	
+
 		if (whip->CheckLastFrame()) {
 			//DebugOut(L"Time count =%d \n", GetTickCount() - actack_start);
 			this->isActack = false;
@@ -292,11 +296,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 		}
-	
+
 		whip->SetVelocity(this->vx, this->vy);
 		whip->SetDirection(this->nx);
 		whip->Update(dt, &this->score_, coObjects);
-		
+
 	}
 	if (this->startOnStair) {
 		if (!this->isFirstStepOnStair)
@@ -483,16 +487,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 
 			}
+			else if (dynamic_cast<BossZone*>(e->obj)) {
+			BossZone* bossZone = dynamic_cast<BossZone*>(e->obj);
+			bossZone->DestroyImmediate();
+				this->isFightWithBoss = true;
+
+			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
 				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
 
 				if (untouchable_start == 0) {
-					if (dynamic_cast<PhantomBat*>(enemy)) //FOR TEST ONLY
-					{
-						PhantomBat* boss = dynamic_cast<PhantomBat*>(enemy);
-						this->isFightWithBoss = true;
-						boss->StartAwake();
-					}
+
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_DEFLECT);
@@ -553,6 +558,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					else if (dynamic_cast<IHolyWater*>(e->obj)) {
 						this->subWeaponDef = SWDHOLLYWATER;
+					}
+					else if (dynamic_cast<PorkChop*>(e->obj)) {
+						AddHP(4);
+					}
+					else if (dynamic_cast<MultiplyShotItem*>(e->obj)) {
+						HandleSpawnSubWeapon::GetInstance()->SetDoubleShot(true);
+					}
+					else if (dynamic_cast<InvisibilityPotion*>(e->obj)) {
+						StartUntouchable();
 					}
 					if (!item->isDestroyed)
 					{
@@ -1011,7 +1025,7 @@ void CSimon::SetState(int state)
 			ResetActack_Time();
 		}
 		this->vy = -SIMON_DEFLECT_SPEED_Y;
-		if (nx==DIRECTION::LEFT)
+		if (nx == DIRECTION::LEFT)
 		{
 			this->vx = SIMON_DEFLECT_SPEED_X;
 		}
@@ -1019,11 +1033,11 @@ void CSimon::SetState(int state)
 		{
 			this->vx = -SIMON_DEFLECT_SPEED_X;
 		}
-		
+
 
 		break;
 	}
-	case SIMON_STATE_SIT_ATTACK: 
+	case SIMON_STATE_SIT_ATTACK:
 	{
 		whip->StartCalculatorCollice();
 	}
