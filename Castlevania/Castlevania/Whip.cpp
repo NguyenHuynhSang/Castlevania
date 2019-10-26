@@ -84,8 +84,7 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 
 			}
 		}
-	}
-	
+	}	
 	this->collideOneTime = true;
 
 
