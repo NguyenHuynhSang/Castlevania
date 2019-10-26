@@ -28,7 +28,9 @@ public:
 	{
 		return this->score;
 	}
-
+	unsigned int GetHp() {
+		return this->hp;
+	}
 	Enemy() :CGameObject() {
 		score = hp = 0;
 		spawn_start = 0;

@@ -46,7 +46,9 @@ CSimon::CSimon() :CGameObject()
 	this->AddAnimation("SIMON_ANI_STEP_DOWNSTAIR");    //10
 	this->AddAnimation("SIMON_ANI_UPSTAIR_ATTACK", false);    //11
 	this->AddAnimation("SIMON_ANI_DOWNSTAIR_ATTACK", false); //12
-	//this->animations[SIMON_ANI_STAND_ATTACK]->SetAnimationLoop(false);
+	this->AddAnimation("SIMON_ANI_DIE", false); //13
+
+
 }
 
 CSimon::~CSimon()
@@ -250,6 +252,12 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
+
+	if (this->state == SIMON_STATE_DIE)
+	{
+		return;
+	}
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -284,7 +292,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 		}
-		whip->Update(dt,&this->score_, coObjects);
+		whip->Update(dt, &this->score_, coObjects);
 		whip->SetDirection(nx);
 	}
 	if (this->startOnStair) {
@@ -355,7 +363,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground*>(e->obj)) {
+
 				if (e->ny < 0) {
+					if (this->hp_ == 0)
+					{
+						this->SetState(SIMON_STATE_DIE);
+						this->isOnStair = false;
+						break;
+					}
 					if (this->isOnStair) {
 						x += dx;
 						y += dy;
@@ -467,14 +482,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
 				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
-		
-				 if (untouchable_start == 0) {
-					 if (dynamic_cast<PhantomBat*>(enemy)) //FOR TEST ONLY
-					 {
-						 PhantomBat* boss = dynamic_cast<PhantomBat*>(enemy);
-						 this->isFightWithBoss = true;
-						 boss->StartAwake();
-					 }
+
+				if (untouchable_start == 0) {
+					if (dynamic_cast<PhantomBat*>(enemy)) //FOR TEST ONLY
+					{
+						PhantomBat* boss = dynamic_cast<PhantomBat*>(enemy);
+						this->isFightWithBoss = true;
+						boss->StartAwake();
+					}
 					if (!this->isOnStair)
 					{
 						this->SetState(SIMON_STATE_DEFLECT);
@@ -682,7 +697,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						StartUntouchable();
 						this->AddHP(-2); //TEST
 					}
-						
+
 
 					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
 
@@ -807,8 +822,12 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	else if (state == SIMON_STATE_DIE)
-		ani = 0;
+	else if (state == SIMON_STATE_DIE) {
+		ani = SIMON_ANI_DIE;
+		Renderer(ani);
+		return;
+	}
+
 	else
 	{
 		if (vx == 0)
@@ -835,6 +854,10 @@ void CSimon::SetState(int state)
 
 	switch (state)
 	{
+	case SIMON_STATE_DIE:
+		this->vx = 0;
+		this->vy = 0;
+		break;
 	case SIMON_STATE_WALKING_RIGHT:
 		if (this->isAutoWalk) {
 			vx = SIMON_AUTOWALKING_SPEED;
@@ -992,10 +1015,6 @@ void CSimon::SetState(int state)
 	case SIMON_STATE_IDLE:
 		this->vx = 0;
 		break;
-	case SIMON_STATE_DIE:
-		vy = -SIMON_DIE_DEFLECT_SPEED;
-		break;
-
 	}
 }
 

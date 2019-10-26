@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<resource>
-	<spritesheet TextureAtlas="INVICIBILITY_ITEM.png">
-		<sprite ID="INVICIBILITY_ITEM_01">
-			<frame x="0" y="0" width="33" height="40" />
-		</sprite>
-	</spritesheet>
-</resource>

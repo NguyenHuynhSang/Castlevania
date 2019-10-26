@@ -23,16 +23,7 @@ void SceneManagement::LoadResource()
 	textures->Add(ID_TEX_DOOR, L"Data\\GameObject\\Ground\\Door.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
-	textures->Add(ID_TEX_ITEM_HEART, L"Data\\GameObject\\Items\\Heart.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_MORNINGSTAR, L"Data\\GameObject\\Items\\MORNING_STAR.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_MONEYBAG, L"Data\\GameObject\\Items\\Money_Bag.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_DAGGER, L"Data\\GameObject\\Items\\Dagger.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_AXE, L"Data\\GameObject\\Items\\Axe.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_STOPWATCH, L"Data\\GameObject\\Items\\StopWatch.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_ROAST, L"Data\\GameObject\\Items\\ROAST.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_INVICIBILITYPOTION, L"Data\\GameObject\\Items\\INVICIBILITY_ITEM.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_CROSS, L"Data\\GameObject\\Items\\Cross.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM_HOLYWATER, L"Data\\GameObject\\Items\\HOLY_WATER.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_ITEM_PACK, L"Data\\GameObject\\Items\\ITEM_PACK.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
 	textures->Add(ID_TEX_ZOMBIE, L"Data\\GameObject\\Enemies\\ZOMBIE.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -79,52 +70,16 @@ void SceneManagement::LoadResource()
 	resource->LoadSprites("Data\\GameObject\\Ground\\Door_sprite.xml", texDoor);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Door_ani.xml", animations);
 
-	LPDIRECT3DTEXTURE9 texHeart = textures->Get(ID_TEX_ITEM_HEART);
-	resource->LoadSprites("Data\\GameObject\\Items\\Heart_sprite.xml", texHeart);
-	resource->LoadAnimations("Data\\GameObject\\Items\\Heart_ani.xml", animations);
-
-	LPDIRECT3DTEXTURE9 texMorningStar = textures->Get(ID_TEX_ITEM_MORNINGSTAR);
-	resource->LoadSprites("Data\\GameObject\\Items\\MorningStar_sprite.xml", texMorningStar);
-	resource->LoadAnimations("Data\\GameObject\\Items\\MorningStar_ani.xml", animations);
-
-	LPDIRECT3DTEXTURE9 texMoneyBag = textures->Get(ID_TEX_ITEM_MONEYBAG);
-	resource->LoadSprites("Data\\GameObject\\Items\\MoneyBag_sprite.xml", texMoneyBag);
-	resource->LoadAnimations("Data\\GameObject\\Items\\MoneyBag_ani.xml", animations);
-
-	LPDIRECT3DTEXTURE9 texDagger = textures->Get(ID_TEX_ITEM_DAGGER);
-	resource->LoadSprites("Data\\GameObject\\Items\\Dagger_sprite.xml", texDagger);
-	resource->LoadAnimations("Data\\GameObject\\Items\\Dagger_ani.xml", animations);
-
-	LPDIRECT3DTEXTURE9 texItemAxe = textures->Get(ID_TEX_ITEM_AXE);
-	resource->LoadSprites("Data\\GameObject\\Items\\Axe_sprite.xml", texItemAxe);
-	resource->LoadAnimations("Data\\GameObject\\Items\\Axe_ani.xml", animations);
-
-
-	LPDIRECT3DTEXTURE9 texItemStopWatch = textures->Get(ID_TEX_ITEM_STOPWATCH);
-	resource->LoadSprites("Data\\GameObject\\Items\\StopWatch_sprite.xml", texItemStopWatch);
-	resource->LoadAnimations("Data\\GameObject\\Items\\StopWatch_ani.xml", animations);
-
-	LPDIRECT3DTEXTURE9 texItemRoast = textures->Get(ID_TEX_ITEM_ROAST);
-	resource->LoadSprites("Data\\GameObject\\Items\\Roast_sprite.xml", texItemRoast);
-	resource->LoadAnimations("Data\\GameObject\\Items\\Roast_ani.xml", animations);
-
-	LPDIRECT3DTEXTURE9 texItemCross = textures->Get(ID_TEX_ITEM_CROSS);
-	resource->LoadSprites("Data\\GameObject\\Items\\Cross_sprite.xml", texItemCross);
-	resource->LoadAnimations("Data\\GameObject\\Items\\Cross_ani.xml", animations);
-
-
-
 	
-	LPDIRECT3DTEXTURE9 texIPotion = textures->Get(ID_TEX_ITEM_INVICIBILITYPOTION);
-	resource->LoadSprites("Data\\GameObject\\Items\\InticibilityPotion_sprite.xml", texIPotion);
-	resource->LoadAnimations("Data\\GameObject\\Items\\InticibilityPotion_ani.xml", animations);
+
+	LPDIRECT3DTEXTURE9 texItem = textures->Get(ID_TEX_ITEM_PACK);
+	resource->LoadSprites("Data\\GameObject\\Items\\Item_sprite.xml", texItem);
+	resource->LoadAnimations("Data\\GameObject\\Items\\Item_ani.xml", animations);
 
 
 
 
-	LPDIRECT3DTEXTURE9 texIHollyWater = textures->Get(ID_TEX_ITEM_HOLYWATER);
-	resource->LoadSprites("Data\\GameObject\\Items\\IHolyWater_sprite.xml", texIHollyWater);
-	resource->LoadAnimations("Data\\GameObject\\Items\\IHolyWater_ani.xml", animations);
+
 
 	
 
@@ -407,6 +362,31 @@ int SceneManagement::CheckNumOfFishMan()
 }
 void SceneManagement::Update(DWORD dt)
 {
+
+	if (this->simon->GetState()==SIMON_STATE_DIE)
+	{
+		if (this->reset_start == 0) reset_start = GetTickCount();
+		else if (GetTickCount() - this->reset_start > 2000) {
+			this->isNextScene = true;
+			simon->ResetPoint();
+			simon->SetState(SIMON_STATE_IDLE);
+			this->reset_start = 0;
+		}
+	}
+
+	if (this->timeCounter_start==0)
+	{
+		timeCounter_start = GetTickCount();
+	}
+	else if(GetTickCount()-this->timeCounter_start>=1000)
+	{
+		if (this->stateTime>0)
+		{
+			this->stateTime--;
+		}
+	
+		this->timeCounter_start = 0;
+	}
 
 	if (this->isNextScene) {
 		LoadScene();

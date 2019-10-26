@@ -41,7 +41,7 @@ private:
 
 
 	CSimon *simon;
-	PhantomBat* phantomBat;
+	PhantomBat* phantomBat=NULL;
 
 
 	Torch * torch;
@@ -60,8 +60,10 @@ private:
 	Hud* hud;
 	Grid * grid;
 
-
+	DWORD timeCounter_start=0;
 	DWORD cross_start = 0;
+	DWORD reset_start = 0;
+
 	std::vector<Unit*> listUnit;
 	RECT sceneBox;
 	ResourceManagement * resource;
@@ -98,6 +100,17 @@ private:
 	unsigned int stateTime;
 
 public:
+
+
+	unsigned int GetBossHP() {
+		if (this->phantomBat != NULL)
+		{
+			return this->phantomBat->GetHp();
+		}
+		else return DEFAULT_HP;
+	
+	}
+
 	bool CheckPlayCrossEffect() {
 		return this->playCrossEffect;
 	};

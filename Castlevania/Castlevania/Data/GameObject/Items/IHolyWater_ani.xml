@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<resource>
-	<animations AtlasPath="HolyWater_sprite.xml">
-		<animation ID="IHOLY_WATER_ANI_JAV" defaulttime="100">
-			<frame spriteID="HOLYWATER_ITEM_01" />
-		</animation>
-	</animations>
-
-</resource>

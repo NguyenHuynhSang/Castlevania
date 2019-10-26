@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<resource>
-	<animations AtlasPath="InvicibilityPotion_sprite.xml">
-		<animation ID="INVICIBILITY_ITEM_ANI" defaulttime="100">
-			<frame spriteID="INVICIBILITY_ITEM_01" />
-		</animation>
-	</animations>
-
-</resource>

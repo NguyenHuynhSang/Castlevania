@@ -6,6 +6,7 @@
 #include"SubWeapon.h"
 #include"Torch.h"
 #include"Brick.h"
+#include"PhantomBat.h"
 #include"Effects.h"
 Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 	: grid_(gird),
@@ -99,7 +100,11 @@ void Grid::Update(Unit * unit, float x, float y)
 				|| dynamic_cast<Enemy*>(unit->GetGameObject())
 				|| dynamic_cast<SubWeapon*>(unit->GetGameObject()))
 			{
-				unit->GetGameObject()->DestroyImmediate();
+				if (!dynamic_cast<PhantomBat*>(unit->GetGameObject()))
+				{
+					unit->GetGameObject()->DestroyImmediate();
+				}
+			
 			}
 		
 		}

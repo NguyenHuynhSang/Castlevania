@@ -4,6 +4,7 @@
 
 void InputController::OnKeyDown(int KeyCode)
 {
+	if (player->GetState() == SIMON_STATE_DIE) return;
 	float sx, sy;
 	player->GetPosition(sx, sy);
 	if (player->CheckAutoWalk()) {

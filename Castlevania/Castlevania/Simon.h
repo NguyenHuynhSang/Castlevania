@@ -31,6 +31,9 @@
 #define SIMON_STATE_UPSTAIR_ATTACK 1600
 #define SIMON_STATE_DOWNSTAIR_ATTACK 1700
 
+
+
+
 #define SIMON_ANI_IDLE		0
 #define SIMON_ANI_WALKING			1
 #define SIMON_ANI_SITTING                  2
@@ -44,6 +47,7 @@
 #define SIMON_ANI_STEP_DOWNSTAIR            10
 #define SIMON_ANI_UPSTAIR_ATTACK            11
 #define SIMON_ANI_DOWNSTAIR_ATTACK         12
+#define SIMON_ANI_DIE                  13
 
 
 
@@ -108,6 +112,13 @@ class CSimon : public CGameObject
 	void Renderer(int ani);
 
 public:
+	void ResetPoint() {
+		this->hp_ = 16;
+		this->enery_ = 5;
+		this->score_ = 0;
+
+
+	}
 	void ResetIsGetCross() 
 	{
 		this->getCross = false;
@@ -281,21 +292,28 @@ public:
 		{
 			if (this->state == SIMON_STATE_UPSTAIR_IDLE)
 			{
+				this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
+				this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 				SetState(SIMON_STATE_UPSTAIR_ATTACK);
+				this->attack_start = GetTickCount();
+				this->isUseSubWeapon = true;
+
 			}
 			else if (this->state == SIMON_STATE_DOWNSTAIR_IDLE)
 			{
+				this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
+				this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
 				SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
-
+				this->attack_start = GetTickCount();
+				this->isUseSubWeapon = true;
 			}
 		}
 		else
 		{
 			SetState(SIMON_STATE_STAND_ATTACK);
-
+			this->attack_start = GetTickCount();
+			this->isUseSubWeapon = true;
 		}
-		this->attack_start = GetTickCount();
-		this->isUseSubWeapon = true;
 
 
 	}

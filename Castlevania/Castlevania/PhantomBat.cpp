@@ -194,6 +194,7 @@ PhantomBat::PhantomBat() :Enemy()
 	this->waiting_start = 0;
 	this->attack_start = 0;
 	this->flyback_start = 0;
+	this->hp = DEFAULT_HP;
 }
 
 PhantomBat::~PhantomBat()

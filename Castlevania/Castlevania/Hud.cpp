@@ -6,6 +6,7 @@ void Hud::Update()
 	this->playerEnery = scene->GetSimon()->GetEnery();
 	string enery_ = playerEnery < 10 ? "0" + std::to_string(playerEnery) : std::to_string(playerEnery);
 	this->playerHP= scene->GetSimon()->GetHP();
+	this->bossHP = scene->GetBossHP();
 	unsigned int score_ = scene->GetSimon()->GetScore();
 	string score;
 	if (score_ <10)
@@ -66,7 +67,7 @@ void Hud::Render()
 		CSprites::GetInstance()->Get("PLAYER_HP_SPRITE")->Draw(DIRECTION::DEFAULT,105 + i * 9, 32,255,false);
 		
 	}
-	for (size_t i = 0; i < 16; i++)
+	for (size_t i = 0; i < bossHP; i++)
 	{
 		CSprites::GetInstance()->Get("BOSS_HP_SPRITE")->Draw(DIRECTION::DEFAULT, 105 + i * 9, 50, 255, false);
 	}
@@ -74,7 +75,10 @@ void Hud::Render()
 	{
 		CSprites::GetInstance()->Get("NOHP_UI_SPRITE")->Draw(DIRECTION::DEFAULT, 105 + i * 9, 32, 255, false);
 	}
-
+	for (size_t i = this->bossHP; i < 16; i++)
+	{
+		CSprites::GetInstance()->Get("NOHP_UI_SPRITE")->Draw(DIRECTION::DEFAULT, 105 + i * 9, 32, 255, false);
+	}
 }
 
 Hud::Hud(SceneManagement* scene)

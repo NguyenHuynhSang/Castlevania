@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<resource>
-	<spritesheet TextureAtlas="MORNING_STAR.png">
-		<sprite ID="MORNING_STAR_01">
-			<frame x="0" y="0" width="32" height="32" />
-		</sprite>		
-	</spritesheet>
-</resource>

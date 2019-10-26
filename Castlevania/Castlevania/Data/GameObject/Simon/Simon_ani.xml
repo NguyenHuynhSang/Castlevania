@@ -65,7 +65,14 @@
 			<frame spriteID="SIMON_DOWNSTAIR_ATTACK_02" />
 			<frame spriteID="SIMON_DOWNSTAIR_ATTACK_03" />
 		</animation>
-		
+
+
+		<animation ID="SIMON_ANI_DIE" defaulttime="100">
+			<frame spriteID="SIMON_DIE_01" />
+			<frame spriteID="SIMON_DIE_02" />
+		</animation>
+
+
 	</animations>
 
 </resource>
