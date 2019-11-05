@@ -20,10 +20,10 @@
 
 #include <windows.h>
 
-#include"SceneManagement.h"
+#include"SceneManager.h"
 #include"InputController.h"
 CGame* game;
-SceneManagement* scene;
+SceneManager* scene;
 InputController* input;
 
 
@@ -186,7 +186,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->Init(hWnd);
 
 	input = new InputController();
-	scene = new SceneManagement();
+	scene = new SceneManager();
 	scene->OnCreate();
 	input->Init(scene, scene->GetSimon());
 	game->InitKeyboard(input);

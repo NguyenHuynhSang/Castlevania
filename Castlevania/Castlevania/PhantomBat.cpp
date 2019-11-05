@@ -5,17 +5,8 @@ void PhantomBat::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x+35;
 	t = y;
-
-	if (this->state == VAMPIREBAT_STATE_SLEEP)
-	{
-		l = x + 120;
-		b = t + 250;// for test
-	}
-	else
-	{
-		b = t + VAMPIREBAT_BBOX_HEIGHT;
-	}
 	r = l + VAMPIREBAT_BBOX_WIDTH;
+	b = t + VAMPIREBAT_BBOX_HEIGHT;
 }
 
 void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

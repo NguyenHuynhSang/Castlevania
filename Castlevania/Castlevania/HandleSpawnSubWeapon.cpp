@@ -1,5 +1,5 @@
 #include "HandleSpawnSubWeapon.h"
-#include"SceneManagement.h"
+#include"SceneManager.h"
 #include"Dagger.h"
 #include"Axe.h"
 #include"StopWatch.h"
@@ -54,7 +54,7 @@ HandleSpawnSubWeapon::HandleSpawnSubWeapon()
 {
 }
 
-void HandleSpawnSubWeapon::Init(SceneManagement* scene)
+void HandleSpawnSubWeapon::Init(SceneManager* scene)
 {
 	this->scene = scene;
 }

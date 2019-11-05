@@ -1,7 +1,7 @@
 ﻿#include "HandleSpawnItem.h"
 #include"Heart.h"
 #include"MorningStar.h"
-#include"SceneManagement.h"
+#include"SceneManager.h"
 #include"LargeHeart.h"
 #include"DaggerItem.h"
 #include"MoneyBag.h"

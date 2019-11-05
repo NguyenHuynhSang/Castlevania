@@ -72,7 +72,7 @@
     <ClInclude Include="Panther.h" />
     <ClInclude Include="PhantomBat.h" />
     <ClInclude Include="PorkChop.h" />
-    <ClInclude Include="SceneManagement.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScoreText.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
@@ -143,7 +143,7 @@
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="PhantomBat.cpp" />
     <ClCompile Include="PorkChop.cpp" />
-    <ClCompile Include="SceneManagement.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />

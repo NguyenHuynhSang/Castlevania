@@ -3,12 +3,12 @@
 #include <d3dx9.h>
 #include"Simon.h"
 #include"Game.h"
-#include"SceneManagement.h"
+#include"SceneManager.h"
 #include"CKeyEventHandler.h"
 class InputController : public CKeyEventHandler
 {
 private:
-	SceneManagement* scene;
+	SceneManager* scene;
 	CSimon* player;
 	CGame* game;
 
@@ -16,7 +16,7 @@ private:
 
 public:
 	InputController();
-	void Init(SceneManagement* scene, CSimon* player) {
+	void Init(SceneManager* scene, CSimon* player) {
 		game = CGame::GetInstance();
 		this->scene = scene;
 		this->player = player;

@@ -34,7 +34,7 @@
 #include"Grid.h"
 #include"InputController.h"
 #include"PhantomBat.h"
-class SceneManagement
+class SceneManager
 {
 private:
 	CGame *game;
@@ -178,8 +178,8 @@ public:
 		qSubWeapon.push(subW);
 	}
 	void LoadObjects(int currentScene);
-	SceneManagement();
-	~SceneManagement();
+	SceneManager();
+	~SceneManager();
 };
 
 #endif

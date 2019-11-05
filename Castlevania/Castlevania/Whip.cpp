@@ -4,7 +4,7 @@
 #include"Candle.h"
 #include"Enemy.h"
 #include"Brick.h"
-#include"SceneManagement.h"	
+#include"SceneManager.h"	
 
 
 

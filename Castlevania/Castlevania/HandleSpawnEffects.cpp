@@ -1,5 +1,5 @@
 #include "HandleSpawnEffects.h"
-#include"SceneManagement.h"
+#include"SceneManager.h"
 #include"Flame.h"
 #include"DebrisBrick.h"
 #include"Bubble.h"
@@ -79,7 +79,7 @@ HandleSpawnEffects::HandleSpawnEffects()
 {
 }
 
-void HandleSpawnEffects::Init(SceneManagement* scene)
+void HandleSpawnEffects::Init(SceneManager* scene)
 {
 	this->scene = scene;
 }

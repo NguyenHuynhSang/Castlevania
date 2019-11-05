@@ -99,7 +99,6 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						z->SetDestroy();
 					}
 				}
-				this->SetDestroy();
 			}
 			else {
 				if (e->nx != 0)
@@ -157,6 +156,7 @@ HolyWater::HolyWater(DIRECTION nx) :SubWeapon()
 	AddAnimation("SWHOLYWATER_ANI_JAR");
 	AddAnimation("SWHOLYWATER_ANI_BURNING");
 	this->SetState(HOLYWATER_STATE_JAR);
+	this->damage = 1;
 }
 
 HolyWater::~HolyWater()

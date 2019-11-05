@@ -1,11 +1,11 @@
-﻿#include "SceneManagement.h"
+﻿#include "SceneManager.h"
 #include"Fishman.h"
 #include"HandleSpawnEffects.h"
 #include"HandleSpawnEnemy.h"
 #include"HandleSpawnItem.h"
 #include"HandleSpawnSubWeapon.h"
 #include"BossZone.h"
-void SceneManagement::LoadResource()
+void SceneManager::LoadResource()
 {
 	CTextures* textures = CTextures::GetInstance();
 	textures->Add(ID_TEX_TILESET_1, L"Data\\Map\\Courtyard_bank.png", BACKGROUND_COLOR);
@@ -158,7 +158,7 @@ void SceneManagement::LoadResource()
 
 
 
-void SceneManagement::CamUpdate(DWORD dt)
+void SceneManager::CamUpdate(DWORD dt)
 {
 	if (isNextScene)
 	{
@@ -258,7 +258,7 @@ void SceneManagement::CamUpdate(DWORD dt)
 
 }
 
-void SceneManagement::GetListUnitFromGrid()
+void SceneManager::GetListUnitFromGrid()
 {
 	listUnit.clear();
 	this->objects.clear();
@@ -301,7 +301,7 @@ void SceneManagement::GetListUnitFromGrid()
 
 }
 
-void SceneManagement::UpdateGrid()
+void SceneManager::UpdateGrid()
 {
 	for (size_t i = 0; i < listUnit.size(); i++)
 	{
@@ -314,7 +314,7 @@ void SceneManagement::UpdateGrid()
 
 }
 
-void SceneManagement::HandleCrossEffect()
+void SceneManager::HandleCrossEffect()
 {
 
 	if (simon->CheckIsGetCross())
@@ -336,7 +336,7 @@ void SceneManagement::HandleCrossEffect()
 	}
 }
 
-void SceneManagement::OnCreate()
+void SceneManager::OnCreate()
 {
 	game = CGame::GetInstance();
 	this->stateTime = GAMESTATE_TIME;
@@ -347,7 +347,7 @@ void SceneManagement::OnCreate()
 	HandleSpawnEffects::GetInstance()->Init(this);
 	HandleSpawnSubWeapon::GetInstance()->Init(this);
 }
-int SceneManagement::CheckNumOfFishMan()
+int SceneManager::CheckNumOfFishMan()
 {
 	int counter = 0;
 	for (size_t i = 0; i < enemies.size(); i++)
@@ -359,7 +359,7 @@ int SceneManagement::CheckNumOfFishMan()
 	}
 	return counter;
 }
-void SceneManagement::Update(DWORD dt)
+void SceneManager::Update(DWORD dt)
 {
 
 	if (this->simon->GetState() == SIMON_STATE_DIE)
@@ -487,7 +487,7 @@ void SceneManagement::Update(DWORD dt)
 		else ++it;
 	}
 }
-void SceneManagement::Render()
+void SceneManager::Render()
 {
 	if (this->isNextScene) return;
 
@@ -504,11 +504,11 @@ void SceneManagement::Render()
 
 
 }
-void SceneManagement::SceneUpdate()
+void SceneManager::SceneUpdate()
 {
 }
 
-void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects)
+void SceneManager::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects)
 {
 	// lấy ds những object dùng xét va chạm với object truyền vào
 	coObjects.clear();
@@ -586,7 +586,7 @@ void SceneManagement::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObj
 
 }
 
-void SceneManagement::FreezeEnemy(bool flag)
+void SceneManager::FreezeEnemy(bool flag)
 {
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -599,7 +599,7 @@ void SceneManagement::FreezeEnemy(bool flag)
 	}
 }
 
-void SceneManagement::KillAllEnemy()
+void SceneManager::KillAllEnemy()
 {
 	for (size_t i = 0; i < this->enemies.size(); i++)
 	{
@@ -612,7 +612,7 @@ void SceneManagement::KillAllEnemy()
 
 }
 
-void SceneManagement::LoadScene()
+void SceneManager::LoadScene()
 {
 	CTextures* textures = CTextures::GetInstance();
 	Camera::GetInstance()->SetAllowScrollCam(false);
@@ -669,7 +669,7 @@ void SceneManagement::LoadScene()
 	}
 }
 
-void SceneManagement::GoNextScene()
+void SceneManager::GoNextScene()
 {
 	this->currentScene++;
 	if (this->currentScene > GSCENE_03) currentScene = GSCENE_03;
@@ -678,13 +678,13 @@ void SceneManagement::GoNextScene()
 
 }
 
-void SceneManagement::JumpToScene(int state)
+void SceneManager::JumpToScene(int state)
 {
 	this->currentScene = state;
 	this->isNextScene = true;
 }
 
-void SceneManagement::LoadObjects(int currentscene)
+void SceneManager::LoadObjects(int currentscene)
 {
 	DebugOut(L"Load object \n");
 	//for (UINT i = 0; i < objects.size(); i++) {
@@ -1403,7 +1403,7 @@ void SceneManagement::LoadObjects(int currentscene)
 	}
 }
 
-SceneManagement::SceneManagement()
+SceneManager::SceneManager()
 {
 	this->isNextScene = false;
 	this->currentScene = GSCENE_01;
@@ -1412,6 +1412,6 @@ SceneManagement::SceneManagement()
 }
 
 
-SceneManagement::~SceneManagement()
+SceneManager::~SceneManager()
 {
 }
