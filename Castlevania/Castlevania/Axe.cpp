@@ -70,7 +70,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					torch->SetDestroy();
 				}
-				this->SetDestroy();
+		
 			}
 			else if (dynamic_cast<CBrick *>(e->obj)) {
 
@@ -83,7 +83,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 
 			else if (dynamic_cast<Candle *> (e->obj)) {
-				this->SetDestroy();
+				
 				Candle *candle = dynamic_cast<Candle *>(e->obj);
 				if (!candle->isDestroyed)
 				{
@@ -95,14 +95,16 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy *z = dynamic_cast<Enemy  *>(e->obj);
 				if (!z->isDestroyed)
 				{
-					
+					DebugOut(L"Axe damage enemy \n");
 					z->SubtractHP(this->damage);
 					if (z->GetHp() == 0)
 					{
 						z->SetDestroy();
 					}
 				}
-				this->SetDestroy();
+			
+				x += dx;
+				y += dy;
 			}
 			else {
 

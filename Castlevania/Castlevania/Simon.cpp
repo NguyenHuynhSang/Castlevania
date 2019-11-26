@@ -65,7 +65,7 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 
 }
 
@@ -352,7 +352,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-
 		x += dx;
 		y += dy;
 	}
@@ -371,6 +370,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground*>(e->obj)) {
 
+		
 				if (e->ny < 0) {
 					if (this->hp_ == 0)
 					{

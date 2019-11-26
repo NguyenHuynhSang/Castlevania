@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="236">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="237">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2209,7 +2209,7 @@
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
-  <object id="235" name="Simon" type="Simon" gid="112" x="1934" y="188" width="60" height="66">
+  <object id="236" name="Simon" type="Simon" gid="112" x="2792" y="125" width="60" height="66">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>

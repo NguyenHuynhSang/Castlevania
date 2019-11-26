@@ -83,7 +83,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (this->outOfArea)
 		{
 			DIRECTION nx;
-			float fireBall_vy = ((t+(b-t)/2) - y) / 1000;
+			float fireBall_vy = ((t+(b-t)/2) - y) / 1200;
 			if ((x+35)>l+(r-l)/2)
 			{
 				nx = DIRECTION::LEFT;
@@ -139,7 +139,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->flyback_start = GetTickCount();
 		}
 	
-		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top-80);
+		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top-100);
 		if (this->outOfArea)
 		{
 			float targetX = this->activeArea.left + rand() % (this->activeArea.right - this->activeArea.left);
@@ -181,8 +181,8 @@ void PhantomBat::Render()
 	}
 	animations[ani]->Render(DIRECTION::DEFAULT, x, y);
 	RenderBoundingBox();
-	RenderActiveBox(this->slowAttackArea, MYCOLOR::BLUE, 100);
-	RenderActiveBox(this->fastAttackArea, MYCOLOR::RED);
+	//RenderActiveBox(this->slowAttackArea, MYCOLOR::BLUE, 100);
+	//RenderActiveBox(this->fastAttackArea, MYCOLOR::RED);
 }
 
 PhantomBat::PhantomBat() :Enemy()

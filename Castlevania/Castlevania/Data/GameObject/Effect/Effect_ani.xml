@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resource>
-	<animations AtlasPath="ScoreText_sprite.xml">
+	<animations AtlasPath="Effect_sprite.xml">
+		<animation ID="BUBBLE_ANI" defaulttime="100">
+			<frame spriteID="BUBBLE_01" />
+		</animation>
+		<animation ID="BUBBLE_ANI" defaulttime="100">
+			<frame spriteID="BUBBLE_01" />
+		</animation>
+		<animation ID="DEBRIS_ANI" defaulttime="100">
+			<frame spriteID="DEBRIS_01" />
+
+		</animation>
+		
+		<animation ID="FLAME_ANI_BURNING" defaulttime="100">
+			<frame spriteID="FLAME_BURNING_01" />
+			<frame spriteID="FLAME_BURNING_02" />
+			<frame spriteID="FLAME_BURNING_03" />
+		</animation>
+		
 		<animation ID="SCORETEXT_ANI_100" defaulttime="100">
 			<frame spriteID="SCORETEXT_100" />
 		</animation>
