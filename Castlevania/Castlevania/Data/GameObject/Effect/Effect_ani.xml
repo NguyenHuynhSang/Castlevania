@@ -11,13 +11,24 @@
 			<frame spriteID="DEBRIS_01" />
 
 		</animation>
-		
+
+		<animation ID="SPARK_ANI" defaulttime="100">
+			<frame spriteID="SPARK_01" />
+		</animation>
+
+		<animation ID="BOSS_DEAD_ANI" defaulttime="100">
+			<frame spriteID="BOSS_DEAD_01" />
+			<frame spriteID="BOSS_DEAD_02" />
+			<frame spriteID="BOSS_DEAD_03" />
+		</animation>
+
+
 		<animation ID="FLAME_ANI_BURNING" defaulttime="100">
 			<frame spriteID="FLAME_BURNING_01" />
 			<frame spriteID="FLAME_BURNING_02" />
 			<frame spriteID="FLAME_BURNING_03" />
 		</animation>
-		
+
 		<animation ID="SCORETEXT_ANI_100" defaulttime="100">
 			<frame spriteID="SCORETEXT_100" />
 		</animation>

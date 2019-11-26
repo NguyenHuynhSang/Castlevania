@@ -4,8 +4,8 @@
 #include"DebrisBrick.h"
 #include"Bubble.h"
 #include"ScoreText.h"
-
-
+#include"Spark.h"
+#include"BossDead.h"
 HandleSpawnEffects * HandleSpawnEffects::__instance = NULL;
 
 
@@ -71,6 +71,19 @@ void HandleSpawnEffects::SpawnEffect(int effectDef, float x, float y)
 			scene->SpawnEffect(effect);
 			break;
 		}
+		case EFD_SPARK: {
+			effect = new Spark();
+			effect->SetPositionInWorld(x, y);
+			scene->SpawnEffect(effect);
+			break;
+		}
+		case EFD_BOSSDEAD: {
+			effect = new BossDead();
+			effect->SetPositionInWorld(x, y);
+			scene->SpawnEffect(effect);
+			break;
+		}
+					  
 	}
 	
 }

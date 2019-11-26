@@ -294,6 +294,12 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Spark.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDead.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -502,6 +508,12 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Spark.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDead.cpp">
+      <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

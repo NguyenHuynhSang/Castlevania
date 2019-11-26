@@ -23,6 +23,7 @@
     <ClInclude Include="AxeItem.h" />
     <ClInclude Include="BattleCross.h" />
     <ClInclude Include="BlockingQueue.h" />
+    <ClInclude Include="BossDead.h" />
     <ClInclude Include="BossZone.h" />
     <ClInclude Include="BoundMap.h" />
     <ClInclude Include="Bubble.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="Flame.h" />
+    <ClInclude Include="Spark.h" />
     <ClInclude Include="SpawnZone.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StairTrigger.h" />
@@ -96,6 +98,7 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="AxeItem.cpp" />
     <ClCompile Include="BattleCross.cpp" />
+    <ClCompile Include="BossDead.cpp" />
     <ClCompile Include="BossZone.cpp" />
     <ClCompile Include="BoundMap.cpp" />
     <ClCompile Include="Bubble.cpp" />
@@ -148,6 +151,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManagement.cpp" />
     <ClCompile Include="Flame.cpp" />
+    <ClCompile Include="Spark.cpp" />
     <ClCompile Include="SpawnZone.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StairTrigger.cpp" />

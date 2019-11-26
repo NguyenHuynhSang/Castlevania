@@ -5,7 +5,7 @@
 #include"Enemy.h"
 #include"Brick.h"
 #include"SceneManager.h"	
-
+#include"HandleSpawnEffects.h"
 
 
 
@@ -34,7 +34,6 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 				{
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
-						//	DebugOut(L"Set destroy object \n");
 					}
 
 				}
@@ -70,6 +69,17 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 				if (CGameObject::IsColliding(this, f)) {
 					if (!f->isDestroyed)
 					{
+						float l, t, r, b;
+						f->GetBoundingBox(l, t, r, b);
+						if (this->nx==DIRECTION::RIGHT)
+						{
+							HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+						}
+						else 
+						{
+							HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+						}
+						
 						f->SubtractHP(this->damage);
 						if (f->GetHp() == 0)
 						{
@@ -146,7 +156,16 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{
-
+					float l, t, r, b;
+					z->GetBoundingBox(l, t, r, b);
+					if (e->nx == -1)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+					}
+					else if (e->nx == 1)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+					}
 					z->SubtractHP(this->damage);
 					if (z->GetHp() == 0)
 					{

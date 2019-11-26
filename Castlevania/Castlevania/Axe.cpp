@@ -4,7 +4,7 @@
 #include"Brick.h"
 #include"Torch.h"
 #include"Candle.h"
-
+#include"HandleSpawnEffects.h"
 
 void Axe::Render()
 {
@@ -95,10 +95,33 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Enemy *z = dynamic_cast<Enemy  *>(e->obj);
 				if (!z->isDestroyed)
 				{
+					float l, t, r, b;
+					z->GetBoundingBox(l, t, r, b);
+					if (e->nx==-1)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+					}
+					else if (e->nx==1)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+					}
+					else if (e->ny==1)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+					}
+					else if (e->ny==-1)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+					}
+					
+					
 					DebugOut(L"Axe damage enemy \n");
 					z->SubtractHP(this->damage);
 					if (z->GetHp() == 0)
 					{
+				
+						
+						
 						z->SetDestroy();
 					}
 				}
