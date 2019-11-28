@@ -14,8 +14,7 @@
 #define VAMPIREBAT_IDLE_TIME_LONG 1500
 #define VAMPIREBAT_IDLE_TIME_SHORT 800
 
-#define VAMPIREBAT_ATTACKSLOW_TIME 1000
-#define VAMPIREBAT_ATTACKFAST_TIME 700
+#define VAMPIREBAT_ATTACK_TIME 1000
 
 #define VAMPIREBAT_FLY_BACK_TIME 1200
 
@@ -45,13 +44,13 @@ private:
 	bool intro = false;
 	bool outOfArea=false;
 	RECT activeArea;
-	DWORD attack_start;
+	DWORD fly_start;
 	DWORD flyback_start;
 	DWORD waiting_start;
 	unsigned int attack_time;
 	unsigned int waiting_time;
 	RECT slowAttackArea;
-	RECT fastAttackArea;
+	RECT bossAttackArea;
 public:
 	void SetActiveArea(RECT r) { this->activeArea = r; }
 	RECT GetActiveArea() { return this->activeArea; }

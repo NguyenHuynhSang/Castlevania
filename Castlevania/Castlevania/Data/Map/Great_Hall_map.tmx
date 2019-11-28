@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="237">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="239">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2204,18 +2204,18 @@
     <property name="scenedef" type="int" value="5"/>
    </properties>
   </object>
-  <object id="231" name="Simon" type="Simon" gid="112" x="5162" y="315" width="60" height="66">
-   <properties>
-    <property name="scenedef" type="int" value="6"/>
-   </properties>
-  </object>
-  <object id="236" name="Simon" type="Simon" gid="112" x="2792" y="125" width="60" height="66">
+  <object id="237" name="Simon" type="Simon" gid="112" x="126" y="316" width="60" height="66">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
+  <object id="238" name="Simon" type="Simon" gid="112" x="4188" y="124" width="60" height="66">
+   <properties>
+    <property name="scenedef" type="int" value="6"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup color="#aa55ff" id="6" name="SpawnZone" visible="0">
+ <objectgroup color="#aa55ff" id="6" name="SpawnZone">
   <object id="168" name="SpawnBat" x="3077.83" y="33.3333" width="893" height="150">
    <properties>
     <property name="enemydef" type="int" value="2"/>
@@ -2419,7 +2419,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" visible="0" locked="1">
+ <objectgroup color="#ffc3ae" id="10" name="SimonstairTest" locked="1">
   <object id="57" gid="151" x="1223" y="322" width="60" height="66"/>
   <object id="58" gid="119" x="1239" y="306" width="60" height="66"/>
   <object id="59" gid="119" x="1255" y="290" width="60" height="66"/>
@@ -2577,7 +2577,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#aaaa7f" id="14" name="Brick" visible="0">
+ <objectgroup color="#aaaa7f" id="14" name="Brick">
   <object id="151" name="Brick" type="Brick" gid="188" x="2016.25" y="224" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="0"/>
@@ -2639,7 +2639,7 @@
  <objectgroup id="17" name="BOSS">
   <object id="229" gid="192" x="5302" y="75" width="100" height="46"/>
  </objectgroup>
- <objectgroup color="#0055ff" id="18" name="BossBorder" visible="0">
+ <objectgroup color="#0055ff" id="18" name="BossBorder">
   <object id="232" x="5127" y="3" width="493" height="347"/>
  </objectgroup>
  <objectgroup color="#00557f" id="19" name="BossTrigger">

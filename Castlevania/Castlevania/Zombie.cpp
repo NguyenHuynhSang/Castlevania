@@ -86,7 +86,7 @@ void Zombie::Render()
 {
 
 	animations[0]->Render(nx, x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 Zombie::~Zombie()

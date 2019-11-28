@@ -30,8 +30,20 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 			if (dynamic_cast<Torch*>(e))
 			{
 				Torch* f = dynamic_cast<Torch*> (e);
+				
+			
 				if (CGameObject::IsColliding(this, f))
 				{
+					float l, t, r, b;
+					f->GetBoundingBox(l, t, r, b);
+					if (this->nx == DIRECTION::RIGHT)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t + (b - t) / 2 - 18);
+					}
+					else
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+					}
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
 					}
@@ -54,8 +66,20 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 			else if (dynamic_cast<Candle*>(e))
 			{
 				Candle* f = dynamic_cast<Candle*> (e);
+				
 				if (CGameObject::IsColliding(this, f))
 				{
+					float l, t, r, b;
+					f->GetBoundingBox(l, t, r, b);
+					if (this->nx == DIRECTION::RIGHT)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l-(r-l), t);
+					}
+					else
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+					}
+
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
 						//	DebugOut(L"Set destroy object \n");
@@ -129,6 +153,17 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 				Torch* torch = dynamic_cast<Torch*>(e->obj);
 				if (!torch->isDestroyed)
 				{
+					float l, t, r, b;
+					torch->GetBoundingBox(l, t, r, b);
+					if (this->nx == DIRECTION::RIGHT)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+					}
+					else
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+					}
+
 					torch->SetDestroy();
 				}
 				this->SetDestroy();
@@ -148,6 +183,16 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 				Candle* candle = dynamic_cast<Candle*>(e->obj);
 				if (!candle->isDestroyed)
 				{
+					float l, t, r, b;
+					candle->GetBoundingBox(l, t, r, b);
+					if (this->nx == DIRECTION::RIGHT)
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
+					}
+					else
+					{
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
+					}
 					candle->SetDestroy();
 				}
 			}

@@ -280,7 +280,7 @@ public:
 	void ResetPowerUpTime() {
 		this->upwhip_start = 0;
 	}
-	void SetState(int state);
+	void SetState(int state,bool chanegSimonattribute=true);
 	void SimonUseSubWeapon();
 	DWORD GetActack_Time() { return attack_start; }
 	void ResetActack_Time() { attack_start = 0; }
@@ -294,7 +294,10 @@ public:
 			{
 				this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 				this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
-				SetState(SIMON_STATE_UPSTAIR_ATTACK);
+				if (this->subWeaponDef != SWDSTOPWATCH)
+				{
+					SetState(SIMON_STATE_UPSTAIR_ATTACK);
+				}
 				this->attack_start = GetTickCount();
 				this->isUseSubWeapon = true;
 
@@ -303,14 +306,21 @@ public:
 			{
 				this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
 				this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
-				SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+				if (this->subWeaponDef != SWDSTOPWATCH)
+				{
+					SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+				}
 				this->attack_start = GetTickCount();
 				this->isUseSubWeapon = true;
 			}
 		}
 		else
 		{
-			SetState(SIMON_STATE_STAND_ATTACK);
+			if (this->subWeaponDef!=SWDSTOPWATCH)
+			{
+				SetState(SIMON_STATE_STAND_ATTACK);
+			}
+			
 			this->attack_start = GetTickCount();
 			this->isUseSubWeapon = true;
 		}

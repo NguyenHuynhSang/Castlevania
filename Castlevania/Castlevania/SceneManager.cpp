@@ -136,10 +136,6 @@ void SceneManager::LoadResource()
 	LPDIRECT3DTEXTURE9 texBrick = textures->Get(ID_TEX_BRICK);
 	resource->LoadSprites("Data\\GameObject\\Ground\\Brick_sprite.xml", texBrick);
 	resource->LoadAnimations("Data\\GameObject\\Ground\\Brick_ani.xml", animations);
-
-
-
-
 	simon = new CSimon();
 
 }

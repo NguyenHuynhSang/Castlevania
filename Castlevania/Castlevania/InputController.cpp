@@ -90,42 +90,54 @@ void InputController::OnKeyDown(int KeyCode)
 
 	}
 	case DIK_F:
-		if (!player->CheckAttack()
-			&& !player->CheckIsUseSubWeapon())
+		if (game->IsKeyDown(DIK_UP))
 		{
-			player->StartActack();
-			if (player->CheckIsOnStair())
+			if (player->GetActack_Time() == 0
+				&& player->GetCurrentSubWeapon() != -1
+				&& !player->CheckAttack())
 			{
-
-				if (player->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
-					|| player->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
-					&& player->GetState() == SIMON_STATE_UPSTAIR_IDLE)
-				{
-					player->SetState(SIMON_STATE_UPSTAIR_ATTACK);
-				}
-				else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
-					|| player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
-					&& player->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
-				{
-					player->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
-
-				}
-
+				player->StartUseSubWeapon();
 			}
-			else {
-				if (player->GetState() == SIMON_STATE_SIT)
+		}
+		else {
+			if (!player->CheckAttack()
+				&& !player->CheckIsUseSubWeapon())
+			{
+				player->StartActack();
+				if (player->CheckIsOnStair())
 				{
-					player->SetState(SIMON_STATE_SIT_ATTACK);
+
+					if (player->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
+						|| player->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
+						&& player->GetState() == SIMON_STATE_UPSTAIR_IDLE)
+					{
+						player->SetState(SIMON_STATE_UPSTAIR_ATTACK);
+					}
+					else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
+						|| player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
+						&& player->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
+					{
+						player->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+
+					}
+
 				}
 				else {
+					if (player->GetState() == SIMON_STATE_SIT)
+					{
+						player->SetState(SIMON_STATE_SIT_ATTACK);
+					}
+					else {
 
 
-					player->SetState(SIMON_STATE_STAND_ATTACK);
+						player->SetState(SIMON_STATE_STAND_ATTACK);
+					}
+
 				}
 
 			}
-
 		}
+	
 
 		break;
 	case DIK_A: // reset
@@ -188,7 +200,7 @@ void InputController::KeyState(BYTE* states)
 
 		}
 		else
-			player->SetState(SIMON_STATE_IDLE);
+			player->SetState(SIMON_STATE_IDLE,false);
 		player->StartDelayAttack();
 		player->ResetActack_Time();
 		player->ResetSpriteFrame();

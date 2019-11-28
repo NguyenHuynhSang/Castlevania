@@ -25,10 +25,21 @@ Unit::~Unit()
 
 void Grid::Add(Unit * unit)
 {
-
+	
 	//tính vị trí của unit
 	int cellX = (int)(unit->x_ / this->cellSize);
 	int cellY = (int)(unit->y_ / this->cellSize);
+	if (cellX>numXCell)//safe 
+	{
+		DebugOut(L"[OUTOFGRID] NUMX\n");
+		return;
+	}
+	//safe 
+	if (cellY > numYCell-1)
+	{
+		DebugOut(L"[OUTOFGRID] NUMY \n");
+		return;
+	}
 	// thêm vào trước ds unit ở ô đó
 	unit->prev_ = NULL;
 	unit->next_ = cells_[cellY][cellX];

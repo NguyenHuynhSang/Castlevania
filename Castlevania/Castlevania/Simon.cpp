@@ -286,7 +286,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			else {
-				this->state = SIMON_STATE_IDLE;
+				this->state = SIMON_STATE_IDLE; // use set state insteal of SetState() prevent set vx=0
 			}
 			whip->ResetLastFrame();
 			ResetSpriteFrame();
@@ -868,10 +868,13 @@ void CSimon::Render()
 
 
 
-void CSimon::SetState(int state)
+void CSimon::SetState(int state, bool chanegSimonattribute)
 {
 	CGameObject::SetState(state);
-
+	if (!chanegSimonattribute)
+	{
+		return;
+	}
 	switch (state)
 	{
 	case SIMON_STATE_DIE:
