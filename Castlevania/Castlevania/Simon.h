@@ -83,9 +83,8 @@ class CSimon : public CGameObject
 	DWORD upwhip_start = 0;
 	DWORD delay_attack_start = 0;
 	int hp_;
-	int score_;
 	int enery_;
-
+	static int score_;
 
 
 	Whip* whip;
@@ -112,14 +111,13 @@ class CSimon : public CGameObject
 	void HandlePerStepOnStair();
 	float lastPosition;// dùng để walk through door
 	void Renderer(int ani);
-
 public:
+	
+	static void AddScore(int score) { score_ += score; }
+	static int GetScore() { return score_; }
 	void ResetPoint() {
 		this->hp_ = 16;
 		this->enery_ = 5;
-		this->score_ = 0;
-
-
 	}
 	void ResetIsGetCross() 
 	{
@@ -142,6 +140,7 @@ public:
 	
 
 	}
+
 
 	int GetHP() {
 		return this->hp_;
@@ -185,13 +184,6 @@ public:
 	void AddHP(int point) {
 		this->hp_ += point;
 		SetHP(hp_);
-	}
-	int GetScore() {
-		return this->score_;
-	}
-
-	void SetScore(int score) {
-		this->score_ = score;
 	}
 
 

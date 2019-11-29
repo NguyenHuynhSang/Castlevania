@@ -160,6 +160,30 @@ void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
+void MoneyBag::SetState(int state)
+{
+	this->state = state;
+	switch (this->state)
+	{
+	case MONEYBAG_STATE_FULLCOLOR: {
+		this->score = 1000;
+		break;
+	}
+	case MONEYBAG_STATE_WHITE: {
+		this->score = 100;
+		break;
+	}
+	case MONEYBAG_STATE_RED: {
+		this->score = 400;
+		break;
+	}
+	case MONEYBAG_STATE_BLUE: {
+		this->score = 700;
+		break;
+	}
+	}
+}
+
 MoneyBag::MoneyBag() :Item()
 {
 	AddAnimation("MONEYBAG_ANI_COLOR");

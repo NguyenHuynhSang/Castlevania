@@ -2,6 +2,7 @@
 #include"Enemy.h"
 #include"Brick.h"
 #include"Ground.h"
+#include "Simon.h"
 void HolyWater::Render()
 {
 	int ani;
@@ -96,6 +97,7 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					z->SubtractHP(this->damage);
 					if (z->GetHp() == 0)
 					{
+						CSimon::AddScore(z->GetScore());
 						z->SetDestroy();
 					}
 				}

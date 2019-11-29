@@ -5,6 +5,7 @@
 #include"Torch.h"
 #include"Candle.h"
 #include"HandleSpawnEffects.h"
+#include "Simon.h"
 
 void Axe::Render()
 {
@@ -120,7 +121,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (z->GetHp() == 0)
 					{
 				
-						
+						CSimon::AddScore(z->GetScore());
 						
 						z->SetDestroy();
 					}

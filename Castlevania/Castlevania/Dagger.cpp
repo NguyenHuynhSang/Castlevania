@@ -6,6 +6,7 @@
 #include"Dagger.h"
 #include"Brick.h"
 #include"Fireball.h"
+#include "Simon.h"
 void Dagger::Render()
 {
 	animations[0]->Render(nx, x, y);
@@ -90,6 +91,7 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					z->SubtractHP(this->damage);
 					if (z->GetHp() == 0)
 					{
+						CSimon::AddScore(z->GetScore());
 						z->SetDestroy();
 					}
 				}

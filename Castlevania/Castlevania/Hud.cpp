@@ -14,7 +14,7 @@ void Hud::Update()
 	}
 
 
-	unsigned int score_ = scene->GetSimon()->GetScore();
+	unsigned int score_ = CSimon::GetScore();
 	string score;
 	if (score_ < 10)
 	{

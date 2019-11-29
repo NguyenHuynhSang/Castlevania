@@ -30,10 +30,11 @@
 #include"MultiplyShotItem.h"
 #include"BossZone.h"
 #include"InvisibilityPotion.h"
+#include "MoneyBag.h"
 CSimon::CSimon() :CGameObject()
 {
 	this->hp_ = 16;
-	this->score_ = 0;
+	CSimon::score_ = 0;
 	this->enery_ = 5;
 	untouchable = 0;
 	whip = new Whip();
@@ -54,6 +55,9 @@ CSimon::CSimon() :CGameObject()
 
 
 }
+
+
+ int CSimon::score_=0;
 
 CSimon::~CSimon()
 {
@@ -299,7 +303,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		whip->SetVelocity(this->vx, this->vy);
 		whip->SetDirection(this->nx);
-		whip->Update(dt, &this->score_, coObjects);
+		whip->Update(dt, CSimon::score_, coObjects);
 
 	}
 	if (this->startOnStair) {
@@ -559,6 +563,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						StartUntouchable();
 						DebugOut(L"start untouchh swepaabb \n");
 					}
+					else if (dynamic_cast<MoneyBag *>(e->obj)) {
+						score_ += item->GetScore();
+					}
 					if (!item->isDestroyed)
 					{
 						item->SetDestroy();
@@ -611,7 +618,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (CGameObject::IsColliding(this, f))
 				{
-					DebugOut(L"start untouchh aabb \n");
 					if (!f->CheckisHiding())
 					{
 						this->AddEnery(f->GetHeartPoint());
@@ -647,6 +653,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					else if (dynamic_cast<PorkChop*>(e)) {
 						AddHP(4);
+					}
+					else if (dynamic_cast<MoneyBag*>(e)) {
+						score_ += f->GetScore();
 					}
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();

@@ -16,6 +16,7 @@ protected:
 	bool isTorchGround = false;
 
 public:
+	int GetScore() { return this->score; }
 	virtual void GetSpriteBox(float& _width, float& _height) {
 
 	};

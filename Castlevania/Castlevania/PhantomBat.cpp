@@ -68,30 +68,34 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->attack_start = 0;
 		this->hitBoder = true;
 
-	
-		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top - 100);
-		if (this->vx != 0) {
-			this->vx = -this->vx;
-		}
-		else
-		{
-			float targetX = this->activeArea.left + rand() % (this->activeArea.right - this->activeArea.left);
-			this->vx = (targetX - x) / VAMPIREBAT_FLY_BACK_TIME;
-		}
-	
-		this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
 
-		DebugOut(L"Boss fly reserve\n");
+		float tagetY = this->activeArea.top + rand() % (this->activeArea.bottom - this->activeArea.top - 100);
+
+		float targetX = this->activeArea.left+60 + rand() % (this->activeArea.right - this->activeArea.left-200);
+		DebugOut(L"Hit boder \n");
+		if (this->x < activeArea.left)
+		{
+			this->vx = VAMPIREBAT_FLYBACK_VX;
+		}
+		else if (this->x >= activeArea.left)
+		{
+			this->vx = -VAMPIREBAT_FLYBACK_VX;
+		}
+	
+		DWORD time = abs(targetX - x) / VAMPIREBAT_FLYBACK_VX;
+		this->flyback_time = time;
+		this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
 	}
 
 
 	if (waiting_start != 0 && GetTickCount() - waiting_start > this->waiting_time)
 	{
-
+		this->hitBoder = false;
 		this->waiting_start = 0;
 	}
 	else if (waiting_start != 0)
 	{
+
 		if (this->outOfArea) //bắn fireball
 		{
 			DIRECTION nx;
@@ -117,6 +121,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	this->bossAttackArea.bottom = this->bossAttackArea.top + VAMPIREBAT_BBOX_FASTACTACK;
 	if (this->attack_start == 0 && this->flyback_start == 0 && this->waiting_start == 0) // attack khi đang dừng
 	{
+		flyToRamdomTager = false;
 		if (CGameObject::AABB(l, t, r, b, this->bossAttackArea.left, this->bossAttackArea.top, this->bossAttackArea.right, this->bossAttackArea.bottom))
 		{
 			this->vx = (l - this->x) / VAMPIREBAT_ATTACK_TIME;
@@ -151,12 +156,33 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
 	}
-	if (this->flyback_start != 0 && GetTickCount() - this->flyback_start > VAMPIREBAT_FLY_BACK_TIME)
+	if (this->flyback_start != 0 && GetTickCount() - this->flyback_start > this->flyback_time)
 	{
+		if (!this->hitBoder && !flyToRamdomTager)
+		{
+			this->flyback_start = GetTickCount();
+			flyToRamdomTager = true;
+			float tagetY = this->activeArea.top+20 + rand() % (this->activeArea.bottom - this->activeArea.top - 200);
+			float targetX = this->activeArea.left+60 + rand() % (this->activeArea.right - this->activeArea.left - 200);
+			if (this->x < activeArea.left)
+			{
+				this->vx = VAMPIREBAT_FLYBACK_VX;
+			}
+			else if (this->x >= activeArea.left)
+			{
+				this->vx = -VAMPIREBAT_FLYBACK_VX;
+			}
 
+			DWORD time = abs(targetX - x) / VAMPIREBAT_FLYBACK_VX;
+			this->flyback_time = time;
+			this->vy = (tagetY - y) / VAMPIREBAT_FLY_BACK_TIME;
+			DebugOut(L"Get new tagger \n");
+			return;
+		}
 		this->flyback_start = 0;
-		DebugOut(L"Boss waiting\n");
 
+		
+		this->flyback_time = VAMPIREBAT_FLY_BACK_TIME;
 		waiting_start = GetTickCount();
 		int rank = rand() % 2;
 		if (rank == 1)
@@ -169,10 +195,9 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		this->vx = 0;
 		this->vy = 0;
-		this->reserveVy = false;
-		this->hitBoder = false;
+
 	}
-	
+
 }
 
 void PhantomBat::Render()
@@ -197,6 +222,7 @@ PhantomBat::PhantomBat() :Enemy()
 	AddAnimation("VAMPIREBAT_ANI_FLYING");
 	this->state = VAMPIREBAT_STATE_SLEEP;
 	this->attack_time = VAMPIREBAT_ATTACK_TIME;
+	this->flyback_time = VAMPIREBAT_FLY_BACK_TIME;
 	this->waiting_start = 0;
 	this->attack_start = 0;
 	this->flyback_start = 0;

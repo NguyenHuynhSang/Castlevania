@@ -11,7 +11,7 @@
 
 
 
-void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
+void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 {
 
 	// Calculate dx, dy 
@@ -108,8 +108,9 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 						f->SubtractHP(this->damage);
 						if (f->GetHp() == 0)
 						{
+						
 							f->SetDestroy();
-							*_score += f->GetScore();
+							CSimon::AddScore(f->GetScore());
 						}
 
 					}

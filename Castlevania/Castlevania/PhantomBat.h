@@ -8,6 +8,7 @@
 #define VAMPIREBAT_STATE_FLY_SLOW 1000
 #define VAMPIREBAT_STATE_FLY_FAST 800
 
+#define VAMPIREBAT_FLYBACK_VX 0.15f
 #define VAMPIREBAT_ANI_SLEEP 0
 #define VAMPIREBAT_ANI_FLYING 1
 
@@ -44,12 +45,15 @@ private:
 	bool intro = false;
 	bool outOfArea=false;
 	bool hitBoder = false;
-	bool reserveVy = false;
+	bool flyToRamdomTager = false;
 	RECT activeArea;
 	DWORD attack_start;
 	DWORD flyback_start;
 	DWORD flyrandom_start;
 	DWORD waiting_start;
+
+
+	DWORD flyback_time;
 	unsigned int attack_time;
 	unsigned int waiting_time;
 	RECT slowAttackArea;
