@@ -468,19 +468,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (e->ny != 0)
 					y += dy;
 			}
-			else if (dynamic_cast<StairTrigger*>(e->obj)) {
-				if (e->nx != 0)
-					x += dx;
-				else if (e->ny != 0) {
-					if (e->ny < 0)
-					{
-						this->vy = 0.1f;
-						this->dy = this->vy * dt;
-					}
-					y += dy;
-				}
-
-			}
 			else if (dynamic_cast<Door*>(e->obj))
 			{
 				Door* door = dynamic_cast<Door*>(e->obj);
@@ -570,6 +557,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					else if (dynamic_cast<InvisibilityPotion*>(e->obj)) {
 						StartUntouchable();
+						DebugOut(L"start untouchh swepaabb \n");
 					}
 					if (!item->isDestroyed)
 					{
@@ -591,14 +579,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				break; // khong xet tiep va cham voi cac object khac
 			}
 			else if (dynamic_cast<MoneyBagTrigger*>(e->obj)) {
-				DebugOut(L"Money bag \n");
 				MoneyBagTrigger* trigger = dynamic_cast<MoneyBagTrigger*>(e->obj);
 				trigger->isDestroyed = true;
 				if (this->isAutoWalk) return;
 				if (e->ny != 0) vy = 0;
 				x += dx;
 				trigger->SpawnMoneyBag();
-				DebugOut(L"spawn money bag");
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
@@ -625,6 +611,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (CGameObject::IsColliding(this, f))
 				{
+					DebugOut(L"start untouchh aabb \n");
 					if (!f->CheckisHiding())
 					{
 						this->AddEnery(f->GetHeartPoint());
@@ -655,6 +642,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else if (dynamic_cast<IHolyWater*>(e)) {
 						this->subWeaponDef = SWDHOLLYWATER;
 					}
+					else if (dynamic_cast<InvisibilityPotion*>(e)) {
+						StartUntouchable();
+					}
+					else if (dynamic_cast<PorkChop*>(e)) {
+						AddHP(4);
+					}
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
 					}
@@ -664,6 +657,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 		}
+
 		else if (dynamic_cast<StairTrigger*>(e)) {
 			StairTrigger* f = dynamic_cast<StairTrigger*> (e);
 
@@ -727,6 +721,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
+		
+	
 	}
 
 

@@ -3,13 +3,7 @@
 #include"debug.h"
 #include"Game.h"
 #include"Camera.h"
-CTileMap* CTileMap::__instance = NULL;
 
-CTileMap* CTileMap::GetInstance()
-{
-	if (__instance == NULL) __instance = new CTileMap();
-	return __instance;
-}
 
 // chủ yếu lấy ra cái background layer nếu muốn lấy thêm cần cập nhật sau
 void CTileMap::LoadTileSets(const std::string& filePath)
@@ -132,7 +126,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 		for (std::size_t j = 0; j < this->tileSheetCol; j++)
 		{
 
-			CSprites::GetInstance()->Add(std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
+			CSprites::GetInstance()->Add(mapID+std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
 			id++;
 		}
 	}
@@ -156,7 +150,7 @@ void CTileMap::Render()
 		for (int j = beginCol; j < endCol; j++)
 		{
 			int id = matrix[i][j];
-			CSprites::GetInstance()->Get(std::to_string(id))->Draw(DIRECTION::DEFAULT, j * this->tileHeight, i * this->tileHeight + GAME_WORLD_Y);
+			CSprites::GetInstance()->Get(mapID + std::to_string(id))->Draw(DIRECTION::DEFAULT, j * this->tileHeight, i * this->tileHeight + GAME_WORLD_Y);
 		}
 	}
 
@@ -228,8 +222,9 @@ void CTileMap::LoadObjects(const std::string& filePath)
 
 }
 
-void CTileMap::LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet)
+void CTileMap::LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet,string mapID)
 {
+	this->mapID = mapID;
 	LoadMap(filePath, texTileSet);
 	LoadObjects(filePath);
 }

@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "Sprites.h"
 #include<string>
+#include"StairTrigger.h"
 bool CGameObject::AABB(float l, float t, float r, float b, float l1, float t1, float r1, float b1)
 {
 	float left = l1 - r;
@@ -77,6 +78,10 @@ void CGameObject::CalcPotentialCollisions(
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (dynamic_cast<StairTrigger*>(coObjects->at(i)))
+		{
+			return;
+		}
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)

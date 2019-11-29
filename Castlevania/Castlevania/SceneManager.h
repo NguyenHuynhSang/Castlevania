@@ -34,6 +34,7 @@
 #include"Grid.h"
 #include"InputController.h"
 #include"PhantomBat.h"
+#include"MapManager.h"
 class SceneManager
 {
 private:
@@ -86,7 +87,8 @@ private:
 	std::queue<SubWeapon *> qSubWeapon;
 
 
-	CTileMap* cmap;
+	MapManager* maps;
+	CTileMap* currentMap=NULL;
 	bool isNextScene;
 	bool isAutoScrollCam = false;	
 	bool playCrossEffect = false;
@@ -137,6 +139,9 @@ public:
 	CSimon* GetSimon() {
 		return this->simon;
 	};
+	vector<LPGAMEOBJECT>* GetSubWeapons() {
+		return &(this->subWeapon);
+	}
 	int GetCurrentScene() { return this->currentScene; };
 	void Update(DWORD dt);
 	void Render();

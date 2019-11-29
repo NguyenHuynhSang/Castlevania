@@ -92,6 +92,7 @@ void InputController::OnKeyDown(int KeyCode)
 	case DIK_F:
 		if (game->IsKeyDown(DIK_UP))
 		{
+			DebugOut(L"Simon use sub weapon \n");
 			if (player->GetActack_Time() == 0
 				&& player->GetCurrentSubWeapon() != -1
 				&& !player->CheckAttack())
@@ -137,14 +138,9 @@ void InputController::OnKeyDown(int KeyCode)
 
 			}
 		}
-	
 
 		break;
-	case DIK_A: // reset
-		player->SetState(SIMON_STATE_IDLE);
-		player->SetPosition(50.0f, 0.0f);
-		player->SetSpeed(0, 0);
-		break;
+
 	}
 }
 
@@ -159,7 +155,12 @@ InputController::InputController()
 
 void InputController::KeyState(BYTE* states)
 {
+	
 	if (player->GetState() == SIMON_STATE_DIE) return;
+	
+
+
+
 	if (player->CheckAutoWalk()) {
 		return;
 	}
@@ -216,10 +217,13 @@ void InputController::KeyState(BYTE* states)
 		return;
 
 	}
+
 	if (game->IsKeyDown(DIK_UP))
 	{
-
+		
 		if (player->GetState() == SIMON_STATE_DOWNSTAIR_IDLE) {
+	
+
 			if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT)
 				player->SetStepOnStairDirection(STAIRDIRECTION::UPRIGHT);
 			else if (player->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT)
@@ -234,6 +238,7 @@ void InputController::KeyState(BYTE* states)
 				player->SetStartStepOnStair();
 			}
 			else if (player->GetState() == SIMON_STATE_UPSTAIR_IDLE) {
+	
 				player->SetStartStepOnStair();
 			}
 			return;

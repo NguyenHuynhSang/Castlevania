@@ -300,6 +300,9 @@
     <ClInclude Include="BossDead.h">
       <Filter>Effects</Filter>
     </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>Utilities\MapReader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -514,6 +517,9 @@
     </ClCompile>
     <ClCompile Include="BossDead.cpp">
       <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>Utilities\MapReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

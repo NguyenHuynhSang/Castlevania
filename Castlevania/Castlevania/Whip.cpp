@@ -203,11 +203,11 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 				{
 					float l, t, r, b;
 					z->GetBoundingBox(l, t, r, b);
-					if (e->nx == -1)
+					if (this->nx == DIRECTION::RIGHT)
 					{
 						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
 					}
-					else if (e->nx == 1)
+					else 
 					{
 						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
 					}

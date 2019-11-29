@@ -10,7 +10,7 @@
 using namespace rapidxml;
 class CTileMap
 {
-	static CTileMap * __instance;
+	string mapID;
 	unsigned int mapRow;
 	unsigned int mapCol;
 	unsigned int mapWidth; // lấy đúng bằng cái tileset background ==
@@ -27,10 +27,8 @@ class CTileMap
 	void LoadObjects(const std::string& filePath);
 public:
 	void LoadTileSets(const std::string& filePath);
-	
 	void Render();
-	
-	void LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
+	void LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet, string mapID);
 	void ClearObject() {
 		this->listObject.clear();
 	}
@@ -46,7 +44,6 @@ public:
 	std::map<int, std::vector<LPTILEOBJECT>>&  GetObjects() {
 		return this->listObject;
 	};
-	static CTileMap * GetInstance();
 	~CTileMap();
 };
 

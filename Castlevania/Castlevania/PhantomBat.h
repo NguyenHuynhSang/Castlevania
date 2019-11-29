@@ -43,9 +43,12 @@ private:
 	bool awake = false;
 	bool intro = false;
 	bool outOfArea=false;
+	bool hitBoder = false;
+	bool reserveVy = false;
 	RECT activeArea;
-	DWORD fly_start;
+	DWORD attack_start;
 	DWORD flyback_start;
+	DWORD flyrandom_start;
 	DWORD waiting_start;
 	unsigned int attack_time;
 	unsigned int waiting_time;

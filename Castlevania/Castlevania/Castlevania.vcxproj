@@ -64,6 +64,7 @@
     <ClInclude Include="Library\RapidXML\rapidxml_iterators.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_print.hpp" />
     <ClInclude Include="Library\RapidXML\rapidxml_utils.hpp" />
+    <ClInclude Include="MapManager.h" />
     <ClInclude Include="MoneyBag.h" />
     <ClInclude Include="MoneyBagTrigger.h" />
     <ClInclude Include="MorningStar.h" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LargeHeart.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MoneyBag.cpp" />
     <ClCompile Include="MoneyBagTrigger.cpp" />
     <ClCompile Include="MorningStar.cpp" />

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<game>
+	<textures>
+		<texture id="" path="Data\\Map\\Courtyard_bank.png" backcolor=""/>
+		<texture id="" path="Data\\Map\\Great_Hall_bank.png" backcolor=""/>
+		<texture id="" path="Data\\Map\\Underground_bank.png" backcolor=""/>
+		<texture id="" path="Data\\Map\\Underground_bank.png" backcolor=""/>
+		<texture id="" path="Data\\Map\\Underground_bank.png" backcolor=""/>
+		<texture id="" path="Data\\GameObject\\Simon\\SIMON.png" backcolor=""/>
+	</textures>
+	<animations AtlasPath="Effect_sprite.xml">
+
+		<animation ID="SCORETEXT_ANI_1000" defaulttime="100">
+			<frame spriteID="SCORETEXT_1000_01" />
+			<frame spriteID="SCORETEXT_1000_02" />
+			<frame spriteID="SCORETEXT_1000_03" />
+		</animation>
+	</animations>
+
+
+	<maps>
+		<map id="map1" path="Data\\Map\\Courtyard_map.tmx" idtex=""/>
+		<map id="map2" path="Data\\Map\\Great_Hall_map.tmx" idtex=""/>
+		<map id="map3" path="Data\\Map\\Underground_map.tmx" idtex=""/>
+
+
+	</maps>
+</game>

@@ -102,6 +102,8 @@ class CSimon : public CGameObject
 	bool isHitDoor = false;
 	bool getCross = false;
 	bool isFightWithBoss = false;
+	bool isDoubleShot = false;
+	bool isTrippleShot = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;
@@ -282,12 +284,33 @@ public:
 	}
 	void SetState(int state,bool chanegSimonattribute=true);
 	void SimonUseSubWeapon();
-	DWORD GetActack_Time() { return attack_start; }
+	DWORD GetActack_Time() {
+		return attack_start;
+	
+	
+	}
 	void ResetActack_Time() { attack_start = 0; }
 	bool CheckAttack() {
+		if (this->isActack)
+		{
+			DebugOut(L"SIMON ATTACK \n");
+		}
 		return this->isActack;
 	}
 	void StartUseSubWeapon() {
+
+		if (this->subWeaponDef==SWDSTOPWATCH &&this->enery_<5)
+		{
+			return;
+		}
+		else if (this->enery_<1)
+		{
+			return;
+		}
+
+	
+
+
 		if (this->CheckIsOnStair())
 		{
 			if (this->state == SIMON_STATE_UPSTAIR_IDLE)
@@ -330,6 +353,8 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartActack() {
 		this->isActack = true;
+	//	this->ResetSpriteFrame();
+
 	};
 
 	void SetLastState(int state) {
@@ -338,6 +363,8 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void ResetSpriteFrame() {
 		this->ResetFrame(SIMON_ANI_STAND_ATTACK);
+		this->ResetFrame(SIMON_ANI_UPSTAIR_ATTACK);
+		this->ResetFrame(SIMON_ANI_DOWNSTAIR_ATTACK);
 		this->ResetFrame(SIMON_ANI_SIT_ATTACK);
 		whip->ResetAnimationFrame();
 	}
