@@ -55,7 +55,7 @@ void SpawnZone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->isSpawn)
 	{
 		this->isSpawn = false;
-		DebugOut(L"Start spawn zone \n");
+		
 		if (this->enemyDef == EDPANTHER)
 		{
 			if (!this->spawnPanther)

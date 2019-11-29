@@ -80,7 +80,7 @@ void CGameObject::CalcPotentialCollisions(
 	{
 		if (dynamic_cast<StairTrigger*>(coObjects->at(i)))
 		{
-			return;
+			continue;
 		}
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 

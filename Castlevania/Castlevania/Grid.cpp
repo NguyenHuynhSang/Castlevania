@@ -19,7 +19,7 @@ Unit::Unit(Grid * gird, LPGAMEOBJECT object)
 
 Unit::~Unit()
 {
-	DebugOut(L"Destructor Unit \n");
+//	DebugOut(L"Destructor Unit \n");
 	delete object;
 }
 

@@ -291,10 +291,7 @@ public:
 	}
 	void ResetActack_Time() { attack_start = 0; }
 	bool CheckAttack() {
-		if (this->isActack)
-		{
-			DebugOut(L"SIMON ATTACK \n");
-		}
+		
 		return this->isActack;
 	}
 	void StartUseSubWeapon() {

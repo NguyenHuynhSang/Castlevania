@@ -19,8 +19,9 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 		!= animations[currentAnimation]->GetLastFrame()) {
 		return;
 	}
-	
+
 	CGameObject::Update(dt);
+	
 	if (!collideOneTime)
 	{
 		for (std::size_t i = 0; i < colliable_objects->size(); i++)
@@ -135,11 +136,12 @@ void Whip::Update(DWORD dt,int* _score, vector<LPGAMEOBJECT>* colliable_objects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		/*x += dx;
-		y += dy;*/
+		x += dx;
+		y += dy;
 	}
 	else
 	{
+		DebugOut(L"Swept aabb \n");
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
