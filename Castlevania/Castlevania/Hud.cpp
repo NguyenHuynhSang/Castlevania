@@ -1,17 +1,11 @@
 #include "Hud.h"
 #include"SceneManager.h"
-
+int Hud::bossHP = 0;
 void Hud::Update()
 {
 	this->playerEnery = scene->GetSimon()->GetEnery();
 	string enery_ = playerEnery < 10 ? "0" + std::to_string(playerEnery) : std::to_string(playerEnery);
 	this->playerHP = scene->GetSimon()->GetHP();
-
-	if (this->bossHP != 0)
-	{
-
-		this->bossHP = scene->GetBossHP();
-	}
 
 
 	unsigned int score_ = CSimon::GetScore();
@@ -40,9 +34,9 @@ void Hud::Update()
 	}
 
 
-	_UIinfor = "SCORE-" + score + " TIME 0" + std::to_string(scene->GetTime()) + " STAGE 00\n";
+	_UIinfor = "SCORE-" + score + " TIME 0" + std::to_string(scene->GetTime()) + " STAGE 01\n";
 	_UIinfor = _UIinfor + "PLAYER                  -" + enery_ + "\n";
-	_UIinfor += "ENEMY                   -00\n";
+	_UIinfor += "ENEMY                   -02\n";
 }
 
 void Hud::Render()
@@ -95,7 +89,7 @@ Hud::Hud(SceneManager* scene)
 	SetRect(&bound, 0, 15, SCREEN_WIDTH, 80);
 	this->bossHP = 16;
 	game = CGame::GetInstance();
-	_UIinfor = "SCORE-000000 TIME 0000 STAGE 00\n";
+	_UIinfor = "SCORE-000000 TIME 0000 STAGE 01\n";
 	_UIinfor += "PLAYER                  -00\n";
 	_UIinfor += "ENEMY                   -00\n";
 }

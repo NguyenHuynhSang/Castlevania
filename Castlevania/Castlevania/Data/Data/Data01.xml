@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <game>
 	<textures>
-		<texture id="" path="Data\\Map\\Courtyard_bank.png" backcolor=""/>
-		<texture id="" path="Data\\Map\\Great_Hall_bank.png" backcolor=""/>
-		<texture id="" path="Data\\Map\\Underground_bank.png" backcolor=""/>
-		<texture id="" path="Data\\Map\\Underground_bank.png" backcolor=""/>
-		<texture id="" path="Data\\Map\\Underground_bank.png" backcolor=""/>
-		<texture id="" path="Data\\GameObject\\Simon\\SIMON.png" backcolor=""/>
+		<texture id="1000" path="Data\\Map\\Courtyard_bank.png" red="5" green="5" blue="5"/>
+		<texture id="1010" path="Data\\Map\\Great_Hall_bank.png" red="5" green="5" blue="5"/>
+		<texture id="1020" path="Data\\Map\\Underground_bank.png" red="5" green="5" blue="5"/>
+		<texture id="0" path="Data\\UI\\UIpack.png" red="255" green="0" blue="255"/>
+		<texture id="10" path="Data\\GameObject\\Simon\\SIMON.png" red="255" green="255" blue="255"/>
+		<texture id="20" path="Data\\GameObject\\Ground\\groundObject.png" red="255" green="0" blue="255"/>
+		<texture id="30" path="Data\\GameObject\\Enemies\\enemy_pack.png" red="255" green="0" blue="255"/>
+		<texture id="40" path="Data\\GameObject\\Weapons\\Whipedip.png" red="3" green="26" blue="110"/>
+		<texture id="50" path="Data\\GameObject\\Items\\ITEM_PACK.png" red="255" green="0" blue="255"/>
+		<texture id="60" path="Data\\GameObject\\Effect\\EFFECT_PACK.png" red="255" green="0" blue="255"/>
+		<texture id="70" path="Data\\GameObject\\Sub_weapons\\subweapon_pack.png" red="255" green="0" blue="255"/>
+		<texture id="80" path="Data\\GameObject\\\Bosses\\VAMPIRE_BAT.png" red="255" green="0" blue="255"/>
+		<texture id="-100" path="textures\\bbox.png" red="255" green="255" blue="255"/>
+		<texture id="-200" path="textures\\bbox1.png" red="255" green="255" blue="255"/>
 	</textures>
-	<animations AtlasPath="Effect_sprite.xml">
-
-		<animation ID="SCORETEXT_ANI_1000" defaulttime="100">
-			<frame spriteID="SCORETEXT_1000_01" />
-			<frame spriteID="SCORETEXT_1000_02" />
-			<frame spriteID="SCORETEXT_1000_03" />
-		</animation>
-	</animations>
-
-
 	<maps>
-		<map id="map1" path="Data\\Map\\Courtyard_map.tmx" idtex=""/>
-		<map id="map2" path="Data\\Map\\Great_Hall_map.tmx" idtex=""/>
-		<map id="map3" path="Data\\Map\\Underground_map.tmx" idtex=""/>
-
-
+		<map id="map1" path="Data\\Map\\Courtyard_map.tmx" texid="1000"/>
+		<map id="map2" path="Data\\Map\\Great_Hall_map.tmx" texid="1010"/>
+		<map id="map3" path="Data\\Map\\Underground_map.tmx" texid="1020"/>
 	</maps>
+
+	<sprites>
+		<sprite path="Data\\UI\\UI_sprite.xml" texid="0"/>
+		<sprite path="Data\\GameObject\\Simon\\Simon_sprite.xml" texid="10"/>
+		<sprite path="Data\\GameObject\\Ground\\groundObject_sprite.xml" texid="20"/>
+		<sprite path="Data\\GameObject\\Enemies\\Enemy_sprite.xml" texid="30"/>
+		<sprite path="Data\\GameObject\\Weapons\\Whip_sprite.xml" texid="40"/>
+		<sprite path="Data\\GameObject\\Items\\Item_sprite.xml" texid="50"/>
+		<sprite path="Data\\GameObject\\Effect\\Effect_sprite.xml" texid="60"/>
+		<sprite path="Data\\GameObject\\Sub_weapons\\SubWeapon_sprite.xml" texid="70"/>
+		<sprite path="Data\\GameObject\\Bosses\\VampireBat_sprite.xml" texid="80"/>
+	</sprites>
+
+	<animations AtlasPath="Effect_sprite.xml">
+		<animation path="Data\\GameObject\\Simon\\Simon_ani.xml" />
+		<animation path="Data\\GameObject\\Weapons\\Whip_ani.xml" />
+		<animation path="Data\\GameObject\\Items\\Item_ani.xml" />
+		<animation path="Data\\GameObject\\Sub_weapons\\SubWeapon_ani.xml" />
+		<animation path="Data\\GameObject\\Enemies\\Enemy_ani.xml" />
+		<animation path="Data\\GameObject\\Bosses\\VampireBat_ani.xml" />
+		<animation path="Data\\GameObject\\Effect\\Effect_ani.xml" />
+		<animation path="Data\\GameObject\\Ground\\groundObject_ani.xml" />
+	</animations>
 </game>

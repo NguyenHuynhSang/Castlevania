@@ -26,7 +26,15 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->isFreeze)
 	{
+		if (!animations[0]->CheckIsLockAnimation())
+		{
+			animations[0]->LockAnimation(true);
+		}
 		return;
+	}
+	if (animations[0]->CheckIsLockAnimation())
+	{
+		animations[0]->LockAnimation(false);
 	}
 	//	if (reSpawn) return;
 		//DebugOut(L"update \n");

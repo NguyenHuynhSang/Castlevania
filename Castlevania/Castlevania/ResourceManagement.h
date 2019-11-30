@@ -16,6 +16,7 @@ class ResourceManagement
 	CSprites * sprites;
 public:
 	static ResourceManagement * GetInstance();
+	void LoadData(const std::string& filePath);
 	void LoadSprites(const std::string& filePath, LPDIRECT3DTEXTURE9 tex);
 	void LoadAnimations(const std::string& filePath, CAnimations* animations);
 	ResourceManagement();

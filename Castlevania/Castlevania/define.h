@@ -19,11 +19,7 @@
 
 #define FONT_PATH L"Data\\prstart.ttf"
 
-#define MAP1 L"Data\\prstart.ttf"
 
-#define MAP2 L"Data\\prstart.ttf"
-
-#define MAP3 L"Data\\prstart.ttf"
 
 #define EFFECTS_LIFE_TIME 500
 #define CROSS_EFFECT_TIME 500
@@ -32,34 +28,16 @@
 #define SCORETEXT_STATE_700 200 
 #define SCORETEXT_STATE_1000 300
 
-#define ID_TEX_SIMON 0
-#define ID_TEX_ENEMY 10
-#define ID_TEX_WHIP 30
-#define ID_TEX_ZOMBIE 50
-#define ID_TEX_PANTHER 60
-#define ID_TEX_BAT 70
-#define ID_TEX_GROUNDOBJECT 80
-#define ID_TEX_FISHMAN 100
-#define ID_TEX_FIREBALL 110
-#define ID_TEX_AXE      130
-#define ID_TEX_VAMPRITEBAT      140
-#define ID_TEX_HOLYWATER      150
 
-
-#define ID_TEX_ITEM_PACK 500
 
 #define DEFAULT_HP 16
 
 
 #define ID_TEX_EFFECT 600
 
-
 #define ID_TEX_TILESET_1 1000
 #define ID_TEX_TILESET_2 1001
 #define ID_TEX_TILESET_3 1002
-
-
-#define ID_TEX_UI 2000
 
 #define ID_TILE_BACKGROUND 1
 #define ID_TILE_OBJECT_BOUNDMAP 2

@@ -2,6 +2,7 @@
 #include"Simon.h"
 #include"HandleSpawnEnemy.h"
 #include"HandleSpawnEffects.h"
+#include"Hud.h"
 void PhantomBat::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x + 35;
@@ -16,6 +17,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
+	Hud::SetBossHp(this->hp);
 	if (this->setDestroy)
 	{
 		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BOSSDEAD, x, y);
