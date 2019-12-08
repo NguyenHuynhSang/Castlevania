@@ -21,7 +21,7 @@ class CTileMap
 	unsigned int tileSheetCol;
 	unsigned int tileSheetRow;
 	// dùng lưu id của objectgroup và các object nằm trong group đó
-	std::map<int,std::vector<LPTILEOBJECT>> listObject ; 
+	std::map<std::string,std::vector<LPTILEOBJECT>> listObject ; 
 	std::map<unsigned int, LPTILESET> listTileSet;
 	void LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet);
 	void LoadObjects(const std::string& filePath);
@@ -41,7 +41,7 @@ public:
 	std::map<unsigned int, LPTILESET>& GetTileSets() {
 		return this->listTileSet;
 	}
-	std::map<int, std::vector<LPTILEOBJECT>>&  GetObjects() {
+	std::map<std::string, std::vector<LPTILEOBJECT>>&  GetObjects() {
 		return this->listObject;
 	};
 	~CTileMap();

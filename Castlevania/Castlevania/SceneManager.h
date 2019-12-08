@@ -57,9 +57,18 @@ private:
 	Candle * candle;
 	SpawnZone *spawnZone;
 	Water* water;
-	Door* door;
+	Door* door=NULL;
 	Hud* hud;
-	Grid * grid;
+
+	MapManager* maps;
+	CTileMap* currentMap = NULL;
+
+
+	Grid* grid;
+	std::map<std::string, Grid*> grids;
+	
+	
+
 
 	DWORD timeCounter_start=0;
 	DWORD cross_start = 0;
@@ -71,7 +80,7 @@ private:
 	vector<LPGAMEOBJECT> objects;
 
 	// luôn update
-	vector<LPGAMEOBJECT> groundObjects;
+
 	vector<LPGAMEOBJECT> spawnObjects;
 
 	// list các loại object dùng để quản lý và truy xuất nhanh
@@ -85,10 +94,6 @@ private:
 	std::queue<Item*> qItem;
 	std::queue<Effects*> qEffect;
 	std::queue<SubWeapon *> qSubWeapon;
-
-
-	MapManager* maps;
-	CTileMap* currentMap=NULL;
 	bool isNextScene;
 	bool isAutoScrollCam = false;	
 	bool playCrossEffect = false;
@@ -98,34 +103,21 @@ private:
 	void GetListUnitFromGrid();
 	void UpdateGrid();
 	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
-
+	void AddToGrid(LPGAMEOBJECT object,Grid* grid,bool alwayUpdate=false);
+	void LoadObjects();
 	unsigned int stateTime;
 
+	void GameTimeCounter();
+
+	std::map<std::string, D3DXVECTOR2> entryPoint;
 public:
 
 
-	unsigned int GetBossHP() {
-		if (this->phantomBat != NULL)
-		{
-			return this->phantomBat->GetHp();
-		}
-		else return DEFAULT_HP;
-	
-	}
 
 	bool CheckPlayCrossEffect() {
 		return this->playCrossEffect;
 	};
 
-	void MinusTimeByOne() {
-
-
-			if (this->stateTime>0)
-			{
-				this->stateTime--;
-			}
-		
-	}
 
 	unsigned int GetTime() {
 
@@ -145,7 +137,7 @@ public:
 	int GetCurrentScene() { return this->currentScene; };
 	void Update(DWORD dt);
 	void Render();
-	void SceneUpdate();
+
 
 	void GetPlayerPosition(float &x, float &y) {
 		simon->GetPosition(x, y);
@@ -159,7 +151,6 @@ public:
 	void FreezeEnemy(bool flag);
 	void KillAllEnemy();
 	void LoadScene();
-	void GoNextScene();
 	void JumpToScene(int state);
 	bool CheckNextScene() {
 		return this->isNextScene;
@@ -182,7 +173,7 @@ public:
 		this->subWeapon.push_back(subW);
 		qSubWeapon.push(subW);
 	}
-	void LoadObjects(int currentScene);
+
 	SceneManager();
 	~SceneManager();
 };

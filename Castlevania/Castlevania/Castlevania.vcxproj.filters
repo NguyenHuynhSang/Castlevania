@@ -303,6 +303,9 @@
     <ClInclude Include="MapManager.h">
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
+    <ClInclude Include="TypeConverter.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

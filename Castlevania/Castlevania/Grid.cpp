@@ -8,13 +8,18 @@
 #include"Brick.h"
 #include"PhantomBat.h"
 #include"Effects.h"
-Unit::Unit(Grid * gird, LPGAMEOBJECT object)
+Unit::Unit(Grid * gird, LPGAMEOBJECT object,bool isAlwayUpdate)
 	: grid_(gird),
 	object(object),
 	x_(object->x),
 	y_(object->y)
 {
-	grid_->Add(this);
+	if (isAlwayUpdate)
+	{
+		grid_->AddToAlwayUpdateUnit(this);
+	}
+	else grid_->Add(this);
+	
 }
 
 Unit::~Unit()
@@ -75,6 +80,19 @@ void Grid::Add(Unit * unit)
 	
 
 
+
+}
+
+void Grid::AddToAlwayUpdateUnit(Unit* unit)
+{
+	
+	unit->prev_ = NULL;
+	unit->next_ = alwaysUpdateUnit;
+	alwaysUpdateUnit = unit;
+	if (unit->next_!=NULL)
+	{
+		unit->next_->prev_ = unit;
+	}
 
 }
 
@@ -267,7 +285,16 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 			}
 		}
 	}
-
+	//loop thought alwaysUpdateUnit
+	Unit* unit = this->alwaysUpdateUnit;
+	while (unit != NULL)
+	{
+		if (!unit->GetGameObject()->CheckDestroyed())
+		{
+			listUnits.push_back(unit);
+		}
+		unit = unit->next_;
+	}
 
 
 
@@ -299,6 +326,7 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 		}
 	}
 
+	this->alwaysUpdateUnit = NULL;
 }
 
 void Grid::Render()

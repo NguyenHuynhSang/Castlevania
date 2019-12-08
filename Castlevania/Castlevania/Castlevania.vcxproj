@@ -91,6 +91,7 @@
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="Bat.h" />
+    <ClInclude Include="TypeConverter.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="Zombie.h" />

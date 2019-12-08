@@ -17,7 +17,7 @@ class Unit
 	Unit* prev_=NULL;
 	Unit* next_ = NULL;
 public:
-	Unit(Grid * grid, LPGAMEOBJECT object);
+	Unit(Grid * grid, LPGAMEOBJECT object,bool isAlwayUpdate=false);
 	LPGAMEOBJECT const  GetGameObject() {
 		return this->object;
 		
@@ -40,10 +40,11 @@ private:
 	// mang 2 chieu luu unit
 	// trong cell co the co nhieu unit 
 	std::vector<std::vector<Unit *>> cells_;
-
+	Unit* alwaysUpdateUnit;
 
 public:
 	void Add(Unit *unit);
+	void AddToAlwayUpdateUnit(Unit* unit);
 	void Update(Unit *unit,float x,float y);
 	void Update(float dt);
 	void GetListUnit(vector<Unit*>& listUnits);

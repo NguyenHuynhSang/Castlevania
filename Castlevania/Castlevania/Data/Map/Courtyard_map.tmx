@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="35">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="36">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
@@ -529,18 +529,18 @@
    <tile gid="17"/>
   </data>
  </layer>
- <objectgroup id="2" name="BoundMap">
+ <objectgroup id="2" name="Wall">
   <object id="1" name="Start" x="-8.66667" y="-1" width="7.66667" height="352"/>
   <object id="2" name="end" x="1503.5" y="-1" width="24" height="353"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
-  <object id="5" x="0" y="287.5" width="1502" height="32"/>
+  <object id="5" name="Ground" x="0" y="287.5" width="1502" height="32"/>
  </objectgroup>
- <objectgroup id="5" name="Simon">
-  <object id="25" gid="86" x="58" y="288" width="60" height="66"/>
+ <objectgroup id="5" name="Player">
+  <object id="25" name="Player" gid="86" x="74" y="274" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="4" name="MoneyBagTrigger">
-  <object id="30" name="Money Bag" type="Money Bag" x="1426" y="270" width="62" height="9.5"/>
+  <object id="30" name="MoneyBagTrigger" type="Money Bag" x="1426" y="270" width="62" height="9.5"/>
  </objectgroup>
  <objectgroup id="6" name="Torch">
   <object id="10" name="Torch" type="Torch" gid="81" x="227.75" y="286" width="32" height="64">
@@ -569,7 +569,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="7" name="NextScene">
+ <objectgroup id="7" name="Nextmap">
   <object id="23" name="NextScene" x="1500" y="160.333" width="8" height="125.167">
    <properties>
     <property name="nextscene" type="int" value="1"/>
@@ -577,13 +577,16 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="AutoWalk">
+ <objectgroup color="#5555ff" id="12" name="Cam">
+  <object id="35" name="Cam" x="0" y="0" width="1502" height="352"/>
+ </objectgroup>
+ <objectgroup id="8" name="Entrance">
   <object id="24" name="EnterCastle" x="1365" y="270.5" width="25.5" height="11"/>
  </objectgroup>
  <objectgroup id="9" name="MoneyBag">
-  <object id="26" gid="155" x="1257.5" y="318" width="31" height="30"/>
+  <object id="26" name="MoneyBag" gid="155" x="1257.5" y="318" width="31" height="30"/>
  </objectgroup>
  <objectgroup id="10" name="Castle" visible="0">
-  <object id="28" gid="158" x="1407" y="288" width="96" height="288"/>
+  <object id="28" name="Castle" gid="158" x="1407" y="288" width="96" height="288"/>
  </objectgroup>
 </map>
