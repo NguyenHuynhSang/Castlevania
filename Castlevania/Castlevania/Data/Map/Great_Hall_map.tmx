@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="250">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="253">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2257,7 +2257,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Nextmap">
+ <objectgroup id="7" name="Nextmap" visible="0">
   <object id="249" name="NextMap" x="3805" y="338" width="124" height="15"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="Stair">
@@ -2321,7 +2321,7 @@
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="121" name="StairTop" type="Stair" x="3152" y="228.5" width="32" height="32">
+  <object id="121" name="StairTop" type="Stair" x="3152" y="225" width="32" height="33">
    <properties>
     <property name="dir" type="int" value="2"/>
     <property name="scenedef" type="int" value="2"/>
@@ -2449,18 +2449,19 @@
   </object>
  </objectgroup>
  <objectgroup color="#aa007f" id="15" name="Door">
-  <object id="246" name="Door" type="Door" gid="190" x="3072" y="128" width="16" height="96">
+  <object id="246" name="Door" type="Door" gid="190" x="3057.33" y="128.667" width="16" height="96">
    <properties>
     <property name="scenedef" type="int" value="5"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#6a00ff" id="16" name="Cam" visible="0">
-  <object id="164" name="SCENEBOUND" type="SCENEBOUND" x="0" y="0" width="3123" height="382">
+  <object id="164" name="SCENEBOUND" type="SCENEBOUND" x="0" y="0" width="3090.33" height="382">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
+  <object id="252" name="CAM" x="3056" y="0" width="1048" height="380"/>
  </objectgroup>
  <objectgroup id="17" name="BOSS">
   <object id="229" name="Boss" gid="192" x="5302" y="75" width="100" height="46"/>

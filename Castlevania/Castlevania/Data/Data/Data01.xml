@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <game>
+	
+	<gamestart playerHP="16" BossHp="16" score="0" startMap="map1"  startCam="abc"/>
 	<textures>
 		<texture id="1000" path="Data\\Map\\Courtyard_bank.png" red="5" green="5" blue="5"/>
 		<texture id="1010" path="Data\\Map\\Great_Hall_bank.png" red="5" green="5" blue="5"/>

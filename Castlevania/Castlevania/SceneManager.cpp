@@ -13,6 +13,7 @@ void SceneManager::LoadResource()
 	resource->LoadData("Data\\Data\\Data01.xml");
 	simon = new CSimon();
 	LoadObjects();
+	this->sceneBox = this->sceneAreas[0];
 }
 
 
@@ -100,6 +101,23 @@ void SceneManager::CamUpdate(DWORD dt)
 			{
 				door->ResetDoor();
 				simon->SetAutoWalk(false);
+				float l, t, r, b;
+				simon->GetBoundingBox(l, t, r, b);
+			
+				for (size_t i = 0; i < this->sceneAreas.size(); i++)
+				{
+					if (simon->AABB(l, t, r, b, sceneAreas[i].left, sceneAreas[i].top, sceneAreas[i].right, sceneAreas[i].bottom))
+					{
+						this->sceneBox = sceneAreas[i];
+						simon->ResetState();
+						BoundMap* wall = new BoundMap();
+						wall->SetPosition(sceneBox.left, 0);
+						wall->SetSize(10, 100);
+						AddToGrid(wall,this->grid);
+						break;
+					}
+				}
+				
 			}
 		}
 
@@ -234,6 +252,7 @@ void SceneManager::Update(DWORD dt)
 	if (this->isNextScene) {
 		LoadScene();
 		this->isNextScene = false;
+		this->simon->ResetState();
 		return;
 	}
 
@@ -467,7 +486,7 @@ void SceneManager::LoadScene()
 	case GSCENE_01_GH:
 		currentMap = maps->Get("map2");
 		grid = grids.at("map2");
-
+		this->sceneBox = this->sceneAreas[1];
 		break;
 	case GSTATE_02:
 	{
@@ -541,7 +560,7 @@ void SceneManager::LoadObjects()
 
 	//for (UINT i = 0; i < items.size(); i++) delete items[i];
 	//for (UINT i = 0; i < effects.size(); i++) delete effects[i];
-	//for (UINT i = 0; i < spawnObjects.size(); i++) delete spawnObjects[i];
+
 	//Unit* unit;
 	objects.clear();
 	enemies.clear();
@@ -669,6 +688,7 @@ void SceneManager::LoadObjects()
 					int r = child->GetX() + child->GetWidth();
 					int b = child->GetY() + child->GetHeight();
 					sceneBox = { l,t,r,b };
+					this->sceneAreas.push_back(sceneBox);
 				}
 				break;
 			case ObjectID::OCandle:
