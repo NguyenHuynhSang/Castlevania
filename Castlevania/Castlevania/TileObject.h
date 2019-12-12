@@ -7,12 +7,11 @@ class TileObject
 private:
 	int id;
 	std::string name;
-	
 	int x;
 	int y;
 	unsigned int width;
 	unsigned int height;
-	std::map<std::string, int> properties;
+	std::map<std::string, int> intProperties;
 public:
 	~TileObject();
 	TileObject() {
@@ -26,13 +25,13 @@ public:
 		return this->name;
 	}
 	int  GetPropertyByKey(std::string key) {
-		if (this->properties.empty())
+		if (this->intProperties.empty())
 			return -1;
-		if (this->properties.count(key)<=0)
+		if (this->intProperties.count(key)<=0)
 		{
 			return -1;
 		}
-		return this->properties.find(key)->second;
+		return this->intProperties.find(key)->second;
 	}
 	void AddProperty(std::string name, int value);
 	unsigned int GetHeight() { return this->height; }

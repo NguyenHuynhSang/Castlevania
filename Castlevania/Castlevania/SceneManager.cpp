@@ -59,7 +59,7 @@ void SceneManager::CamUpdate(DWORD dt)
 		Camera::GetInstance()->GetCamera(camx, camy);
 		if (camx < sceneBox.right - 32 - SCREEN_WIDTH / 2) // move 255 px
 		{
-			float camVx = 0.1f;
+			float camVx = 0.2f;
 			camx += camVx * dt;
 			Camera::GetInstance()->SetCamera(camx, camy);
 		}
@@ -91,7 +91,7 @@ void SceneManager::CamUpdate(DWORD dt)
 				door->SetState(DOOR_STATE_CLOSING);
 				if (door->CheckIsDoorClosed())
 				{
-					float camVx = 0.3f;
+					float camVx = 0.2f;
 					camx += camVx * dt;
 					Camera::GetInstance()->SetCamera(camx, camy);
 				}

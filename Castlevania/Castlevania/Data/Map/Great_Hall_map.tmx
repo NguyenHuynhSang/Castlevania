@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="253">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="254">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2128,51 +2128,19 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" id="2" name="Wall">
-  <object id="1" name="Bound" x="-10" y="0" width="10" height="383">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
+  <object id="1" name="Bound" x="-10" y="0" width="10" height="383"/>
   <object id="3" name="Bound" x="5617" y="-1" width="17" height="384"/>
-  <object id="95" name="Wall" x="3056.5" y="159" width="31.5" height="160.5">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
+  <object id="95" name="Wall" x="3056.5" y="159" width="31.5" height="160.5"/>
   <object id="157" x="4080" y="160.667" width="16.6667" height="160"/>
-  <object id="219" name="Wall" x="3584.5" y="159" width="127.5" height="96">
-   <properties>
-    <property name="scenedef" type="int" value="2"/>
-   </properties>
-  </object>
+  <object id="219" name="Wall" x="3584.5" y="159" width="127.5" height="96"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="3" name="Ground">
-  <object id="4" name="ground" x="2" y="320" width="5628" height="32">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="6" name="ground" x="1377" y="194" width="95" height="29">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="7" name="ground" x="1505.5" y="129.5" width="318.5" height="30">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="8" name="ground" x="1856" y="192.5" width="159.333" height="30">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="12" name="ground" x="2785" y="130.5" width="542" height="28">
-   <properties>
-    <property name="scenedef" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="13" name="ground" x="3327.5" y="192" width="126.667" height="30"/>
+  <object id="4" name="ground" x="2" y="320" width="5628" height="32"/>
+  <object id="6" name="ground" x="1376" y="192" width="95" height="32"/>
+  <object id="7" name="ground" x="1504" y="128" width="318.5" height="32"/>
+  <object id="8" name="ground" x="1856" y="192.5" width="159.333" height="30"/>
+  <object id="12" name="ground" x="2784.67" y="127.167" width="542" height="32"/>
+  <object id="13" name="ground" x="3327.5" y="191" width="126.667" height="30"/>
   <object id="102" name="ground" x="3776.5" y="193.5" width="126.667" height="28.5"/>
   <object id="103" name="ground" x="3903.5" y="128" width="416.5" height="30.5"/>
   <object id="104" name="ground" x="4032" y="0.5" width="63.5" height="30"/>
@@ -2224,7 +2192,7 @@
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="201" name="SpawnZombie" x="2304.5" y="31" width="755" height="286">
+  <object id="201" name="SpawnZombie" x="2304.5" y="31" width="726.333" height="286">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
@@ -2257,128 +2225,109 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Nextmap" visible="0">
-  <object id="249" name="NextMap" x="3805" y="338" width="124" height="15"/>
+ <objectgroup color="#c81700" id="7" name="Nextmap">
+  <object id="249" name="NextMap" x="3821.5" y="346" width="54" height="15"/>
+  <object id="253" name="NextMap" x="3179.5" y="344" width="56.5" height="15.5"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="Stair">
   <object id="51" name="StairBottom" type="Stair" x="1232" y="306.333" width="32" height="15.6667">
    <properties>
     <property name="dir" value="0"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="60" name="StairTop" type="Stair" x="1360" y="100.667" width="32" height="32">
+  <object id="60" name="StairTop" type="Stair" x="1360" y="98.667" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="3"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
   <object id="63" name="StairBottom" type="Stair" x="1424" y="180.667" width="32" height="12">
    <properties>
     <property name="dir" type="int" value="0"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="64" name="StairTop" type="Stair" x="1489.5" y="35" width="32" height="32">
+  <object id="64" name="StairTop" type="Stair" x="1489.5" y="34" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="3"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
   <object id="65" name="StairTop" type="Stair" x="1808" y="35.5" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
   <object id="66" name="StairBottom" type="Stair" x="1872" y="180.333" width="32" height="11.6667">
    <properties>
     <property name="dir" type="int" value="1"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
   <object id="68" name="StairBottom" type="Stair" x="2577.33" y="310.667" width="32" height="10">
    <properties>
     <property name="dir" type="int" value="0"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="69" name="StairTop" type="Stair" x="2768" y="36" width="32" height="32">
+  <object id="69" name="StairTop" type="Stair" x="2768" y="33" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="3"/>
-    <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="118" name="StairTop" type="Stair" x="3408.5" y="98.9167" width="32" height="32">
+  <object id="118" name="StairTop" type="Stair" x="3408.5" y="97.9167" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
   <object id="119" name="StairBottom" type="Stair" x="3536" y="305.083" width="32" height="15.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
-    <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
   <object id="121" name="StairTop" type="Stair" x="3152" y="225" width="32" height="33">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
   <object id="177" name="StairTop" type="Stair" x="4304" y="35.3334" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
   <object id="178" name="StairBottom" type="Stair" x="4368" y="176.708" width="32" height="15.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
-    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
   <object id="179" name="StairTop" type="Stair" x="4686.66" y="98.6667" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
   <object id="180" name="StairBottom" type="Stair" x="4812.67" y="306.708" width="32" height="11.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
-    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
   <object id="181" name="StairBottom" type="Stair" x="5458" y="245.667" width="32" height="10">
    <properties>
     <property name="dir" type="int" value="0"/>
-    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
   <object id="182" name="StairTop" type="Stair" x="5521.33" y="99.3333" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="3"/>
-    <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
   <object id="188" name="StairTop" type="Stair" x="3792.67" y="227.333" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="5"/>
    </properties>
   </object>
   <object id="190" name="StairTop" type="Stair" x="3855" y="100.667" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
-    <property name="scenedef" type="int" value="5"/>
    </properties>
   </object>
   <object id="191" name="StairBottom" type="Stair" x="3982.67" y="303.375" width="32" height="15.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
-    <property name="scenedef" type="int" value="5"/>
    </properties>
   </object>
  </objectgroup>
@@ -2449,11 +2398,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#aa007f" id="15" name="Door">
-  <object id="246" name="Door" type="Door" gid="190" x="3057.33" y="128.667" width="16" height="96">
-   <properties>
-    <property name="scenedef" type="int" value="5"/>
-   </properties>
-  </object>
+  <object id="246" name="Door" type="Door" gid="190" x="3057.33" y="128.667" width="16" height="96"/>
  </objectgroup>
  <objectgroup color="#6a00ff" id="16" name="Cam" visible="0">
   <object id="164" name="SCENEBOUND" type="SCENEBOUND" x="0" y="0" width="3090.33" height="382">

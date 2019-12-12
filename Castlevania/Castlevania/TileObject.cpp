@@ -18,5 +18,5 @@ TileObject::~TileObject()
 
 void TileObject::AddProperty(std::string name, int value)
 {
-	this->properties.insert(std::make_pair(name, value));
+	this->intProperties.insert(std::make_pair(name, value));
 }

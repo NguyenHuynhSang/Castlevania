@@ -2,14 +2,19 @@
 #include"BBoxObjects.h"
 class Ground:public BBoxObject
 {
-	bool flagCollice = false;
+	bool isColliceMoneyBag = false;
+	bool isCollicePlayer = false;
 public:
 	virtual void Render();
+	bool CheckIsCollicePlayer() {
+		return isCollicePlayer;
+	}
+	void SetCollicePlayer(bool flag) { this->isCollicePlayer = flag; };
 	void SetFlagCollice() {
-		this->flagCollice = true;
+		this->isColliceMoneyBag = true;
 	}
 	bool CheckFlagCollice() {
-		return this->flagCollice;
+		return this->isColliceMoneyBag;
 	}
 	Ground();
 	~Ground();

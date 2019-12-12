@@ -63,12 +63,8 @@ private:
 	MapManager* maps;
 	CTileMap* currentMap = NULL;
 
-
 	Grid* grid;
 	std::map<std::string, Grid*> grids;
-	
-	
-
 
 	DWORD timeCounter_start=0;
 	DWORD cross_start = 0;
@@ -121,8 +117,6 @@ public:
 
 
 	unsigned int GetTime() {
-
-
 		return this->stateTime;
 	}
 

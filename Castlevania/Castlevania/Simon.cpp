@@ -609,6 +609,31 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 
 		LPGAMEOBJECT e = coObjects->at(i);
+
+		if (dynamic_cast<Ground*>(e))
+		{
+			Ground* f = dynamic_cast<Ground*> (e);
+
+			float l, t, r, b,el,et,er,eb;
+			this->GetBoundingBox(l, t, r, b);
+			b = b + 3;
+			f->GetBoundingBox(el, et, er, eb);
+			if (CGameObject::AABB(l,t,r,b,el,et,er,eb))
+			{
+				DebugOut(L"On ground \n");
+				f->SetCollicePlayer(true);
+			}
+			else {
+				if (f->CheckIsCollicePlayer()) {
+					DebugOut(L"Not on ground \n");
+					if (!isJumping &&!isFirstStepOnStair && !isOnStair) {
+						vy = 0.8;
+					}
+					f->SetCollicePlayer(false);
+				}
+			}
+		}
+	
 		if (dynamic_cast<Item*>(e))
 		{
 
