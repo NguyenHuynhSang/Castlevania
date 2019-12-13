@@ -13,6 +13,8 @@ void SceneManager::LoadResource()
 	resource->LoadData("Data\\Data\\Data01.xml");
 	simon = new CSimon();
 	LoadObjects();
+	D3DXVECTOR2 pos = this->entryPoint.find(1)->second;
+	this->simon->SetPosition(pos.x,pos.y);
 	this->sceneBox = this->sceneAreas[0];
 }
 
@@ -117,6 +119,7 @@ void SceneManager::CamUpdate(DWORD dt)
 						break;
 					}
 				}
+
 				
 			}
 		}
@@ -285,10 +288,26 @@ void SceneManager::Update(DWORD dt)
 			NextScene* nextscene = dynamic_cast<NextScene*>(objects[i]);
 			if (nextscene->CheckIsColliceWithPlayer())
 			{
-				int nextSceneID = nextscene->CheckSceneDef();
-				this->JumpToScene(nextSceneID);
+				int nextMapID = nextscene->GetMapID();
+				int nextEntry = nextscene->GetNextEntryID();
+				string id = "map" + std::to_string(nextMapID);
+				this->currentMap = this->maps->Get(id);
+				this->grid = grids.at(id);
+				D3DXVECTOR2 pos = this->entryPoint.at(nextEntry);
+				this->simon->SetPosition(pos.x,pos.y);
+				float l, t, r, b;
+				simon->GetBoundingBox(l, t, r, b);
+				for (size_t j = 0; j < this->sceneAreas.size(); j++)
+				{
+					if (simon->AABB(l, t, r, b, sceneAreas[j].left, sceneAreas[j].top, sceneAreas[j].right, sceneAreas[j].bottom))
+					{
+						this->sceneBox = sceneAreas[j];
+						Camera::GetInstance()->SetCamera(sceneBox.left,sceneBox.top);
+					}
+				}
+				simon->ResetState();
 				nextscene->DestroyImmediate();
-				break;
+				return;
 			}
 		}
 	}
@@ -584,14 +603,15 @@ void SceneManager::LoadObjects()
 			{
 				objectId = string2EntityType.at(name);
 			}
-		
-
+	
 			switch (objectId)
 			{
 			case ObjectID::OPlayer:
 				for (const auto& child : groupObject) {
-					
-					simon->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+					D3DXVECTOR2 entry = { (float)(child->GetX()), (float)(child->GetY() - child->GetHeight()) };
+					std::string name = child->GetName();
+					int id = std::stoi(name);
+					entryPoint.insert(std::make_pair(id,entry));
 				}
 				break;
 			case ObjectID::OGround:
@@ -635,8 +655,7 @@ void SceneManager::LoadObjects()
 				break;
 			case ObjectID::ONextmap:
 				for (const auto& child : groupObject) {
-					nextScene = new NextScene();
-					nextScene->SetSceneDef(child->GetPropertyByKey("nextscene"));
+					nextScene = new NextScene(child->GetPropertyByKey("nextMap"), child->GetPropertyByKey("nextEntry"), child->GetPropertyByKey("playerAction"));
 					nextScene->SetSize(child->GetWidth(), child->GetHeight());
 					nextScene->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(nextScene, grid);

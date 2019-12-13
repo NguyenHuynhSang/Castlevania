@@ -67,7 +67,7 @@ public:
 		return this->font; 
 	}
 
-	void DrawUIText(std::string text,RECT bound);
+	void DrawUIText(std::string text,RECT bound,bool followCam=false);
 	static CGame * GetInstance();
 
 	~CGame();

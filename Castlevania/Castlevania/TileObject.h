@@ -7,8 +7,8 @@ class TileObject
 private:
 	int id;
 	std::string name;
-	int x;
-	int y;
+	float x;
+	float y;
 	unsigned int width;
 	unsigned int height;
 	std::map<std::string, int> intProperties;
@@ -19,8 +19,8 @@ public:
 		this->name = "";
 	}
 	int GetId(){return this->id;}
-	int  GetX() { return this->x; }
-	int GetY() { return this->y; } 
+	float  GetX() { return this->x; }
+	float GetY() { return this->y; }
 	std::string  GetName() {
 		return this->name;
 	}

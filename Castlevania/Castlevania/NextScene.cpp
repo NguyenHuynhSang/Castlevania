@@ -2,10 +2,7 @@
 
 
 
-NextScene::NextScene()
-{
-	isColliceWithPlayer = false;
-}
+
 
 
 NextScene::~NextScene()

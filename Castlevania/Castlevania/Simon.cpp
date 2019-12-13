@@ -334,7 +334,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		&& state != SIMON_STATE_DOWNSTAIR_IDLE
 		&& state != SIMON_STATE_UPSTAIR_ATTACK
 		&& state != SIMON_STATE_DOWNSTAIR_ATTACK
-		&& state != SIMON_STATE_FALL_DOWN)
+		)
 	{
 		vy += SIMON_GRAVITY * dt;
 	}
@@ -618,7 +618,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		LPGAMEOBJECT e = coObjects->at(i);
 
-		if (dynamic_cast<Ground*>(e))
+		if (dynamic_cast<Ground*>(e)) // BUG khi đứng lên brick
 		{
 			Ground* f = dynamic_cast<Ground*> (e);
 
@@ -628,7 +628,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l,t,r,b,el,et,er,eb))
 			{
-				DebugOut(L"On ground \n");
 				f->SetCollicePlayer(true);
 			}
 			else {
@@ -719,8 +718,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					this->isColliceWithStair = true;
 					this->onStairDirection = static_cast<STAIRDIRECTION>(f->GetDirection());
-					DebugOut(L"ColliceWithStair \n");
-					DebugOut(L"stepOnStairDirection=%d \n", this->onStairDirection);
 					this->stairPos = { f->x,f->y };
 					f->SetActive(true);
 					return;
@@ -732,7 +729,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->isColliceWithStair = false;
 				if (!this->isOnStair)
 					this->onStairDirection = STAIRDIRECTION::DEFAULT; //reset
-				DebugOut(L"stop collice \n");
 			}
 		}
 		else if (dynamic_cast<Enemy*>(e))
@@ -753,10 +749,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						StartUntouchable();
 						this->AddHP(-2); //TEST
 					}
-
-
-					DebugOut(L"Va cham vy=%f vx=%f \n", this->vy, this->vx);
-
 				}
 				else if (e->nx == DIRECTION::DEFAULT) {
 					y += dy;

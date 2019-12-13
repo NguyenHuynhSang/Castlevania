@@ -54,6 +54,7 @@ void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
 
 
 	CGame::GetInstance()->Draw(true, DIRECTION::DEFAULT, rec.left, rec.top+80, bbox, rect.left, rect.top, rect.right, rect.bottom, alpha);
+
 }
 
 void Grid::Add(Unit* unit)
@@ -369,6 +370,7 @@ void Grid::Render()
 	{
 		for (int j = startCol; j < endCol; j++)
 		{
+			string _UIinfor = "CastleVania\n    ";
 			RECT cell = { j * cellSize,i * cellSize,j * cellSize + cellSize ,i * cellSize + cellSize };
 			if (i % 2 == 0)
 			{
@@ -384,8 +386,9 @@ void Grid::Render()
 				else {
 					RenderCell(cell, MYCOLOR::RED, 100);
 				}
+			;
 			}
-		
+			CGame::GetInstance()->DrawUIText(_UIinfor, cell);
 		}
 	}
 

@@ -105,7 +105,7 @@ private:
 
 	void GameTimeCounter();
 
-	std::map<std::string, D3DXVECTOR2> entryPoint;
+	std::map<int, D3DXVECTOR2> entryPoint;
 	std::vector<RECT> sceneAreas;
 public:
 

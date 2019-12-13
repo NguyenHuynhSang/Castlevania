@@ -537,7 +537,7 @@
   <object id="5" name="Ground" x="0" y="287.5" width="1502" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="Player">
-  <object id="36" name="Player" gid="86" x="1025" y="285" width="60" height="66"/>
+  <object id="36" name="1" gid="86" x="1030" y="283" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="4" name="MoneyBagTrigger">
   <object id="30" name="MoneyBagTrigger" type="Money Bag" x="1426" y="270" width="62" height="9.5"/>
@@ -570,10 +570,11 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Nextmap">
-  <object id="23" name="NextScene" x="1500" y="160.333" width="8" height="125.167">
+  <object id="23" name="NextScene" x="1493" y="160.333" width="15" height="125.167">
    <properties>
-    <property name="nextscene" type="int" value="1"/>
-    <property name="scenedef" type="int" value="1"/>
+    <property name="nextEntry" value="2"/>
+    <property name="nextMap" type="int" value="2"/>
+    <property name="playerAction" value="1"/>
    </properties>
   </object>
  </objectgroup>

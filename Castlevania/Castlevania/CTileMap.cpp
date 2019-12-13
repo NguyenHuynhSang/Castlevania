@@ -178,24 +178,24 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	ObjectLayer* objectLayer = ObjectLayer::GetInstance();
 	for (xml_node<>* child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
 
-		int id = std::atoi(child->first_attribute("id")->value()); // lay ID
-		std::string objectGroupName= std::string(child->first_attribute("name")->value()); // lay ID
+		int id = std::atoi(child->first_attribute("id")->value()); // lay ID Object group
+		std::string objectGroupName= std::string(child->first_attribute("name")->value()); // lay ten object group
+		
 		vector<LPTILEOBJECT> ObjectInGroup;
 		object = new TileObject();
 		for (xml_node<>* smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
 			int x = 0, y = 0, w = 0, h = 0;
 			string proName = "";
-			x = std::atoi(smailchild->first_attribute("x")->value());
-			y = std::atoi(smailchild->first_attribute("y")->value());
+			x = std::stof(smailchild->first_attribute("x")->value());
+			y = std::stof(smailchild->first_attribute("y")->value());
 			w = std::atoi(smailchild->first_attribute("width")->value());
 			h = std::atoi(smailchild->first_attribute("height")->value());
 			int scid = std::atoi(smailchild->first_attribute("id")->value()); // lay ID
-			DebugOut(L" load x=%d y=%d \n",x,y);
 			xml_attribute<>* nameAttatribute = smailchild->first_attribute("name");
 			std::string ObjectName = "";
 			if (nameAttatribute!=NULL)
 			{
-				std::string ObjectName = std::string(smailchild->first_attribute("name")->value());
+				 ObjectName = std::string(smailchild->first_attribute("name")->value());
 			}
 		
 			// [Note]đọc chỉ 1 property
@@ -211,7 +211,6 @@ void CTileMap::LoadObjects(const std::string& filePath)
 				{
 					string name = std::string(prochild->first_attribute("name")->value());
 					int value = std::atoi(prochild->first_attribute("value")->value());
-					DebugOut(L"Value =%d \n", value);
 					object->AddProperty(name, value);
 				}
 				objectLayer->Add(id, object);
@@ -225,12 +224,6 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	
 	}
 
-	/*for (const auto& entity : this->listObject) {
-		DebugOut(L" ===============ID =%d \n", entity.first);
-		for (const auto& child : entity.second) {
-			DebugOut(L" ID =%d \n", child->GetId());
-		}
-	}*/
 
 }
 
