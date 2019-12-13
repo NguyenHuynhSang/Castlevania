@@ -4,7 +4,7 @@
 
 void InputController::OnKeyDown(int KeyCode)
 {
-	if (player->GetState() == SIMON_STATE_DIE) return;
+	if (player->GetState() == SIMON_STATE_DIE || player->GetState()==SIMON_STATE_FALL_DOWN) return;
 	float sx, sy;
 	player->GetPosition(sx, sy);
 	if (player->CheckAutoWalk()) {
@@ -156,7 +156,7 @@ InputController::InputController()
 void InputController::KeyState(BYTE* states)
 {
 	
-	if (player->GetState() == SIMON_STATE_DIE) return;
+	if (player->GetState() == SIMON_STATE_DIE || player->GetState() == SIMON_STATE_FALL_DOWN) return;
 	
 
 
@@ -202,7 +202,7 @@ void InputController::KeyState(BYTE* states)
 		}
 		else
 			player->SetState(SIMON_STATE_IDLE,false);
-		player->StartDelayAttack();
+	
 		player->ResetActack_Time();
 		player->ResetSpriteFrame();
 		player->ResetUseSubWeapon();

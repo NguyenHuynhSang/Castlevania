@@ -8,7 +8,8 @@
 #include"Brick.h"
 #include"PhantomBat.h"
 #include"Effects.h"
-Unit::Unit(Grid * gird, LPGAMEOBJECT object,bool isAlwayUpdate)
+#include"Textures.h"
+Unit::Unit(Grid* gird, LPGAMEOBJECT object, bool isAlwayUpdate)
 	: grid_(gird),
 	object(object),
 	x_(object->x),
@@ -19,28 +20,55 @@ Unit::Unit(Grid * gird, LPGAMEOBJECT object,bool isAlwayUpdate)
 		grid_->AddToAlwayUpdateUnit(this);
 	}
 	else grid_->Add(this);
-	
+
 }
 
 Unit::~Unit()
 {
-//	DebugOut(L"Destructor Unit \n");
+	//	DebugOut(L"Destructor Unit \n");
 	delete object;
 }
 
-void Grid::Add(Unit * unit)
+void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
 {
-	
+	D3DXVECTOR3 p(rec.left, rec.top + 80, 0);
+	RECT rect = { 0,0,0,0 };
+	LPDIRECT3DTEXTURE9 bbox;
+	switch (color)
+	{
+	case MYCOLOR::RED:
+		bbox = CTextures::GetInstance()->Get(ID_TEX_SPRITE_BBOX);
+		break;
+	case MYCOLOR::BLUE:
+		bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+		break;
+	default:
+		bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+		break;
+	}
+
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = (int)rec.right - (int)rec.left;
+	rect.bottom = (int)rec.bottom - (int)rec.top;
+
+
+	CGame::GetInstance()->Draw(true, DIRECTION::DEFAULT, rec.left, rec.top+80, bbox, rect.left, rect.top, rect.right, rect.bottom, alpha);
+}
+
+void Grid::Add(Unit* unit)
+{
+
 	//tính vị trí của unit
 	int cellX = (int)(unit->x_ / this->cellSize);
 	int cellY = (int)(unit->y_ / this->cellSize);
-	if (cellX>numXCell)//safe 
+	if (cellX > numXCell)//safe 
 	{
 		DebugOut(L"[OUTOFGRID] NUMX\n");
 		return;
 	}
 	//safe 
-	if (cellY > numYCell-1)
+	if (cellY > numYCell - 1)
 	{
 		DebugOut(L"[OUTOFGRID] NUMY \n");
 		return;
@@ -77,7 +105,7 @@ void Grid::Add(Unit * unit)
 	//		unit->prev_->next_ = unit;
 	//	}
 	//}
-	
+
 
 
 
@@ -85,11 +113,11 @@ void Grid::Add(Unit * unit)
 
 void Grid::AddToAlwayUpdateUnit(Unit* unit)
 {
-	
+
 	unit->prev_ = NULL;
 	unit->next_ = alwaysUpdateUnit;
 	alwaysUpdateUnit = unit;
-	if (unit->next_!=NULL)
+	if (unit->next_ != NULL)
 	{
 		unit->next_->prev_ = unit;
 	}
@@ -107,7 +135,7 @@ bool AABB(float l, float t, float r, float b, float l1, float t1, float r1, floa
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
 
-void Grid::Update(Unit * unit, float x, float y)
+void Grid::Update(Unit* unit, float x, float y)
 {
 	float cx_, cy_;
 
@@ -116,9 +144,9 @@ void Grid::Update(Unit * unit, float x, float y)
 
 	float l, t, r, b;
 	unit->GetGameObject()->GetBoundingBox(l, t, r, b);
-	
 
-	if (AABB(l,t,r,b,cx_,cy_,cx_+SCREEN_WIDTH,cy_+SCREEN_HEIGHT))
+
+	if (AABB(l, t, r, b, cx_, cy_, cx_ + SCREEN_WIDTH, cy_ + SCREEN_HEIGHT))
 	{
 		unit->GetGameObject()->SetActive();
 	}
@@ -133,9 +161,9 @@ void Grid::Update(Unit * unit, float x, float y)
 				{
 					unit->GetGameObject()->DestroyImmediate();
 				}
-			
+
 			}
-		
+
 		}
 	}
 	//out of map? destroy immediate
@@ -245,7 +273,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 	{
 		for (int j = startCol; j < endCol; j++)
 		{
-			Unit * unit = this->cells_[i][j];
+			Unit* unit = this->cells_[i][j];
 			// chi render nhung cell co unit
 
 			while (unit != NULL)
@@ -271,7 +299,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 					{
 						effectUnit.push_back(unit);
 					}
-					else 
+					else
 					{
 						listUnits.push_back(unit);
 					}
@@ -300,7 +328,7 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 
 	// lấy theo thứ tự
 	listUnits.insert(listUnits.end(), itemUnit.begin(), itemUnit.end());
-	listUnits.insert(listUnits.end(),enemiesUnit.begin(),enemiesUnit.end());
+	listUnits.insert(listUnits.end(), enemiesUnit.begin(), enemiesUnit.end());
 	listUnits.insert(listUnits.end(), subWeaponUnit.begin(), subWeaponUnit.end());
 	listUnits.insert(listUnits.end(), effectUnit.begin(), effectUnit.end());
 }
@@ -331,6 +359,35 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 
 void Grid::Render()
 {
+	float camx, camy;
+	Camera::GetInstance()->GetCamera(camx, camy);
+	int startCol = floor(camx / this->cellSize);
+	startCol = startCol > 0 ? startCol + -1 : 0;
+	int endCol = floor((camx + SCREEN_WIDTH) / this->cellSize);
+	endCol = endCol > numXCell ? numXCell : endCol + 1;
+	for (int i = 0; i < this->numYCell; i++)
+	{
+		for (int j = startCol; j < endCol; j++)
+		{
+			RECT cell = { j * cellSize,i * cellSize,j * cellSize + cellSize ,i * cellSize + cellSize };
+			if (i % 2 == 0)
+			{
+				if (j % 2 == 0)
+					RenderCell(cell, MYCOLOR::RED, 100);
+				else {
+					RenderCell(cell, MYCOLOR::BLUE, 100);
+				}
+			}
+			else {
+				if (j % 2 == 0)
+					RenderCell(cell, MYCOLOR::BLUE, 100);
+				else {
+					RenderCell(cell, MYCOLOR::RED, 100);
+				}
+			}
+		
+		}
+	}
 
 }
 

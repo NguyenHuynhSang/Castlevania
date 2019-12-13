@@ -16,7 +16,7 @@
 		<texture id="70" path="Data\\GameObject\\Sub_weapons\\subweapon_pack.png" red="255" green="0" blue="255"/>
 		<texture id="80" path="Data\\GameObject\\\Bosses\\VAMPIRE_BAT.png" red="255" green="0" blue="255"/>
 		<texture id="-100" path="textures\\bbox.png" red="255" green="255" blue="255"/>
-		<texture id="-200" path="textures\\bbox1.png" red="255" green="255" blue="255"/>
+		<texture id="-101" path="textures\\bbox1.png" red="255" green="255" blue="255"/>
 	</textures>
 	<maps>
 		<map id="map1" path="Data\\Map\\Courtyard_map.tmx" texid="1000"/>

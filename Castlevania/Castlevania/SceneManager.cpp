@@ -224,7 +224,7 @@ int SceneManager::CheckNumOfFishMan()
 }
 void SceneManager::Update(DWORD dt)
 {
-
+	GameTimeCounter();
 	if (this->simon->GetState() == SIMON_STATE_DIE)
 	{
 		if (this->reset_start == 0) reset_start = GetTickCount();
@@ -246,7 +246,7 @@ void SceneManager::Update(DWORD dt)
 		Unit* unit = new Unit(this->grid, bound);
 	}
 
-	GameTimeCounter();
+
 
 
 	if (this->isNextScene) {
@@ -272,8 +272,6 @@ void SceneManager::Update(DWORD dt)
 
 	vector<LPGAMEOBJECT> coObjects;
 	coObjects.clear();
-
-
 	GetCoObjects(simon, coObjects);
 	simon->Update(dt, &coObjects);
 	//update object
@@ -357,6 +355,7 @@ void SceneManager::Render()
 	hud->Render();
 	simon->Render();
 
+	grid->Render();
 
 
 }

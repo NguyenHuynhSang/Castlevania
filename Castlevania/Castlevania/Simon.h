@@ -4,11 +4,11 @@
 
 #define SIMON_WALKING_SPEED		0.13f 
 #define SIMON_AUTOWALKING_SPEED		0.05f 
-//0.1f
 #define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_DEFLECT_SPEED_X 0.2f
 #define SIMON_DEFLECT_SPEED_Y 0.35f
 #define SIMON_GRAVITY			0.0015f
+#define SIMON_FALLDOWN_VY 0.8f
 #define SIMON_FALLING_GRAVITY    0.003f
 #define SIMON_DIE_DEFLECT_SPEED	 0.5f
 #define SIMON_UPSTAIR_VELOCITY 0.04f
@@ -30,7 +30,7 @@
 #define SIMON_STATE_DOWNSTAIR_LEFT 1500
 #define SIMON_STATE_UPSTAIR_ATTACK 1600
 #define SIMON_STATE_DOWNSTAIR_ATTACK 1700
-
+#define SIMON_STATE_FALL_DOWN      1800
 
 
 
@@ -75,12 +75,15 @@
 
 #define SIMON_MAX_HP 16
 #define SIMON_MAX_ENERY 99
+#define SIMON_PARALYZE_TIME 300
+
 class CSimon : public CGameObject
 {
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD attack_start = 0;
 	DWORD upwhip_start = 0;
+	DWORD paralyze_start = 0; //paralyze when falldown
 	DWORD delay_attack_start = 0;
 	int hp_;
 	int enery_;
@@ -194,21 +197,14 @@ public:
 	float GetLastPosition() {
 		return this->lastPosition;
 	}
-	void StartDelayAttack() {
-		this->delay_attack_start = GetTickCount();
-	}
-	DWORD CheckDelayAttackTime() {
-		return  this->delay_attack_start;
-	}
+
 	bool CheckIsUseSubWeapon() {
 		return this->isUseSubWeapon;
 	}
 	int GetCurrentSubWeapon() {
 		return this->subWeaponDef;
 	}
-	void ResetDelayAttackTime() {
-		this->delay_attack_start = 0;
-	}
+
 	void ResetUseSubWeapon() {
 		this->isUseSubWeapon = false;
 		this->isSpawnSubWeapon = false;

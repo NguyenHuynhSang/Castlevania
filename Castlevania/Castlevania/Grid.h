@@ -2,6 +2,7 @@
 #include<vector>
 #include"GameObject.h"
 #include<vector>
+#include<Windows.h>
 #define CELL_SIZE  256
 class Grid;
 class Unit
@@ -41,7 +42,7 @@ private:
 	// trong cell co the co nhieu unit 
 	std::vector<std::vector<Unit *>> cells_;
 	Unit* alwaysUpdateUnit;
-
+	void RenderCell(RECT rec, MYCOLOR color, int alpha = 64);
 public:
 	void Add(Unit *unit);
 	void AddToAlwayUpdateUnit(Unit* unit);

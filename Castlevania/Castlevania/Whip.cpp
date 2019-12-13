@@ -148,9 +148,9 @@ void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEvents.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
+			LPCOLLISIONEVENT e = coEvents[i];
 			if (dynamic_cast<Torch*>(e->obj)) {
 
 				Torch* torch = dynamic_cast<Torch*>(e->obj);

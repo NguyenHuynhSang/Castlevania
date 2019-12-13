@@ -333,7 +333,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		&& state != SIMON_STATE_UPSTAIR_IDLE
 		&& state != SIMON_STATE_DOWNSTAIR_IDLE
 		&& state != SIMON_STATE_UPSTAIR_ATTACK
-		&& state != SIMON_STATE_DOWNSTAIR_ATTACK)
+		&& state != SIMON_STATE_DOWNSTAIR_ATTACK
+		&& state != SIMON_STATE_FALL_DOWN)
 	{
 		vy += SIMON_GRAVITY * dt;
 	}
@@ -351,6 +352,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
+	}
+	if (this->paralyze_start!=0 && GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME) {
+		this->SetState(SIMON_STATE_IDLE);
+		this->paralyze_start = 0;
 	}
 
 	// No collision occured, proceed normally
@@ -398,6 +403,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							if (this->isActack || this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
 							}
+							if (state == SIMON_STATE_FALL_DOWN && this->paralyze_start == 0) {
+								this->paralyze_start = GetTickCount();
+							};
 						}
 				}
 				else if (e->ny > 0 && this->vy < 0) {
@@ -616,7 +624,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			float l, t, r, b,el,et,er,eb;
 			this->GetBoundingBox(l, t, r, b);
-			b = b + 3;
+			b = b + 3; // hehehe
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l,t,r,b,el,et,er,eb))
 			{
@@ -626,8 +634,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else {
 				if (f->CheckIsCollicePlayer()) {
 					DebugOut(L"Not on ground \n");
-					if (!isJumping &&!isFirstStepOnStair && !isOnStair) {
-						vy = 0.8;
+					if (!isJumping &&!isFirstStepOnStair && !isOnStair &&this->state!=SIMON_STATE_DEFLECT) {
+						SetState(SIMON_STATE_FALL_DOWN);
 					}
 					f->SetCollicePlayer(false);
 				}
@@ -867,7 +875,7 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	else if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP) {
+	else if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP ||state==SIMON_STATE_FALL_DOWN) {
 		ani = SIMON_ANI_SITTING;
 		Renderer(ani);
 		return;
@@ -900,6 +908,7 @@ void CSimon::Render()
 
 void CSimon::SetState(int state, bool chanegSimonattribute)
 {
+	this->paralyze_start = 0;
 	CGameObject::SetState(state);
 	if (!chanegSimonattribute)
 	{
@@ -1076,6 +1085,11 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 	case SIMON_STATE_SIT_ATTACK:
 	{
 		whip->StartCalculatorCollice();
+	}
+	case SIMON_STATE_FALL_DOWN: {
+		this->vx = 0;
+		this->vy = SIMON_FALLDOWN_VY;
+		break;
 	}
 	case SIMON_STATE_SIT:
 	case SIMON_STATE_IDLE:
