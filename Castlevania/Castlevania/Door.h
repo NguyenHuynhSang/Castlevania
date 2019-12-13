@@ -20,6 +20,7 @@ class Door:public CGameObject
 {
 	bool doorClosed;
 	bool doorOpened;
+	bool isColiceWithPlayer=false;
 public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
@@ -31,10 +32,18 @@ public:
 		return this->doorOpened;
 	};
 
+	bool CheckIsColideWithPlayer() {
+		return this->isColiceWithPlayer;
+	}
+	void SetIsColicePlayer(bool flag) {
+		this->isColiceWithPlayer = flag;
+	}
+
 	void ResetDoor() {
 		this->doorOpened = false;
 		this->doorClosed = false;
-	
+		animations[DOOR_ANI_OPEN]->ResetAnimation();
+		animations[DOOR_ANI_CLOSING]->ResetAnimation();
 	};
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {

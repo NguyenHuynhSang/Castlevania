@@ -7,7 +7,7 @@ void Torch::Render()
 		return;
 	}
 	animations[0]->Render(DIRECTION::DEFAULT, x, y);
-	RenderBoundingBox();
+
 
 }
 

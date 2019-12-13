@@ -158,9 +158,6 @@ void InputController::KeyState(BYTE* states)
 	
 	if (player->GetState() == SIMON_STATE_DIE || player->GetState() == SIMON_STATE_FALL_DOWN) return;
 	
-
-
-
 	if (player->CheckAutoWalk()) {
 		return;
 	}

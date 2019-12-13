@@ -31,21 +31,21 @@ void SceneManager::CamUpdate(DWORD dt)
 	cx -= SCREEN_WIDTH / 2 - SIMON_BIG_BBOX_WIDTH;
 	cy -= SCREEN_HEIGHT / 2;
 
+	for (size_t i = 0; i < this->listDoor.size(); i++)
+	{
+		if (listDoor[i]->CheckIsColideWithPlayer())
+		{
+			this->door = (listDoor.at(i));
+			door->SetIsColicePlayer(false);
+		}
+		
+	}
 	if (cx > sceneBox.left&& cx < sceneBox.right - SCREEN_WIDTH && !simon->CheckIsFightWithBoss())
 	{
 		Camera::GetInstance()->SetCamera(cx, 0.0f);
 	}
-	else
-	{
-	
-	}
 
 	if (simon->CheckIsHitDoor()) {
-		for (size_t i = 0; i < this->spawnObjects.size(); i++)
-		{
-			SpawnZone* spawner = dynamic_cast<SpawnZone*>(spawnObjects[i]);
-			spawner->DestroyImmediate();
-		}
 		for (size_t i = 0; i < this->objects.size(); i++)
 		{
 			if (dynamic_cast<Enemy*>(objects[i]))
@@ -59,7 +59,7 @@ void SceneManager::CamUpdate(DWORD dt)
 		
 		float camx, camy;
 		Camera::GetInstance()->GetCamera(camx, camy);
-		if (camx < sceneBox.right - 32 - SCREEN_WIDTH / 2) // move 255 px
+		if (camx < sceneBox.right - SCREEN_WIDTH / 2) // move 255 px
 		{
 			float camVx = 0.2f;
 			camx += camVx * dt;
@@ -102,6 +102,7 @@ void SceneManager::CamUpdate(DWORD dt)
 			else
 			{
 				door->ResetDoor();
+				door = NULL;
 				simon->SetAutoWalk(false);
 				float l, t, r, b;
 				simon->GetBoundingBox(l, t, r, b);
@@ -111,6 +112,7 @@ void SceneManager::CamUpdate(DWORD dt)
 					if (simon->AABB(l, t, r, b, sceneAreas[i].left, sceneAreas[i].top, sceneAreas[i].right, sceneAreas[i].bottom))
 					{
 						this->sceneBox = sceneAreas[i];
+						Camera::GetInstance()->SetCamera(sceneBox.left, 0);
 						simon->ResetState();
 						BoundMap* wall = new BoundMap();
 						wall->SetPosition(sceneBox.left, 0);
@@ -207,7 +209,7 @@ void SceneManager::OnCreate()
 	game = CGame::GetInstance();
 	this->stateTime = GAMESTATE_TIME;
 	LoadResource();
-	LoadScene();
+	DevSupport();
 	HandleSpawnItem::GetInstance()->Init(this);
 	HandleSpawnEnemy::GetInstance()->Init(this);
 	HandleSpawnEffects::GetInstance()->Init(this);
@@ -253,7 +255,7 @@ void SceneManager::Update(DWORD dt)
 
 
 	if (this->isNextScene) {
-		LoadScene();
+		DevSupport();
 		this->isNextScene = false;
 		this->simon->ResetState();
 		return;
@@ -288,25 +290,29 @@ void SceneManager::Update(DWORD dt)
 			NextScene* nextscene = dynamic_cast<NextScene*>(objects[i]);
 			if (nextscene->CheckIsColliceWithPlayer())
 			{
+				nextscene->Reset();
+				UpdateGrid(); // update lần cuối
 				int nextMapID = nextscene->GetMapID();
 				int nextEntry = nextscene->GetNextEntryID();
+				int playerState = nextscene->GetPlayerAction();
 				string id = "map" + std::to_string(nextMapID);
 				this->currentMap = this->maps->Get(id);
 				this->grid = grids.at(id);
 				D3DXVECTOR2 pos = this->entryPoint.at(nextEntry);
-				this->simon->SetPosition(pos.x,pos.y);
+				this->simon->SetPosition(pos.x, pos.y);
 				float l, t, r, b;
 				simon->GetBoundingBox(l, t, r, b);
 				for (size_t j = 0; j < this->sceneAreas.size(); j++)
 				{
 					if (simon->AABB(l, t, r, b, sceneAreas[j].left, sceneAreas[j].top, sceneAreas[j].right, sceneAreas[j].bottom))
 					{
+					
 						this->sceneBox = sceneAreas[j];
 						Camera::GetInstance()->SetCamera(sceneBox.left,sceneBox.top);
 					}
 				}
 				simon->ResetState();
-				nextscene->DestroyImmediate();
+				this->simon->SetState(playerState);
 				return;
 			}
 		}
@@ -315,49 +321,7 @@ void SceneManager::Update(DWORD dt)
 	CamUpdate(dt);
 	/// cap nhat lai vi tri cac unit trong grid
 	UpdateGrid();
-
-	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = objects.erase(it);
-		}
-		else ++it;
-	}
-	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = enemies.erase(it);
-		}
-		else ++it;
-	}
-	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = items.erase(it);
-		}
-		else ++it;
-	}
-	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = effects.erase(it);
-		}
-		else ++it;
-	}
-	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = subWeapon.erase(it);
-		}
-		else ++it;
-	}
-	for (vector<LPGAMEOBJECT>::iterator it = spawnObjects.begin(); it != spawnObjects.end(); ) {
-
-		if ((*it)->isDestroyed) {
-			it = spawnObjects.erase(it);
-		}
-		else ++it;
-	}
+	CleanListObject();
 }
 void SceneManager::Render()
 {
@@ -373,8 +337,8 @@ void SceneManager::Render()
 
 	hud->Render();
 	simon->Render();
-
-	grid->Render();
+	simon->RenderSpriteBox();
+	//grid->Render();
 
 
 }
@@ -489,7 +453,7 @@ void SceneManager::KillAllEnemy()
 
 }
 
-void SceneManager::LoadScene()
+void SceneManager::DevSupport()
 {
 	CTextures* textures = CTextures::GetInstance();
 	Camera::GetInstance()->SetAllowScrollCam(false);
@@ -556,30 +520,7 @@ void SceneManager::JumpToScene(int state)
 void SceneManager::LoadObjects()
 {
 	DebugOut(L"Load object \n");
-	//for (UINT i = 0; i < objects.size(); i++) {
-	//	if (dynamic_cast<Enemy *>(objects[i])
-	//		|| dynamic_cast<Item *>(objects[i])
-	//		|| dynamic_cast<Ground *>(objects[i])
-	//		|| dynamic_cast<Effects*>(objects[i])
-	//		|| dynamic_cast<CSimon*>(objects[i])
-	//		|| dynamic_cast<SpawnZone*>(objects[i])
-	//		|| dynamic_cast<SubWeapon*>(objects[i])
-	//		)
-	//	{
-	//		continue; // tránh trường hợp con trỏ bị delete 2 lần
-	//	}
-	//	else
-	//	{
-	//		delete objects[i];
-	//	}
-	//}
-	//for (UINT i = 0; i < enemies.size(); i++) delete enemies[i];
-	//for (UINT i = 0; i < subWeapon.size(); i++) delete subWeapon[i];
 
-	//for (UINT i = 0; i < items.size(); i++) delete items[i];
-	//for (UINT i = 0; i < effects.size(); i++) delete effects[i];
-
-	//Unit* unit;
 	objects.clear();
 	enemies.clear();
 
@@ -635,6 +576,7 @@ void SceneManager::LoadObjects()
 					door = new Door();
 					door->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 					AddToGrid(door, grid, true);
+					this->listDoor.push_back(door);
 				}
 				break;
 			case ObjectID::OEntrance:
@@ -726,6 +668,51 @@ void SceneManager::LoadObjects()
 		}
 
 		this->grids.insert(std::make_pair(mapName, grid));
+	}
+}
+void SceneManager::CleanListObject()
+{
+	for (vector<LPGAMEOBJECT>::iterator it = objects.begin(); it != objects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = objects.erase(it);
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = enemies.begin(); it != enemies.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = enemies.erase(it);
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = items.begin(); it != items.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = items.erase(it);
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = effects.begin(); it != effects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = effects.erase(it);
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = subWeapon.begin(); it != subWeapon.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = subWeapon.erase(it);
+		}
+		else ++it;
+	}
+	for (vector<LPGAMEOBJECT>::iterator it = spawnObjects.begin(); it != spawnObjects.end(); ) {
+
+		if ((*it)->isDestroyed) {
+			it = spawnObjects.erase(it);
+		}
+		else ++it;
 	}
 }
 void SceneManager::GameTimeCounter()

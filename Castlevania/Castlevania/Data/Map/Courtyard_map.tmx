@@ -574,7 +574,7 @@
    <properties>
     <property name="nextEntry" value="2"/>
     <property name="nextMap" type="int" value="2"/>
-    <property name="playerAction" value="1"/>
+    <property name="playerAction" value="0"/>
    </properties>
   </object>
  </objectgroup>

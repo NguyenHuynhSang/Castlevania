@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="258">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="265">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2135,7 +2135,7 @@
   <object id="219" name="Wall" x="3584.5" y="159" width="127.5" height="96"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="3" name="Ground">
-  <object id="4" name="ground" x="2" y="320" width="5628" height="32"/>
+  <object id="4" name="ground" x="2" y="319" width="5628" height="32"/>
   <object id="6" name="ground" x="1376" y="192" width="95" height="32"/>
   <object id="7" name="ground" x="1504" y="128" width="318.5" height="32"/>
   <object id="8" name="ground" x="1856" y="192.5" width="159.333" height="30"/>
@@ -2150,10 +2150,10 @@
   <object id="154" name="ground" x="3617.67" y="253.667" width="95.6667" height="66"/>
   <object id="220" name="ground" x="3712.5" y="159.5" width="62.5" height="32"/>
  </objectgroup>
- <objectgroup color="#ff0000" id="5" name="Player" offsetx="-14" offsety="4">
-  <object id="255" name="2" gid="112" x="3156" y="122" width="60" height="66"/>
-  <object id="256" name="4" gid="2147483767" x="3163" y="332" width="60" height="66"/>
-  <object id="257" name="6" gid="2147483767" x="3803" y="332" width="60" height="66"/>
+ <objectgroup color="#ff0000" id="5" name="Player">
+  <object id="256" name="4" gid="2147483767" x="3162.67" y="351.667" width="60" height="66"/>
+  <object id="257" name="7" gid="2147483767" x="3804" y="353" width="60" height="66"/>
+  <object id="264" name="2" gid="112" x="3776" y="160" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="Spawner" visible="0">
   <object id="168" name="SpawnBat" x="3169.83" y="7.3333" width="893" height="150">
@@ -2172,7 +2172,7 @@
     <property name="scenedef" type="int" value="2"/>
    </properties>
   </object>
-  <object id="173" x="4098.5" y="3.33333" width="785.667" height="314.667">
+  <object id="173" x="4127.5" y="3.33333" width="756.667" height="314.667">
    <properties>
     <property name="enemydef" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
@@ -2230,12 +2230,18 @@
   </object>
  </objectgroup>
  <objectgroup color="#c81700" id="7" name="Nextmap">
-  <object id="249" name="NextMap" x="3821.5" y="346" width="54" height="15"/>
-  <object id="253" name="NextMap" x="3179.5" y="344" width="56.5" height="15.5">
+  <object id="253" name="NextMap" x="3179.5" y="356" width="56.5" height="15.5">
    <properties>
     <property name="nextEntry" value="5"/>
     <property name="nextMap" value="3"/>
-    <property name="playerAction" value="0"/>
+    <property name="playerAction" value="1300"/>
+   </properties>
+  </object>
+  <object id="259" name="NextMap" x="3825.75" y="358.25" width="56.5" height="15.5">
+   <properties>
+    <property name="nextEntry" value="6"/>
+    <property name="nextMap" value="3"/>
+    <property name="playerAction" value="1300"/>
    </properties>
   </object>
  </objectgroup>
@@ -2280,12 +2286,12 @@
     <property name="dir" type="int" value="3"/>
    </properties>
   </object>
-  <object id="118" name="StairTop" type="Stair" x="3408.5" y="97.9167" width="32" height="32">
+  <object id="118" name="StairTop" type="Stair" x="3408.5" y="94.9167" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="119" name="StairBottom" type="Stair" x="3536" y="305.083" width="32" height="15.9167">
+  <object id="119" name="StairBottom" type="Stair" x="3536" y="311.083" width="32" height="9.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2325,7 +2331,7 @@
     <property name="dir" type="int" value="3"/>
    </properties>
   </object>
-  <object id="188" name="StairTop" type="Stair" x="3792.67" y="227.333" width="32" height="32">
+  <object id="188" name="StairTop" type="Stair" x="3792.67" y="225.333" width="32" height="32">
    <properties>
     <property name="dir" type="int" value="2"/>
    </properties>
@@ -2409,14 +2415,16 @@
  </objectgroup>
  <objectgroup color="#aa007f" id="15" name="Door">
   <object id="246" name="Door" type="Door" gid="190" x="3057.33" y="128.667" width="16" height="96"/>
+  <object id="260" name="Door" type="Door" gid="190" x="4079" y="129" width="16" height="96"/>
  </objectgroup>
- <objectgroup color="#6a00ff" id="16" name="Cam" visible="0">
+ <objectgroup color="#6a00ff" id="16" name="Cam">
   <object id="164" name="SCENEBOUND" type="SCENEBOUND" x="0" y="0" width="3090.33" height="382">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="252" name="CAM" x="3056" y="0" width="1048" height="380"/>
+  <object id="252" name="CAM" x="3073" y="0" width="1027" height="380"/>
+  <object id="262" name="CAM" x="4082.67" y="0" width="1571.33" height="382"/>
  </objectgroup>
  <objectgroup id="17" name="BOSS">
   <object id="229" name="Boss" gid="192" x="5302" y="75" width="100" height="46"/>

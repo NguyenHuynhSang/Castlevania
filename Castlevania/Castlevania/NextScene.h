@@ -15,7 +15,9 @@ public:
 		return this->isColliceWithPlayer;
 	};
 
-
+	void Reset() {
+		this->isColliceWithPlayer = false;
+	}
 	void SetColliceWithPlayer(bool flag) {
 		this->isColliceWithPlayer = flag;
 	}

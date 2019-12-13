@@ -84,7 +84,7 @@ private:
 	vector<LPGAMEOBJECT> effects;
 	vector<LPGAMEOBJECT> enemies;
 	vector<LPGAMEOBJECT> subWeapon;
-
+	vector<Door*> listDoor;
 
 	std::queue<Enemy*> qEnemy;
 	std::queue<Item*> qItem;
@@ -101,6 +101,7 @@ private:
 	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
 	void AddToGrid(LPGAMEOBJECT object,Grid* grid,bool alwayUpdate=false);
 	void LoadObjects();
+	void CleanListObject();
 	unsigned int stateTime;
 
 	void GameTimeCounter();
@@ -145,7 +146,7 @@ public:
 
 	void FreezeEnemy(bool flag);
 	void KillAllEnemy();
-	void LoadScene();
+	void DevSupport();
 	void JumpToScene(int state);
 	bool CheckNextScene() {
 		return this->isNextScene;

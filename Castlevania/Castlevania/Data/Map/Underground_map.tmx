@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="28">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="29">
  <tileset firstgid="1" name="Underground_bank.png" tilewidth="32" tileheight="32" tilecount="30" columns="5">
   <image source="Underground_bank.png" width="160" height="192"/>
  </tileset>
@@ -412,6 +412,7 @@
  </objectgroup>
  <objectgroup color="#ff0000" id="5" name="Player">
   <object id="23" name="5" gid="43" x="113" y="48" width="60" height="66"/>
+  <object id="28" name="6" gid="43" x="751" y="48" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="13" name="Cam" visible="0">
   <object id="24" name="CAM" x="0" y="0" width="1021" height="380"/>
@@ -424,14 +425,14 @@
    <properties>
     <property name="nextEntry" value="4"/>
     <property name="nextMap" value="2"/>
-    <property name="playerAction" value="0"/>
+    <property name="playerAction" value="1000"/>
    </properties>
   </object>
-  <object id="27" x="727.25" y="-22.5" width="31.5" height="7">
+  <object id="27" x="727.25" y="-19.5" width="31.5" height="7">
    <properties>
-    <property name="nextEntry" value="4"/>
+    <property name="nextEntry" value="7"/>
     <property name="nextMap" value="2"/>
-    <property name="playerAction" value="0"/>
+    <property name="playerAction" value="1000"/>
    </properties>
   </object>
  </objectgroup>
@@ -451,7 +452,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#aaaaff" id="11" name="Spawner">
+ <objectgroup color="#aaaaff" id="11" name="Spawner" visible="0">
   <object id="20" name="Spawn" type="Spawn" x="0.666667" y="2.667" width="896.667" height="301">
    <properties>
     <property name="enemydef" type="int" value="3"/>

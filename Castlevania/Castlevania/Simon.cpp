@@ -483,8 +483,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<Door*>(e->obj))
 			{
 				Door* door = dynamic_cast<Door*>(e->obj);
+			
 				if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
 				{
+					door->SetIsColicePlayer(true);
 					this->isHitDoor = true;
 				}
 
