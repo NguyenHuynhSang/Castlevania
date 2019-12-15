@@ -23,7 +23,6 @@
 #include"PlayScene.h"
 #include"SceneManager.h"
 CGame* game;
-PlayScene* scene;
 SceneManager* sceneManager;
 
 class CSampleKeyHander : public CKeyEventHandler
@@ -93,16 +92,25 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-	/*	if (scene->CheckPlayCrossEffect())
+
+		if (dynamic_cast<PlayScene*>(sceneManager->GetCurrentScene()))
 		{
-			int rank = rand() % 2;
-			if (rank==1)
-				d3ddv->ColorFill(bb, NULL, CROSS_EFFECT_COLOR);
-			else
+			PlayScene* scene = dynamic_cast<PlayScene*>(sceneManager->GetCurrentScene());
+			if (scene->CheckPlayCrossEffect())
+			{
+				int rank = rand() % 2;
+				if (rank == 1)
+					d3ddv->ColorFill(bb, NULL, CROSS_EFFECT_COLOR);
+				else
+					d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+			}
+			else {
 				d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+			}
 		}
-		else*/
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+
+		else
+			d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 		sceneManager->Render();
@@ -209,7 +217,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 
-	
+
 	sceneManager = SceneManager::GetInstance();
 	sceneManager->LoadResource();
 

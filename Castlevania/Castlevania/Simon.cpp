@@ -615,34 +615,39 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
+
+	bool flagOnGround = false;
 	for (std::size_t i = 0; i < coObjects->size(); i++)
 	{
 
 		LPGAMEOBJECT e = coObjects->at(i);
-
-		if (dynamic_cast<Ground*>(e)) // BUG khi đứng lên brick
+		if (dynamic_cast<Ground*>(e) &&  !flagOnGround) // BUG khi đứng lên brick
 		{
 			Ground* f = dynamic_cast<Ground*> (e);
 
 			float l, t, r, b,el,et,er,eb;
 			this->GetBoundingBox(l, t, r, b);
-			b = b + 3; // hehehe
+			b = b + 5; // hehehe offset 5pixel
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l,t,r,b,el,et,er,eb))
 			{
-				f->SetCollicePlayer(true);
-			}
-			else {
-				if (f->CheckIsCollicePlayer()) {
-					DebugOut(L"Not on ground \n");
-					if (!isJumping &&!isFirstStepOnStair && !isOnStair &&this->state!=SIMON_STATE_DEFLECT) {
-						SetState(SIMON_STATE_FALL_DOWN);
-					}
-					f->SetCollicePlayer(false);
-				}
+				flagOnGround = true;
 			}
 		}
-	
+		if (dynamic_cast<CBrick*>(e) && !flagOnGround) // BUG khi đứng lên brick
+		{
+			CBrick* f = dynamic_cast<CBrick*> (e);
+
+			float l, t, r, b, el, et, er, eb;
+			this->GetBoundingBox(l, t, r, b);
+			b = b + 8; // hehehe offset 5pixel
+			f->GetBoundingBox(el, et, er, eb);
+			if (CGameObject::AABB(l, t, r, b, el, et, er, eb))
+			{
+				flagOnGround = true;
+
+			}
+		}
 		if (dynamic_cast<Item*>(e))
 		{
 
@@ -759,6 +764,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		
 	
+	}
+
+
+	if (!flagOnGround)
+	{
+		DebugOut(L"Not on ground \n");
+		if (!isJumping && !isFirstStepOnStair && !isOnStair && this->state != SIMON_STATE_DEFLECT) {
+			SetState(SIMON_STATE_FALL_DOWN);
+		}
+		
 	}
 
 

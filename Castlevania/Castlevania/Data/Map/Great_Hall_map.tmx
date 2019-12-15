@@ -2246,7 +2246,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="Stair">
-  <object id="51" name="StairBottom" type="Stair" x="1232" y="306.333" width="32" height="15.6667">
+  <object id="51" name="StairBottom" type="Stair" x="1231.5" y="313.333" width="32" height="5">
    <properties>
     <property name="dir" value="0"/>
    </properties>
@@ -2256,7 +2256,7 @@
     <property name="dir" type="int" value="3"/>
    </properties>
   </object>
-  <object id="63" name="StairBottom" type="Stair" x="1424" y="180.667" width="32" height="12">
+  <object id="63" name="StairBottom" type="Stair" x="1424" y="188.167" width="32" height="4.5">
    <properties>
     <property name="dir" type="int" value="0"/>
    </properties>
@@ -2417,7 +2417,7 @@
   <object id="246" name="Door" type="Door" gid="190" x="3057.33" y="128.667" width="16" height="96"/>
   <object id="260" name="Door" type="Door" gid="190" x="4079" y="129" width="16" height="96"/>
  </objectgroup>
- <objectgroup color="#6a00ff" id="16" name="Cam">
+ <objectgroup color="#6a00ff" id="16" name="Cam" visible="0">
   <object id="164" name="2" type="2" x="0" y="0" width="3090.33" height="382">
    <properties>
     <property name="scenedef" type="int" value="1"/>
