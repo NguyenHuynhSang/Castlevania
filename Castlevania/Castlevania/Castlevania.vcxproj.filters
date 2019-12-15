@@ -31,9 +31,6 @@
     <Filter Include="Utilities\GameWorldCreator">
       <UniqueIdentifier>{3f20b655-091b-4503-9420-eff04f1e2294}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Controller">
-      <UniqueIdentifier>{8f257295-0b7b-4b93-b0e3-de4262a6e7cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Library">
       <UniqueIdentifier>{a4eabc85-dc2a-4e9f-bbbe-fcb8d9f27f79}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,9 @@
     <Filter Include="ObjectsManagement\Enemy\Boss">
       <UniqueIdentifier>{4475eb4f-3267-4d52-afd1-de7feb278667}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Sound">
+      <UniqueIdentifier>{2455f1e6-b923-4149-b25e-c5ecb4e7a039}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -95,12 +95,6 @@
     </ClInclude>
     <ClInclude Include="debug.h">
       <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="InputController.h">
-      <Filter>Framework\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManagement.h">
-      <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="Library\RapidXML\rapidxml.hpp">
       <Filter>Library\RapidXML</Filter>
@@ -267,9 +261,6 @@
     <ClInclude Include="InvisibilityPotion.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
-    <ClInclude Include="CKeyEventHandler.h">
-      <Filter>Framework\Controller</Filter>
-    </ClInclude>
     <ClInclude Include="Cross.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
@@ -291,9 +282,6 @@
     <ClInclude Include="MultiplyShotItem.h">
       <Filter>ObjectsManagement\Items</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Spark.h">
       <Filter>Effects</Filter>
     </ClInclude>
@@ -305,6 +293,24 @@
     </ClInclude>
     <ClInclude Include="TypeConverter.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,12 +330,6 @@
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="InputController.cpp">
-      <Filter>Framework\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManagement.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
@@ -488,9 +488,6 @@
     <ClCompile Include="InvisibilityPotion.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
-    <ClCompile Include="CKeyEventHandler.cpp">
-      <Filter>Framework\Controller</Filter>
-    </ClCompile>
     <ClCompile Include="Cross.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
@@ -512,9 +509,6 @@
     <ClCompile Include="MultiplyShotItem.cpp">
       <Filter>ObjectsManagement\Items</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Spark.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
@@ -523,6 +517,18 @@
     </ClCompile>
     <ClCompile Include="MapManager.cpp">
       <Filter>Utilities\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

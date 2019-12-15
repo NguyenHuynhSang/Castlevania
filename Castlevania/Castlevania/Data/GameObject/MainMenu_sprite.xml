@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resource>
+	<spritesheet TextureAtlas="Axe.png">
+		<sprite ID="MainMenu_01">
+			<frame x="0" y="0" width="640" height="480" />
+		</sprite>
+
+	</spritesheet>
+</resource>

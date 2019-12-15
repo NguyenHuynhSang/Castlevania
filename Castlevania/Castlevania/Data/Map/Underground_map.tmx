@@ -414,8 +414,8 @@
   <object id="23" name="5" gid="43" x="113" y="48" width="60" height="66"/>
   <object id="28" name="6" gid="43" x="751" y="48" width="60" height="66"/>
  </objectgroup>
- <objectgroup id="13" name="Cam" visible="0">
-  <object id="24" name="CAM" x="0" y="0" width="1021" height="380"/>
+ <objectgroup id="13" name="Cam">
+  <object id="24" name="CAM" x="0" y="0" width="1039" height="380"/>
  </objectgroup>
  <objectgroup id="6" name="MoneyBag">
   <object id="12" name="moneybag" gid="103" x="772.5" y="189.75" width="31" height="30"/>

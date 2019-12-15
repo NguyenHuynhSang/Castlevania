@@ -1,15 +1,15 @@
 #pragma once
 #include"Effects.h"
-class SceneManager;
+class PlayScene;
 class HandleSpawnEffects
 {
 	
 	static HandleSpawnEffects * __instance;
-	SceneManager* scene;
+	PlayScene* scene;
 public:
 	void SpawnEffect(int effectDef,float x,float y);
 	HandleSpawnEffects();
-	void Init(SceneManager* scene);
+	void Init(PlayScene* scene);
 	static HandleSpawnEffects * GetInstance();
 	~HandleSpawnEffects();
 };

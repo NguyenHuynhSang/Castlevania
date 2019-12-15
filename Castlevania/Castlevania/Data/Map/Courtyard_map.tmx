@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="37">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="47" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="38">
  <tileset firstgid="1" name="Courtyard_bank.png" tilewidth="32" tileheight="32" tilecount="80" columns="8">
   <image source="Courtyard_bank.png" width="256" height="320"/>
  </tileset>
@@ -537,7 +537,7 @@
   <object id="5" name="Ground" x="0" y="287.5" width="1502" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="Player">
-  <object id="36" name="1" gid="86" x="1030" y="283" width="60" height="66"/>
+  <object id="37" name="1" gid="86" x="36.5" y="284" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="4" name="MoneyBagTrigger">
   <object id="30" name="MoneyBagTrigger" type="Money Bag" x="1426" y="270" width="62" height="9.5"/>
@@ -578,8 +578,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#5555ff" id="12" name="Cam" visible="0">
-  <object id="35" name="Cam" x="0" y="0" width="1502" height="352"/>
+ <objectgroup color="#5555ff" id="12" name="Cam">
+  <object id="35" name="1" x="0" y="0" width="1502" height="319"/>
  </objectgroup>
  <objectgroup id="8" name="Entrance">
   <object id="24" name="EnterCastle" x="1365" y="270.5" width="25.5" height="11"/>

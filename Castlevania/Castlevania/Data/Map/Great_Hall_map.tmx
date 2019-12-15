@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="265">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="266">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2153,7 +2153,7 @@
  <objectgroup color="#ff0000" id="5" name="Player">
   <object id="256" name="4" gid="2147483767" x="3162.67" y="351.667" width="60" height="66"/>
   <object id="257" name="7" gid="2147483767" x="3804" y="353" width="60" height="66"/>
-  <object id="264" name="2" gid="112" x="3776" y="160" width="60" height="66"/>
+  <object id="265" name="2" gid="112" x="54" y="316.333" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="Spawner" visible="0">
   <object id="168" name="SpawnBat" x="3169.83" y="7.3333" width="893" height="150">
@@ -2418,15 +2418,15 @@
   <object id="260" name="Door" type="Door" gid="190" x="4079" y="129" width="16" height="96"/>
  </objectgroup>
  <objectgroup color="#6a00ff" id="16" name="Cam">
-  <object id="164" name="SCENEBOUND" type="SCENEBOUND" x="0" y="0" width="3090.33" height="382">
+  <object id="164" name="2" type="2" x="0" y="0" width="3090.33" height="382">
    <properties>
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="252" name="CAM" x="3073" y="0" width="1027" height="380"/>
-  <object id="262" name="CAM" x="4082.67" y="0" width="1571.33" height="382"/>
+  <object id="252" name="3" x="3073" y="0" width="1027" height="380"/>
+  <object id="262" name="4" x="4082.67" y="0" width="1571.33" height="382"/>
  </objectgroup>
- <objectgroup id="17" name="BOSS">
+ <objectgroup id="17" name="BOSS" visible="0">
   <object id="229" name="Boss" gid="192" x="5302" y="75" width="100" height="46"/>
  </objectgroup>
  <objectgroup color="#0055ff" id="18" name="BossBorder">

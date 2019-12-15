@@ -4,7 +4,7 @@
 #include"Candle.h"
 #include"Enemy.h"
 #include"Brick.h"
-#include"SceneManager.h"	
+#include"PlayScene.h"	
 #include"HandleSpawnEffects.h"
 
 
@@ -255,8 +255,8 @@ void Whip::Render()
 	}
 	}
 	animations[currentAnimation]->Render(nx, x, y);
-	if (animations[currentAnimation]->GetCurrentFrame() == animations[currentAnimation]->GetLastFrame())
-		RenderBoundingBox();
+	/*if (animations[currentAnimation]->GetCurrentFrame() == animations[currentAnimation]->GetLastFrame())
+		RenderBoundingBox();*/
 	return;
 }
 

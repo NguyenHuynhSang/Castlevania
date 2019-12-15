@@ -1,12 +1,12 @@
 #pragma once
 #include<string>
 #include"Game.h"
-class SceneManager;
+class PlayScene;
 class CSprite;
 class Hud
 {
 	CGame* game;
-	SceneManager* scene;
+	PlayScene* scene;
 	int score;
 	int playerHP;
 	int playerEnery;
@@ -20,7 +20,7 @@ public:
 	static void SetBossHp(int hp) { bossHP = hp; }
 	void Update();
 	void Render();
-	Hud(SceneManager* scene);
+	Hud(PlayScene* scene);
 	~Hud();
 };
 

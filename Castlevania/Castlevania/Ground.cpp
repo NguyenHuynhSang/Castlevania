@@ -4,7 +4,7 @@
 
 void Ground::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 

@@ -1,5 +1,5 @@
 #include "HandleSpawnEnemy.h"
-#include"SceneManager.h"
+#include"PlayScene.h"
 #include"Zombie.h"
 #include"Fishman.h"
 #include"Fireball.h"
@@ -126,7 +126,7 @@ void HandleSpawnEnemy::FreezeEnemy(bool flag)
 	this->stopSpawn = flag;
 	scene->FreezeEnemy(this->stopSpawn);
 }
-void HandleSpawnEnemy::Init(SceneManager * scene)
+void HandleSpawnEnemy::Init(PlayScene * scene)
 {
 	this->scene = scene;
 }

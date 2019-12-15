@@ -2,16 +2,16 @@
 #include<utility>
 #include<Windows.h>
 #include"Item.h"
-class SceneManager;
+class PlayScene;
 class HandleSpawnItem
 {
 	static HandleSpawnItem * __instance;
-	SceneManager* scene;
+	PlayScene* scene;
 public:
 	void SpawnItem(int itemDef,float x,float y,bool isHiding=true);
 	void SpawnRandomItem(float x, float y, bool isHiding = true);
 	HandleSpawnItem();
-	void Init(SceneManager* scene) {
+	void Init(PlayScene* scene) {
 		this->scene = scene;
 	}
 	~HandleSpawnItem();

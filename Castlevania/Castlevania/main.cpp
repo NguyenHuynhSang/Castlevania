@@ -20,11 +20,35 @@
 
 #include <windows.h>
 
+#include"PlayScene.h"
 #include"SceneManager.h"
-#include"InputController.h"
 CGame* game;
-SceneManager* scene;
-InputController* input;
+PlayScene* scene;
+SceneManager* sceneManager;
+
+class CSampleKeyHander : public CKeyEventHandler
+{
+	virtual void KeyState(BYTE* states);
+	virtual void OnKeyDown(int KeyCode);
+	virtual void OnKeyUp(int KeyCode);
+};
+
+CSampleKeyHander* keyHandler;
+
+void CSampleKeyHander::OnKeyDown(int KeyCode)
+{
+	sceneManager->GetCurrentScene()->OnKeyDown(KeyCode);
+}
+
+void CSampleKeyHander::OnKeyUp(int KeyCode)
+{
+	sceneManager->GetCurrentScene()->OnKeyUp(KeyCode);
+}
+
+void CSampleKeyHander::KeyState(BYTE* states)
+{
+	sceneManager->GetCurrentScene()->KeyState(states);
+}
 
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -54,7 +78,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void Update(DWORD dt)
 {
-
+	sceneManager->Update(dt);
 }
 
 /*
@@ -69,7 +93,7 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-		if (scene->CheckPlayCrossEffect())
+	/*	if (scene->CheckPlayCrossEffect())
 		{
 			int rank = rand() % 2;
 			if (rank==1)
@@ -77,11 +101,11 @@ void Render()
 			else
 				d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		}
-		else
-			d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		else*/
+		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		scene->Render();
+		sceneManager->Render();
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -168,7 +192,7 @@ int Run()
 
 			game->ProcessKeyboard();
 
-			scene->Update(dt);
+			Update(dt);
 			Render();
 		}
 		else
@@ -185,11 +209,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 
-	input = new InputController();
-	scene = new SceneManager();
-	scene->OnCreate();
-	input->Init(scene, scene->GetSimon());
-	game->InitKeyboard(input);
+	
+	sceneManager = SceneManager::GetInstance();
+	sceneManager->LoadResource();
+
+	keyHandler = new CSampleKeyHander();
+	game->InitKeyboard(keyHandler);
 
 
 	D3DXVECTOR2 vector(0, 0);

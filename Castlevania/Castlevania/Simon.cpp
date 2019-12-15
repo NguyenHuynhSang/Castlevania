@@ -8,7 +8,7 @@
 #include"Item.h"
 #include"Entry.h"
 #include"NextScene.h"
-#include"SceneManager.h"
+#include"PlayScene.h"
 #include"MoneyBagTrigger.h"
 #include"Enemy.h"
 #include"StairTrigger.h"

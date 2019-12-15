@@ -1,5 +1,5 @@
 #include "Hud.h"
-#include"SceneManager.h"
+#include"PlayScene.h"
 int Hud::bossHP = 0;
 void Hud::Update()
 {
@@ -83,7 +83,7 @@ void Hud::Render()
 	}
 }
 
-Hud::Hud(SceneManager* scene)
+Hud::Hud(PlayScene* scene)
 {
 	this->scene = scene;
 	SetRect(&bound, 0, 15, SCREEN_WIDTH, 80);
