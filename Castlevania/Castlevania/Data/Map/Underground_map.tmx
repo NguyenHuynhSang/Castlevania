@@ -415,23 +415,21 @@
   <object id="28" name="6" gid="43" x="751" y="48" width="60" height="66"/>
  </objectgroup>
  <objectgroup id="13" name="Cam">
-  <object id="24" name="CAM" x="0" y="0" width="1039" height="380"/>
+  <object id="24" name="5" x="0" y="0" width="1039" height="380"/>
  </objectgroup>
  <objectgroup id="6" name="MoneyBag">
   <object id="12" name="moneybag" gid="103" x="772.5" y="189.75" width="31" height="30"/>
  </objectgroup>
  <objectgroup id="7" name="Nextmap">
-  <object id="19" x="90.5" y="-16.5" width="31.5" height="7">
+  <object id="19" x="75.5" y="-37.5" width="31.5" height="7">
    <properties>
-    <property name="nextEntry" value="4"/>
-    <property name="nextMap" value="2"/>
+    <property name="nextSceneID" value="5"/>
     <property name="playerAction" value="1000"/>
    </properties>
   </object>
   <object id="27" x="727.25" y="-19.5" width="31.5" height="7">
    <properties>
-    <property name="nextEntry" value="7"/>
-    <property name="nextMap" value="2"/>
+    <property name="nextSceneID" value="7"/>
     <property name="playerAction" value="1000"/>
    </properties>
   </object>

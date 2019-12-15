@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="266">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="176" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="271">
  <tileset firstgid="1" name="Great_Hall_bank.png" tilewidth="32" tileheight="32" tilecount="108" columns="9">
   <image source="Great_Hall_bank.png" width="288" height="384"/>
  </tileset>
@@ -2153,7 +2153,9 @@
  <objectgroup color="#ff0000" id="5" name="Player">
   <object id="256" name="4" gid="2147483767" x="3162.67" y="351.667" width="60" height="66"/>
   <object id="257" name="7" gid="2147483767" x="3804" y="353" width="60" height="66"/>
-  <object id="265" name="2" gid="112" x="54" y="316.333" width="60" height="66"/>
+  <object id="267" name="3" gid="112" x="3153.33" y="127.667" width="60" height="66"/>
+  <object id="269" name="8" gid="112" x="4118.67" y="123.667" width="60" height="66"/>
+  <object id="270" name="2" gid="112" x="2777.33" y="127" width="60" height="66"/>
  </objectgroup>
  <objectgroup color="#aa55ff" id="6" name="Spawner" visible="0">
   <object id="168" name="SpawnBat" x="3169.83" y="7.3333" width="893" height="150">
@@ -2232,15 +2234,13 @@
  <objectgroup color="#c81700" id="7" name="Nextmap">
   <object id="253" name="NextMap" x="3179.5" y="356" width="56.5" height="15.5">
    <properties>
-    <property name="nextEntry" value="5"/>
-    <property name="nextMap" value="3"/>
+    <property name="nextSceneID" value="4"/>
     <property name="playerAction" value="1300"/>
    </properties>
   </object>
   <object id="259" name="NextMap" x="3825.75" y="358.25" width="56.5" height="15.5">
    <properties>
-    <property name="nextEntry" value="6"/>
-    <property name="nextMap" value="3"/>
+    <property name="nextSceneID" value="6"/>
     <property name="playerAction" value="1300"/>
    </properties>
   </object>
@@ -2417,7 +2417,7 @@
   <object id="246" name="Door" type="Door" gid="190" x="3057.33" y="128.667" width="16" height="96"/>
   <object id="260" name="Door" type="Door" gid="190" x="4079" y="129" width="16" height="96"/>
  </objectgroup>
- <objectgroup color="#6a00ff" id="16" name="Cam" visible="0">
+ <objectgroup color="#6a00ff" id="16" name="Cam">
   <object id="164" name="2" type="2" x="0" y="0" width="3090.33" height="382">
    <properties>
     <property name="scenedef" type="int" value="1"/>

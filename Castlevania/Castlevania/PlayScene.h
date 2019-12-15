@@ -44,8 +44,11 @@ public:
 	int areaID;
 	std::string mapID;
 	int state;
-	D3DXVECTOR2 entryPoint;
+	int entryPointID;
 	int revivalSceneID;
+
+	int preMiniScene;
+	int nextMiniScene;
 };
 
 
@@ -57,6 +60,10 @@ private:
 	CSimon *simon;
 	PhantomBat* phantomBat=NULL;
 
+
+
+	std::unordered_map<int, MiniScene*>  miniScenes;
+	MiniScene* currentMiniScene; // just mini scene
 
 	Torch * torch;
 	Ground *ground;
@@ -120,7 +127,7 @@ private:
 	void GameTimeCounter();
 
 	std::map<int, D3DXVECTOR2> entryPoint;
-	std::vector<RECT> sceneAreas;
+	std::map<int,RECT> sceneAreas;
 public:
 
 	virtual void OnKeyDown(int keyCode);
@@ -131,6 +138,8 @@ public:
 		return this->playCrossEffect;
 	};
 
+
+	void GoToNextArea();
 
 	unsigned int GetTime() {
 		return this->stateTime;

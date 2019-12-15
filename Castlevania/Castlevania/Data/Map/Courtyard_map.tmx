@@ -572,13 +572,12 @@
  <objectgroup id="7" name="Nextmap">
   <object id="23" name="NextScene" x="1493" y="160.333" width="15" height="125.167">
    <properties>
-    <property name="nextEntry" value="2"/>
-    <property name="nextMap" type="int" value="2"/>
+    <property name="nextSceneID" value="2"/>
     <property name="playerAction" value="0"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#5555ff" id="12" name="Cam" visible="0">
+ <objectgroup color="#5555ff" id="12" name="Cam">
   <object id="35" name="1" x="0" y="0" width="1502" height="319"/>
  </objectgroup>
  <objectgroup id="8" name="Entrance">

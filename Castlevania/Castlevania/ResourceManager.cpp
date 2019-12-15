@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 #include"MapManager.h"
-
+#include"PlayScene.h"
 ResourceManager * ResourceManager::__instance = NULL;
 
 
@@ -73,6 +73,51 @@ void ResourceManager::LoadData(const std::string& filePath)
 		LoadAnimations(path, animations);
 	}
 
+}
+void ResourceManager::LoadSceneData(const std::string& filePath, std::unordered_map<int, MiniScene*>& miniScene)
+{
+	char* fileLoc = new char[filePath.size() + 1]; // 1
+
+		   //TODO: make multi format version of string copy
+#ifdef MACOS
+	strlcpy(fileLoc, file.c_str(), file.size() + 1);
+#else
+	strcpy_s(fileLoc, filePath.size() + 1, filePath.c_str());
+#endif 
+
+	
+	//TODO: error checking - check file exists before attempting open.
+	rapidxml::file<> xmlFile(fileLoc);
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(xmlFile.data());
+	xml_node<>* rootNode = doc.first_node("game");
+	//load miniscene
+	xml_node<>* sceneNode = rootNode->first_node("scene");
+	xml_node<>* miniSceneNode = sceneNode->first_node("playscene");
+	for (xml_node<>* child = miniSceneNode->first_node(); child; child = child->next_sibling()) 
+	{
+		MiniScene* mscene = new MiniScene();
+		int ID = std::atoi(child->first_attribute("ID")->value());
+		int preID = std::atoi(child->first_attribute("preID")->value());
+		int nextID = std::atoi(child->first_attribute("nextID")->value());
+		int revivalScene = std::atoi(child->first_attribute("revivalScene")->value());
+		int area = std::atoi(child->first_attribute("area")->value());
+		int entryPoint = std::atoi(child->first_attribute("entryPoint")->value());
+		int stageID = std::atoi(child->first_attribute("stateID")->value());
+		std::string name = std::string(child->first_attribute("name")->value()); // lay path
+		std::string map = std::string(child->first_attribute("map")->value()); // lay path
+		
+		mscene->id = ID;
+		mscene->mapID = map;
+		mscene->name = name;
+		mscene->nextMiniScene = nextID;
+		mscene->preMiniScene = preID;
+		mscene->revivalSceneID = revivalScene;
+		mscene->state = stageID;
+		mscene->areaID = area;
+		mscene->entryPointID = entryPoint;
+		miniScene.insert(std::make_pair(ID, mscene));
+	}
 }
 void ResourceManager::LoadSprites(const std::string & filePath, LPDIRECT3DTEXTURE9 tex)
 {

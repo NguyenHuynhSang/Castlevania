@@ -4,6 +4,7 @@
 		<texture id="1000" path="Data\\Map\\Courtyard_bank.png" red="5" green="5" blue="5"/>
 		<texture id="1010" path="Data\\Map\\Great_Hall_bank.png" red="5" green="5" blue="5"/>
 		<texture id="1020" path="Data\\Map\\Underground_bank.png" red="5" green="5" blue="5"/>
+		<texture id="-20" path="Data\\GameObject\\IntroCastle.png" red="5" green="5" blue="5"/>
 		<texture id="-10" path="Data\\GameObject\\mainmenu.png" red="255" green="0" blue="255"/>
 		<texture id="0" path="Data\\UI\\UIpack.png" red="255" green="0" blue="255"/>
 		<texture id="10" path="Data\\GameObject\\Simon\\SIMON.png" red="255" green="255" blue="255"/>
@@ -25,6 +26,7 @@
 
 	<sprites>
 		<sprite path="Data\\GameObject\\MainMenu_sprite.xml" texid="-10"/>
+		<sprite path="Data\\GameObject\\IntroCastle_sprite.xml" texid="-20"/>
 		<sprite path="Data\\UI\\UI_sprite.xml" texid="0"/>
 		<sprite path="Data\\GameObject\\Simon\\Simon_sprite.xml" texid="10"/>
 		<sprite path="Data\\GameObject\\Ground\\groundObject_sprite.xml" texid="20"/>
@@ -34,11 +36,12 @@
 		<sprite path="Data\\GameObject\\Effect\\Effect_sprite.xml" texid="60"/>
 		<sprite path="Data\\GameObject\\Sub_weapons\\SubWeapon_sprite.xml" texid="70"/>
 		<sprite path="Data\\GameObject\\Bosses\\VampireBat_sprite.xml" texid="80"/>
-		
-	
+
+
 	</sprites>
 
 	<animations AtlasPath="Effect_sprite.xml">
+		<animation path="Data\\GameObject\\IntroCastle_ani.xml" />
 		<animation path="Data\\GameObject\\Simon\\Simon_ani.xml" />
 		<animation path="Data\\GameObject\\Weapons\\Whip_ani.xml" />
 		<animation path="Data\\GameObject\\Items\\Item_ani.xml" />
@@ -52,11 +55,15 @@
 	<gamestart playerHP="16" BossHp="16" score="0" startMap="map1"  startCam="abc" gameTime="256" />
 
 	<scene>
-		<playscene>
-			<miniscene  ID="1" name="countyarn" map="map1" area="1" revivalScene="2"  stageID="1"  />
-			<miniscene  ID="2" map="map2" revivalScene="2"  stageID="1"  />
-			<miniscene  ID="3" map="map2" revivalScene="3"  stageID="2"  />
-			<miniscene  ID="4" map="map3" revivalScene="3"  stageID="2"  />
+		<playscene startSceneID="1">
+			<miniscene  ID="1" preID="0" nextID="2" name="courtyarn" map="map1" entryPoint="1" area="1" revivalScene="2"  stateID="1"  />
+			<miniscene  ID="2" preID="0" nextID="3" name="Great_Hall_ENTER" map="map2" entryPoint="2" area="2" revivalScene="2"  stateID="1"  />
+			<miniscene  ID="3" preID="0" nextID="4" name="Great_Hall_THOUGHDOOR" map="map2" entryPoint="3" area="3" revivalScene="3"  stateID="2"  />
+			<miniscene  ID="4" preID="5" nextID="7" name="UNDERGOUND_ENTER" map="map3" entryPoint="5" area="5" revivalScene="3"  stateID="2"  />
+			<miniscene  ID="5" preID="0" nextID="2" name="Great_Hall_THOUGHDOOR_BACK" entryPoint="4" area="3" map="map2" revivalScene="3"  stateID="2"  />
+			<miniscene  ID="6" preID="0" nextID="2" name="UNDERGOUND_BACK" map="map3" entryPoint="6" area="5" revivalScene="3"  stateID="2"  />
+			<miniscene  ID="7" preID="0" nextID="8" name="Great_Hall_THOUGHDOOR_NEXT" entryPoint="7" area="3" map="map2" revivalScene="3"  stateID="3"  />
+			<miniscene  ID="8" preID="0" nextID="2" name="Great_Hall_BOSSARES" map="map2" entryPoint="1" area="3" revivalScene="8"  stateID="3"  />
 		</playscene>
 	</scene>
 

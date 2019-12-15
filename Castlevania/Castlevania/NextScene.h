@@ -2,14 +2,10 @@
 #include"BBoxObjects.h"
 class NextScene:public BBoxObject
 {
-	int nextMapID;
-	int nextEntry;
 	int playerAction;
+	int nextSceneID;
 	bool isColliceWithPlayer;
 public:
-	void SetSceneDef(int sd) {
-		this->nextMapID = sd;
-	}
 
 	bool CheckIsColliceWithPlayer() {
 		return this->isColliceWithPlayer;
@@ -21,20 +17,19 @@ public:
 	void SetColliceWithPlayer(bool flag) {
 		this->isColliceWithPlayer = flag;
 	}
-	int GetMapID() {
-		return this->nextMapID;
-	}
-	int GetNextEntryID() {
-		return this->nextEntry;
-	}
+
 	int GetPlayerAction() {
 		return this->playerAction;
+	}
+
+	int GetNextSceneID() {
+		return this->nextSceneID;
 	}
 
 	virtual void Render() {
 		RenderBoundingBox();
 	};
-	NextScene(int nextMapID, int nextEntry, int playerAction) :nextMapID(nextMapID), nextEntry(nextEntry), playerAction(playerAction) {
+	NextScene(int playerAction,int nextSceneID) :nextSceneID(nextSceneID), playerAction(playerAction) {
 		this->isColliceWithPlayer = false;
 	}
 	~NextScene();

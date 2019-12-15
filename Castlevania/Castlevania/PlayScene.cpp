@@ -9,14 +9,16 @@
 #include"TypeConverter.h"
 void PlayScene::LoadResource()
 {
-
+	ResourceManager::GetInstance()->LoadSceneData("Data\\Data\\Data01.xml", this->miniScenes);
+	this->currentMiniScene = miniScenes.at(1);
 	simon = new CSimon();
 	LoadObjects();
-	D3DXVECTOR2 pos = this->entryPoint.find(1)->second;
+	D3DXVECTOR2 pos = this->entryPoint.at(currentMiniScene->entryPointID);
 	this->simon->SetPosition(pos.x, pos.y);
-	this->sceneBox = this->sceneAreas[0];
-	currentMap = maps->Get("map1");
-	grid = grids.at("map1");
+	this->sceneBox = this->sceneAreas.at(currentMiniScene->areaID);
+	currentMap = maps->Get(currentMiniScene->mapID);
+	grid = grids.at(currentMiniScene->mapID);
+	
 }
 
 
@@ -105,26 +107,13 @@ void PlayScene::CamUpdate(DWORD dt)
 				door->ResetDoor();
 				door = NULL;
 				simon->SetAutoWalk(false);
-				float l, t, r, b;
-				simon->GetBoundingBox(l, t, r, b);
-
-				for (size_t i = 0; i < this->sceneAreas.size(); i++)
-				{
-					if (simon->AABB(l, t, r, b, sceneAreas[i].left, sceneAreas[i].top, sceneAreas[i].right, sceneAreas[i].bottom))
-					{
-						this->sceneBox = sceneAreas[i];
-						Camera::GetInstance()->SetCamera(sceneBox.left, 0);
-						simon->ResetState();
-						BoundMap* wall = new BoundMap();
-						wall->SetPosition(sceneBox.left, 0);
-						wall->SetSize(10, 100);
-						AddToGrid(wall, this->grid);
-						break;
-					}
-				}
-
-
+				simon->ResetState();
+				this->currentMiniScene = miniScenes.at(currentMiniScene->nextMiniScene);
+				this->isNextScene = true;
+			
 			}
+
+				
 		}
 
 	}
@@ -183,6 +172,16 @@ void PlayScene::UpdateGrid()
 
 }
 
+void PlayScene::GoToNextArea()
+{
+	D3DXVECTOR2 pos = this->entryPoint.at(currentMiniScene->entryPointID);
+	this->simon->SetPosition(pos.x, pos.y);
+	this->sceneBox = this->sceneAreas.at(currentMiniScene->areaID);
+	Camera::GetInstance()->SetCamera(sceneBox.left, 0);
+	currentMap = maps->Get(currentMiniScene->mapID);
+	grid = grids.at(currentMiniScene->mapID);
+}
+
 void PlayScene::HandleCrossEffect()
 {
 
@@ -205,17 +204,7 @@ void PlayScene::HandleCrossEffect()
 	}
 }
 
-void PlayScene::OnCreate()
-{
-	game = CGame::GetInstance();
-	this->stateTime = GAMESTATE_TIME;
-	LoadResource();
-	DevSupport();
-	HandleSpawnItem::GetInstance()->Init(this);
-	HandleSpawnEnemy::GetInstance()->Init(this);
-	HandleSpawnEffects::GetInstance()->Init(this);
-	HandleSpawnSubWeapon::GetInstance()->Init(this);
-}
+
 int PlayScene::CheckNumOfFishMan()
 {
 	int counter = 0;
@@ -253,9 +242,8 @@ void PlayScene::Update(DWORD dt)
 	}
 
 	if (this->isNextScene) {
-		DevSupport();
 		this->isNextScene = false;
-		this->simon->ResetState();
+		GoToNextArea();
 		return;
 	}
 
@@ -286,29 +274,11 @@ void PlayScene::Update(DWORD dt)
 			if (nextscene->CheckIsColliceWithPlayer())
 			{
 				nextscene->Reset();
-				UpdateGrid(); // update lần cuối
-				int nextMapID = nextscene->GetMapID();
-				int nextEntry = nextscene->GetNextEntryID();
 				int playerState = nextscene->GetPlayerAction();
-				string id = "map" + std::to_string(nextMapID);
-				this->currentMap = this->maps->Get(id);
-				this->grid = grids.at(id);
-				D3DXVECTOR2 pos = this->entryPoint.at(nextEntry);
-				this->simon->SetPosition(pos.x, pos.y);
-				float l, t, r, b;
-				simon->GetBoundingBox(l, t, r, b);
-				for (size_t j = 0; j < this->sceneAreas.size(); j++)
-				{
-					if (simon->AABB(l, t, r, b, sceneAreas[j].left, sceneAreas[j].top, sceneAreas[j].right, sceneAreas[j].bottom))
-					{
-
-						this->sceneBox = sceneAreas[j];
-						Camera::GetInstance()->SetCamera(sceneBox.left, sceneBox.top);
-					}
-				}
-				simon->ResetState();
+				this->currentMiniScene = miniScenes.at(nextscene->GetNextSceneID());
+				this->simon->ResetState();
 				this->simon->SetState(playerState);
-				return;
+				this->isNextScene = true;
 			}
 		}
 	}
@@ -447,68 +417,12 @@ void PlayScene::KillAllEnemy()
 
 }
 
-void PlayScene::DevSupport()
-{
-	CTextures* textures = CTextures::GetInstance();
-	Camera::GetInstance()->SetAllowScrollCam(false);
-
-	switch (this->currentScene)
-	{
-	case GSCENE_01:
-
-		currentMap = maps->Get("map1");
-		grid = grids.at("map1");
-		break;
-	case GSCENE_01_GH:
-		currentMap = maps->Get("map2");
-		grid = grids.at("map2");
-		this->sceneBox = this->sceneAreas[1];
-		break;
-	case GSTATE_02:
-	{
-		currentMap = maps->Get("map2");
-		grid = grids.at("map2");
-
-
-		break;
-	}
-	case GSTATE_02_UDG:
-	{
-		currentMap = maps->Get("map3");
-		grid = grids.at("map3");
-
-
-		break;
-	}
-	case GSTATE_02_B:
-	{
-
-		currentMap = maps->Get("map2");
-		grid = grids.at("map2");
-
-		break;
-	}
-	case GSCENE_02_N: {
-		currentMap = maps->Get("map2");
-		grid = grids.at("map2");
-
-		break;
-	}
-	case GSCENE_03: {
-		currentMap = maps->Get("map2");
-		grid = grids.at("map2");
-
-		break;
-	}
-	}
-}
-
 
 
 void PlayScene::JumpToScene(int state)
 {
-	this->currentScene = state;
 	this->isNextScene = true;
+	this->currentMiniScene = this->miniScenes.at(state);
 }
 
 void PlayScene::LoadObjects()
@@ -591,7 +505,7 @@ void PlayScene::LoadObjects()
 				break;
 			case ObjectID::ONextmap:
 				for (const auto& child : groupObject) {
-					nextScene = new NextScene(child->GetPropertyByKey("nextMap"), child->GetPropertyByKey("nextEntry"), child->GetPropertyByKey("playerAction"));
+					nextScene = new NextScene(child->GetPropertyByKey("playerAction"), child->GetPropertyByKey("nextSceneID"));
 					nextScene->SetSize(child->GetWidth(), child->GetHeight());
 					nextScene->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(nextScene, grid);
@@ -642,7 +556,7 @@ void PlayScene::LoadObjects()
 					int r = child->GetX() + child->GetWidth();
 					int b = child->GetY() + child->GetHeight();
 					sceneBox = { l,t,r,b };
-					this->sceneAreas.push_back(sceneBox);
+					this->sceneAreas.insert(std::make_pair(std::stoi(child->GetName()), sceneBox));
 				}
 				break;
 			case ObjectID::OCandle:
@@ -770,25 +684,28 @@ void PlayScene::OnKeyDown(int keyCode)
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDCROSS, sx, sy - 64, false);
 		break;
 	case DIK_Q:
-		JumpToScene(GSCENE_01);
+		JumpToScene(1);
 		break;
 	case DIK_W:
-		JumpToScene(GSCENE_01_GH);
+		JumpToScene(2);
 		break;
 	case DIK_E:
-		JumpToScene(GSTATE_02);
+		JumpToScene(3);
 		break;
 	case DIK_R:
-		JumpToScene(GSTATE_02_UDG);
+		JumpToScene(4);
 		break;
 	case DIK_T:
-		JumpToScene(GSTATE_02_B);
+		JumpToScene(5);
 		break;
 	case DIK_Y:
-		JumpToScene(GSCENE_02_N);
+		JumpToScene(6);
 		break;
 	case DIK_U:
-		JumpToScene(GSCENE_03);
+		JumpToScene(7);
+		break;
+	case DIK_I:
+		JumpToScene(8);
 		break;
 	case DIK_TAB:
 		KillAllEnemy();
@@ -1001,6 +918,7 @@ void PlayScene::KeyState(BYTE* states)
 
 PlayScene::PlayScene()
 {
+	this->stateTime = GAMESTATE_TIME;
 	this->isNextScene = false;
 	this->currentScene = GSCENE_01;
 	maps = MapManager::GetInstance();
@@ -1010,6 +928,7 @@ PlayScene::PlayScene()
 	HandleSpawnEnemy::GetInstance()->Init(this);
 	HandleSpawnItem::GetInstance()->Init(this);
 	HandleSpawnSubWeapon::GetInstance()->Init(this);
+	
 }
 
 
