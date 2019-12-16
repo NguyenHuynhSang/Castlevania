@@ -63,7 +63,7 @@
 			<miniscene  ID="5" preID="0" nextID="2" name="Great_Hall_THOUGHDOOR_BACK" entryPoint="4" area="3" map="map2" revivalScene="3"  stateID="2"  />
 			<miniscene  ID="6" preID="0" nextID="2" name="UNDERGOUND_BACK" map="map3" entryPoint="6" area="5" revivalScene="3"  stateID="2"  />
 			<miniscene  ID="7" preID="0" nextID="8" name="Great_Hall_THOUGHDOOR_NEXT" entryPoint="7" area="3" map="map2" revivalScene="3"  stateID="3"  />
-			<miniscene  ID="8" preID="0" nextID="2" name="Great_Hall_BOSSARES" map="map2" entryPoint="1" area="3" revivalScene="8"  stateID="3"  />
+			<miniscene  ID="8" preID="0" nextID="2" name="Great_Hall_BOSSARES" map="map2" entryPoint="8" area="4" revivalScene="8"  stateID="3"  />
 		</playscene>
 	</scene>
 

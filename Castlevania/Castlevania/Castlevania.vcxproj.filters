@@ -16,12 +16,6 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{8965db3c-5983-4748-8e44-e4d6990aaefc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement">
-      <UniqueIdentifier>{1891c92d-360d-40be-97e4-2164b4a80918}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\StaticObjects">
-      <UniqueIdentifier>{6e6c3d27-0bd8-4900-b5d7-0413a2acac00}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utilities">
       <UniqueIdentifier>{675db370-fc41-444d-aa13-b48e2948f3c5}</UniqueIdentifier>
     </Filter>
@@ -40,20 +34,11 @@
     <Filter Include="Documentation">
       <UniqueIdentifier>{c266753f-fa9e-4ebf-a4d0-b64d8d362243}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement\Items">
-      <UniqueIdentifier>{12762fe4-fb4d-4fa5-bedd-bbdafa689ca8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scenes">
       <UniqueIdentifier>{bb7d3660-35bb-461c-bea8-b670734cf542}</UniqueIdentifier>
     </Filter>
     <Filter Include="Effects">
       <UniqueIdentifier>{7257fe3b-49e5-4ee9-aadd-a1c967f6f38a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\Enemy">
-      <UniqueIdentifier>{a75e11b1-51ac-4bbb-aa31-918cc911d2dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\StaticObjects\Hidden">
-      <UniqueIdentifier>{b570a370-9a47-4a1a-9f11-b12cc236d0c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utilities\Grid">
       <UniqueIdentifier>{b832f5bf-88a0-4ee6-888e-7cc4b17d9897}</UniqueIdentifier>
@@ -61,20 +46,35 @@
     <Filter Include="Hub">
       <UniqueIdentifier>{bfc83f90-cf3d-4e6a-a1bc-ffbe0f378a9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectsManagement\PlayerAndWeapon">
-      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\PlayerAndWeapon\Weapons">
-      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\PlayerAndWeapon\SubWeapons">
-      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectsManagement\Enemy\Boss">
-      <UniqueIdentifier>{4475eb4f-3267-4d52-afd1-de7feb278667}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Sound">
       <UniqueIdentifier>{2455f1e6-b923-4149-b25e-c5ecb4e7a039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager">
+      <UniqueIdentifier>{1891c92d-360d-40be-97e4-2164b4a80918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\StaticObjects">
+      <UniqueIdentifier>{6e6c3d27-0bd8-4900-b5d7-0413a2acac00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\StaticObjects\Hidden">
+      <UniqueIdentifier>{b570a370-9a47-4a1a-9f11-b12cc236d0c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\Items">
+      <UniqueIdentifier>{12762fe4-fb4d-4fa5-bedd-bbdafa689ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\Enemy">
+      <UniqueIdentifier>{a75e11b1-51ac-4bbb-aa31-918cc911d2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\Enemy\Boss">
+      <UniqueIdentifier>{4475eb4f-3267-4d52-afd1-de7feb278667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\PlayerAndWeapon">
+      <UniqueIdentifier>{0a805628-07ae-4fe9-bcb3-f10740085cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\PlayerAndWeapon\Weapons">
+      <UniqueIdentifier>{65fedf86-70f3-4a6b-a6bd-e7e285f15215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectsManager\PlayerAndWeapon\SubWeapons">
+      <UniqueIdentifier>{dc197d96-f2f7-481e-ae7d-9e8b39b8d1a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,10 +88,10 @@
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>ObjectsManagement</Filter>
+      <Filter>ObjectsManager</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
       <Filter>Utilities</Filter>
@@ -109,10 +109,10 @@
       <Filter>Library\RapidXML</Filter>
     </ClInclude>
     <ClInclude Include="Simon.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon</Filter>
     </ClInclude>
     <ClInclude Include="Torch.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClInclude>
     <ClInclude Include="CTileMap.h">
       <Filter>Utilities\MapReader</Filter>
@@ -124,22 +124,22 @@
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Heart.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Zombie.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="BlockingQueue.h">
       <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="MorningStar.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Effects.h">
       <Filter>Effects</Filter>
@@ -148,58 +148,58 @@
       <Filter>Effects</Filter>
     </ClInclude>
     <ClInclude Include="MoneyBag.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Whip.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\Weapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Panther.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ObjectProperty.h">
       <Filter>Utilities\MapReader</Filter>
     </ClInclude>
     <ClInclude Include="Candle.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClInclude>
     <ClInclude Include="BBoxObjects.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="BoundMap.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="Entry.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="MoneyBagTrigger.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="NextScene.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="SpawnZone.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="StairTrigger.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="LargeHeart.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="DaggerItem.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="SubWeapon.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="Dagger.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="BattleCross.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="DebrisBrick.h">
       <Filter>Effects</Filter>
@@ -211,76 +211,76 @@
       <Filter>Effects</Filter>
     </ClInclude>
     <ClInclude Include="Fishman.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Water.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="HandleSpawnEnemy.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="HandleSpawnItem.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Fireball.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ScoreText.h">
       <Filter>Effects</Filter>
     </ClInclude>
     <ClInclude Include="Door.h">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClInclude>
     <ClInclude Include="Axe.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="AxeItem.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Utilities\Grid</Filter>
     </ClInclude>
     <ClInclude Include="IStopWatch.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="PorkChop.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="StopWatch.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="HandleSpawnSubWeapon.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="Hud.h">
       <Filter>Hub</Filter>
     </ClInclude>
     <ClInclude Include="InvisibilityPotion.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Cross.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Bat.h">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="BossZone.h">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClInclude>
     <ClInclude Include="IHolyWater.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="HolyWater.h">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClInclude>
     <ClInclude Include="PhantomBat.h">
-      <Filter>ObjectsManagement\Enemy\Boss</Filter>
+      <Filter>ObjectsManager\Enemy\Boss</Filter>
     </ClInclude>
     <ClInclude Include="MultiplyShotItem.h">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
     <ClInclude Include="Spark.h">
       <Filter>Effects</Filter>
@@ -321,10 +321,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>ObjectsManagement</Filter>
+      <Filter>ObjectsManager</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework</Filter>
@@ -336,13 +336,13 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Simon.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon</Filter>
     </ClCompile>
     <ClCompile Include="define.h">
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Torch.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClCompile>
     <ClCompile Include="CTileMap.cpp">
       <Filter>Utilities\MapReader</Filter>
@@ -354,19 +354,19 @@
       <Filter>Utilities\MapReader</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Heart.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Zombie.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="MorningStar.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Effects.cpp">
       <Filter>Effects</Filter>
@@ -375,58 +375,58 @@
       <Filter>Effects</Filter>
     </ClCompile>
     <ClCompile Include="MoneyBag.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Panther.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Whip.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\Weapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="ObjectProperty.cpp">
       <Filter>Utilities\MapReader</Filter>
     </ClCompile>
     <ClCompile Include="Candle.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClCompile>
     <ClCompile Include="BBoxObjects.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="BoundMap.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="Entry.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="MoneyBagTrigger.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="NextScene.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="StairTrigger.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="SpawnZone.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="LargeHeart.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="DaggerItem.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="SubWeapon.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Dagger.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="BattleCross.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="DebrisBrick.cpp">
       <Filter>Effects</Filter>
@@ -438,76 +438,76 @@
       <Filter>Effects</Filter>
     </ClCompile>
     <ClCompile Include="Fishman.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Water.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="HandleSpawnEnemy.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="HandleSpawnItem.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Fireball.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ScoreText.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
     <ClCompile Include="Door.cpp">
-      <Filter>ObjectsManagement\StaticObjects</Filter>
+      <Filter>ObjectsManager\StaticObjects</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="AxeItem.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Utilities\Grid</Filter>
     </ClCompile>
     <ClCompile Include="IStopWatch.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="PorkChop.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="StopWatch.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="HandleSpawnSubWeapon.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="Hud.cpp">
       <Filter>Hub</Filter>
     </ClCompile>
     <ClCompile Include="InvisibilityPotion.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Cross.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Bat.cpp">
-      <Filter>ObjectsManagement\Enemy</Filter>
+      <Filter>ObjectsManager\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="BossZone.cpp">
-      <Filter>ObjectsManagement\StaticObjects\Hidden</Filter>
+      <Filter>ObjectsManager\StaticObjects\Hidden</Filter>
     </ClCompile>
     <ClCompile Include="IHolyWater.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="HolyWater.cpp">
-      <Filter>ObjectsManagement\PlayerAndWeapon\SubWeapons</Filter>
+      <Filter>ObjectsManager\PlayerAndWeapon\SubWeapons</Filter>
     </ClCompile>
     <ClCompile Include="PhantomBat.cpp">
-      <Filter>ObjectsManagement\Enemy\Boss</Filter>
+      <Filter>ObjectsManager\Enemy\Boss</Filter>
     </ClCompile>
     <ClCompile Include="MultiplyShotItem.cpp">
-      <Filter>ObjectsManagement\Items</Filter>
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
     <ClCompile Include="Spark.cpp">
       <Filter>Effects</Filter>

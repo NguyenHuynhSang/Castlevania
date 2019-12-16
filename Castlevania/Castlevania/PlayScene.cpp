@@ -277,6 +277,8 @@ void PlayScene::Update(DWORD dt)
 				int playerState = nextscene->GetPlayerAction();
 				this->currentMiniScene = miniScenes.at(nextscene->GetNextSceneID());
 				this->simon->ResetState();
+				D3DXVECTOR2 pos = this->entryPoint.at(currentMiniScene->entryPointID);
+				this->simon->SetPosition(pos.x, pos.y);
 				this->simon->SetState(playerState);
 				this->isNextScene = true;
 			}
@@ -642,6 +644,39 @@ void PlayScene::GameTimeCounter()
 
 void PlayScene::OnKeyDown(int keyCode)
 {
+	bool devSupport=false;
+	switch (keyCode)
+	{
+		devSupport = true;
+	case DIK_Q:
+		JumpToScene(1);
+		break;
+	case DIK_W:
+		JumpToScene(2);
+		break;
+	case DIK_E:
+		JumpToScene(3);
+		break;
+	case DIK_R:
+		JumpToScene(4);
+		break;
+	case DIK_T:
+		JumpToScene(5);
+		break;
+	case DIK_Y:
+		JumpToScene(6);
+		break;
+	case DIK_U:
+		JumpToScene(7);
+		break;
+	case DIK_I:
+		JumpToScene(8);
+		break;
+	}
+	if (devSupport)
+	{
+		return;
+	}
 	if (simon->GetState() == SIMON_STATE_DIE || simon->GetState() == SIMON_STATE_FALL_DOWN) return;
 	float sx, sy;
 	simon->GetPosition(sx, sy);
@@ -682,30 +717,6 @@ void PlayScene::OnKeyDown(int keyCode)
 		break;
 	case DIK_6:
 		HandleSpawnItem::GetInstance()->SpawnItem(ITDCROSS, sx, sy - 64, false);
-		break;
-	case DIK_Q:
-		JumpToScene(1);
-		break;
-	case DIK_W:
-		JumpToScene(2);
-		break;
-	case DIK_E:
-		JumpToScene(3);
-		break;
-	case DIK_R:
-		JumpToScene(4);
-		break;
-	case DIK_T:
-		JumpToScene(5);
-		break;
-	case DIK_Y:
-		JumpToScene(6);
-		break;
-	case DIK_U:
-		JumpToScene(7);
-		break;
-	case DIK_I:
-		JumpToScene(8);
 		break;
 	case DIK_TAB:
 		KillAllEnemy();
@@ -878,6 +889,7 @@ void PlayScene::KeyState(BYTE* states)
 	}
 	else if (game->IsKeyDown(DIK_DOWN))
 	{
+
 		if (simon->GetState() == SIMON_STATE_UPSTAIR_IDLE) {
 			if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT)
 				simon->SetStepOnStairDirection(STAIRDIRECTION::DOWNLEFT);

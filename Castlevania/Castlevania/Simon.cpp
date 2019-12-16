@@ -69,19 +69,27 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 
 }
 
 void CSimon::HandleFirstStepOnStair()
 {
+	if (onStairDirection == STAIRDIRECTION::DEFAULT) {
+		DebugOut(L"Return \n");
+		return;
+	}
 	//reset vx vy remain from last state
 	this->vx = 0;
 	this->vy = 0;
+	if (state==SIMON_STATE_WALKING_LEFT)
+	{
+		int a = 2;
+	}
 	DebugOut(L"HandleFirstStepOnStair \n");
 	//up right first step
-	if (onStairDirection == STAIRDIRECTION::DEFAULT) return;
-	else if (onStairDirection == STAIRDIRECTION::UPRIGHT) {
+	
+	 if (onStairDirection == STAIRDIRECTION::UPRIGHT) {
 		DebugOut(L"Simon x=%f y=%f \n", this->x, this->y);
 
 		if (stairPos.x - this->x > SIMON_UPSTAIR_RIGHT_OFFSET) {
@@ -260,7 +268,10 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	if (isAutoWalk)
+	{
+		int a = 2;
+	}
 
 	if (this->state == SIMON_STATE_DIE)
 	{
@@ -627,7 +638,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			float l, t, r, b,el,et,er,eb;
 			this->GetBoundingBox(l, t, r, b);
-			b = b + 5; // hehehe offset 5pixel
+			b = b + 10; // hehehe offset 5pixel
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l,t,r,b,el,et,er,eb))
 			{
@@ -640,7 +651,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			float l, t, r, b, el, et, er, eb;
 			this->GetBoundingBox(l, t, r, b);
-			b = b + 8; // hehehe offset 5pixel
+			b = b + 10; // hehehe offset 5pixel
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l, t, r, b, el, et, er, eb))
 			{
@@ -735,6 +746,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				f->SetActive(false);
 				this->isColliceWithStair = false;
 				if (!this->isOnStair)
+		
 					this->onStairDirection = STAIRDIRECTION::DEFAULT; //reset
 			}
 		}
@@ -1115,9 +1127,15 @@ void CSimon::SimonUseSubWeapon()
 
 void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x + 13;
+	
 	top = y;
-	right = left + SIMON_BIG_BBOX_WIDTH - 2;
+	if (isOnStair)
+	{
+		top = y+2;
+
+	}
 	bottom = top + SIMON_BIG_BBOX_HEIGHT;
+	left = x + 13;
+	right = left + SIMON_BIG_BBOX_WIDTH - 2;
 }
 
