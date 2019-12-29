@@ -105,6 +105,12 @@ void PlayScene::CamUpdate(DWORD dt)
 			else
 			{
 				door->ResetDoor();
+				float x_, y_;
+				door->GetPosition(x_, y_);
+				BoundMap* bound = new BoundMap();
+				bound->SetSize(10,SCREEN_HEIGHT/2);
+				bound->SetPosition(x_, y_);
+				AddToGrid(bound, grid);
 				door = NULL;
 				simon->SetAutoWalk(false);
 				simon->ResetState();

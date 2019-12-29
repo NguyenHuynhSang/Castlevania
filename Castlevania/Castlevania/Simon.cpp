@@ -57,7 +57,7 @@ CSimon::CSimon() :CGameObject()
 }
 
 
- int CSimon::score_=0;
+int CSimon::score_ = 0;
 
 CSimon::~CSimon()
 {
@@ -82,14 +82,14 @@ void CSimon::HandleFirstStepOnStair()
 	//reset vx vy remain from last state
 	this->vx = 0;
 	this->vy = 0;
-	if (state==SIMON_STATE_WALKING_LEFT)
+	if (state == SIMON_STATE_WALKING_LEFT)
 	{
 		int a = 2;
 	}
 	DebugOut(L"HandleFirstStepOnStair \n");
 	//up right first step
-	
-	 if (onStairDirection == STAIRDIRECTION::UPRIGHT) {
+
+	if (onStairDirection == STAIRDIRECTION::UPRIGHT) {
 		DebugOut(L"Simon x=%f y=%f \n", this->x, this->y);
 
 		if (stairPos.x - this->x > SIMON_UPSTAIR_RIGHT_OFFSET) {
@@ -364,7 +364,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (this->paralyze_start!=0 && GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME) {
+	if (this->paralyze_start != 0 && GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME) {
 		this->SetState(SIMON_STATE_IDLE);
 		this->paralyze_start = 0;
 	}
@@ -390,7 +390,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Ground*>(e->obj)) {
 
-		
+
 				if (e->ny < 0) {
 					if (this->hp_ == 0)
 					{
@@ -437,7 +437,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			else if (dynamic_cast<Water*>(e->obj)) {
-			
+
 				if (e->nx != 0)
 				{
 					x += dx;
@@ -493,23 +493,38 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<Door*>(e->obj))
 			{
-				Door* door = dynamic_cast<Door*>(e->obj);
-			
-				if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
+
+
+				if (e->nx < 0)
 				{
-					door->SetIsColicePlayer(true);
-					this->isHitDoor = true;
+					Door* door = dynamic_cast<Door*>(e->obj);
+					if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
+					{
+						door->SetIsColicePlayer(true);
+						this->isHitDoor = true;
+					}
 				}
+
 
 			}
 			else if (dynamic_cast<BossZone*>(e->obj)) {
-			BossZone* bossZone = dynamic_cast<BossZone*>(e->obj);
-			bossZone->DestroyImmediate();
+				BossZone* bossZone = dynamic_cast<BossZone*>(e->obj);
+				bossZone->DestroyImmediate();
 				this->isFightWithBoss = true;
 
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
 				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+				if (dynamic_cast<Bat*> (e->obj))
+				{
+					Bat* bat = dynamic_cast<Bat*> (e->obj);
+					bat->SubtractHP(1);
+					if (bat->GetHp() == 0)
+					{
+						bat->SetDestroy();
+					}
+				}
+
 
 				if (untouchable_start == 0) {
 
@@ -584,7 +599,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						StartUntouchable();
 						DebugOut(L"start untouchh swepaabb \n");
 					}
-					else if (dynamic_cast<MoneyBag *>(e->obj)) {
+					else if (dynamic_cast<MoneyBag*>(e->obj)) {
 						score_ += item->GetScore();
 					}
 					if (!item->isDestroyed)
@@ -594,7 +609,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			else if (dynamic_cast<Entry*>(e->obj)) {
-				DebugOut(L"Entry \n");
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
 
@@ -632,15 +646,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 
 		LPGAMEOBJECT e = coObjects->at(i);
-		if (dynamic_cast<Ground*>(e) &&  !flagOnGround) // BUG khi đứng lên brick
+		if (dynamic_cast<Ground*>(e) && !flagOnGround) // BUG khi đứng lên brick
 		{
 			Ground* f = dynamic_cast<Ground*> (e);
 
-			float l, t, r, b,el,et,er,eb;
+			float l, t, r, b, el, et, er, eb;
 			this->GetBoundingBox(l, t, r, b);
 			b = b + 10; // hehehe offset 5pixel
 			f->GetBoundingBox(el, et, er, eb);
-			if (CGameObject::AABB(l,t,r,b,el,et,er,eb))
+			if (CGameObject::AABB(l, t, r, b, el, et, er, eb))
 			{
 				flagOnGround = true;
 			}
@@ -746,7 +760,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				f->SetActive(false);
 				this->isColliceWithStair = false;
 				if (!this->isOnStair)
-		
+
 					this->onStairDirection = STAIRDIRECTION::DEFAULT; //reset
 			}
 		}
@@ -774,18 +788,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
-		
-	
+
+
 	}
 
 
 	if (!flagOnGround)
 	{
-		DebugOut(L"Not on ground \n");
 		if (!isJumping && !isFirstStepOnStair && !isOnStair && this->state != SIMON_STATE_DEFLECT) {
 			SetState(SIMON_STATE_FALL_DOWN);
 		}
-		
+
 	}
 
 
@@ -896,7 +909,7 @@ void CSimon::Render()
 		Renderer(ani);
 		return;
 	}
-	else if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP ||state==SIMON_STATE_FALL_DOWN) {
+	else if (state == SIMON_STATE_SIT || state == SIMON_STATE_JUMP || state == SIMON_STATE_FALL_DOWN) {
 		ani = SIMON_ANI_SITTING;
 		Renderer(ani);
 		return;
@@ -1127,11 +1140,11 @@ void CSimon::SimonUseSubWeapon()
 
 void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	
+
 	top = y;
 	if (isOnStair)
 	{
-		top = y+2;
+		top = y + 2;
 
 	}
 	bottom = top + SIMON_BIG_BBOX_HEIGHT;

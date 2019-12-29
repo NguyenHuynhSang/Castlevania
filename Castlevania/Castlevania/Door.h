@@ -42,8 +42,10 @@ public:
 	void ResetDoor() {
 		this->doorOpened = false;
 		this->doorClosed = false;
+		animations[DOOR_ANI_CLOSE]->ResetAnimation();
 		animations[DOOR_ANI_OPEN]->ResetAnimation();
 		animations[DOOR_ANI_CLOSING]->ResetAnimation();
+		this->SetState(DOOR_STATE_CLOSE);
 	};
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {
