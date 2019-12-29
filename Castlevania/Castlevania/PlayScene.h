@@ -35,7 +35,7 @@
 #include"PhantomBat.h"
 #include"MapManager.h"
 #include"Scene.h"
-
+#include"Sound.h"
 class MiniScene
 {
 public:
@@ -55,7 +55,7 @@ public:
 class PlayScene:public Scene
 {
 private:
-
+	Sound* sound;
 
 	CSimon *simon;
 	PhantomBat* phantomBat=NULL;

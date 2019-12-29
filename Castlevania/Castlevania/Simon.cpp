@@ -31,6 +31,7 @@
 #include"BossZone.h"
 #include"InvisibilityPotion.h"
 #include "MoneyBag.h"
+#include"Sound.h"
 CSimon::CSimon() :CGameObject()
 {
 	this->hp_ = 16;
@@ -561,6 +562,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						y += dy;
 				}
 				else {
+					Sound::GetInstance()->Play(eSound::soundCollectItem);
 					this->AddEnery(item->GetHeartPoint());
 					if (dynamic_cast<MorningStar*>(e->obj)) {
 						DebugOut(L"Morning star logic \n");
@@ -682,6 +684,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (CGameObject::IsColliding(this, f))
 				{
+					Sound::GetInstance()->Play(eSound::soundCollectItem);
 					if (!f->CheckisHiding())
 					{
 						this->AddEnery(f->GetHeartPoint());
@@ -1072,6 +1075,7 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 
 	case SIMON_STATE_POWERUP: {
 		vx = 0;
+		Sound::GetInstance()->Play(eSound::soundCollectWeapon);
 		vy = 0;
 		if (this->isActack)
 		{
@@ -1131,6 +1135,7 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 		whip->StartCalculatorCollice();
 	}
 	case SIMON_STATE_FALL_DOWN: {
+		Sound::GetInstance()->Play(eSound::soundHurting);
 		this->vx = 0;
 		this->vy = SIMON_FALLDOWN_VY;
 		break;

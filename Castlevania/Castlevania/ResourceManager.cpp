@@ -1,6 +1,7 @@
 #include "ResourceManager.h"
 #include"MapManager.h"
 #include"PlayScene.h"
+#include"Sound.h"
 ResourceManager * ResourceManager::__instance = NULL;
 
 
@@ -15,6 +16,7 @@ ResourceManager *ResourceManager::GetInstance()
 }
 void ResourceManager::LoadData(const std::string& filePath)
 {
+	DebugOut(L"[LOADER] Load resource \n");
 	char* fileLoc = new char[filePath.size() + 1]; // 1
 
 		   //TODO: make multi format version of string copy
@@ -72,6 +74,19 @@ void ResourceManager::LoadData(const std::string& filePath)
 		std::string path = std::string(child->first_attribute("path")->value()); // lay path
 		LoadAnimations(path, animations);
 	}
+
+	//load sound
+	Sound* sound = Sound::GetInstance();
+	xml_node<>* soundNode = rootNode->first_node("sounds");
+	for (xml_node<>* child = soundNode->first_node(); child; child = child->next_sibling()) {
+		std::string path = std::string(child->first_attribute("path")->value()); // lay path
+		int id = std::atoi(child->first_attribute("id")->value());
+		std::wstring cover = std::wstring(path.begin(), path.end());
+		LPTSTR cpath = (LPTSTR)cover.c_str();
+		eSound val = static_cast<eSound>(id);
+		sound->AddSound(val, cpath);
+	}
+
 
 }
 void ResourceManager::LoadSceneData(const std::string& filePath, std::unordered_map<int, MiniScene*>& miniScene)

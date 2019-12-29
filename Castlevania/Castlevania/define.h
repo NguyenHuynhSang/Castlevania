@@ -184,6 +184,15 @@ enum class MYCOLOR
 	BLUE
 };
 
+
+#define SAFE_DELETE(ptr) \
+if(ptr) \
+{\
+	delete (ptr); \
+	ptr = nullptr; \
+} \
+
+
 #endif
 
 

@@ -6,35 +6,38 @@
 #include"Brick.h"
 #include"PlayScene.h"	
 #include"HandleSpawnEffects.h"
+#include"Sound.h"
 
 
 
 
-
-void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
+void Whip::Update(DWORD dt, int _score, vector<LPGAMEOBJECT>* colliable_objects)
 {
 
 	// Calculate dx, dy 
+
 	if (animations[currentAnimation]->GetCurrentFrame()
 		!= animations[currentAnimation]->GetLastFrame()) {
+		hitObject = false;
 		return;
 	}
-
+	Sound::GetInstance()->Play(eSound::soundWhip, false);
 	CGameObject::Update(dt);
-	
 	if (!collideOneTime)
 	{
 		for (std::size_t i = 0; i < colliable_objects->size(); i++)
 		{
 
 			LPGAMEOBJECT e = colliable_objects->at(i);
-			if (dynamic_cast<Torch*>(e))
+			if (CGameObject::IsColliding(this, e))
 			{
-				Torch* f = dynamic_cast<Torch*> (e);
-				
-			
-				if (CGameObject::IsColliding(this, f))
+				hitObject = true;
+				if (dynamic_cast<Torch*>(e))
 				{
+					Torch* f = dynamic_cast<Torch*> (e);
+
+
+
 					float l, t, r, b;
 					f->GetBoundingBox(l, t, r, b);
 					if (this->nx == DIRECTION::RIGHT)
@@ -49,32 +52,30 @@ void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 						f->SetDestroy();
 					}
 
-				}
 
-			}
-			else if (dynamic_cast<CBrick*>(e))
-			{
-				CBrick* f = dynamic_cast<CBrick*> (e);
-				if (CGameObject::IsColliding(this, f))
+
+				}
+				else if (dynamic_cast<CBrick*>(e))
 				{
+					CBrick* f = dynamic_cast<CBrick*> (e);
+
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
 						//	DebugOut(L"Set destroy object \n");
 					}
 
+
 				}
-			}
-			else if (dynamic_cast<Candle*>(e))
-			{
-				Candle* f = dynamic_cast<Candle*> (e);
-				
-				if (CGameObject::IsColliding(this, f))
+				else if (dynamic_cast<Candle*>(e))
 				{
+					Candle* f = dynamic_cast<Candle*> (e);
+
+
 					float l, t, r, b;
 					f->GetBoundingBox(l, t, r, b);
 					if (this->nx == DIRECTION::RIGHT)
 					{
-						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l-(r-l), t);
+						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l - (r - l), t);
 					}
 					else
 					{
@@ -86,42 +87,45 @@ void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 						//	DebugOut(L"Set destroy object \n");
 					}
 
-				}
 
-			}
-			else if (dynamic_cast<Enemy*>(e)) {
-				Enemy* f = dynamic_cast<Enemy*> (e);
-				if (CGameObject::IsColliding(this, f)) {
+
+				}
+				else if (dynamic_cast<Enemy*>(e)) {
+					Enemy* f = dynamic_cast<Enemy*> (e);
+
 					if (!f->isDestroyed)
 					{
 						float l, t, r, b;
 						f->GetBoundingBox(l, t, r, b);
-						if (this->nx==DIRECTION::RIGHT)
+						if (this->nx == DIRECTION::RIGHT)
 						{
 							HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
 						}
-						else 
+						else
 						{
 							HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
 						}
-						
+
 						f->SubtractHP(this->damage);
 						if (f->GetHp() == 0)
 						{
-						
+
 							f->SetDestroy();
 							CSimon::AddScore(f->GetScore());
 						}
 
-					}
-					this->SetDestroy();
-					DebugOut(L"Collice \n");
-				}
 
+						this->SetDestroy();
+						DebugOut(L"Collice \n");
+					}
+
+				}
 			}
+
 		}
-	}	
+	}
 	this->collideOneTime = true;
+
 
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -142,6 +146,8 @@ void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 	}
 	else
 	{
+
+
 		DebugOut(L"Swept aabb \n");
 		float min_tx, min_ty, nx = 0, ny;
 
@@ -210,7 +216,7 @@ void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 					{
 						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, l, t);
 					}
-					else 
+					else
 					{
 						HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_SPARK, r, t);
 					}
@@ -231,6 +237,13 @@ void Whip::Update(DWORD dt,int _score, vector<LPGAMEOBJECT>* colliable_objects)
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	if (hitObject)
+	{
+		if (Sound::GetInstance()->isPlaying(eSound::soundWhip)) {
+			//	Sound::GetInstance()->Stop(eSound::soundWhip);
+			Sound::GetInstance()->Play(eSound::soundHit);
+		}
+	}
 }
 
 

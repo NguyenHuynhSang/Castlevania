@@ -226,6 +226,7 @@ int PlayScene::CheckNumOfFishMan()
 void PlayScene::Update(DWORD dt)
 {
 	GameTimeCounter();
+	sound->Play(eSound::musicState1, true);
 	if (this->simon->GetState() == SIMON_STATE_DIE)
 	{
 		if (this->reset_start == 0) reset_start = GetTickCount();
@@ -307,7 +308,7 @@ void PlayScene::Render()
 	hud->Render();
 	simon->Render();
 
-	grid->Render();
+	//grid->Render();
 
 
 }
@@ -973,6 +974,7 @@ PlayScene::PlayScene()
 	this->stateTime = GAMESTATE_TIME;
 	this->isNextScene = false;
 	this->currentScene = GSCENE_01;
+	sound = Sound::GetInstance();
 	maps = MapManager::GetInstance();
 	hud = new Hud(this);
 	DebugOut(L"Init play scene \n");
