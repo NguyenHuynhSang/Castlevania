@@ -11,7 +11,7 @@ private:
 	float y;
 	unsigned int width;
 	unsigned int height;
-	std::map<std::string, int> intProperties;
+	std::unordered_map<std::string, int> intProperties;
 public:
 	~TileObject();
 	TileObject() {
@@ -24,7 +24,7 @@ public:
 	std::string  GetName() {
 		return this->name;
 	}
-	int  GetPropertyByKey(std::string key) {
+	int  GetIntProperty(std::string key) {
 		if (this->intProperties.empty())
 			return -1;
 		if (this->intProperties.count(key)<=0)
