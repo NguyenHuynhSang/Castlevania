@@ -20,7 +20,8 @@ const enum ObjectID
 	ODoor,
 	OBoss,
 	OBossBorder,
-	OBossTrigger
+	OBossTrigger,
+	OWater,
 };
 
 const auto string2EntityType = std::unordered_map<std::string, ObjectID>
@@ -43,6 +44,6 @@ const auto string2EntityType = std::unordered_map<std::string, ObjectID>
 	{ "Spawner", ObjectID::OSpawner },
 	{ "Stair", ObjectID::OStair },
 	{ "Candle", ObjectID::OCandle },
-
+	{ "Water", ObjectID::OWater },
 };
 
