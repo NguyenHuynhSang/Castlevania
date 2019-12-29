@@ -126,7 +126,7 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 		for (std::size_t j = 0; j < this->tileSheetCol; j++)
 		{
 
-			CSprites::GetInstance()->Add(mapID + std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
+			CSprites::GetInstance()->Add(mapID+std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
 			id++;
 		}
 	}
@@ -179,8 +179,8 @@ void CTileMap::LoadObjects(const std::string& filePath)
 	for (xml_node<>* child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
 
 		int id = std::atoi(child->first_attribute("id")->value()); // lay ID Object group
-		std::string objectGroupName = std::string(child->first_attribute("name")->value()); // lay ten object group
-
+		std::string objectGroupName= std::string(child->first_attribute("name")->value()); // lay ten object group
+		
 		vector<LPTILEOBJECT> ObjectInGroup;
 		object = new TileObject();
 		for (xml_node<>* smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
@@ -193,15 +193,15 @@ void CTileMap::LoadObjects(const std::string& filePath)
 			int scid = std::atoi(smailchild->first_attribute("id")->value()); // lay ID
 			xml_attribute<>* nameAttatribute = smailchild->first_attribute("name");
 			std::string ObjectName = "";
-			if (nameAttatribute != NULL)
+			if (nameAttatribute!=NULL)
 			{
-				ObjectName = std::string(smailchild->first_attribute("name")->value());
+				 ObjectName = std::string(smailchild->first_attribute("name")->value());
 			}
-
+		
 			// [Note]đọc chỉ 1 property
 			object = new TileObject(scid, ObjectName, x, y, w, h);
 			xml_node<>* propertiesNode = smailchild->first_node("properties");
-			if (propertiesNode == NULL) { // k có prop
+			if (propertiesNode == NULL) {
 				objectLayer->Add(id, object);
 				ObjectInGroup.push_back(objectLayer->GetTileObject(id));
 				continue;
@@ -221,13 +221,13 @@ void CTileMap::LoadObjects(const std::string& filePath)
 
 
 		this->listObject.insert(std::make_pair(objectGroupName, ObjectInGroup)); // 
-
+	
 	}
 
 
 }
 
-void CTileMap::LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet, string mapID)
+void CTileMap::LoadGameData(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSet,string mapID)
 {
 	this->mapID = mapID;
 	LoadMap(filePath, texTileSet);

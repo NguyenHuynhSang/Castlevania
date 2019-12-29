@@ -1,1 +1,10 @@
-﻿
+﻿  Simon.cpp
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(152,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.h(189,9): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\TileObject.h(18,22): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\TileObject.h(18,10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\TileObject.h(39,86): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\TileObject.h(39,92): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(796,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Git\Castlevania\Castlevania\Castlevania\Simon.cpp(801,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Castlevania.vcxproj -> D:\Git\Castlevania\Castlevania\Debug\Castlevania.exe

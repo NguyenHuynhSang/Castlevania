@@ -18,7 +18,7 @@ void PlayScene::LoadResource()
 	this->sceneBox = this->sceneAreas.at(currentMiniScene->areaID);
 	currentMap = maps->Get(currentMiniScene->mapID);
 	grid = grids.at(currentMiniScene->mapID);
-
+	
 }
 
 
@@ -110,10 +110,10 @@ void PlayScene::CamUpdate(DWORD dt)
 				simon->ResetState();
 				this->currentMiniScene = miniScenes.at(currentMiniScene->nextMiniScene);
 				this->isNextScene = true;
-
+			
 			}
 
-
+				
 		}
 
 	}
@@ -252,7 +252,10 @@ void PlayScene::Update(DWORD dt)
 		KillAllEnemy();
 	}
 	HandleCrossEffect();
+
 	hud->Update();
+
+
 	GetListUnitFromGrid();
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -440,7 +443,6 @@ void PlayScene::LoadObjects()
 
 	for (auto const& map : *(maps->GetMaps()))
 	{
-
 		Grid* grid = new Grid(map.second->GetMapWidth(), map.second->GetMapHeight());
 		std::string mapName = map.first;
 		for (auto const& objectLayer : map.second->GetObjects())
@@ -453,8 +455,6 @@ void PlayScene::LoadObjects()
 				objectId = string2EntityType.at(name);
 			}
 
-
-
 			switch (objectId)
 			{
 			case ObjectID::OPlayer:
@@ -463,32 +463,6 @@ void PlayScene::LoadObjects()
 					std::string name = child->GetName();
 					int id = std::stoi(name);
 					entryPoint.insert(std::make_pair(id, entry));
-				}
-				break;
-			case ObjectID::OBoss:
-				for (const auto& child : groupObject) {
-					phantomBat = new PhantomBat();
-					phantomBat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-					auto bossBatBorder = map.second->GetObjects().at("BossBorder");
-					for (const auto& smallchild : bossBatBorder) {
-						float l = 0, t = 0, r = 0, b = 0;
-						l = smallchild->GetX();
-						t = smallchild->GetY() + 80;
-						r = l + smallchild->GetWidth();
-						b = t + smallchild->GetHeight();
-						RECT rect = { l,t,r,b };
-						phantomBat->SetActiveArea(rect);
-					}
-					AddToGrid(phantomBat, grid);
-					
-				}
-				break;
-			case ObjectID::OBossTrigger:
-				for (const auto& child : groupObject) {
-					BossZone* bzone = new BossZone();
-					bzone->SetSize(child->GetWidth(), child->GetHeight());
-					bzone->SetPosition(child->GetX(), child->GetY());
-					AddToGrid(bzone, grid);
 				}
 				break;
 			case ObjectID::OGround:
@@ -505,14 +479,6 @@ void PlayScene::LoadObjects()
 					bound->SetSize(child->GetWidth(), child->GetHeight());
 					bound->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(bound, grid, true);
-				}
-				break;
-			case ObjectID::OWater:
-				for (const auto& child : groupObject) {
-					water = new Water();
-					water->SetSize(child->GetWidth(), child->GetHeight());
-					water->SetPosition(child->GetX(), child->GetY());
-					AddToGrid(water, grid, true);
 				}
 				break;
 			case ObjectID::ODoor:
@@ -535,13 +501,13 @@ void PlayScene::LoadObjects()
 				for (const auto& child : groupObject) {
 					torch = new Torch();
 					torch->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
-					torch->SetItem(child->GetIntProperty("item"));
+					torch->SetItem(child->GetPropertyByKey("item"));
 					AddToGrid(torch, grid);
 				}
 				break;
 			case ObjectID::ONextmap:
 				for (const auto& child : groupObject) {
-					nextScene = new NextScene(child->GetIntProperty("playerAction"), child->GetIntProperty("nextSceneID"));
+					nextScene = new NextScene(child->GetPropertyByKey("playerAction"), child->GetPropertyByKey("nextSceneID"));
 					nextScene->SetSize(child->GetWidth(), child->GetHeight());
 					nextScene->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(nextScene, grid);
@@ -552,17 +518,17 @@ void PlayScene::LoadObjects()
 					trigger = new MoneyBagTrigger();
 					trigger->SetSize(child->GetWidth(), child->GetHeight());
 					trigger->SetPosition(child->GetX(), child->GetY());
-					auto moneyBagObject = map.second->GetObjects().find("MoneyBag");
-					for (const auto& smallchild : moneyBagObject->second) {
-						trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
-					}
+					/*	auto moneyBagObject = currentMap->GetObjects().find(ID_TILE_OBJECT_MONEY_BAG);
+						for (const auto& smallchild : moneyBagObject->second) {
+							trigger->SetItemPosition(smallchild->GetX(), smallchild->GetY() - smallchild->GetHeight());
+						}*/
 					AddToGrid(trigger, grid);
 				}
 				break;
 			case ObjectID::OStair:
 				for (const auto& child : groupObject) {
 					stair = new StairTrigger();
-					stair->SetDirection(child->GetIntProperty("dir"));
+					stair->SetDirection(child->GetPropertyByKey("dir"));
 					stair->SetSize(child->GetWidth(), child->GetHeight());
 					stair->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(stair, grid);
@@ -570,7 +536,7 @@ void PlayScene::LoadObjects()
 				break;
 			case ObjectID::OSpawner:
 				for (const auto& child : groupObject) {
-					spawnZone = new SpawnZone(child->GetIntProperty("enemydef"), child->GetIntProperty("num"), child->GetIntProperty("respawntime"));
+					spawnZone = new SpawnZone(child->GetPropertyByKey("enemydef"), child->GetPropertyByKey("num"), child->GetPropertyByKey("respawntime"));
 					spawnZone->SetSize(child->GetWidth(), child->GetHeight());
 					spawnZone->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(spawnZone, grid, true);
@@ -579,8 +545,8 @@ void PlayScene::LoadObjects()
 			case ObjectID::OBirck:
 				for (const auto& child : groupObject) {
 					brick = new CBrick();
-					brick->SetState(child->GetIntProperty("brickstate"));
-					brick->SetItemDef(child->GetIntProperty("itemdef"));
+					brick->SetState(child->GetPropertyByKey("brickstate"));
+					brick->SetItemDef(child->GetPropertyByKey("itemdef"));
 					brick->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
 					AddToGrid(brick, grid);
 				}
@@ -678,7 +644,7 @@ void PlayScene::GameTimeCounter()
 
 void PlayScene::OnKeyDown(int keyCode)
 {
-	bool devSupport = false;
+	bool devSupport=false;
 	switch (keyCode)
 	{
 		devSupport = true;
@@ -974,7 +940,7 @@ PlayScene::PlayScene()
 	HandleSpawnEnemy::GetInstance()->Init(this);
 	HandleSpawnItem::GetInstance()->Init(this);
 	HandleSpawnSubWeapon::GetInstance()->Init(this);
-
+	
 }
 
 

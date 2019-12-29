@@ -166,11 +166,11 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			flyToRamdomTager = true;
 			float tagetY = this->activeArea.top+20 + rand() % (this->activeArea.bottom - this->activeArea.top - 200);
 			float targetX = this->activeArea.left+60 + rand() % (this->activeArea.right - this->activeArea.left - 200);
-			if (this->x < (activeArea.left+abs(activeArea.left-activeArea.right) / 2))
+			if (this->x < activeArea.left)
 			{
 				this->vx = VAMPIREBAT_FLYBACK_VX;
 			}
-			else 
+			else if (this->x >= activeArea.left)
 			{
 				this->vx = -VAMPIREBAT_FLYBACK_VX;
 			}
