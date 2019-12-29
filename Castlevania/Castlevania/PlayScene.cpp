@@ -307,7 +307,7 @@ void PlayScene::Render()
 	hud->Render();
 	simon->Render();
 
-	//grid->Render();
+	grid->Render();
 
 
 }

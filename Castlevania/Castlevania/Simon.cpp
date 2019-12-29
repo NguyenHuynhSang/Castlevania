@@ -69,7 +69,7 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-	RenderBoundingBox();
+//	RenderBoundingBox();
 
 }
 
@@ -769,6 +769,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			Enemy* f = dynamic_cast<Enemy*>(e);
 			if (CGameObject::IsColliding(this, f))
 			{
+				if (dynamic_cast<Bat*> (e))
+				{
+					Bat* bat = dynamic_cast<Bat*> (e);
+					bat->SubtractHP(1);
+					if (bat->GetHp() == 0)
+					{
+						bat->SetDestroy();
+					}
+				}
+			
 				if (untouchable_start == 0) {
 
 					DebugOut(L"Collice with enemy \n", this->vy, this->vx);

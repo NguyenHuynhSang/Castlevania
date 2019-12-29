@@ -17,7 +17,7 @@ void Candle::Render()
 		return;
 	}
 	animations[0]->Render(DIRECTION::DEFAULT, x, y);
-	RenderBoundingBox();
+
 }
 
 void Candle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
