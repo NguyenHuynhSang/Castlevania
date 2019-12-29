@@ -193,6 +193,7 @@ void PlayScene::HandleCrossEffect()
 
 	if (simon->CheckIsGetCross())
 	{
+		sound->Play(eSound::soundHolyCross);
 		if (this->cross_start == 0)
 		{
 			cross_start = GetTickCount64();

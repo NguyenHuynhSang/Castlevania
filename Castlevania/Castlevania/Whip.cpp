@@ -158,7 +158,7 @@ void Whip::Update(DWORD dt, int _score, vector<LPGAMEOBJECT>* colliable_objects)
 		{
 			LPCOLLISIONEVENT e = coEvents[i];
 			if (dynamic_cast<Torch*>(e->obj)) {
-
+				hitObject = true;
 				Torch* torch = dynamic_cast<Torch*>(e->obj);
 				if (!torch->isDestroyed)
 				{
@@ -178,7 +178,7 @@ void Whip::Update(DWORD dt, int _score, vector<LPGAMEOBJECT>* colliable_objects)
 				this->SetDestroy();
 			}
 			else if (dynamic_cast<CBrick*>(e->obj)) {
-
+				hitObject = true;
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 				if (!brick->isDestroyed)
 				{
@@ -189,6 +189,7 @@ void Whip::Update(DWORD dt, int _score, vector<LPGAMEOBJECT>* colliable_objects)
 
 			else if (dynamic_cast<Candle*> (e->obj)) {
 				this->SetDestroy();
+				hitObject = true;
 				Candle* candle = dynamic_cast<Candle*>(e->obj);
 				if (!candle->isDestroyed)
 				{
@@ -206,7 +207,7 @@ void Whip::Update(DWORD dt, int _score, vector<LPGAMEOBJECT>* colliable_objects)
 				}
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
-
+				hitObject = true;
 				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{
@@ -240,7 +241,7 @@ void Whip::Update(DWORD dt, int _score, vector<LPGAMEOBJECT>* colliable_objects)
 	if (hitObject)
 	{
 		if (Sound::GetInstance()->isPlaying(eSound::soundWhip)) {
-			//	Sound::GetInstance()->Stop(eSound::soundWhip);
+			Sound::GetInstance()->Stop(eSound::soundWhip);
 			Sound::GetInstance()->Play(eSound::soundHit);
 		}
 	}
