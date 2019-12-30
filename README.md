@@ -2,5 +2,8 @@
 
 ## Các tool sử dụng
 ### Map
-https://renderhjs.net/shoebox/
-https://www.mapeditor.org/
+* https://www.mapeditor.org/
+### Sprite tool
+* https://renderhjs.net/shoebox/
+### Texture packer
+https://libgdx.badlogicgames.com/tools.html
