@@ -47,6 +47,8 @@ public:
 		animations[DOOR_ANI_CLOSING]->ResetAnimation();
 		this->SetState(DOOR_STATE_CLOSE);
 	};
+
+	void SetState(int state);
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
 	virtual void GetSpriteBox(float& width, float& height) {
 	};

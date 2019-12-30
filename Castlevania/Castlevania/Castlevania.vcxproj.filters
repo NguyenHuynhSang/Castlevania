@@ -321,6 +321,9 @@
     <ClInclude Include="Sound.h">
       <Filter>Framework\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="GridHelper.h">
+      <Filter>Utilities\Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -547,6 +550,9 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="GridHelper.cpp">
+      <Filter>Utilities\Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

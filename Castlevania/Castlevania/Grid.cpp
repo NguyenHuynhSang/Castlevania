@@ -9,25 +9,8 @@
 #include"PhantomBat.h"
 #include"Effects.h"
 #include"Textures.h"
-Unit::Unit(Grid* gird, LPGAMEOBJECT object, bool isAlwayUpdate)
-	: grid_(gird),
-	object(object),
-	x_(object->x),
-	y_(object->y)
-{
-	if (isAlwayUpdate)
-	{
-		grid_->AddToAlwayUpdateUnit(this);
-	}
-	else grid_->Add(this);
 
-}
 
-Unit::~Unit()
-{
-	//	DebugOut(L"Destructor Unit \n");
-	delete object;
-}
 
 void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
 {
@@ -53,16 +36,17 @@ void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
 	rect.bottom = (int)rec.bottom - (int)rec.top;
 
 
-	CGame::GetInstance()->Draw(true, DIRECTION::DEFAULT, rec.left, rec.top+80, bbox, rect.left, rect.top, rect.right, rect.bottom, alpha);
+	CGame::GetInstance()->Draw(true, DIRECTION::DEFAULT, rec.left, rec.top + 80, bbox, rect.left, rect.top, rect.right, rect.bottom, alpha);
 
 }
 
-void Grid::Add(Unit* unit)
+void Grid::Add(LPGAMEOBJECT object)
 {
-
-	//tính vị trí của unit
-	int cellX = (int)(unit->x_ / this->cellSize);
-	int cellY = (int)(unit->y_ / this->cellSize);
+	float x_, y_;
+	object->GetPosition(x_, y_);
+	//tính vị trí của object
+	int cellX = (int)(x_ / this->cellSize);
+	int cellY = (int)(y_ / this->cellSize);
 	if (cellX > numXCell)//safe 
 	{
 		DebugOut(L"[OUTOFGRID] NUMX\n");
@@ -74,54 +58,19 @@ void Grid::Add(Unit* unit)
 		DebugOut(L"[OUTOFGRID] NUMY \n");
 		return;
 	}
-	// thêm vào trước ds unit ở ô đó
-	unit->prev_ = NULL;
-	unit->next_ = cells_[cellY][cellX];
-	cells_[cellY][cellX] = unit;
+	object->SetCellIndex(cellX, cellY);
+	this->cells_[cellY][cellX].push_back(object);
 
-	// đã có 1 list unit ở đó
-	if (unit->next_ != NULL)
-	{
-		unit->next_->prev_ = unit;
-	}
-
-	// thêm vào sau ds;
-	//unit->next_ = NULL;
-	//Unit * lastNode= cells_[cellY][cellX];
-	//if (cells_[cellY][cellX]==NULL)
-	//{
-	//	unit->prev_ = NULL;
-	//	cells_[cellY][cellX] = unit;
-	//}
-	//else
-	//{
-	//	while (lastNode->next_ != NULL)
-	//	{
-	//		lastNode = lastNode->next_;
-
-	//	}
-	//	unit->prev_ = lastNode;
-	//	if (unit->prev_ != NULL)
-	//	{
-	//		unit->prev_->next_ = unit;
-	//	}
-	//}
 
 
 
 
 }
 
-void Grid::AddToAlwayUpdateUnit(Unit* unit)
+void Grid::AddToAlwayUpdateObjects(LPGAMEOBJECT object)
 {
 
-	unit->prev_ = NULL;
-	unit->next_ = alwaysUpdateUnit;
-	alwaysUpdateUnit = unit;
-	if (unit->next_ != NULL)
-	{
-		unit->next_->prev_ = unit;
-	}
+	this->alwaysUpdateobject.push_back(object);
 
 }
 
@@ -136,31 +85,34 @@ bool AABB(float l, float t, float r, float b, float l1, float t1, float r1, floa
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
 
-void Grid::Update(Unit* unit, float x, float y)
+void Grid::Update(LPGAMEOBJECT object)
 {
 	float cx_, cy_;
 
 	Camera::GetInstance()->GetCamera(cx_, cy_);
 
+	float x, y;
+	object->GetPosition(x, y);
+
 
 	float l, t, r, b;
-	unit->GetGameObject()->GetBoundingBox(l, t, r, b);
+	object->GetBoundingBox(l, t, r, b);
 
 
 	if (AABB(l, t, r, b, cx_, cy_, cx_ + SCREEN_WIDTH, cy_ + SCREEN_HEIGHT))
 	{
-		unit->GetGameObject()->SetActive();
+		object->SetActive();
 	}
 	else
 	{
-		if (unit->GetGameObject()->CheckActive()) {
-			if (dynamic_cast<Item*>(unit->GetGameObject())
-				|| dynamic_cast<Enemy*>(unit->GetGameObject())
-				|| dynamic_cast<SubWeapon*>(unit->GetGameObject()))
+		if (object->CheckActive()) {
+			if (dynamic_cast<Item*>(object)
+				|| dynamic_cast<Enemy*>(object)
+				|| dynamic_cast<SubWeapon*>(object))
 			{
-				if (!dynamic_cast<PhantomBat*>(unit->GetGameObject()))
+				if (!dynamic_cast<PhantomBat*>(object))
 				{
-					unit->GetGameObject()->DestroyImmediate();
+					object->DestroyImmediate();
 				}
 
 			}
@@ -170,75 +122,50 @@ void Grid::Update(Unit* unit, float x, float y)
 	//out of map? destroy immediate
 	if (x < -15 || x > mapWidth || y<0 || y > SCREEN_HEIGHT) // -15px for bound map
 	{
-		unit->GetGameObject()->DestroyImmediate();
+		object->DestroyImmediate();
 	}
 
-	// tìm vị trí củ của cell chứa unit 
-	int oldCellX = (int)(unit->x_ / this->cellSize);
-	int oldCellY = (int)(unit->y_ / this->cellSize);
+	CellIndex oldCell = object->GetCellIndex();
 
-	// xem unit h đang ở cell nào
+	// tìm vị trí cũ của cell chứa object 
+
+	// xem object h đang ở cell nào
+
 	int cellX = (int)(x / this->cellSize);
 	int cellY = (int)(y / this->cellSize);
 
 
-	// cập nhật lại vị trí
-	// set lại vị trí vì có thể object di chuyển một khoảng nhỏ
-	// nhưng vẫn nằm trong cell cũ
-	unit->x_ = x;
-	unit->y_ = y;
-
-	if (unit->GetGameObject()->CheckDestroyed())
+	if (object->CheckDestroyed())
 	{
-		// bỏ liên kết của unit với cell cũ
-		if (unit->prev_ != NULL)
-		{
-			unit->prev_->next_ = unit->next_;
+		// loại bỏ cell cũ
+		for (vector<LPGAMEOBJECT>::iterator it = cells_[oldCell.y][oldCell.x].begin(); it != cells_[oldCell.y][oldCell.x].end(); ) {
+			if ((*it) == object) {
+				it = cells_[oldCell.y][oldCell.x].erase(it);
+			}
+			else ++it;
 		}
-		if (unit->next_ != NULL)
-		{
-			unit->next_->prev_ = unit->prev_;
-		}
-
-		// If it's the head of a list, remove it.
-
-		if (cells_[oldCellY][oldCellX] == unit)
-		{
-			cells_[oldCellY][oldCellX] = unit->next_;
-		}
-		delete unit;
+		// xóa luôn
+		delete object;
 		return;
 	}
-
-
 	// nếu k ra khỏi cell 
-	if (oldCellX == cellX && oldCellY == cellY)
+	if (oldCell.x == cellX && oldCell.y == cellY)
 	{
 		return;
 	}
-
-	// bỏ liên kết của unit với cell cũ
-	if (unit->prev_ != NULL)
+	if (oldCell.x!=-1 && oldCell.y!=-1) // loại bỏ cell cũ
 	{
-		unit->prev_->next_ = unit->next_;
+		for (vector<LPGAMEOBJECT>::iterator it = cells_[oldCell.y][oldCell.x].begin(); it != cells_[oldCell.y][oldCell.x].end(); ) {
+			if ((*it) == object) {
+				it = cells_[oldCell.y][oldCell.x].erase(it);
+			}
+			else ++it;
+		}
+
 	}
-	if (unit->next_ != NULL)
-	{
-		unit->next_->prev_ = unit->prev_;
-	}
-
-	// If it's the head of a list, remove it.
-
-	if (cells_[oldCellY][oldCellX] == unit)
-	{
-		cells_[oldCellY][oldCellX] = unit->next_;
-	}
-
-
-	// Add it back to the grid at its new cell.
-
-
-	Add(unit);
+	
+	//thêm lại vào cell mới
+	Add(object);
 
 
 
@@ -249,17 +176,17 @@ void Grid::Update(float dt)
 
 }
 
-void Grid::GetListUnit(vector<Unit*>& listUnits)
+void Grid::GetListobject(vector<LPGAMEOBJECT>& listobjects)
 {
 	// dùng để sắp xếp lại thứ tự các loại object
-	vector<Unit*> enemiesUnit;
-	vector<Unit*> itemUnit;
-	vector<Unit*> subWeaponUnit;
-	vector<Unit*> effectUnit;
-	enemiesUnit.clear();
-	itemUnit.clear();
-	subWeaponUnit.clear();
-	effectUnit.clear();
+	vector<LPGAMEOBJECT> enemiesobject;
+	vector<LPGAMEOBJECT> itemobject;
+	vector<LPGAMEOBJECT> subWeaponobject;
+	vector<LPGAMEOBJECT> effectobject;
+	enemiesobject.clear();
+	itemobject.clear();
+	subWeaponobject.clear();
+	effectobject.clear();
 
 
 
@@ -274,64 +201,63 @@ void Grid::GetListUnit(vector<Unit*>& listUnits)
 	{
 		for (int j = startCol; j < endCol; j++)
 		{
-			Unit* unit = this->cells_[i][j];
-			// chi render nhung cell co unit
-
-			while (unit != NULL)
+			for (size_t k = 0; k < this->cells_[i][j].size(); k++)
 			{
-				if (!unit->GetGameObject()->CheckDestroyed())
+				LPGAMEOBJECT obj = this->cells_[i][j].at(k);
+				if (!obj->CheckDestroyed())
 				{
-					LPGAMEOBJECT object = unit->GetGameObject();
-					if (dynamic_cast<Enemy*>(object))
+					if (dynamic_cast<Enemy*>(obj))
 					{
 
-						enemiesUnit.push_back(unit);
+						enemiesobject.push_back(obj);
 					}
-					else if (dynamic_cast<Item*>(object))
+					else if (dynamic_cast<Item*>(obj))
 					{
-						itemUnit.push_back(unit);
+						itemobject.push_back(obj);
 					}
-					else if (dynamic_cast<SubWeapon*>(object))
+					else if (dynamic_cast<SubWeapon*>(obj))
 					{
-						subWeaponUnit.push_back(unit);
+						subWeaponobject.push_back(obj);
 
 					}
-					else if (dynamic_cast<Effects*>(object))
+					else if (dynamic_cast<Effects*>(obj))
 					{
-						effectUnit.push_back(unit);
+						effectobject.push_back(obj);
 					}
 					else
 					{
-						listUnits.push_back(unit);
+						listobjects.push_back(obj);
 					}
-					unit = unit->next_;
-
 				}
 				else
 				{
 
 				}
 			}
+
+
+			// chi render nhung cell co object
+
+
 		}
 	}
-	//loop thought alwaysUpdateUnit
-	Unit* unit = this->alwaysUpdateUnit;
-	while (unit != NULL)
+	//loop thought alwaysUpdateobject
+
+	for (size_t i = 0; i < this->alwaysUpdateobject.size(); i++)
 	{
-		if (!unit->GetGameObject()->CheckDestroyed())
-		{
-			listUnits.push_back(unit);
-		}
-		unit = unit->next_;
+		LPGAMEOBJECT ob = alwaysUpdateobject.at(i);
+		listobjects.push_back(ob);
+
 	}
 
 
 
 	// lấy theo thứ tự
-	listUnits.insert(listUnits.end(), itemUnit.begin(), itemUnit.end());
-	listUnits.insert(listUnits.end(), enemiesUnit.begin(), enemiesUnit.end());
-	listUnits.insert(listUnits.end(), subWeaponUnit.begin(), subWeaponUnit.end());
-	listUnits.insert(listUnits.end(), effectUnit.begin(), effectUnit.end());
+	listobjects.insert(listobjects.end(), itemobject.begin(), itemobject.end());
+	listobjects.insert(listobjects.end(), enemiesobject.begin(), enemiesobject.end());
+	listobjects.insert(listobjects.end(), subWeaponobject.begin(), subWeaponobject.end());
+	listobjects.insert(listobjects.end(), effectobject.begin(), effectobject.end());
+	DebugOut(L"List Object %d\n", listobjects.size());
 }
 
 Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
@@ -351,11 +277,11 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 	{
 		for (size_t j = 0; j < numXCell; j++)
 		{
-			this->cells_[i][j] = NULL;
+			this->cells_[i][j].clear();
 		}
 	}
 
-	this->alwaysUpdateUnit = NULL;
+	this->alwaysUpdateobject.clear();
 }
 
 void Grid::Render()
@@ -386,7 +312,7 @@ void Grid::Render()
 				else {
 					RenderCell(cell, MYCOLOR::RED, 100);
 				}
-			;
+				;
 			}
 			CGame::GetInstance()->DrawUIText(_UIinfor, cell);
 		}
@@ -394,29 +320,6 @@ void Grid::Render()
 
 }
 
-void Grid::RemoveUnit(Unit* unit)
-{
-	// tìm vị trí củ của cell chứa unit 
-	int oldCellX = (int)(unit->x_ / this->cellSize);
-	int oldCellY = (int)(unit->y_ / this->cellSize);
-	// bỏ liên kết của unit với cell cũ
-	if (unit->prev_ != NULL)
-	{
-		unit->prev_->next_ = unit->next_;
-	}
-	if (unit->next_ != NULL)
-	{
-		unit->next_->prev_ = unit->prev_;
-	}
-
-	// If it's the head of a list, remove it.
-
-	if (cells_[oldCellY][oldCellX] == unit)
-	{
-		cells_[oldCellY][oldCellX] = unit->next_;
-	}
-	delete unit->GetGameObject();
-}
 
 Grid::~Grid()
 {

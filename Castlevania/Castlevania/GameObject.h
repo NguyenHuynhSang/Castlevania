@@ -17,6 +17,13 @@ typedef CGameObject* LPGAMEOBJECT;
 
 struct CCollisionEvent;
 typedef CCollisionEvent* LPCOLLISIONEVENT;
+
+struct CellIndex {
+	int x;
+	int y;
+	CellIndex(int x, int y) :x(x), y(y) {};
+};
+
 struct CCollisionEvent
 {
 	LPGAMEOBJECT obj;
@@ -57,7 +64,18 @@ public:
 	bool setDestroy = false;
 	bool isDestroyed = false;
 	bool isObjectActive = false;
+	CellIndex cellIndex = { -1,-1 };
 public:
+	void SetCellIndex(CellIndex index) {
+		this->cellIndex = index;
+	}
+	void SetCellIndex(int cellX,int cellY) {
+		CellIndex cellIndex = { cellX,cellY };
+		this->cellIndex = cellIndex;
+	}
+	CellIndex GetCellIndex() {
+		return cellIndex;
+	}
 	void SetDestroy() {
 		this->setDestroy = true;
 	}

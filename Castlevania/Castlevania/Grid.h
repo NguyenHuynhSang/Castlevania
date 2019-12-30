@@ -4,28 +4,10 @@
 #include<vector>
 #include<Windows.h>
 #define CELL_SIZE  256
-class Grid;
-class Unit
-{
-	friend class Grid;
-	float x_;
-	float y_;
-	Grid* grid_=nullptr;
+typedef std::vector<LPGAMEOBJECT> cellObjects;
 
-	LPGAMEOBJECT object;
 
-	// ds lien ket doi
-	Unit* prev_=NULL;
-	Unit* next_ = NULL;
-public:
-	Unit(Grid * grid, LPGAMEOBJECT object,bool isAlwayUpdate=false);
-	LPGAMEOBJECT const  GetGameObject() {
-		return this->object;
-		
-	}
 
-	~Unit();
-};
 
 
 class Grid
@@ -38,20 +20,19 @@ private:
 	unsigned int numXCell;
 	unsigned int numYCell;
 
-	// mang 2 chieu luu unit
-	// trong cell co the co nhieu unit 
-	std::vector<std::vector<Unit *>> cells_;
-	Unit* alwaysUpdateUnit;
+	// mang 2 chieu luu object
+	// trong cell co the co nhieu object 
+	std::vector<std::vector<cellObjects>> cells_;
+	std::vector<LPGAMEOBJECT> alwaysUpdateobject;
 	void RenderCell(RECT rec, MYCOLOR color, int alpha = 64);
 public:
-	void Add(Unit *unit);
-	void AddToAlwayUpdateUnit(Unit* unit);
-	void Update(Unit *unit,float x,float y);
+	void Add(LPGAMEOBJECT object);
+	void AddToAlwayUpdateObjects(LPGAMEOBJECT object);
+	void Update(LPGAMEOBJECT object);
 	void Update(float dt);
-	void GetListUnit(vector<Unit*>& listUnits);
+	void GetListobject(vector<LPGAMEOBJECT>& listobjects);
 	Grid(unsigned int mapWidth, unsigned int mapHeight);
 	void Render();
-	void RemoveUnit(Unit* unit);
 	~Grid();
 };
 
