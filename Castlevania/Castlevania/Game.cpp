@@ -2,7 +2,7 @@
 #include "debug.h"
 #include<math.h>
 #include"Camera.h"
-CGame * CGame::__instance = NULL;
+CGame* CGame::__instance = NULL;
 
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
@@ -54,7 +54,7 @@ void CGame::Init(HWND hWnd)
 
 	// init font 
 	this->font = NULL;
-	HRESULT h=AddFontResourceEx(FONT_PATH, FR_PRIVATE, NULL);
+	HRESULT h = AddFontResourceEx(FONT_PATH, FR_PRIVATE, NULL);
 	if (h != DI_OK)
 	{
 
@@ -84,7 +84,7 @@ void CGame::Init(HWND hWnd)
 void CGame::Draw(bool followCam, DIRECTION nx, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 	D3DXVECTOR3 p;
-	float camx,camy;
+	float camx, camy;
 	Camera::GetInstance()->GetCamera(camx, camy);
 	if (followCam)
 	{
@@ -132,6 +132,7 @@ int CGame::IsKeyDown(int KeyCode)
 
 void CGame::InitKeyboard(LPKEYEVENTHANDLER handler)
 {
+
 	HRESULT
 		hr = DirectInput8Create
 		(
@@ -139,7 +140,7 @@ void CGame::InitKeyboard(LPKEYEVENTHANDLER handler)
 			DIRECTINPUT_VERSION,
 			IID_IDirectInput8, (VOID**)&di, NULL
 		);
-
+	this->keyHandler = handler;
 	if (hr != DI_OK)
 	{
 		DebugOut(L"[ERROR] DirectInput8Create failed!\n");
@@ -194,7 +195,7 @@ void CGame::InitKeyboard(LPKEYEVENTHANDLER handler)
 		return;
 	}
 
-	this->keyHandler = handler;
+
 
 	DebugOut(L"[INFO] Keyboard has been initialized successfully\n");
 }
@@ -215,6 +216,7 @@ void CGame::ProcessKeyboard()
 			{
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
 
+
 			}
 			else return;
 		}
@@ -224,7 +226,9 @@ void CGame::ProcessKeyboard()
 			return;
 		}
 	}
-	keyHandler->KeyState((BYTE *)&keyStates);
+
+	keyHandler->KeyState((BYTE*)&keyStates);
+
 
 
 
@@ -242,10 +246,13 @@ void CGame::ProcessKeyboard()
 	{
 		int KeyCode = keyEvents[i].dwOfs;
 		int KeyState = keyEvents[i].dwData;
+
 		if ((KeyState & 0x80) > 0)
 			keyHandler->OnKeyDown(KeyCode);
 		else
 			keyHandler->OnKeyUp(KeyCode);
+
+
 	}
 }
 
@@ -264,7 +271,7 @@ void CGame::SweptAABB(
 	float ml, float mt, float mr, float mb,
 	float dx, float dy,
 	float sl, float st, float sr, float sb,
-	float &t, float &nx, float &ny)
+	float& t, float& nx, float& ny)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;
@@ -364,7 +371,7 @@ void CGame::DrawUIText(std::string text, RECT bound, bool followCam)
 		this->GetFont()->DrawTextA(NULL, text.c_str(), -1, &bound, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 }
 
-CGame *CGame::GetInstance()
+CGame* CGame::GetInstance()
 {
 	if (__instance == NULL) __instance = new CGame();
 	return __instance;

@@ -47,7 +47,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="GridHelper.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HandleSpawnEffects.h" />
     <ClInclude Include="HandleSpawnEnemy.h" />
@@ -131,7 +130,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="GridHelper.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HandleSpawnEffects.cpp" />
     <ClCompile Include="HandleSpawnEnemy.cpp" />

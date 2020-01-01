@@ -198,7 +198,7 @@ void CTileMap::LoadObjects(const std::string& filePath)
 				ObjectName = std::string(smailchild->first_attribute("name")->value());
 			}
 
-			// [Note]đọc chỉ 1 property
+			// [Note]đọc  property
 			object = new TileObject(scid, ObjectName, x, y, w, h);
 			xml_node<>* propertiesNode = smailchild->first_node("properties");
 			if (propertiesNode == NULL) { // k có prop
@@ -210,7 +210,14 @@ void CTileMap::LoadObjects(const std::string& filePath)
 				for (xml_node<>* prochild = propertiesNode->first_node(); prochild; prochild = prochild->next_sibling())
 				{
 					string name = std::string(prochild->first_attribute("name")->value());
+					//string strValue= std::string(prochild->first_attribute("value")->value());
 					int value = std::atoi(prochild->first_attribute("value")->value());
+				/*	if (value==0 && strValue!="0")
+					{
+						int a = 2;
+					}*/
+					
+		
 					object->AddProperty(name, value);
 				}
 				objectLayer->Add(id, object);

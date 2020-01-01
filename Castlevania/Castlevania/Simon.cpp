@@ -365,9 +365,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (this->paralyze_start != 0 && GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME) {
-		this->SetState(SIMON_STATE_IDLE);
-		this->paralyze_start = 0;
+	if (this->paralyze_start != 0) {
+		if (GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME)
+		{
+			this->SetState(SIMON_STATE_IDLE);
+			this->paralyze_start = 0;
+		}
+
 	}
 
 	// No collision occured, proceed normally
@@ -411,13 +415,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else {
 							this->isJumping = false;
-							if (ny != 0) vy = 0;
+
 							if (this->isActack || this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
 							}
 							if (state == SIMON_STATE_FALL_DOWN && this->paralyze_start == 0) {
+								DebugOut(L"Simon vy=%f \n", this->vy);
+
 								this->paralyze_start = GetTickCount();
+								Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
 							};
+							if (ny != 0) vy = 0;
 						}
 				}
 				else if (e->ny > 0 && this->vy < 0) {
@@ -819,6 +827,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (!isJumping && !isFirstStepOnStair && !isOnStair && this->state != SIMON_STATE_DEFLECT) {
 			SetState(SIMON_STATE_FALL_DOWN);
+
 		}
 
 	}
@@ -1146,7 +1155,6 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 		whip->StartCalculatorCollice();
 	}
 	case SIMON_STATE_FALL_DOWN: {
-		Sound::GetInstance()->Play(eSound::soundHurting);
 		this->vx = 0;
 		this->vy = SIMON_FALLDOWN_VY;
 		break;

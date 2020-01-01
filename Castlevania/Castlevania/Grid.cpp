@@ -40,6 +40,8 @@ void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
 
 }
 
+
+
 void Grid::Add(LPGAMEOBJECT object)
 {
 	float x_, y_;
@@ -257,7 +259,7 @@ void Grid::GetListobject(vector<LPGAMEOBJECT>& listobjects)
 	listobjects.insert(listobjects.end(), enemiesobject.begin(), enemiesobject.end());
 	listobjects.insert(listobjects.end(), subWeaponobject.begin(), subWeaponobject.end());
 	listobjects.insert(listobjects.end(), effectobject.begin(), effectobject.end());
-	DebugOut(L"List Object %d\n", listobjects.size());
+	//DebugOut(L"List Object %d\n", listobjects.size());
 }
 
 Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :

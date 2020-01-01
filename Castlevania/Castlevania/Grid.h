@@ -3,6 +3,10 @@
 #include"GameObject.h"
 #include<vector>
 #include<Windows.h>
+#include<string>
+#include"Library/RapidXML/rapidxml.hpp"
+#include"Library/RapidXML/rapidxml_utils.hpp"
+using namespace rapidxml;
 #define CELL_SIZE  256
 typedef std::vector<LPGAMEOBJECT> cellObjects;
 
@@ -26,6 +30,7 @@ private:
 	std::vector<LPGAMEOBJECT> alwaysUpdateobject;
 	void RenderCell(RECT rec, MYCOLOR color, int alpha = 64);
 public:
+	void BuildGrid(const std::string& filePath);
 	void Add(LPGAMEOBJECT object);
 	void AddToAlwayUpdateObjects(LPGAMEOBJECT object);
 	void Update(LPGAMEOBJECT object);

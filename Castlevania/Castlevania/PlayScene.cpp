@@ -809,46 +809,48 @@ void PlayScene::OnKeyDown(int keyCode)
 				&& !simon->CheckAttack())
 			{
 				simon->StartUseSubWeapon();
+				break;
 			}
+
 		}
-		else {
-			if (!simon->CheckAttack()
-				&& !simon->CheckIsUseSubWeapon())
+
+		if (!simon->CheckAttack()
+			&& !simon->CheckIsUseSubWeapon())
+		{
+			simon->StartActack();
+			if (simon->CheckIsOnStair())
 			{
-				simon->StartActack();
-				if (simon->CheckIsOnStair())
+
+				if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
+					|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
+					&& simon->GetState() == SIMON_STATE_UPSTAIR_IDLE)
 				{
+					simon->SetState(SIMON_STATE_UPSTAIR_ATTACK);
+				}
+				else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
+					|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
+					&& simon->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
+				{
+					simon->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
 
-					if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
-						|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
-						&& simon->GetState() == SIMON_STATE_UPSTAIR_IDLE)
-					{
-						simon->SetState(SIMON_STATE_UPSTAIR_ATTACK);
-					}
-					else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
-						|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
-						&& simon->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
-					{
-						simon->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+				}
 
-					}
-
+			}
+			else {
+				if (simon->GetState() == SIMON_STATE_SIT)
+				{
+					simon->SetState(SIMON_STATE_SIT_ATTACK);
 				}
 				else {
-					if (simon->GetState() == SIMON_STATE_SIT)
-					{
-						simon->SetState(SIMON_STATE_SIT_ATTACK);
-					}
-					else {
 
 
-						simon->SetState(SIMON_STATE_STAND_ATTACK);
-					}
-
+					simon->SetState(SIMON_STATE_STAND_ATTACK);
 				}
 
 			}
+
 		}
+
 
 		break;
 
