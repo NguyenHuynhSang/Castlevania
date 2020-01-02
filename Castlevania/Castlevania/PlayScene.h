@@ -35,7 +35,7 @@
 #include"PhantomBat.h"
 #include"MapManager.h"
 #include"Scene.h"
-
+#include"Sound.h"
 class MiniScene
 {
 public:
@@ -55,7 +55,7 @@ public:
 class PlayScene:public Scene
 {
 private:
-
+	Sound* sound;
 
 	CSimon *simon;
 	PhantomBat* phantomBat=NULL;
@@ -89,12 +89,9 @@ private:
 	DWORD timeCounter_start=0;
 	DWORD cross_start = 0;
 	DWORD reset_start = 0;
-
-	std::vector<Unit*> listUnit;
 	RECT sceneBox;
 	ResourceManager * resource;
 	vector<LPGAMEOBJECT> objects;
-
 	// luôn update
 
 	vector<LPGAMEOBJECT> spawnObjects;
@@ -116,12 +113,13 @@ private:
 	int currentScene;
 	void LoadResource();
 	void CamUpdate(DWORD dt);
-	void GetListUnitFromGrid();
+	void GetListobjectFromGrid();
 	void UpdateGrid();
 	void GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects);
-	void AddToGrid(LPGAMEOBJECT object,Grid* grid,bool alwayUpdate=false);
+	void AddToGrid(LPGAMEOBJECT object, Grid * grid,bool alwayUpdate=false);
 	void LoadObjects();
 	void CleanListObject();
+
 	unsigned int stateTime;
 
 	void GameTimeCounter();

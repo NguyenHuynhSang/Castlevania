@@ -25,11 +25,9 @@ public:
 		return this->name;
 	}
 	int  GetIntProperty(std::string key) {
-		if (this->intProperties.empty())
-			return -1;
 		if (this->intProperties.count(key)<=0)
 		{
-			return -1;
+			return -999;
 		}
 		return this->intProperties.find(key)->second;
 	}

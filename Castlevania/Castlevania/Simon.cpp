@@ -31,6 +31,7 @@
 #include"BossZone.h"
 #include"InvisibilityPotion.h"
 #include "MoneyBag.h"
+#include"Sound.h"
 CSimon::CSimon() :CGameObject()
 {
 	this->hp_ = 16;
@@ -69,7 +70,7 @@ void CSimon::Renderer(int ani)
 	if (untouchable) alpha = 128;
 	animations[ani]->Render(nx, x, y, alpha);
 
-//	RenderBoundingBox();
+	//	RenderBoundingBox();
 
 }
 
@@ -364,9 +365,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (this->paralyze_start != 0 && GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME) {
-		this->SetState(SIMON_STATE_IDLE);
-		this->paralyze_start = 0;
+	if (this->paralyze_start != 0) {
+		if (GetTickCount() - paralyze_start > SIMON_PARALYZE_TIME)
+		{
+			this->SetState(SIMON_STATE_IDLE);
+			this->paralyze_start = 0;
+		}
+
 	}
 
 	// No collision occured, proceed normally
@@ -410,13 +415,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else {
 							this->isJumping = false;
-							if (ny != 0) vy = 0;
+
 							if (this->isActack || this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
 							}
 							if (state == SIMON_STATE_FALL_DOWN && this->paralyze_start == 0) {
+								DebugOut(L"Simon vy=%f \n", this->vy);
+
 								this->paralyze_start = GetTickCount();
+								Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
 							};
+							if (ny != 0) vy = 0;
 						}
 				}
 				else if (e->ny > 0 && this->vy < 0) {
@@ -561,6 +570,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						y += dy;
 				}
 				else {
+
 					this->AddEnery(item->GetHeartPoint());
 					if (dynamic_cast<MorningStar*>(e->obj)) {
 						DebugOut(L"Morning star logic \n");
@@ -571,36 +581,40 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						StartPowerUp();
 					}
-					else if (dynamic_cast<DaggerItem*>(e->obj))
+					else
 					{
-						this->subWeaponDef = SWDDAGGER;
-					}
-					else if (dynamic_cast<AxeItem*>(e->obj))
-					{
-						this->subWeaponDef = SWDAXE;
-					}
-					else if (dynamic_cast<IStopWatch*>(e->obj))
-					{
-						this->subWeaponDef = SWDSTOPWATCH;
-					}
-					else if (dynamic_cast<Cross*>(e->obj)) {
-						this->getCross = true;
-					}
-					else if (dynamic_cast<IHolyWater*>(e->obj)) {
-						this->subWeaponDef = SWDHOLLYWATER;
-					}
-					else if (dynamic_cast<PorkChop*>(e->obj)) {
-						AddHP(4);
-					}
-					else if (dynamic_cast<MultiplyShotItem*>(e->obj)) {
-						HandleSpawnSubWeapon::GetInstance()->SetDoubleShot(true);
-					}
-					else if (dynamic_cast<InvisibilityPotion*>(e->obj)) {
-						StartUntouchable();
-						DebugOut(L"start untouchh swepaabb \n");
-					}
-					else if (dynamic_cast<MoneyBag*>(e->obj)) {
-						score_ += item->GetScore();
+						Sound::GetInstance()->Play(eSound::soundCollectItem);
+						if (dynamic_cast<DaggerItem*>(e->obj))
+						{
+							this->subWeaponDef = SWDDAGGER;
+						}
+						else if (dynamic_cast<AxeItem*>(e->obj))
+						{
+							this->subWeaponDef = SWDAXE;
+						}
+						else if (dynamic_cast<IStopWatch*>(e->obj))
+						{
+							this->subWeaponDef = SWDSTOPWATCH;
+						}
+						else if (dynamic_cast<Cross*>(e->obj)) {
+							this->getCross = true;
+						}
+						else if (dynamic_cast<IHolyWater*>(e->obj)) {
+							this->subWeaponDef = SWDHOLLYWATER;
+						}
+						else if (dynamic_cast<PorkChop*>(e->obj)) {
+							AddHP(4);
+						}
+						else if (dynamic_cast<MultiplyShotItem*>(e->obj)) {
+							HandleSpawnSubWeapon::GetInstance()->SetDoubleShot(true);
+						}
+						else if (dynamic_cast<InvisibilityPotion*>(e->obj)) {
+							StartUntouchable();
+							DebugOut(L"start untouchh swepaabb \n");
+						}
+						else if (dynamic_cast<MoneyBag*>(e->obj)) {
+							score_ += item->GetScore();
+						}
 					}
 					if (!item->isDestroyed)
 					{
@@ -682,6 +696,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (CGameObject::IsColliding(this, f))
 				{
+
 					if (!f->CheckisHiding())
 					{
 						this->AddEnery(f->GetHeartPoint());
@@ -694,33 +709,38 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						StartPowerUp();
 					}
-					else if (dynamic_cast<DaggerItem*>(e))
+					else
 					{
-						this->subWeaponDef = SWDDAGGER;
+						Sound::GetInstance()->Play(eSound::soundCollectItem);
+						if (dynamic_cast<DaggerItem*>(e))
+						{
+							this->subWeaponDef = SWDDAGGER;
+						}
+						else if (dynamic_cast<AxeItem*>(e))
+						{
+							this->subWeaponDef = SWDAXE;
+						}
+						else if (dynamic_cast<IStopWatch*>(e))
+						{
+							this->subWeaponDef = SWDSTOPWATCH;
+						}
+						else if (dynamic_cast<Cross*>(e)) {
+							this->getCross = true;
+						}
+						else if (dynamic_cast<IHolyWater*>(e)) {
+							this->subWeaponDef = SWDHOLLYWATER;
+						}
+						else if (dynamic_cast<InvisibilityPotion*>(e)) {
+							StartUntouchable();
+						}
+						else if (dynamic_cast<PorkChop*>(e)) {
+							AddHP(4);
+						}
+						else if (dynamic_cast<MoneyBag*>(e)) {
+							score_ += f->GetScore();
+						}
 					}
-					else if (dynamic_cast<AxeItem*>(e))
-					{
-						this->subWeaponDef = SWDAXE;
-					}
-					else if (dynamic_cast<IStopWatch*>(e))
-					{
-						this->subWeaponDef = SWDSTOPWATCH;
-					}
-					else if (dynamic_cast<Cross*>(e)) {
-						this->getCross = true;
-					}
-					else if (dynamic_cast<IHolyWater*>(e)) {
-						this->subWeaponDef = SWDHOLLYWATER;
-					}
-					else if (dynamic_cast<InvisibilityPotion*>(e)) {
-						StartUntouchable();
-					}
-					else if (dynamic_cast<PorkChop*>(e)) {
-						AddHP(4);
-					}
-					else if (dynamic_cast<MoneyBag*>(e)) {
-						score_ += f->GetScore();
-					}
+
 					if (!f->CheckDestroyed()) {
 						f->SetDestroy();
 					}
@@ -778,7 +798,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						bat->SetDestroy();
 					}
 				}
-			
+
 				if (untouchable_start == 0) {
 
 					DebugOut(L"Collice with enemy \n", this->vy, this->vx);
@@ -807,6 +827,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (!isJumping && !isFirstStepOnStair && !isOnStair && this->state != SIMON_STATE_DEFLECT) {
 			SetState(SIMON_STATE_FALL_DOWN);
+
 		}
 
 	}
@@ -961,6 +982,7 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 	switch (state)
 	{
 	case SIMON_STATE_DIE:
+		Sound::GetInstance()->Play(eSound::musicLifeLost);
 		this->vx = 0;
 		this->vy = 0;
 		break;
@@ -1072,6 +1094,7 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 
 	case SIMON_STATE_POWERUP: {
 		vx = 0;
+		Sound::GetInstance()->Play(eSound::soundCollectWeapon);
 		vy = 0;
 		if (this->isActack)
 		{
@@ -1106,6 +1129,7 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 	}
 	case SIMON_STATE_DEFLECT:
 	{
+		Sound::GetInstance()->Play(eSound::soundHurting);
 		DebugOut(L"Simon start DEFLECT \n");
 		if (this->isActack)
 		{

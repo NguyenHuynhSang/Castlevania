@@ -1,6 +1,7 @@
 ﻿#include "MoneyBag.h"
 #include"Ground.h"
 #include"HandleSpawnEffects.h"
+#include"Sound.h"
 void MoneyBag::Render()
 {
 	if (this->isHiding)
@@ -37,8 +38,13 @@ void MoneyBag::GetBoundingBox(float & l, float & t, float & r, float & b)
 
 void MoneyBag::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state != MONEYBAG_STATE_FULLCOLOR)
+	if (state != MONEYBAG_STATE_FULLCOLOR) {
 		this->UpdateItem();
+	}
+	else {
+		Sound::GetInstance()->Play(eSound::soundDisplayMonney);
+	}
+	
 	if (GetTickCount() - wait_start > EFFECTS_LIFE_TIME)
 	{
 		this->isHiding = false;

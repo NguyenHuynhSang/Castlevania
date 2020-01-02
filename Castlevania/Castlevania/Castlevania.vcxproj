@@ -30,6 +30,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cross.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="DSutil.h" />
+    <ClInclude Include="dxutil.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="DebrisBrick.h" />
     <ClInclude Include="Brick.h" />
@@ -80,6 +82,7 @@
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Flame.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Spark.h" />
     <ClInclude Include="SpawnZone.h" />
     <ClInclude Include="Sprites.h" />
@@ -109,6 +112,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cross.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DSutil.cpp" />
+    <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="DebrisBrick.cpp" />
     <ClCompile Include="Brick.cpp" />
@@ -155,6 +160,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Flame.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spark.cpp" />
     <ClCompile Include="SpawnZone.cpp" />
     <ClCompile Include="Sprites.cpp" />
@@ -242,6 +248,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dx9.lib;d3d9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -265,6 +272,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

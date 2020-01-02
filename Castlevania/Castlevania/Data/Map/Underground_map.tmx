@@ -437,7 +437,7 @@
     <property name="playerAction" value="1000"/>
    </properties>
   </object>
-  <object id="27" x="727.25" y="-19.5" width="31.5" height="7">
+  <object id="27" x="719.25" y="-29.5" width="31.5" height="7">
    <properties>
     <property name="nextSceneID" value="7"/>
     <property name="playerAction" value="1000"/>
@@ -449,12 +449,12 @@
   <object id="14" name="Water" type="Water" x="962" y="299" width="62" height="52"/>
  </objectgroup>
  <objectgroup id="10" name="Stair">
-  <object id="16" x="176" y="91" width="32" height="5">
+  <object id="16" x="180" y="91" width="32" height="5">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
   </object>
-  <object id="17" x="880" y="149.5" width="32" height="10.5">
+  <object id="17" x="880" y="153.5" width="32" height="6.5">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>

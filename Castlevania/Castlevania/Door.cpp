@@ -1,5 +1,5 @@
 #include "Door.h"
-
+#include"Sound.h"
 
 
 void Door::Render()
@@ -36,6 +36,36 @@ void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
+
+void Door::SetState(int state)
+{
+	Sound* sound = Sound::GetInstance();
+
+	switch (state)
+	{
+	case DOOR_STATE_CLOSE: {
+		break;
+	}
+	case DOOR_STATE_OPEN: {
+		if (this->state != DOOR_STATE_CLOSING && this->state != DOOR_STATE_OPEN)
+		{
+			sound->Play(eSound::soundOpenDoor);
+		}
+		break;
+	}
+	case DOOR_STATE_CLOSING: {
+		if (this->state != DOOR_STATE_CLOSING && this->state != DOOR_STATE_OPEN)
+		{
+			sound->Play(eSound::soundOpenDoor);
+		}
+		DebugOut(L"ABVC \n");
+		break;
+	}
+	default:
+		break;
+	}
+	this->state = state;
+}
 
 void Door::GetBoundingBox(float & l, float & t, float & r, float & b)
 {

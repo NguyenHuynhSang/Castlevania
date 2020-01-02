@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <game>
+	<gamestart playerHP="16" BossHp="16" score="0" startMap="map1"  startCam="abc" gameTime="256" />
+
 	<textures>
 		<texture id="1000" path="Data\\Map\\Courtyard_bank.png" red="5" green="5" blue="5"/>
 		<texture id="1010" path="Data\\Map\\Great_Hall_bank.png" red="5" green="5" blue="5"/>
@@ -23,7 +25,34 @@
 		<map id="map2" path="Data\\Map\\Great_Hall_map.tmx" texid="1010"/>
 		<map id="map3" path="Data\\Map\\Underground_map.tmx" texid="1020"/>
 	</maps>
-
+	<sounds>
+		<sound id="1" name="soundWhip" path="Data\\Sound\\usingwhip.wav"/>
+		<sound id="2" name="soundHit" path="Data\\Sound\\hit.wav"/>
+		<sound id="3" name="soundCollectItem" path="Data\\Sound\\collectitem.wav"/>
+		<sound id="4" name="soundCollectWeapon" path="Data\\Sound\\collectweapon.wav"/>
+		<sound id="5" name="soundStopTimer" path="Data\\Sound\\stoptimer.wav"/>
+		<sound id="6" name="soundDagger" path="Data\\Sound\\usingdagger.wav"/>
+		<sound id="7" name="soundDisplayMonney" path="Data\\Sound\\display_monney.wav"/>
+		<sound id="8" name="soundHurting" path="Data\\Sound\\hurting.wav"/>
+		<sound id="9" name="soundOpenDoor" path="Data\\Sound\\opendoor.wav"/>
+		<sound id="10" name="soundBrokenBrick" path="Data\\Sound\\broken_brick.wav"/>
+		<sound id="11" name="soundHolyWater" path="Data\\Sound\\holywater.wav"/>
+		<sound id="12" name="soundSplashwater" path="Data\\Sound\\usingwhip.wav"/>
+		<sound id="13" name="soundFallingDownWaterSurface" path="Data\\Sound\\fallingdownwatersurface.wav"/>
+		<sound id="14" name="soundGetScoreTimer" path="Data\\Sound\\getscoretime.wav"/>
+		<sound id="15" name="soundGetScoreHeart" path="Data\\Sound\\getscoreheart_1.wav"/>
+		<sound id="16" name="soundAxe" path="Data\\Sound\\Axe.wav"/>
+		<sound id="17" name="soundStopWatch" path="Data\\Sound\\StopWatch.wav"/>
+		<sound id="18" name="soundInvisibilityPotion_Begin" path="Data\\Sound\\InvisibilityPotion_Begin.wav"/>
+		<sound id="19" name="soundInvisibilityPotion_End" path="Data\\Sound\\InvisibilityPotion_End.wav"/>
+		<sound id="20" name="soundHolyCross" path="Data\\Sound\\holycross.wav"/>
+		<sound id="21" name="soundBoomerang" path="Data\\Sound\\08-boomerang.wav"/>
+		<sound id="51" name="musicState1" path="Data\\Music\\Stage_01_Vampire_Killer.wav"/>
+		<sound id="52" name="musicLifeLost" path="Data\\Music\\Life_Lost.wav"/>
+		<sound id="53" name="music_PhantomBat" path="Data\\Music\\Boss_Battle_Poison_Mind.wav"/>
+		<sound id="54" name="musicStateClear" path="Data\\Music\\Stage_Clear.wav"/>
+		<sound id="55" name="musicGame_Start_Prologue" path="Data\\Music\\Game_Start_Prologue.wav"/>
+	</sounds>
 	<sprites>
 		<sprite path="Data\\GameObject\\MainMenu_sprite.xml" texid="-10"/>
 		<sprite path="Data\\GameObject\\IntroCastle_sprite.xml" texid="-20"/>
@@ -52,11 +81,10 @@
 		<animation path="Data\\GameObject\\Ground\\groundObject_ani.xml" />
 	</animations>
 
-	<gamestart playerHP="16" BossHp="16" score="0" startMap="map1"  startCam="abc" gameTime="256" />
 
 	<scene>
 		<playscene startSceneID="1">
-			<miniscene  ID="1" preID="0" nextID="2" name="courtyarn" map="map1" entryPoint="1" area="1" revivalScene="2"  stateID="1"  />
+			<miniscene  ID="1" preID="0" nextID="2" name="courtyarn" map="map1" entryPoint="1" area="1" revivalScene="1"  stateID="1"  />
 			<miniscene  ID="2" preID="0" nextID="3" name="Great_Hall_ENTER" map="map2" entryPoint="2" area="2" revivalScene="2"  stateID="1"  />
 			<miniscene  ID="3" preID="0" nextID="4" name="Great_Hall_THOUGHDOOR" map="map2" entryPoint="3" area="3" revivalScene="3"  stateID="2"  />
 			<miniscene  ID="4" preID="5" nextID="7" name="UNDERGOUND_ENTER" map="map3" entryPoint="5" area="5" revivalScene="3"  stateID="2"  />
@@ -66,5 +94,6 @@
 			<miniscene  ID="8" preID="0" nextID="2" name="Great_Hall_BOSSARES" map="map2" entryPoint="8" area="4" revivalScene="8"  stateID="3"  />
 		</playscene>
 	</scene>
+
 
 </game>

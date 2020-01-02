@@ -2132,7 +2132,7 @@
   <object id="3" name="Bound" x="5617" y="-1" width="17" height="384"/>
   <object id="95" name="Wall" x="3056.5" y="159" width="31.5" height="160.5"/>
   <object id="157" x="4080" y="160.667" width="16.6667" height="160"/>
-  <object id="219" name="Wall" x="3584.5" y="159" width="127.5" height="96"/>
+  <object id="219" name="Wall" x="3584.17" y="191.667" width="127.833" height="63.3333"/>
  </objectgroup>
  <objectgroup color="#5500ff" id="3" name="Ground">
   <object id="4" name="ground" x="2" y="319" width="5628" height="32"/>
@@ -2148,7 +2148,7 @@
   <object id="107" name="ground" x="5440.5" y="256.5" width="31.5" height="30"/>
   <object id="108" name="ground" x="5535.5" y="193" width="97" height="30"/>
   <object id="154" name="ground" x="3617.67" y="253.667" width="95.6667" height="66"/>
-  <object id="220" name="ground" x="3712.5" y="159.5" width="62.5" height="32"/>
+  <object id="220" name="ground" x="3584.17" y="159.5" width="190.833" height="32"/>
  </objectgroup>
  <objectgroup color="#ff0000" id="5" name="Player">
   <object id="256" name="4" gid="2147483767" x="3162.67" y="351.667" width="60" height="66"/>
@@ -2276,7 +2276,7 @@
     <property name="dir" type="int" value="1"/>
    </properties>
   </object>
-  <object id="68" name="StairBottom" type="Stair" x="2577.33" y="310.667" width="32" height="10">
+  <object id="68" name="StairBottom" type="Stair" x="2577.33" y="312.667" width="32" height="10">
    <properties>
     <property name="dir" type="int" value="0"/>
    </properties>
@@ -2306,7 +2306,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="178" name="StairBottom" type="Stair" x="4368" y="176.708" width="32" height="15.9167">
+  <object id="178" name="StairBottom" type="Stair" x="4368" y="185.708" width="32" height="6.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2316,7 +2316,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="180" name="StairBottom" type="Stair" x="4812.67" y="306.708" width="32" height="11.9167">
+  <object id="180" name="StairBottom" type="Stair" x="4812.67" y="312.708" width="32" height="5.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2341,7 +2341,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="191" name="StairBottom" type="Stair" x="3982.67" y="303.375" width="32" height="15.9167">
+  <object id="191" name="StairBottom" type="Stair" x="3982.67" y="310.375" width="32" height="8.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2423,10 +2423,10 @@
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="252" name="3" x="3073" y="0" width="1027" height="380"/>
+  <object id="252" name="3" x="3073" y="0" width="1037.67" height="380"/>
   <object id="262" name="4" x="4082.67" y="0" width="1571.33" height="382"/>
  </objectgroup>
- <objectgroup id="17" name="BOSS" visible="0">
+ <objectgroup id="17" name="BOSS">
   <object id="229" name="Boss" gid="192" x="5302" y="75" width="100" height="46"/>
  </objectgroup>
  <objectgroup color="#0055ff" id="18" name="BossBorder">

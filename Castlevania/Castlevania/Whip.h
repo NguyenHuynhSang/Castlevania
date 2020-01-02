@@ -24,6 +24,7 @@ private:
 	UINT  damage = 1;
 	int currentAnimation = 0;
 	bool collideOneTime = false;
+	bool hitObject = false;
 public:
 	void StartCalculatorCollice() {
 		this->collideOneTime = false;

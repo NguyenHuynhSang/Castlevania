@@ -84,6 +84,7 @@ void PlayScene::CamUpdate(DWORD dt)
 		if (door->CheckIsDoorOpened())
 		{
 			simon->SetAutoWalk(true);
+		
 			simon->SetState(SIMON_STATE_WALKING_RIGHT);
 		}
 
@@ -108,7 +109,7 @@ void PlayScene::CamUpdate(DWORD dt)
 				float x_, y_;
 				door->GetPosition(x_, y_);
 				BoundMap* bound = new BoundMap();
-				bound->SetSize(10,SCREEN_HEIGHT/2);
+				bound->SetSize(10, SCREEN_HEIGHT / 2);
 				bound->SetPosition(x_, y_);
 				AddToGrid(bound, grid);
 				door = NULL;
@@ -128,51 +129,45 @@ void PlayScene::CamUpdate(DWORD dt)
 
 }
 
-void PlayScene::GetListUnitFromGrid()
+void PlayScene::GetListobjectFromGrid()
 {
-	listUnit.clear();
 	this->objects.clear();
 
 	while (!qItem.empty())
 	{
-		Unit* unit = new Unit(this->grid, qItem.front());
+		AddToGrid(qItem.front(), grid);
 		qItem.pop();
 	}
 
 	while (!qEnemy.empty())
 	{
-		Unit* unit = new Unit(this->grid, qEnemy.front());
+		AddToGrid(qEnemy.front(), grid);
 		qEnemy.pop();
 	}
 	while (!qSubWeapon.empty())
 	{
-		Unit* unit = new Unit(this->grid, qSubWeapon.front());
+		AddToGrid(qSubWeapon.front(), grid);
 		qSubWeapon.pop();
 	}
 	while (!qEffect.empty())
 	{
-		Unit* unit = new Unit(this->grid, qEffect.front());
+		AddToGrid(qEffect.front(), grid);
 		qEffect.pop();
 	}
-	grid->GetListUnit(listUnit);
+	grid->GetListobject(objects);
 
-
-	for (size_t i = 0; i < listUnit.size(); i++)
-	{
-		this->objects.push_back(listUnit[i]->GetGameObject());
-	}
 
 
 }
 
 void PlayScene::UpdateGrid()
 {
-	for (size_t i = 0; i < listUnit.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
-		LPGAMEOBJECT obj = listUnit[i]->GetGameObject();
+		LPGAMEOBJECT obj = objects[i];
 		float x_, y_;
 		obj->GetPosition(x_, y_);
-		grid->Update(listUnit[i], x_, y_);
+		grid->Update(obj);
 	}
 
 
@@ -193,6 +188,7 @@ void PlayScene::HandleCrossEffect()
 
 	if (simon->CheckIsGetCross())
 	{
+		sound->Play(eSound::soundHolyCross);
 		if (this->cross_start == 0)
 		{
 			cross_start = GetTickCount64();
@@ -226,6 +222,8 @@ int PlayScene::CheckNumOfFishMan()
 void PlayScene::Update(DWORD dt)
 {
 	GameTimeCounter();
+
+
 	if (this->simon->GetState() == SIMON_STATE_DIE)
 	{
 		if (this->reset_start == 0) reset_start = GetTickCount();
@@ -239,12 +237,28 @@ void PlayScene::Update(DWORD dt)
 
 	if (this->simon->CheckIsFightWithBoss() && !phantomBat->CheckAwake())
 	{
+		if (sound->isPlaying(eSound::musicState1))
+		{
+			sound->Stop(eSound::musicState1);
+			sound->Play(eSound::music_PhantomBat, true);
+		}
 		phantomBat->StartAwake();
 		bound = new BoundMap();
 		RECT bossActiceBox = phantomBat->GetActiveArea();
 		bound->SetPosition(bossActiceBox.left, bossActiceBox.top);
 		bound->SetSize(15, abs(bossActiceBox.bottom - bossActiceBox.top));
-		Unit* unit = new Unit(this->grid, bound);
+		AddToGrid(bound, grid);
+	}
+
+	if (!this->simon->CheckIsFightWithBoss())
+	{
+		if (sound->isPlaying(eSound::music_PhantomBat))
+		{
+			sound->Stop(eSound::music_PhantomBat);
+
+		}
+		sound->Play(eSound::musicState1, true);
+
 	}
 
 	if (this->isNextScene) {
@@ -259,13 +273,12 @@ void PlayScene::Update(DWORD dt)
 	}
 	HandleCrossEffect();
 	hud->Update();
-	GetListUnitFromGrid();
+	GetListobjectFromGrid();
 
 	vector<LPGAMEOBJECT> coObjects;
 	coObjects.clear();
 	GetCoObjects(simon, coObjects);
 	simon->Update(dt, &coObjects);
-	//update object
 	coObjects.clear();
 	for (std::size_t i = 0; i < objects.size(); i++) //object
 	{
@@ -307,7 +320,7 @@ void PlayScene::Render()
 	hud->Render();
 	simon->Render();
 
-	grid->Render();
+	//grid->Render();
 
 
 }
@@ -393,7 +406,14 @@ void PlayScene::GetCoObjects(LPGAMEOBJECT obj, vector<LPGAMEOBJECT>& coObjects)
 
 void PlayScene::AddToGrid(LPGAMEOBJECT object, Grid* grid, bool alwayUpdate)
 {
-	Unit* unit = new Unit(grid, object, alwayUpdate);
+	if (!alwayUpdate)
+	{
+		grid->Add(object);
+	}
+	else {
+		grid->AddToAlwayUpdateObjects(object);
+	}
+
 }
 
 void PlayScene::FreezeEnemy(bool flag)
@@ -486,7 +506,7 @@ void PlayScene::LoadObjects()
 						phantomBat->SetActiveArea(rect);
 					}
 					AddToGrid(phantomBat, grid);
-					
+
 				}
 				break;
 			case ObjectID::OBossTrigger:
@@ -790,46 +810,48 @@ void PlayScene::OnKeyDown(int keyCode)
 				&& !simon->CheckAttack())
 			{
 				simon->StartUseSubWeapon();
+				break;
 			}
+
 		}
-		else {
-			if (!simon->CheckAttack()
-				&& !simon->CheckIsUseSubWeapon())
+
+		if (!simon->CheckAttack()
+			&& !simon->CheckIsUseSubWeapon())
+		{
+			simon->StartActack();
+			if (simon->CheckIsOnStair())
 			{
-				simon->StartActack();
-				if (simon->CheckIsOnStair())
+
+				if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
+					|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
+					&& simon->GetState() == SIMON_STATE_UPSTAIR_IDLE)
 				{
+					simon->SetState(SIMON_STATE_UPSTAIR_ATTACK);
+				}
+				else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
+					|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
+					&& simon->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
+				{
+					simon->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
 
-					if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPLEFT
-						|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::UPRIGHT
-						&& simon->GetState() == SIMON_STATE_UPSTAIR_IDLE)
-					{
-						simon->SetState(SIMON_STATE_UPSTAIR_ATTACK);
-					}
-					else if (simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNLEFT
-						|| simon->CheckStepOnStairDirection() == STAIRDIRECTION::DOWNRIGHT
-						&& simon->GetState() == SIMON_STATE_DOWNSTAIR_IDLE)
-					{
-						simon->SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+				}
 
-					}
-
+			}
+			else {
+				if (simon->GetState() == SIMON_STATE_SIT)
+				{
+					simon->SetState(SIMON_STATE_SIT_ATTACK);
 				}
 				else {
-					if (simon->GetState() == SIMON_STATE_SIT)
-					{
-						simon->SetState(SIMON_STATE_SIT_ATTACK);
-					}
-					else {
 
 
-						simon->SetState(SIMON_STATE_STAND_ATTACK);
-					}
-
+					simon->SetState(SIMON_STATE_STAND_ATTACK);
 				}
 
 			}
+
 		}
+
 
 		break;
 
@@ -973,6 +995,7 @@ PlayScene::PlayScene()
 	this->stateTime = GAMESTATE_TIME;
 	this->isNextScene = false;
 	this->currentScene = GSCENE_01;
+	sound = Sound::GetInstance();
 	maps = MapManager::GetInstance();
 	hud = new Hud(this);
 	DebugOut(L"Init play scene \n");

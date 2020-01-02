@@ -3,6 +3,7 @@
 #include"Water.h"
 #include"HandleSpawnEffects.h"
 #include"HandleSpawnEnemy.h"
+#include"Sound.h"
 void Fishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
@@ -113,7 +114,11 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				x += dx;
 				y += dy;
 				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
-
+				Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
+				if (e->ny < 0)
+				{
+					DestroyImmediate();
+				}
 			}
 			else {
 				if (e->nx != 0)
@@ -128,6 +133,40 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+
+
+
+	if (this->state == FISHMAN_STATE_WALKING)
+	{
+		bool tourchGround = false;
+		for (size_t i = 0; i < coObjects->size(); i++)
+		{
+			if (dynamic_cast<Ground*>(coObjects->at(i))) {
+				Ground* f = dynamic_cast<Ground*>(coObjects->at(i));
+				float l, t, r, b,gl,gt,gr,gb;
+				f->GetBoundingBox(gl, gt, gr, gb);
+				this->GetBoundingBox(l, t, r, b);
+				gt -=10;
+				if (AABB(l,t,r,b,gl,gt,gr,gb))
+				{
+					tourchGround = true;
+					this->isSetWalking = false;
+					break;
+				}
+			}
+		}
+
+		if (tourchGround == false)
+		{
+			SetState(FISHMAN_STATE_JUMP);
+			this->vy = 0;
+			this->vx = 0;
+
+		}
+
+	}
+
 }
 
 void Fishman::Render()
@@ -145,9 +184,10 @@ void Fishman::Render()
 	else
 	{
 		ani = FISHMAN_ANI_SHOOTING;
-	
+
 	}
 	animations[ani]->Render(nx, x, y);
+	RenderBoundingBox();
 }
 
 void Fishman::SetState(int state)
@@ -166,7 +206,7 @@ void Fishman::SetState(int state)
 		walking_start = GetTickCount();
 		if (nx == DIRECTION::RIGHT)
 			this->vx = FISHMAN_WALKING_SPEED;
-		else if(nx== DIRECTION::LEFT)
+		else if (nx == DIRECTION::LEFT)
 			this->vx = -FISHMAN_WALKING_SPEED;
 		break;
 	}
