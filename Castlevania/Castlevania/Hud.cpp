@@ -34,7 +34,7 @@ void Hud::Update()
 	}
 
 
-	_UIinfor = "SCORE-" + score + " TIME 0" + std::to_string(scene->GetTime()) + " STAGE 01\n";
+	_UIinfor = "SCORE-" + score + " TIME 0" + std::to_string(scene->GetTime()) + " STAGE 0"+std::to_string(this->state) + "\n";
 	_UIinfor = _UIinfor + "PLAYER                  -" + enery_ + "\n";
 	_UIinfor += "ENEMY                   -02\n";
 }
@@ -88,8 +88,9 @@ Hud::Hud(PlayScene* scene)
 	this->scene = scene;
 	SetRect(&bound, 0, 15, SCREEN_WIDTH, 80);
 	this->bossHP = 16;
+	this->state = 1;
 	game = CGame::GetInstance();
-	_UIinfor = "SCORE-000000 TIME 0000 STAGE 01\n";
+	_UIinfor = "SCORE-000000 TIME 0000 STAGE 0"+std::to_string(this->state)+"\n";
 	_UIinfor += "PLAYER                  -00\n";
 	_UIinfor += "ENEMY                   -00\n";
 }

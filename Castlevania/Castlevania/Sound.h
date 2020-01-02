@@ -32,7 +32,7 @@ enum eSound
 	soundInvisibilityPotion_End = 19,
 	soundHolyCross = 20,
 	soundBoomerang = 21,
-
+	soundFallDown=22,
 
 	musicState1 = 51,
 	musicLifeLost = 52,

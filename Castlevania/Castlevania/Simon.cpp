@@ -383,7 +383,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx = 0, ny=-1;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		// block 
@@ -423,7 +423,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								DebugOut(L"Simon vy=%f \n", this->vy);
 
 								this->paralyze_start = GetTickCount();
-								Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
+								Sound::GetInstance()->Play(eSound::soundFallDown);
 							};
 							if (ny != 0) vy = 0;
 						}
@@ -457,6 +457,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
 				this->SetState(SIMON_STATE_DIE);
+				Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
 				break;
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))
@@ -473,6 +474,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					this->isJumping = false;
 					if (ny != 0)
 						this->vy = 0;
+					if (this->hp_ == 0)
+					{
+						this->SetState(SIMON_STATE_DIE);
+						this->isOnStair = false;
+						break;
+					}
 				}
 				else if (e->ny == 1)
 				{
@@ -573,7 +580,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					this->AddEnery(item->GetHeartPoint());
 					if (dynamic_cast<MorningStar*>(e->obj)) {
-						DebugOut(L"Morning star logic \n");
+						
 						SetState(SIMON_STATE_POWERUP);
 						if (isActack) {
 							ResetActack_Time();
@@ -711,6 +718,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					else
 					{
+						if (Sound::GetInstance()->isPlaying(soundCollectItem))
+						{
+							Sound::GetInstance()->Stop(soundCollectItem);
+						}
 						Sound::GetInstance()->Play(eSound::soundCollectItem);
 						if (dynamic_cast<DaggerItem*>(e))
 						{
@@ -825,7 +836,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (!flagOnGround)
 	{
-		if (!isJumping && !isFirstStepOnStair && !isOnStair && this->state != SIMON_STATE_DEFLECT) {
+		if (!isJumping && !isFirstStepOnStair && !isOnStair 
+			&& this->state != SIMON_STATE_DEFLECT
+			&& this->state != SIMON_STATE_DIE) {
 			SetState(SIMON_STATE_FALL_DOWN);
 
 		}
@@ -1086,7 +1099,7 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 			this->lastState = -1;
 		}
 
-		DebugOut(L" LastStepOnStairPos x=%f y=%f", LastStepOnStairPos.x, LastStepOnStairPos.y);
+		//DebugOut(L" LastStepOnStairPos x=%f y=%f", LastStepOnStairPos.x, LastStepOnStairPos.y);
 		vx = 0;
 		vy = 0;
 		break;
@@ -1153,6 +1166,9 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 	case SIMON_STATE_SIT_ATTACK:
 	{
 		whip->StartCalculatorCollice();
+		this->vx = 0;
+		break;
+
 	}
 	case SIMON_STATE_FALL_DOWN: {
 		this->vx = 0;

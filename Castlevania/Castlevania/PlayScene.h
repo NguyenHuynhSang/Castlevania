@@ -80,6 +80,9 @@ private:
 	Door* door=NULL;
 	Hud* hud;
 
+	BoundMap* bossAreaWall=NULL;
+
+
 	MapManager* maps;
 	CTileMap* currentMap = NULL;
 

@@ -20,63 +20,60 @@ ResourceManager *ResourceManager::GetInstance()
 void ResourceManager::BuildGrid(const std::string& filePath)
 {
 
-//
-//	char* fileLoc = new char[filePath.size() + 1]; // 1
-//
-//	   //TODO: make multi format version of string copy
-//#ifdef MACOS
-//	strlcpy(fileLoc, file.c_str(), file.size() + 1);
-//#else
-//	strcpy_s(fileLoc, filePath.size() + 1, filePath.c_str());
-//#endif 
-//
-//	//TODO: error checking - check file exists before attempting open.
-//	rapidxml::file<> xmlFile(fileLoc);
-//	rapidxml::xml_document<> doc;
-//	doc.parse<0>(xmlFile.data());
-//
-//	xml_node<>* rootNode = doc.first_node("map");
-//	xml_attribute<>* gridAtribute = rootNode->first_attribute("CellSize");
-//	if (gridAtribute == NULL)
-//	{
-//		xml_attribute<>* atribute = doc.allocate_attribute("CellSize", "256");
-//		rootNode->append_attribute(atribute);
-//
-//	}
-//	else {
-//		return;
-//	}
-//	for (xml_node<>* child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
-//
-//		int id = std::atoi(child->first_attribute("id")->value()); // lay ID Object group
-//		std::string objectGroupName = std::string(child->first_attribute("name")->value()); // lay ten object group
-//
-//		for (xml_node<>* smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
-//			xml_attribute<>* atriX = smailchild->first_attribute("cellX");
-//			xml_attribute<>* atriY = smailchild->first_attribute("cellY");
-//			if (atriX == NULL)
-//			{
-//				/*float x_,y_;
-//				int width, height;
-//				x_ = std::atof(smailchild->first_attribute;
-//				xml_attribute<>* oAtributeX = new xml_attribute<>();
-//				oAtributeX = doc.allocate_attribute("cellX", "1.0");
-//				xml_attribute<>* oAtributeY = new xml_attribute<>();
-//				oAtributeY = doc.allocate_attribute("cellY", "1.0");
-//				rootNode->append_attribute(atribute);*/
-//			}
-//
-//
-//		}
-//
-//
-//
-//	}
-//
-//
-//	std::ofstream theFile(filePath.c_str());
-//	theFile << doc;
-//	theFile.close();
+
+	char* fileLoc = new char[filePath.size() + 1]; // 1
+
+	   //TODO: make multi format version of string copy
+#ifdef MACOS
+	strlcpy(fileLoc, file.c_str(), file.size() + 1);
+#else
+	strcpy_s(fileLoc, filePath.size() + 1, filePath.c_str());
+#endif 
+
+	//TODO: error checking - check file exists before attempting open.
+	rapidxml::file<> xmlFile(fileLoc);
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(xmlFile.data());
+
+	xml_node<>* rootNode = doc.first_node("map");
+	xml_attribute<>* gridAtribute = rootNode->first_attribute("CellSize");
+	if (gridAtribute == NULL)
+	{
+		xml_attribute<>* atribute = doc.allocate_attribute("CellSize", "256");
+		rootNode->append_attribute(atribute);
+
+	}
+	else {
+		return;
+	}
+	for (xml_node<>* child = rootNode->first_node("objectgroup"); child; child = child->next_sibling()) {
+
+		int id = std::atoi(child->first_attribute("id")->value()); // lay ID Object group
+		std::string objectGroupName = std::string(child->first_attribute("name")->value()); // lay ten object group
+		for (xml_node<>* smailchild = child->first_node(); smailchild; smailchild = smailchild->next_sibling()) {
+			int x = 0, y = 0, w = 0, h = 0;
+			x = std::stof(smailchild->first_attribute("x")->value());
+			y = std::stof(smailchild->first_attribute("y")->value());
+			w = std::atoi(smailchild->first_attribute("width")->value());
+			h = std::atoi(smailchild->first_attribute("height")->value());
+			int scid = std::atoi(smailchild->first_attribute("id")->value()); // lay ID
+			
+		
+			xml_attribute<>* cellX = doc.allocate_attribute("cellcol", "256");
+			smailchild->append_attribute(cellX);
+			
+
+
+		}
+
+
+
+	}
+
+
+	std::ofstream theFile(filePath.c_str());
+	theFile << doc;
+	theFile.close();
 }
 void ResourceManager::LoadData(const std::string& filePath)
 {
@@ -121,7 +118,7 @@ void ResourceManager::LoadData(const std::string& filePath)
 		std::string path = std::string(child->first_attribute("path")->value()); // lay path
 		std::wstring cover = std::wstring(path.begin(), path.end());
 		maps->AddMap(mapId, path, textures->Get(texId));
-		BuildGrid(path);
+		//BuildGrid(path);
 	}
 
 	//load Sprite
@@ -186,7 +183,6 @@ void ResourceManager::LoadSceneData(const std::string& filePath, std::unordered_
 		int stageID = std::atoi(child->first_attribute("stateID")->value());
 		std::string name = std::string(child->first_attribute("name")->value()); // lay path
 		std::string map = std::string(child->first_attribute("map")->value()); // lay path
-		
 		mscene->id = ID;
 		mscene->mapID = map;
 		mscene->name = name;

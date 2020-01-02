@@ -2157,7 +2157,7 @@
   <object id="269" name="8" gid="112" x="4118.67" y="123.667" width="60" height="66"/>
   <object id="274" name="2" gid="112" x="95" y="318" width="60" height="66"/>
  </objectgroup>
- <objectgroup color="#aa55ff" id="6" name="Spawner" visible="0">
+ <objectgroup color="#aa55ff" id="6" name="Spawner">
   <object id="168" name="SpawnBat" x="3169.83" y="7.3333" width="893" height="150">
    <properties>
     <property name="enemydef" type="int" value="2"/>
@@ -2214,7 +2214,7 @@
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="205" name="SpawnPanther" x="1711" y="91" width="64" height="32">
+  <object id="205" name="SpawnPanther" x="1711" y="92" width="64" height="32">
    <properties>
     <property name="enemydef" type="int" value="1"/>
     <property name="num" type="int" value="3"/>
@@ -2222,7 +2222,7 @@
     <property name="scenedef" type="int" value="1"/>
    </properties>
   </object>
-  <object id="206" name="SpawnPanther" x="1942" y="156" width="64" height="32">
+  <object id="206" name="SpawnPanther" x="1949" y="157" width="64" height="32">
    <properties>
     <property name="enemydef" type="int" value="1"/>
     <property name="num" type="int" value="3"/>

@@ -9,6 +9,7 @@
 #include"TypeConverter.h"
 void PlayScene::LoadResource()
 {
+	int startScene = 1;
 	ResourceManager::GetInstance()->LoadSceneData("Data\\Data\\Data01.xml", this->miniScenes);
 	this->currentMiniScene = miniScenes.at(1);
 	simon = new CSimon();
@@ -181,6 +182,7 @@ void PlayScene::GoToNextArea()
 	Camera::GetInstance()->SetCamera(sceneBox.left, 0);
 	currentMap = maps->Get(currentMiniScene->mapID);
 	grid = grids.at(currentMiniScene->mapID);
+	hud->setState(currentMiniScene->state);
 }
 
 void PlayScene::HandleCrossEffect()
@@ -230,6 +232,7 @@ void PlayScene::Update(DWORD dt)
 		else if (GetTickCount() - this->reset_start > 2000) {
 			this->isNextScene = true;
 			simon->ResetPoint();
+			this->currentMiniScene = miniScenes.at(currentMiniScene->revivalSceneID);
 			simon->SetState(SIMON_STATE_IDLE);
 			this->reset_start = 0;
 		}
@@ -237,17 +240,18 @@ void PlayScene::Update(DWORD dt)
 
 	if (this->simon->CheckIsFightWithBoss() && !phantomBat->CheckAwake())
 	{
+		DebugOut(L"Spawn \n");
 		if (sound->isPlaying(eSound::musicState1))
 		{
 			sound->Stop(eSound::musicState1);
 			sound->Play(eSound::music_PhantomBat, true);
 		}
 		phantomBat->StartAwake();
-		bound = new BoundMap();
+		bossAreaWall = new BoundMap();
 		RECT bossActiceBox = phantomBat->GetActiveArea();
-		bound->SetPosition(bossActiceBox.left, bossActiceBox.top);
-		bound->SetSize(15, abs(bossActiceBox.bottom - bossActiceBox.top));
-		AddToGrid(bound, grid);
+		bossAreaWall->SetPosition(bossActiceBox.left, bossActiceBox.top);
+		bossAreaWall->SetSize(15, abs(bossActiceBox.bottom - bossActiceBox.top));
+		AddToGrid(bossAreaWall, grid);
 	}
 
 	if (!this->simon->CheckIsFightWithBoss())
@@ -262,6 +266,12 @@ void PlayScene::Update(DWORD dt)
 	}
 
 	if (this->isNextScene) {
+		if (bossAreaWall!=NULL)
+		{
+			delete bossAreaWall;
+			bossAreaWall = NULL;
+		}
+	
 		this->isNextScene = false;
 		GoToNextArea();
 		return;

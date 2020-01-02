@@ -105,7 +105,8 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (e->nx != 0)
 				{
 					x += dx;
-
+					y += dy;
+	
 				}
 
 			}
@@ -147,11 +148,11 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				float l, t, r, b,gl,gt,gr,gb;
 				f->GetBoundingBox(gl, gt, gr, gb);
 				this->GetBoundingBox(l, t, r, b);
-				gt -=10;
+				gt -=20;
 				if (AABB(l,t,r,b,gl,gt,gr,gb))
 				{
 					tourchGround = true;
-					this->isSetWalking = false;
+				//	this->isSetWalking = false;
 					break;
 				}
 			}

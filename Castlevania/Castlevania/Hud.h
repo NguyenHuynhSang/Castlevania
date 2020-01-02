@@ -18,6 +18,9 @@ class Hud
 	std::string  _UIinfor;
 public:
 	static void SetBossHp(int hp) { bossHP = hp; }
+	void setState(int state) {
+		this->state = state;
+	}
 	void Update();
 	void Render();
 	Hud(PlayScene* scene);

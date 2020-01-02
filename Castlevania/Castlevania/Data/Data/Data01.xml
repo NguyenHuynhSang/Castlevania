@@ -47,6 +47,7 @@
 		<sound id="19" name="soundInvisibilityPotion_End" path="Data\\Sound\\InvisibilityPotion_End.wav"/>
 		<sound id="20" name="soundHolyCross" path="Data\\Sound\\holycross.wav"/>
 		<sound id="21" name="soundBoomerang" path="Data\\Sound\\08-boomerang.wav"/>
+		<sound id="22" name="soundFallDown" path="Data\\Sound\\falling.wav"/>
 		<sound id="51" name="musicState1" path="Data\\Music\\Stage_01_Vampire_Killer.wav"/>
 		<sound id="52" name="musicLifeLost" path="Data\\Music\\Life_Lost.wav"/>
 		<sound id="53" name="music_PhantomBat" path="Data\\Music\\Boss_Battle_Poison_Mind.wav"/>
