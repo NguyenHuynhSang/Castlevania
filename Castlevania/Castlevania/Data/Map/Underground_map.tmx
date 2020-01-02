@@ -1,479 +1,479 @@
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="36" CellSize="256" CellSize="256">
-	<tileset firstgid="1" name="Underground_bank.png" tilewidth="32" tileheight="32" tilecount="30" columns="5">
-		<image source="Underground_bank.png" width="160" height="192"/>
-	</tileset>
-	<tileset firstgid="31" source="ObjectTile/SIMON.tsx"/>
-	<tileset firstgid="103" source="ObjectTile/Money_Bag.tsx"/>
-	<tileset firstgid="106" source="ObjectTile/Brick.tsx"/>
-	<tileset firstgid="108" source="ObjectTile/Candle.tsx"/>
-	<layer id="1" name="background" width="32" height="12">
-		<data>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="5"/>
-			<tile gid="6"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="5"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="5"/>
-			<tile gid="7"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="5"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="12"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="12"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="5"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="7"/>
-			<tile gid="11"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="5"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="12"/>
-			<tile gid="11"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="12"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="3"/>
-			<tile gid="4"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="6"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="16"/>
-			<tile gid="17"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="9"/>
-			<tile gid="10"/>
-			<tile gid="7"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="11"/>
-			<tile gid="18"/>
-			<tile gid="19"/>
-			<tile gid="20"/>
-			<tile gid="20"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="6"/>
-			<tile gid="21"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="6"/>
-			<tile gid="21"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="20"/>
-			<tile gid="20"/>
-			<tile gid="6"/>
-			<tile gid="21"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="12"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="12"/>
-			<tile gid="11"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="20"/>
-			<tile gid="20"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="22"/>
-			<tile gid="23"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="22"/>
-			<tile gid="23"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="20"/>
-			<tile gid="20"/>
-			<tile gid="22"/>
-			<tile gid="23"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="7"/>
-			<tile gid="8"/>
-			<tile gid="14"/>
-			<tile gid="15"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="13"/>
-			<tile gid="13"/>
-			<tile gid="24"/>
-			<tile gid="25"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="1"/>
-			<tile gid="2"/>
-			<tile gid="26"/>
-			<tile gid="27"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-			<tile gid="6"/>
-		</data>
-	</layer>
-	<objectgroup color="#00aaff" id="2" name="Wall">
-		<object id="2" x="-9.5" y="-0.5" width="9.5" height="383.5"/>
-		<object id="3" x="1008.5" y="-3.5" width="19" height="384"/>
-		<object id="4" x="0" y="352" width="1022.5" height="31.5"/>
-	</objectgroup>
-	<objectgroup color="#0000ff" id="3" name="Ground">
-		<object id="5" x="-8.5" y="161.5" width="456" height="28.5"/>
-		<object id="6" x="192.5" y="97" width="63" height="29.5"/>
-		<object id="7" x="512.5" y="160" width="64" height="30.5"/>
-		<object id="8" x="639.5" y="160.5" width="289" height="30"/>
-		<object id="9" x="959.5" y="223" width="63" height="31"/>
-		<object id="10" x="896" y="287.5" width="65" height="31.5"/>
-	</objectgroup>
-	<objectgroup id="14" name="Candle">
-		<object id="29" gid="108" x="56.6667" y="72.6667" width="16" height="32"/>
-		<object id="30" gid="108" x="186.667" y="69.3333" width="16" height="32"/>
-		<object id="31" gid="108" x="440.667" y="70.6667" width="16" height="32"/>
-		<object id="32" gid="108" x="566" y="71.3333" width="16" height="32"/>
-		<object id="33" gid="108" x="696" y="69.3333" width="16" height="32"/>
-		<object id="34" gid="108" x="829.333" y="70.6667" width="16" height="32"/>
-		<object id="35" gid="108" x="980" y="74.6667" width="16" height="32"/>
-	</objectgroup>
-	<objectgroup id="4" name="MoneyBagTrigger">
-		<object id="11" name="moneybagtrigger" x="905" y="276" width="51" height="9.5"/>
-	</objectgroup>
-	<objectgroup color="#ff0000" id="5" name="Player">
-		<object id="23" name="5" gid="43" x="113" y="48" width="60" height="66"/>
-		<object id="28" name="6" gid="43" x="751" y="48" width="60" height="66"/>
-	</objectgroup>
-	<objectgroup id="13" name="Cam" visible="0">
-		<object id="24" name="5" x="0" y="0" width="1039" height="380"/>
-	</objectgroup>
-	<objectgroup id="6" name="MoneyBag">
-		<object id="12" name="moneybag" gid="103" x="772.5" y="189.75" width="31" height="30"/>
-	</objectgroup>
-	<objectgroup id="7" name="Nextmap">
-		<object id="19" x="75.5" y="-37.5" width="31.5" height="7">
-			<properties>
-				<property name="nextSceneID" value="5"/>
-				<property name="playerAction" value="1000"/>
-			</properties>
-		</object>
-		<object id="27" x="727.25" y="-19.5" width="31.5" height="7">
-			<properties>
-				<property name="nextSceneID" value="7"/>
-				<property name="playerAction" value="1000"/>
-			</properties>
-		</object>
-	</objectgroup>
-	<objectgroup id="8" name="Water">
-		<object id="13" name="Water" type="Water" x="1.66667" y="287" width="888.833" height="12.1667"/>
-		<object id="14" name="Water" type="Water" x="962" y="299" width="62" height="52"/>
-	</objectgroup>
-	<objectgroup id="10" name="Stair">
-		<object id="16" x="176" y="91" width="32" height="5">
-			<properties>
-				<property name="dir" type="int" value="1"/>
-			</properties>
-		</object>
-		<object id="17" x="880" y="149.5" width="32" height="10.5">
-			<properties>
-				<property name="dir" type="int" value="1"/>
-			</properties>
-		</object>
-	</objectgroup>
-	<objectgroup color="#aaaaff" id="11" name="Spawner" visible="0">
-		<object id="20" name="Spawn" type="Spawn" x="0.666667" y="2.667" width="896.667" height="301">
-			<properties>
-				<property name="enemydef" type="int" value="3"/>
-				<property name="num" type="int" value="2"/>
-				<property name="respawntime" type="int" value="10000"/>
-			</properties>
-		</object>
-	</objectgroup>
-	<objectgroup id="12" name="Brick">
-		<object id="21" name="Brick" type="Brick" gid="106" x="928" y="192" width="32" height="32">
-			<properties>
-				<property name="brickstate" type="int" value="0"/>
-			</properties>
-		</object>
-	</objectgroup>
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="32" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="36">
+ <tileset firstgid="1" name="Underground_bank.png" tilewidth="32" tileheight="32" tilecount="30" columns="5">
+  <image source="Underground_bank.png" width="160" height="192"/>
+ </tileset>
+ <tileset firstgid="31" source="ObjectTile/SIMON.tsx"/>
+ <tileset firstgid="103" source="ObjectTile/Money_Bag.tsx"/>
+ <tileset firstgid="106" source="ObjectTile/Brick.tsx"/>
+ <tileset firstgid="108" source="ObjectTile/Candle.tsx"/>
+ <layer id="1" name="background" width="32" height="12">
+  <data>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="7"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="12"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="12"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="7"/>
+   <tile gid="11"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="12"/>
+   <tile gid="11"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="12"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="6"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="16"/>
+   <tile gid="17"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="7"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="11"/>
+   <tile gid="18"/>
+   <tile gid="19"/>
+   <tile gid="20"/>
+   <tile gid="20"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="6"/>
+   <tile gid="21"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="6"/>
+   <tile gid="21"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="20"/>
+   <tile gid="20"/>
+   <tile gid="6"/>
+   <tile gid="21"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="12"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="12"/>
+   <tile gid="11"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="20"/>
+   <tile gid="20"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="20"/>
+   <tile gid="20"/>
+   <tile gid="22"/>
+   <tile gid="23"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="14"/>
+   <tile gid="15"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="13"/>
+   <tile gid="13"/>
+   <tile gid="24"/>
+   <tile gid="25"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="26"/>
+   <tile gid="27"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+   <tile gid="6"/>
+  </data>
+ </layer>
+ <objectgroup color="#00aaff" id="2" name="Wall">
+  <object id="2" x="-9.5" y="-0.5" width="9.5" height="383.5"/>
+  <object id="3" x="1008.5" y="-3.5" width="19" height="384"/>
+  <object id="4" x="0" y="352" width="1022.5" height="31.5"/>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="3" name="Ground">
+  <object id="5" x="-8.5" y="161.5" width="456" height="28.5"/>
+  <object id="6" x="192.5" y="97" width="63" height="29.5"/>
+  <object id="7" x="512.5" y="160" width="64" height="30.5"/>
+  <object id="8" x="639.5" y="160.5" width="289" height="30"/>
+  <object id="9" x="959.5" y="223" width="63" height="31"/>
+  <object id="10" x="896" y="287.5" width="65" height="31.5"/>
+ </objectgroup>
+ <objectgroup id="14" name="Candle">
+  <object id="29" gid="108" x="56.6667" y="72.6667" width="16" height="32"/>
+  <object id="30" gid="108" x="186.667" y="69.3333" width="16" height="32"/>
+  <object id="31" gid="108" x="440.667" y="70.6667" width="16" height="32"/>
+  <object id="32" gid="108" x="566" y="71.3333" width="16" height="32"/>
+  <object id="33" gid="108" x="696" y="69.3333" width="16" height="32"/>
+  <object id="34" gid="108" x="829.333" y="70.6667" width="16" height="32"/>
+  <object id="35" gid="108" x="980" y="74.6667" width="16" height="32"/>
+ </objectgroup>
+ <objectgroup id="4" name="MoneyBagTrigger">
+  <object id="11" name="moneybagtrigger" x="905" y="276" width="51" height="9.5"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" id="5" name="Player">
+  <object id="23" name="5" gid="43" x="113" y="48" width="60" height="66"/>
+  <object id="28" name="6" gid="43" x="751" y="48" width="60" height="66"/>
+ </objectgroup>
+ <objectgroup id="13" name="Cam" visible="0">
+  <object id="24" name="5" x="0" y="0" width="1039" height="380"/>
+ </objectgroup>
+ <objectgroup id="6" name="MoneyBag">
+  <object id="12" name="moneybag" gid="103" x="772.5" y="189.75" width="31" height="30"/>
+ </objectgroup>
+ <objectgroup id="7" name="Nextmap">
+  <object id="19" x="75.5" y="-37.5" width="31.5" height="7">
+   <properties>
+    <property name="nextSceneID" value="5"/>
+    <property name="playerAction" value="1000"/>
+   </properties>
+  </object>
+  <object id="27" x="719.25" y="-29.5" width="31.5" height="7">
+   <properties>
+    <property name="nextSceneID" value="7"/>
+    <property name="playerAction" value="1000"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="Water">
+  <object id="13" name="Water" type="Water" x="1.66667" y="287" width="888.833" height="12.1667"/>
+  <object id="14" name="Water" type="Water" x="962" y="299" width="62" height="52"/>
+ </objectgroup>
+ <objectgroup id="10" name="Stair">
+  <object id="16" x="180" y="91" width="32" height="5">
+   <properties>
+    <property name="dir" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="17" x="880" y="153.5" width="32" height="6.5">
+   <properties>
+    <property name="dir" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aaaaff" id="11" name="Spawner" visible="0">
+  <object id="20" name="Spawn" type="Spawn" x="0.666667" y="2.667" width="896.667" height="301">
+   <properties>
+    <property name="enemydef" type="int" value="3"/>
+    <property name="num" type="int" value="2"/>
+    <property name="respawntime" type="int" value="10000"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="12" name="Brick">
+  <object id="21" name="Brick" type="Brick" gid="106" x="928" y="192" width="32" height="32">
+   <properties>
+    <property name="brickstate" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
-

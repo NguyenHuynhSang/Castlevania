@@ -84,6 +84,7 @@ void PlayScene::CamUpdate(DWORD dt)
 		if (door->CheckIsDoorOpened())
 		{
 			simon->SetAutoWalk(true);
+		
 			simon->SetState(SIMON_STATE_WALKING_RIGHT);
 		}
 

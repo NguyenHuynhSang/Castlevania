@@ -84,7 +84,7 @@
 
 	<scene>
 		<playscene startSceneID="1">
-			<miniscene  ID="1" preID="0" nextID="2" name="courtyarn" map="map1" entryPoint="1" area="1" revivalScene="2"  stateID="1"  />
+			<miniscene  ID="1" preID="0" nextID="2" name="courtyarn" map="map1" entryPoint="1" area="1" revivalScene="1"  stateID="1"  />
 			<miniscene  ID="2" preID="0" nextID="3" name="Great_Hall_ENTER" map="map2" entryPoint="2" area="2" revivalScene="2"  stateID="1"  />
 			<miniscene  ID="3" preID="0" nextID="4" name="Great_Hall_THOUGHDOOR" map="map2" entryPoint="3" area="3" revivalScene="3"  stateID="2"  />
 			<miniscene  ID="4" preID="5" nextID="7" name="UNDERGOUND_ENTER" map="map3" entryPoint="5" area="5" revivalScene="3"  stateID="2"  />

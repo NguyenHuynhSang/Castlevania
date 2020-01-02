@@ -1,6 +1,6 @@
 #pragma once
 #include"Enemy.h"
-#define FISHMAN_BBOX_WIDTH 32
+#define FISHMAN_BBOX_WIDTH 30
 #define FISHMAN_BBOX_HEIGHT 64
 
 #define FISHMAN_GRAVITY 0.0005f
