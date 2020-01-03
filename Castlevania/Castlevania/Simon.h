@@ -124,6 +124,9 @@ public:
 	
 	static void AddScore(int score) { score_ += score; }
 	static int GetScore() { return score_; }
+	void ResetFightBoss() {
+		this->isFightWithBoss = false;
+	}
 	void ResetPoint() {
 		this->hp_ = 16;
 		this->enery_ = 5;

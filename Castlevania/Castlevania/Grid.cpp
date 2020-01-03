@@ -62,11 +62,6 @@ void Grid::Add(LPGAMEOBJECT object)
 	}
 	object->SetCellIndex(cellX, cellY);
 	this->cells_[cellY][cellX].push_back(object);
-
-
-
-
-
 }
 
 void Grid::AddToAlwayUpdateObjects(LPGAMEOBJECT object)
@@ -234,7 +229,7 @@ void Grid::GetListobject(vector<LPGAMEOBJECT>& listobjects)
 				}
 				else
 				{
-
+ 					DebugOut(L" LOSING OBJECT \n");
 				}
 			}
 
@@ -249,7 +244,12 @@ void Grid::GetListobject(vector<LPGAMEOBJECT>& listobjects)
 	for (size_t i = 0; i < this->alwaysUpdateobject.size(); i++)
 	{
 		LPGAMEOBJECT ob = alwaysUpdateobject.at(i);
-		listobjects.push_back(ob);
+		if (!ob->CheckDestroyed())
+		{
+			listobjects.push_back(ob);
+		}
+	
+		
 
 	}
 

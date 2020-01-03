@@ -8,6 +8,8 @@
 #define VAMPIREBAT_STATE_FLY_SLOW 1000
 #define VAMPIREBAT_STATE_FLY_FAST 800
 
+#define VAMPIREBAT_UNTOUABLE_TIME 300
+
 #define VAMPIREBAT_FLYBACK_VX 0.15f
 #define VAMPIREBAT_ANI_SLEEP 0
 #define VAMPIREBAT_ANI_FLYING 1
@@ -24,12 +26,13 @@
 
 
 
+
 #define VAMPIREBAT_SPRITE_BBOX_HEIGHT 46
 #define VAMPIREBAT_SPRITE_BBOX_WIDTH 100
 
 
 #define VAMPIREBAT_BBOX_HEIGHT 46
-#define VAMPIREBAT_BBOX_WIDTH 30
+#define VAMPIREBAT_BBOX_WIDTH 100
 
 
 #define VAMPIREBAT_BBOX_SLOWACTACK 200
@@ -51,6 +54,7 @@ private:
 	DWORD flyback_start;
 	DWORD flyrandom_start;
 	DWORD waiting_start;
+	DWORD untouchable_start;
 
 
 	DWORD flyback_time;
@@ -59,6 +63,22 @@ private:
 	RECT slowAttackArea;
 	RECT bossAttackArea;
 public:
+	void Reset() {
+		 awake = false;
+		 intro = false;
+		 outOfArea = false;
+		 hitBoder = false;
+		 flyToRamdomTager = false;
+		 this->state = VAMPIREBAT_STATE_SLEEP;
+		 this->attack_time = VAMPIREBAT_ATTACK_TIME;
+		 this->flyback_time = VAMPIREBAT_FLY_BACK_TIME;
+		 this->waiting_start = 0;
+		 this->attack_start = 0;
+		 this->flyback_start = 0;
+		 this->flyrandom_start = 0;
+		 this->untouchable_start = 0;
+		 this->hp = DEFAULT_HP;
+	}
 	void SetActiveArea(RECT r) { this->activeArea = r; }
 	RECT GetActiveArea() { return this->activeArea; }
 	void StartAwake() { this->awake = true; };

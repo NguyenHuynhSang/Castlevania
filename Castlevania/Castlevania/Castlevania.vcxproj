@@ -29,6 +29,7 @@
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cross.h" />
+    <ClInclude Include="Crystal.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="DSutil.h" />
     <ClInclude Include="dxutil.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cross.cpp" />
+    <ClCompile Include="Crystal.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="DSutil.cpp" />
     <ClCompile Include="dxutil.cpp" />

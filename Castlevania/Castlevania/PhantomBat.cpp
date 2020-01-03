@@ -2,10 +2,11 @@
 #include"Simon.h"
 #include"HandleSpawnEnemy.h"
 #include"HandleSpawnEffects.h"
+#include"HandleSpawnItem.h"
 #include"Hud.h"
 void PhantomBat::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x + 35;
+	l = x;
 	t = y;
 	r = l + VAMPIREBAT_BBOX_WIDTH;
 	b = t + VAMPIREBAT_BBOX_HEIGHT;
@@ -21,6 +22,10 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->setDestroy)
 	{
 		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BOSSDEAD, x, y);
+		float cx, cy;
+		cx = activeArea.left+abs(activeArea.right - activeArea.left) / 2;
+		cy= activeArea.top+abs(activeArea.top - activeArea.bottom )/2;
+		HandleSpawnItem::GetInstance()->SpawnItem(ITEMDEF::ITDCRYSTALL, cx, cy, true);
 		this->isDestroyed = true;
 		return;
 	}

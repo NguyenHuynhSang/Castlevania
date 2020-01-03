@@ -28,6 +28,8 @@ private:
 	// trong cell co the co nhieu object 
 	std::vector<std::vector<cellObjects>> cells_;
 	std::vector<LPGAMEOBJECT> alwaysUpdateobject;
+
+	std::vector<LPGAMEOBJECT> statisObject;
 	void RenderCell(RECT rec, MYCOLOR color, int alpha = 64);
 public:
 	void BuildGrid(const std::string& filePath);

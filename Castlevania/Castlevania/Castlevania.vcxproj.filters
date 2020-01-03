@@ -321,6 +321,9 @@
     <ClInclude Include="Sound.h">
       <Filter>Framework\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="Crystal.h">
+      <Filter>ObjectsManager\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -547,6 +550,9 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Crystal.cpp">
+      <Filter>ObjectsManager\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

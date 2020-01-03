@@ -240,7 +240,6 @@ void PlayScene::Update(DWORD dt)
 
 	if (this->simon->CheckIsFightWithBoss() && !phantomBat->CheckAwake())
 	{
-		DebugOut(L"Spawn \n");
 		if (sound->isPlaying(eSound::musicState1))
 		{
 			sound->Stop(eSound::musicState1);
@@ -268,10 +267,14 @@ void PlayScene::Update(DWORD dt)
 	if (this->isNextScene) {
 		if (bossAreaWall!=NULL)
 		{
-			delete bossAreaWall;
-			bossAreaWall = NULL;
+			bossAreaWall->DestroyImmediate();
 		}
-	
+		if (simon->CheckIsFightWithBoss())
+		{
+			phantomBat->Reset();
+			simon->ResetFightBoss();
+		}
+		
 		this->isNextScene = false;
 		GoToNextArea();
 		return;
@@ -323,6 +326,7 @@ void PlayScene::Render()
 
 	for (std::size_t i = 0; i < objects.size(); i++)
 	{
+	
 		objects[i]->Render();
 	}
 
