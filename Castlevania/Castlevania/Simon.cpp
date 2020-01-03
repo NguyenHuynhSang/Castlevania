@@ -271,7 +271,7 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
+
 
 	if (this->state == SIMON_STATE_DIE)
 	{
@@ -283,7 +283,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 
-	
+
 	if (this->isActack && !this->isAutoWalk) {
 
 		if (whip->CheckLastFrame()) {
@@ -358,7 +358,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		SetState(SIMON_STATE_FALL_DOWN);
 	}
-	
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -391,7 +391,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 
-		float min_tx, min_ty, nx = 0, ny=-1;
+		float min_tx, min_ty, nx = 0, ny = -1;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		// block 
@@ -422,7 +422,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							this->isJumping = false;
 						}
 						else {
-						
+
 
 							if (this->isActack || this->isUseSubWeapon) { // còn đang đánh thì dừng lại
 								vx = 0;
@@ -432,7 +432,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								ResetSpriteFrame();
 								ResetActack_Time();
 								DebugOut(L"Simon vy=%f \n", this->vy);
-								if (vy>1.0f || isJumping == true)								{
+								if (vy > 1.0f || isJumping == true) {
 									this->paralyze_start = GetTickCount();
 									Sound::GetInstance()->Play(eSound::soundFallDown);
 									if (isActack)
@@ -440,11 +440,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 										isActack = false;
 									}
 								}
-								else if (isJumping==false)
+								else if (isJumping == false)
 								{
 									SetState(SIMON_STATE_IDLE);
 									isActack = false;
-								}	
+								}
 							};
 							this->isJumping = false;
 							if (ny != 0) vy = 0;
@@ -469,11 +469,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<Water*>(e->obj)) {
 
-				
+
 				HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_BUBBLE, this->x, this->y);
 				this->vy = 10.0f;
 				CGameObject::Update(dt); // cap nhat lai dx dy theo van toc moi
-			
+
 				this->SetState(SIMON_STATE_DIE);
 				Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
 				if (e->nx != 0)
@@ -608,7 +608,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					this->AddEnery(item->GetHeartPoint());
 					if (dynamic_cast<MorningStar*>(e->obj)) {
-						
+
 						SetState(SIMON_STATE_POWERUP);
 						if (isActack) {
 							ResetActack_Time();
@@ -684,6 +684,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			}
 			else if (dynamic_cast<NextScene*>(e->obj)) {
+				DebugOut(L"NEXT SWEPTAABB \n");
 				NextScene* nextscene = dynamic_cast<NextScene*>(e->obj);
 				nextscene->SetColliceWithPlayer(true);
 			}
@@ -869,14 +870,21 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
-
+		else if (dynamic_cast<NextScene*>(e)) {
+			if (CGameObject::IsColliding(this, e))
+			{
+				NextScene* nextscene = dynamic_cast<NextScene*>(e);
+				nextscene->SetColliceWithPlayer(true);
+				DebugOut(L"NEXT AABB \n");
+			}
+		}
 
 	}
 
 
 	if (!flagOnGround)
 	{
-		if (!isJumping && !isFirstStepOnStair && !isOnStair 
+		if (!isJumping && !isFirstStepOnStair && !isOnStair
 			&& this->state != SIMON_STATE_DEFLECT
 			&& this->state != SIMON_STATE_DIE
 			&& this->state != SIMON_STATE_FALL_DOWN) {
@@ -1261,7 +1269,7 @@ void CSimon::StartUseSubWeapon()
 	default:
 		break;
 	}
-	
+
 
 
 

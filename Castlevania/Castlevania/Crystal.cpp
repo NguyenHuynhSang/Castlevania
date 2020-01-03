@@ -31,7 +31,7 @@ void Crystal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
-	this->UpdateItem();
+	
 	if (this->setDestroy) {
 		this->isDestroyed = true;
 		return;

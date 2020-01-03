@@ -437,7 +437,7 @@
     <property name="playerAction" value="1000"/>
    </properties>
   </object>
-  <object id="27" x="719.25" y="-29.5" width="31.5" height="7">
+  <object id="27" x="719.25" y="-23.5" width="31.5" height="7">
    <properties>
     <property name="nextSceneID" value="7"/>
     <property name="playerAction" value="1000"/>
