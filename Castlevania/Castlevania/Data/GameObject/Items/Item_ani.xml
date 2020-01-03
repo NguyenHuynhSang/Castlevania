@@ -49,6 +49,11 @@
 		<animation ID="ROAST_ITEM_ANI" defaulttime="100">
 			<frame spriteID="ROAST_ITEM_01" />
 		</animation>
+		
+		
+		<animation ID="DOUBLESHOT_ITEM_ANI" defaulttime="100">
+			<frame spriteID="DOUBLESHOT_ITEM_01" />
+		</animation>
 	</animations>
 
 </resource>

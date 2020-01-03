@@ -2420,7 +2420,7 @@
   <object id="176" gid="188" x="5472" y="288" width="32" height="32">
    <properties>
     <property name="brickstate" type="int" value="0"/>
-    <property name="itemdef" type="int" value="0"/>
+    <property name="itemdef" type="int" value="14"/>
     <property name="scenedef" type="int" value="6"/>
    </properties>
   </object>
@@ -2441,10 +2441,10 @@
  <objectgroup id="17" name="BOSS">
   <object id="229" name="Boss" gid="192" x="5302" y="75" width="100" height="46"/>
  </objectgroup>
- <objectgroup color="#0055ff" id="18" name="BossBorder">
+ <objectgroup color="#0055ff" id="18" name="BossBorder" visible="0">
   <object id="273" name="BossArea" x="5125.5" y="0.5" width="493" height="347"/>
  </objectgroup>
- <objectgroup color="#00557f" id="19" name="BossTrigger">
+ <objectgroup color="#00557f" id="19" name="BossTrigger" visible="0">
   <object id="233" name="BossTrigger" x="5420" y="7" width="178" height="309"/>
  </objectgroup>
 </map>

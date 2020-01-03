@@ -77,6 +77,14 @@
 #define SIMON_MAX_ENERY 99
 #define SIMON_PARALYZE_TIME 300
 
+
+const enum ShotState {
+	NORMALSHOT,
+	DOUBLESHOT,
+	TRIPBLESHOT,
+};
+
+
 class CSimon : public CGameObject
 {
 	int untouchable;
@@ -88,7 +96,7 @@ class CSimon : public CGameObject
 	int hp_;
 	int enery_;
 	static int score_;
-
+	ShotState shotState;
 
 	Whip* whip;
 	int subWeaponDef = -1;
@@ -104,8 +112,6 @@ class CSimon : public CGameObject
 	bool isHitDoor = false;
 	bool getCross = false;
 	bool isFightWithBoss = false;
-	bool isDoubleShot = false;
-	bool isTrippleShot = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;

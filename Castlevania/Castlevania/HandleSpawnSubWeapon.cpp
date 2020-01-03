@@ -16,12 +16,7 @@ int HandleSpawnSubWeapon::CheckNumOfSubWeaponUsed()
 void HandleSpawnSubWeapon::SpawnSubWeapon(int subWeaponDef, float x, float y, DIRECTION nx)
 {
 	Sound* sound = Sound::GetInstance();
-	if (this->isDoubleShot == false)
-	{
-		if (this->scene->GetSubWeapons()->size() > 0) {
-			return;
-		}
-	}
+
 	switch (subWeaponDef)
 	{
 	case SWDDAGGER:

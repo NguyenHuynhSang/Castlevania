@@ -139,6 +139,7 @@ void Grid::Update(LPGAMEOBJECT object)
 
 	if (object->CheckDestroyed())
 	{
+
 		// loại bỏ cell cũ
 		for (vector<LPGAMEOBJECT>::iterator it = cells_[oldCell.y][oldCell.x].begin(); it != cells_[oldCell.y][oldCell.x].end(); ) {
 			if ((*it) == object) {

@@ -38,6 +38,7 @@ CSimon::CSimon() :CGameObject()
 	CSimon::score_ = 0;
 	this->enery_ = 5;
 	untouchable = 0;
+	shotState = ShotState::NORMALSHOT;
 	whip = new Whip();
 	this->AddAnimation("SIMON_ANI_IDLE");		// idle right big 0
 	this->AddAnimation("SIMON_ANI_WALKING");		// walk right big  1
@@ -634,7 +635,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							AddHP(4);
 						}
 						else if (dynamic_cast<MultiplyShotItem*>(e->obj)) {
-							HandleSpawnSubWeapon::GetInstance()->SetDoubleShot(true);
+							shotState = ShotState::DOUBLESHOT;
 						}
 						else if (dynamic_cast<InvisibilityPotion*>(e->obj)) {
 							StartUntouchable();
@@ -770,6 +771,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else if (dynamic_cast<MoneyBag*>(e)) {
 							score_ += f->GetScore();
+						}
+						else if (dynamic_cast<MultiplyShotItem*>(e)) {
+							shotState = ShotState::DOUBLESHOT;
 						}
 					}
 
@@ -1223,10 +1227,26 @@ void CSimon::StartUseSubWeapon()
 		return;
 	}
 
-	if (HandleSpawnSubWeapon::GetInstance()->CheckNumOfSubWeaponUsed() >= 1)
+	switch (shotState)
 	{
-		return;
+	case NORMALSHOT:
+		if (HandleSpawnSubWeapon::GetInstance()->CheckNumOfSubWeaponUsed() == 1)
+		{
+			return;
+		}
+		break;
+	case DOUBLESHOT:
+		if (HandleSpawnSubWeapon::GetInstance()->CheckNumOfSubWeaponUsed() == 2)
+		{
+			return;
+		}
+		break;
+	case TRIPBLESHOT:
+		break;
+	default:
+		break;
 	}
+	
 
 
 
