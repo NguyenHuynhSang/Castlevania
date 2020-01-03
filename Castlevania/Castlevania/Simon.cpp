@@ -427,6 +427,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								vx = 0;
 							}
 							if (state == SIMON_STATE_FALL_DOWN && this->paralyze_start == 0) {
+								this->isActack = false; // còn đánh thì dừng để k bị lock control
+								ResetSpriteFrame();
+								ResetActack_Time();
 								DebugOut(L"Simon vy=%f \n", this->vy);
 								if (vy>1.0f || isJumping == true)								{
 									this->paralyze_start = GetTickCount();
@@ -539,7 +542,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (door->GetState() == DOOR_STATE_CLOSE && !this->isJumping)
 					{
 						door->SetIsColicePlayer(true);
+						this->SetState(SIMON_STATE_IDLE);
 						this->isHitDoor = true;
+						this->lockControl = true;
 					}
 				}
 

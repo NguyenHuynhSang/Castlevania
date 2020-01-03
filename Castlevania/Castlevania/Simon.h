@@ -112,6 +112,7 @@ class CSimon : public CGameObject
 	bool isHitDoor = false;
 	bool getCross = false;
 	bool isFightWithBoss = false;
+	bool lockControl = false;
 	STAIRDIRECTION onStairDirection = STAIRDIRECTION::DEFAULT;
 	int lastState = -1;
 	D3DXVECTOR2 stairPos;
@@ -126,6 +127,12 @@ public:
 	static int GetScore() { return score_; }
 	void ResetFightBoss() {
 		this->isFightWithBoss = false;
+	}
+	void SetLockControl(bool flag) {
+		this->lockControl = flag;
+	}
+	bool CheckLockControl() {
+		return this->lockControl;
 	}
 	void ResetPoint() {
 		this->hp_ = 16;
@@ -148,7 +155,7 @@ public:
 		this->attack_start = 0;
 		this->untouchable_start = 0;
 		this->untouchable = 0;
-
+		this->lockControl = false;
 	
 
 	}

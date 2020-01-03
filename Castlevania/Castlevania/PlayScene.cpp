@@ -752,6 +752,13 @@ void PlayScene::OnKeyDown(int keyCode)
 		return;
 	}
 	if (simon->GetState() == SIMON_STATE_DIE || simon->GetState() == SIMON_STATE_FALL_DOWN) return;
+
+	if (simon->CheckLockControl())
+	{
+		return;
+	}
+
+
 	float sx, sy;
 	simon->GetPosition(sx, sy);
 	if (simon->CheckAutoWalk()) {
@@ -878,7 +885,10 @@ void PlayScene::KeyState(BYTE* states)
 {
 
 	if (simon->GetState() == SIMON_STATE_DIE || simon->GetState() == SIMON_STATE_FALL_DOWN) return;
-
+	if (simon->CheckLockControl())
+	{
+		return;
+	}
 	if (simon->CheckAutoWalk()) {
 		return;
 	}
