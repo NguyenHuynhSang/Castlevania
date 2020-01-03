@@ -4,6 +4,10 @@
 
 void InvisibilityPotion::Render()
 {
+	if (isHiding)
+	{
+		return;
+	}
 	animations[0]->Render(DIRECTION::DEFAULT,x,y);
 }
 

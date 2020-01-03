@@ -105,7 +105,7 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (e->nx != 0)
 				{
 					x += dx;
-					y += dy;
+					//y += dy;
 	
 				}
 

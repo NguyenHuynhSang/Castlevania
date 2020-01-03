@@ -27,7 +27,7 @@ public:
 	}
 
 	virtual void Render() {
-		RenderBoundingBox();
+	//	RenderBoundingBox();
 	};
 	NextScene(int playerAction,int nextSceneID) :nextSceneID(nextSceneID), playerAction(playerAction) {
 		this->isColliceWithPlayer = false;

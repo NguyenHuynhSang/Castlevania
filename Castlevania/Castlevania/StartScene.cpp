@@ -17,7 +17,7 @@ void StartScene::Render()
 	
 	this->intro->Draw(DIRECTION::DEFAULT, 0, 0, 255, false);
 	this->introCastle->Render(DIRECTION::DEFAULT, 350, 210);
-	game->DrawUIText("Press Enter", bound, false);
+	//game->DrawUIText("Press Enter", bound, false);
 }
 
 void StartScene::OnKeyDown(int keyCode)

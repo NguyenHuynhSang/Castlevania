@@ -2367,12 +2367,24 @@
   <object id="138" name="Candle" type="Candle" gid="186" x="2098" y="287" width="16" height="32"/>
   <object id="139" name="Candle" type="Candle" gid="186" x="2618.5" y="289.5" width="16" height="32"/>
   <object id="140" name="Candle" type="Candle" gid="186" x="2866" y="95" width="16" height="32"/>
-  <object id="141" name="Candle" type="Candle" gid="186" x="2997" y="34.5" width="16" height="32"/>
+  <object id="141" name="Candle" type="Candle" gid="186" x="2997" y="34.5" width="16" height="32">
+   <properties>
+    <property name="itemdef" type="int" value="12"/>
+   </properties>
+  </object>
   <object id="183" name="Candle" type="Candle" gid="186" x="4226.67" y="64.6667" width="16" height="32"/>
   <object id="184" name="Candle" type="Candle" gid="186" x="4456" y="130.667" width="16" height="32"/>
   <object id="185" name="Candle" type="Candle" gid="186" x="4887.33" y="271.333" width="16" height="32"/>
-  <object id="186" name="Candle" type="Candle" gid="186" x="5022" y="269.333" width="16" height="32"/>
-  <object id="187" name="Candle" type="Candle" gid="186" x="4638.67" y="125.333" width="16" height="32"/>
+  <object id="186" name="Candle" type="Candle" gid="186" x="5022" y="269.333" width="16" height="32">
+   <properties>
+    <property name="itemdef" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="187" name="Candle" type="Candle" gid="186" x="4638.67" y="125.333" width="16" height="32">
+   <properties>
+    <property name="itemdef" type="int" value="11"/>
+   </properties>
+  </object>
   <object id="218" name="Candle" type="Candle" gid="186" x="2736.5" y="224.5" width="16" height="32"/>
   <object id="224" name="Candle" type="Candle" gid="186" x="47" y="288" width="16" height="32"/>
   <object id="225" name="Candle" type="Candle" gid="186" x="1424" y="288" width="16" height="32"/>

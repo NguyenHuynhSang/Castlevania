@@ -635,6 +635,9 @@ void PlayScene::LoadObjects()
 				for (const auto& child : groupObject) {
 					candle = new Candle();
 					candle->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+					int itemdef = child->GetIntProperty("itemdef");
+					candle->SetItem(itemdef);
+
 					AddToGrid(candle, grid);
 				}
 				break;

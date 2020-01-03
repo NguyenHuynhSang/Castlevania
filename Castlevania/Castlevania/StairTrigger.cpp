@@ -4,7 +4,7 @@
 
 void StairTrigger::Render()
 {
-	RenderBoundingBox();
+//	RenderBoundingBox();
 }
 
 StairTrigger::StairTrigger()

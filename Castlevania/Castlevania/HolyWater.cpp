@@ -3,6 +3,7 @@
 #include"Brick.h"
 #include"Ground.h"
 #include "Simon.h"
+#include"Sound.h"
 void HolyWater::Render()
 {
 	int ani;
@@ -89,7 +90,7 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->SetState(HOLYWATER_STATE_BURNING);
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
-
+				Sound::GetInstance()->Play(eSound::soundHit);
 				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{

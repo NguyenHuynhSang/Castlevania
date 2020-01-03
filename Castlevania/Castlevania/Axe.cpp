@@ -6,6 +6,7 @@
 #include"Candle.h"
 #include"HandleSpawnEffects.h"
 #include "Simon.h"
+#include"Sound.h"
 
 void Axe::Render()
 {
@@ -85,6 +86,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			else if (dynamic_cast<Candle *> (e->obj)) {
 				
+				Sound::GetInstance()->Play(eSound::soundHit);
 				Candle *candle = dynamic_cast<Candle *>(e->obj);
 				if (!candle->isDestroyed)
 				{
@@ -92,7 +94,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			else if (dynamic_cast<Enemy *>(e->obj)) {
-
+				Sound::GetInstance()->Play(eSound::soundHit);
 				Enemy *z = dynamic_cast<Enemy  *>(e->obj);
 				if (!z->isDestroyed)
 				{

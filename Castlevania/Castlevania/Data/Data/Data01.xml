@@ -7,7 +7,7 @@
 		<texture id="1010" path="Data\\Map\\Great_Hall_bank.png" red="5" green="5" blue="5"/>
 		<texture id="1020" path="Data\\Map\\Underground_bank.png" red="5" green="5" blue="5"/>
 		<texture id="-20" path="Data\\GameObject\\IntroCastle.png" red="5" green="5" blue="5"/>
-		<texture id="-10" path="Data\\GameObject\\mainmenu.png" red="255" green="0" blue="255"/>
+		<texture id="-10" path="Data\\GameObject\\mainmenu.png" red="0" green="0" blue="0"/>
 		<texture id="0" path="Data\\UI\\UIpack.png" red="255" green="0" blue="255"/>
 		<texture id="10" path="Data\\GameObject\\Simon\\SIMON.png" red="255" green="255" blue="255"/>
 		<texture id="20" path="Data\\GameObject\\Ground\\groundObject.png" red="255" green="0" blue="255"/>

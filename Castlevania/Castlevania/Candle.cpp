@@ -4,6 +4,7 @@
 Candle::Candle()
 {
 	AddAnimation("CANDLE_ANI_BURNING");
+	itemHolder = -999;
 }
 
 
@@ -27,7 +28,16 @@ void Candle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (this->setDestroy) {
 		HandleSpawnEffects::GetInstance()->SpawnEffect(EFD_FLAME, this->x, this->y);
-		HandleSpawnItem::GetInstance()->SpawnRandomItem(this->x, this->y);
+		if (itemHolder ==-999)
+		{
+			HandleSpawnItem::GetInstance()->SpawnRandomItem(this->x, this->y);
+		}
+		else
+		{
+			HandleSpawnItem::GetInstance()->SpawnItem(itemHolder,this->x, this->y,true);
+
+		}
+	
 		isDestroyed = true;
 	}
 }

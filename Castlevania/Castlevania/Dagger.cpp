@@ -7,6 +7,7 @@
 #include"Brick.h"
 #include"Fireball.h"
 #include "Simon.h"
+#include"Sound.h"
 void Dagger::Render()
 {
 	animations[0]->Render(nx, x, y);
@@ -57,7 +58,7 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Torch*>(e->obj)) {
-
+				Sound::GetInstance()->Play(eSound::soundHit);
 				Torch* torch = dynamic_cast<Torch*>(e->obj);
 				if (!torch->isDestroyed)
 				{
@@ -75,6 +76,7 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->SetDestroy();
 			}
 			else if (dynamic_cast<Candle*> (e->obj)) {
+				Sound::GetInstance()->Play(eSound::soundHit);
 				this->SetDestroy();
 				Candle* candle = dynamic_cast<Candle*>(e->obj);
 				if (!candle->isDestroyed)
@@ -83,7 +85,7 @@ void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			else if (dynamic_cast<Enemy*>(e->obj)) {
-
+				Sound::GetInstance()->Play(eSound::soundHit);
 				Enemy* z = dynamic_cast<Enemy*>(e->obj);
 				if (!z->isDestroyed)
 				{
