@@ -404,7 +404,7 @@
   <object id="5" x="-8.5" y="161.5" width="456" height="28.5"/>
   <object id="6" x="192.5" y="97" width="63" height="29.5"/>
   <object id="7" x="512.5" y="160" width="64" height="30.5"/>
-  <object id="8" x="639.5" y="160.5" width="289" height="30"/>
+  <object id="8" x="639.5" y="160.5" width="285.5" height="30"/>
   <object id="9" x="959.5" y="223" width="63" height="31"/>
   <object id="10" x="896" y="287.5" width="65" height="31.5"/>
  </objectgroup>
@@ -424,7 +424,7 @@
   <object id="23" name="5" gid="43" x="113" y="48" width="60" height="66"/>
   <object id="28" name="6" gid="43" x="751" y="48" width="60" height="66"/>
  </objectgroup>
- <objectgroup id="13" name="Cam">
+ <objectgroup id="13" name="Cam" visible="0">
   <object id="24" name="5" x="0" y="0" width="1039" height="380"/>
  </objectgroup>
  <objectgroup id="6" name="MoneyBag">
