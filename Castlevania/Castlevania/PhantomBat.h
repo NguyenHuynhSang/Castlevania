@@ -78,6 +78,7 @@ public:
 		 this->flyrandom_start = 0;
 		 this->untouchable_start = 0;
 		 this->hp = DEFAULT_HP;
+		 SetPosition(orginalPos.x, orginalPos.y);
 	}
 	void SetActiveArea(RECT r) { this->activeArea = r; }
 	RECT GetActiveArea() { return this->activeArea; }

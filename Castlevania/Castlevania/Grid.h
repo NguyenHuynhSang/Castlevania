@@ -6,6 +6,7 @@
 #include<string>
 #include"Library/RapidXML/rapidxml.hpp"
 #include"Library/RapidXML/rapidxml_utils.hpp"
+
 using namespace rapidxml;
 #define CELL_SIZE  256
 typedef std::vector<LPGAMEOBJECT> cellObjects;

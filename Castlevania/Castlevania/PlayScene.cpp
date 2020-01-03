@@ -4,7 +4,6 @@
 #include"HandleSpawnEnemy.h"
 #include"HandleSpawnItem.h"
 #include"HandleSpawnSubWeapon.h"
-#include"BossZone.h"
 #include"PlayScene.h"
 #include"TypeConverter.h"
 void PlayScene::LoadResource()
@@ -184,6 +183,10 @@ void PlayScene::GoToNextArea()
 	grid = grids.at(currentMiniScene->mapID);
 	grid->ResetStaticObject();
 	hud->setState(currentMiniScene->state);
+	if (bzone!=NULL &&bzone->CheckActive())
+	{
+		bzone->ResetObject();
+	}
 }
 
 void PlayScene::HandleCrossEffect()
@@ -510,6 +513,7 @@ void PlayScene::LoadObjects()
 				for (const auto& child : groupObject) {
 					phantomBat = new PhantomBat();
 					phantomBat->SetPosition(child->GetX(), child->GetY() - child->GetHeight());
+					phantomBat->SetOrginalPos(child->GetX(), child->GetY() - child->GetHeight());
 					auto bossBatBorder = map.second->GetObjects().at("BossBorder");
 					for (const auto& smallchild : bossBatBorder) {
 						float l = 0, t = 0, r = 0, b = 0;
@@ -526,7 +530,7 @@ void PlayScene::LoadObjects()
 				break;
 			case ObjectID::OBossTrigger:
 				for (const auto& child : groupObject) {
-					BossZone* bzone = new BossZone();
+					 bzone = new BossZone();
 					bzone->SetSize(child->GetWidth(), child->GetHeight());
 					bzone->SetPosition(child->GetX(), child->GetY());
 					AddToGrid(bzone, grid);

@@ -9,7 +9,7 @@
 #include"PhantomBat.h"
 #include"Effects.h"
 #include"Textures.h"
-
+#include"BossZone.h"
 
 
 void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
@@ -66,7 +66,8 @@ void Grid::Add(LPGAMEOBJECT object)
 
 	if (dynamic_cast<Candle*> (object)
 		|| dynamic_cast<Torch*> (object)
-		|| dynamic_cast<CBrick*> (object))
+		|| dynamic_cast<CBrick*> (object)
+		|| dynamic_cast<BossZone*> (object))
 	{
 		this->statisObject.push_back(object);
 	}
@@ -142,7 +143,8 @@ void Grid::Update(LPGAMEOBJECT object)
 
 	if (   !dynamic_cast<Torch*> (object)
 		&& !dynamic_cast<Candle*> (object)
-		&& !dynamic_cast<CBrick*> (object))
+		&& !dynamic_cast<CBrick*> (object)
+		&& !dynamic_cast<BossZone*> (object))
 	{
 		if (object->CheckDestroyed())
 		{

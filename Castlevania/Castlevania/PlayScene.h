@@ -36,6 +36,7 @@
 #include"MapManager.h"
 #include"Scene.h"
 #include"Sound.h"
+#include"BossZone.h"
 class MiniScene
 {
 public:
@@ -79,7 +80,7 @@ private:
 	Water* water;
 	Door* door=NULL;
 	Hud* hud;
-
+	BossZone* bzone=NULL;
 	BoundMap* bossAreaWall=NULL;
 
 

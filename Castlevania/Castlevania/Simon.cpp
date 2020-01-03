@@ -31,6 +31,7 @@
 #include"BossZone.h"
 #include"InvisibilityPotion.h"
 #include "MoneyBag.h"
+#include"Crystal.h"
 #include"Sound.h"
 CSimon::CSimon() :CGameObject()
 {
@@ -649,6 +650,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						else if (dynamic_cast<MoneyBag*>(e->obj)) {
 							score_ += item->GetScore();
 						}
+						else if (dynamic_cast<Crystal*>(e->obj)) {
+							Sound::GetInstance()->StopAll();
+							Sound::GetInstance()->Play(eSound::musicStateClear);
+
+						}
 					}
 					if (!item->isDestroyed)
 					{
@@ -779,6 +785,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else if (dynamic_cast<MultiplyShotItem*>(e)) {
 							shotState = ShotState::DOUBLESHOT;
+						}
+						else if (dynamic_cast<Crystal*>(e)) {
+							Sound::GetInstance()->StopAll();
+							Sound::GetInstance()->Play(eSound::musicStateClear);
 						}
 					}
 
