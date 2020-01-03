@@ -88,6 +88,10 @@ public:
 	bool CheckActive() {
 		return this->isObjectActive;
 	}
+	void ResetObject() {
+		this->isDestroyed = false;
+		this->setDestroy = false;
+	}
 	void SetPosition(float x, float y) { this->x = x, this->y = y + GAME_WORLD_Y; }// cộng thêm phần board
 	void SetPositionInWorld(float x, float y) { this->x = x, this->y = y; }// cộng thêm phần board
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }

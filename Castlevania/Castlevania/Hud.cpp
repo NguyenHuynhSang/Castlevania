@@ -81,6 +81,13 @@ void Hud::Render()
 	{
 		CSprites::GetInstance()->Get("NOHP_UI_SPRITE")->Draw(DIRECTION::DEFAULT, 105 + i * 9, 50, 255, false);
 	}
+
+	if (scene->GetSimon()->GetShotState()==ShotState::DOUBLESHOT)
+	{
+		CSprites::GetInstance()->Get("DOUBLESHOT_ITEM_01")->Draw(DIRECTION::DEFAULT, 440, 40, 255, false);
+	}
+
+
 }
 
 Hud::Hud(PlayScene* scene)

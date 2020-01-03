@@ -128,6 +128,10 @@ public:
 	void ResetFightBoss() {
 		this->isFightWithBoss = false;
 	}
+
+	ShotState GetShotState() {
+		return this->shotState;
+	}
 	void SetLockControl(bool flag) {
 		this->lockControl = flag;
 	}

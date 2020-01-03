@@ -152,7 +152,7 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (AABB(l,t,r,b,gl,gt,gr,gb))
 				{
 					tourchGround = true;
-				//	this->isSetWalking = false;
+					
 					break;
 				}
 			}
@@ -165,6 +165,8 @@ void Fishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->vx = 0;
 
 		}
+
+	
 
 	}
 
@@ -188,7 +190,7 @@ void Fishman::Render()
 
 	}
 	animations[ani]->Render(nx, x, y);
-	RenderBoundingBox();
+//	RenderBoundingBox();
 }
 
 void Fishman::SetState(int state)
@@ -200,6 +202,7 @@ void Fishman::SetState(int state)
 	{
 		this->vx = 0;
 		this->vy = -FISHMAN_JUMP_VY;
+		this->isSetWalking = false;
 		break;
 	}
 	case FISHMAN_STATE_WALKING:

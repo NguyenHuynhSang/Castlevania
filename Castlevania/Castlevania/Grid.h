@@ -37,6 +37,7 @@ public:
 	void AddToAlwayUpdateObjects(LPGAMEOBJECT object);
 	void Update(LPGAMEOBJECT object);
 	void Update(float dt);
+	void ResetStaticObject();
 	void GetListobject(vector<LPGAMEOBJECT>& listobjects);
 	Grid(unsigned int mapWidth, unsigned int mapHeight);
 	void Render();

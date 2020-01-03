@@ -44,6 +44,7 @@ void Grid::RenderCell(RECT rec, MYCOLOR color, int alpha)
 
 void Grid::Add(LPGAMEOBJECT object)
 {
+	
 	float x_, y_;
 	object->GetPosition(x_, y_);
 	//tính vị trí của object
@@ -62,6 +63,13 @@ void Grid::Add(LPGAMEOBJECT object)
 	}
 	object->SetCellIndex(cellX, cellY);
 	this->cells_[cellY][cellX].push_back(object);
+
+	if (dynamic_cast<Candle*> (object)
+		|| dynamic_cast<Torch*> (object)
+		|| dynamic_cast<CBrick*> (object))
+	{
+		this->statisObject.push_back(object);
+	}
 }
 
 void Grid::AddToAlwayUpdateObjects(LPGAMEOBJECT object)
@@ -132,20 +140,26 @@ void Grid::Update(LPGAMEOBJECT object)
 	int cellY = (int)(y / this->cellSize);
 
 
-	if (object->CheckDestroyed())
+	if (   !dynamic_cast<Torch*> (object)
+		&& !dynamic_cast<Candle*> (object)
+		&& !dynamic_cast<CBrick*> (object))
 	{
+		if (object->CheckDestroyed())
+		{
 
-		// loại bỏ cell cũ
-		for (vector<LPGAMEOBJECT>::iterator it = cells_[oldCell.y][oldCell.x].begin(); it != cells_[oldCell.y][oldCell.x].end(); ) {
-			if ((*it) == object) {
-				it = cells_[oldCell.y][oldCell.x].erase(it);
+			// loại bỏ cell cũ
+			for (vector<LPGAMEOBJECT>::iterator it = cells_[oldCell.y][oldCell.x].begin(); it != cells_[oldCell.y][oldCell.x].end(); ) {
+				if ((*it) == object) {
+					it = cells_[oldCell.y][oldCell.x].erase(it);
+				}
+				else ++it;
 			}
-			else ++it;
+			// xóa luôn
+			delete object;
+			return;
 		}
-		// xóa luôn
-		delete object;
-		return;
 	}
+	
 	// nếu k ra khỏi cell 
 	if (oldCell.x == cellX && oldCell.y == cellY)
 	{
@@ -172,6 +186,18 @@ void Grid::Update(LPGAMEOBJECT object)
 void Grid::Update(float dt)
 {
 
+}
+
+void Grid::ResetStaticObject()
+{
+	for (size_t i = 0; i < this->statisObject.size(); i++)
+	{
+		LPGAMEOBJECT object = this->statisObject.at(i);
+		if (object->CheckDestroyed())
+		{
+			object->ResetObject();
+		}
+	}
 }
 
 void Grid::GetListobject(vector<LPGAMEOBJECT>& listobjects)
@@ -229,7 +255,7 @@ void Grid::GetListobject(vector<LPGAMEOBJECT>& listobjects)
 				}
 				else
 				{
- 					DebugOut(L" LOSING OBJECT \n");
+ 				//	DebugOut(L" LOSING OBJECT \n");
 				}
 			}
 
@@ -285,6 +311,7 @@ Grid::Grid(unsigned int mapWidth, unsigned int mapHeight) :
 	}
 
 	this->alwaysUpdateobject.clear();
+	this->statisObject.clear();
 }
 
 void Grid::Render()

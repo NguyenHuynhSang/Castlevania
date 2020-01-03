@@ -55,7 +55,7 @@ private:
 	DWORD flyrandom_start;
 	DWORD waiting_start;
 	DWORD untouchable_start;
-
+	D3DXVECTOR2 orginalPos;
 
 	DWORD flyback_time;
 	unsigned int attack_time;
@@ -82,6 +82,9 @@ public:
 	void SetActiveArea(RECT r) { this->activeArea = r; }
 	RECT GetActiveArea() { return this->activeArea; }
 	void StartAwake() { this->awake = true; };
+	void SetOrginalPos(float x, float y) {
+		orginalPos = { x,y };
+	}
 	bool CheckAwake() {
 		return this->awake;
 	}
