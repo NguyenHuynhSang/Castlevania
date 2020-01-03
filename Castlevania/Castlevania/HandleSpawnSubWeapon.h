@@ -8,7 +8,7 @@ class HandleSpawnSubWeapon
 	bool isDoubleShot = false;
 public:
 	void SetDoubleShot(bool flag) { this->isDoubleShot = flag; }
-	void CheckNumOfSubWeaponUsed();
+	int CheckNumOfSubWeaponUsed();
 	void SpawnSubWeapon(int subWeaponDef,float x,float y, DIRECTION nx);
 	HandleSpawnSubWeapon();
 	void Init(PlayScene* scene);

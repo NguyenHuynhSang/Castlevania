@@ -269,9 +269,9 @@ bool CSimon::SimonAutoWalkaStep(float step)
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isAutoWalk)
+	if (isJumping==true &&vy>0.7f)
 	{
-		int a = 2;
+		SetState(SIMON_STATE_FALL_DOWN);
 	}
 
 	if (this->state == SIMON_STATE_DIE)
@@ -673,7 +673,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			float l, t, r, b, el, et, er, eb;
 			this->GetBoundingBox(l, t, r, b);
-			b = b + 10; // hehehe offset 5pixel
+			b = b + 15; // hehehe offset 5pixel
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l, t, r, b, el, et, er, eb))
 			{
@@ -686,7 +686,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			float l, t, r, b, el, et, er, eb;
 			this->GetBoundingBox(l, t, r, b);
-			b = b + 10; // hehehe offset 5pixel
+			b = b + 15; // hehehe offset 5pixel
 			f->GetBoundingBox(el, et, er, eb);
 			if (CGameObject::AABB(l, t, r, b, el, et, er, eb))
 			{
@@ -1184,6 +1184,65 @@ void CSimon::SetState(int state, bool chanegSimonattribute)
 
 void CSimon::SimonUseSubWeapon()
 {
+
+
+}
+
+void CSimon::StartUseSubWeapon()
+{
+
+	if (this->subWeaponDef == SWDSTOPWATCH && this->enery_ < 5)
+	{
+		return;
+	}
+	else if (this->enery_ < 1)
+	{
+		return;
+	}
+
+	if (HandleSpawnSubWeapon::GetInstance()->CheckNumOfSubWeaponUsed() >= 1)
+	{
+		return;
+	}
+
+
+
+	if (this->CheckIsOnStair())
+	{
+		if (this->state == SIMON_STATE_UPSTAIR_IDLE)
+		{
+			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
+			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
+			if (this->subWeaponDef != SWDSTOPWATCH)
+			{
+				SetState(SIMON_STATE_UPSTAIR_ATTACK);
+			}
+			this->attack_start = GetTickCount();
+			this->isUseSubWeapon = true;
+
+		}
+		else if (this->state == SIMON_STATE_DOWNSTAIR_IDLE)
+		{
+			this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
+			this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
+			if (this->subWeaponDef != SWDSTOPWATCH)
+			{
+				SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
+			}
+			this->attack_start = GetTickCount();
+			this->isUseSubWeapon = true;
+		}
+	}
+	else
+	{
+		if (this->subWeaponDef != SWDSTOPWATCH)
+		{
+			SetState(SIMON_STATE_STAND_ATTACK);
+		}
+
+		this->attack_start = GetTickCount();
+		this->isUseSubWeapon = true;
+	}
 
 
 }

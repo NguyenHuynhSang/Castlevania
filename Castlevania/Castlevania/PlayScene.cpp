@@ -638,9 +638,6 @@ void PlayScene::LoadObjects()
 					AddToGrid(candle, grid);
 				}
 				break;
-
-
-
 			default:
 				DebugOut(L"Ten object khong dung \n");
 				break;

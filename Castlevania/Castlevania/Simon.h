@@ -282,59 +282,7 @@ public:
 		
 		return this->isActack;
 	}
-	void StartUseSubWeapon() {
-
-		if (this->subWeaponDef==SWDSTOPWATCH &&this->enery_<5)
-		{
-			return;
-		}
-		else if (this->enery_<1)
-		{
-			return;
-		}
-
-	
-
-
-		if (this->CheckIsOnStair())
-		{
-			if (this->state == SIMON_STATE_UPSTAIR_IDLE)
-			{
-				this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
-				this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
-				if (this->subWeaponDef != SWDSTOPWATCH)
-				{
-					SetState(SIMON_STATE_UPSTAIR_ATTACK);
-				}
-				this->attack_start = GetTickCount();
-				this->isUseSubWeapon = true;
-
-			}
-			else if (this->state == SIMON_STATE_DOWNSTAIR_IDLE)
-			{
-				this->animations[SIMON_ANI_UPSTAIR_ATTACK]->ResetAnimation();
-				this->animations[SIMON_ANI_DOWNSTAIR_ATTACK]->ResetAnimation();
-				if (this->subWeaponDef != SWDSTOPWATCH)
-				{
-					SetState(SIMON_STATE_DOWNSTAIR_ATTACK);
-				}
-				this->attack_start = GetTickCount();
-				this->isUseSubWeapon = true;
-			}
-		}
-		else
-		{
-			if (this->subWeaponDef!=SWDSTOPWATCH)
-			{
-				SetState(SIMON_STATE_STAND_ATTACK);
-			}
-			
-			this->attack_start = GetTickCount();
-			this->isUseSubWeapon = true;
-		}
-
-
-	}
+	void StartUseSubWeapon();
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartActack() {
 		this->isActack = true;

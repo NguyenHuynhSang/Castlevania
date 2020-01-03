@@ -2246,7 +2246,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffff00" id="9" name="Stair">
-  <object id="51" name="StairBottom" type="Stair" x="1231.5" y="313.333" width="32" height="5">
+  <object id="51" name="StairBottom" type="Stair" x="1231.5" y="309.166" width="32" height="9.16667">
    <properties>
     <property name="dir" value="0"/>
    </properties>
@@ -2256,7 +2256,7 @@
     <property name="dir" type="int" value="3"/>
    </properties>
   </object>
-  <object id="63" name="StairBottom" type="Stair" x="1424" y="188.167" width="32" height="4.5">
+  <object id="63" name="StairBottom" type="Stair" x="1424" y="182.834" width="32" height="9.83333">
    <properties>
     <property name="dir" type="int" value="0"/>
    </properties>
@@ -2271,12 +2271,12 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="66" name="StairBottom" type="Stair" x="1872" y="180.333" width="32" height="11.6667">
+  <object id="66" name="StairBottom" type="Stair" x="1872" y="183.833" width="32" height="8.1667">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
   </object>
-  <object id="68" name="StairBottom" type="Stair" x="2577.33" y="312.667" width="32" height="10">
+  <object id="68" name="StairBottom" type="Stair" x="2577.33" y="310.667" width="32" height="10">
    <properties>
     <property name="dir" type="int" value="0"/>
    </properties>
@@ -2291,7 +2291,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="119" name="StairBottom" type="Stair" x="3536" y="311.083" width="32" height="9.9167">
+  <object id="119" name="StairBottom" type="Stair" x="3536" y="311.583" width="32" height="9.4167">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2306,7 +2306,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="178" name="StairBottom" type="Stair" x="4368" y="185.708" width="32" height="6.9167">
+  <object id="178" name="StairBottom" type="Stair" x="4368" y="183.041" width="32" height="9.58337">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2316,7 +2316,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="180" name="StairBottom" type="Stair" x="4812.67" y="312.708" width="32" height="5.9167">
+  <object id="180" name="StairBottom" type="Stair" x="4812.67" y="308.041" width="32" height="10.5834">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>
@@ -2341,7 +2341,7 @@
     <property name="dir" type="int" value="2"/>
    </properties>
   </object>
-  <object id="191" name="StairBottom" type="Stair" x="3982.67" y="310.375" width="32" height="8.9167">
+  <object id="191" name="StairBottom" type="Stair" x="3982.67" y="312.375" width="32" height="8.9167">
    <properties>
     <property name="dir" type="int" value="1"/>
    </properties>

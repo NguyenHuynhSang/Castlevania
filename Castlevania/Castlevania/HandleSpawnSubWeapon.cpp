@@ -6,9 +6,9 @@
 #include"HolyWater.h"
 HandleSpawnSubWeapon* HandleSpawnSubWeapon::__instance = NULL;
 
-void HandleSpawnSubWeapon::CheckNumOfSubWeaponUsed()
+int HandleSpawnSubWeapon::CheckNumOfSubWeaponUsed()
 {
-
+	return this->scene->GetSubWeapons()->size();
 }
 
 
