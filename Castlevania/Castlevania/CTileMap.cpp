@@ -105,31 +105,31 @@ void CTileMap::LoadMap(const std::string& filePath, LPDIRECT3DTEXTURE9 texTileSe
 
 
 
-	int i = 0, j = 0;
-	//matran tile
-	for (xml_node<>* child = dataNode->first_node(); child; child = child->next_sibling()) {
-		int n = std::stoi(child->first_attribute("gid")->value());
-		//DebugOut(L"Grid=%d \n", n);
-		matrix[i][j] = n;
-		//DebugOut(L"M[%d][%d]=%d  \n", i, j, n);
-		j++;
-		if (j > mapCol - 1)
-		{
-			i++;
-			j = 0;
+		int i = 0, j = 0;
+		//matran tile
+		for (xml_node<>* child = dataNode->first_node(); child; child = child->next_sibling()) {
+			int n = std::stoi(child->first_attribute("gid")->value());
+			//DebugOut(L"Grid=%d \n", n);
+			matrix[i][j] = n;
+			//DebugOut(L"M[%d][%d]=%d  \n", i, j, n);
+			j++;
+			if (j > mapCol - 1)
+			{
+				i++;
+				j = 0;
+			}
 		}
-	}
-	int id = 1;		// id of tileset
+		int id = 1;		// id of tileset
 
-	for (std::size_t i = 0; i < this->tileSheetRow; i++)
-	{
-		for (std::size_t j = 0; j < this->tileSheetCol; j++)
+		for (std::size_t i = 0; i < this->tileSheetRow; i++)
 		{
+			for (std::size_t j = 0; j < this->tileSheetCol; j++)
+			{
 
-			CSprites::GetInstance()->Add(mapID + std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
-			id++;
+				CSprites::GetInstance()->Add(mapID + std::to_string(id), j * this->tileHeight, i * this->tileHeight, j * this->tileHeight + this->tileHeight, i * this->tileHeight + this->tileHeight, texTileSet);
+				id++;
+			}
 		}
-	}
 
 
 }

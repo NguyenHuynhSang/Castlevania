@@ -30,6 +30,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cross.h" />
     <ClInclude Include="Crystal.h" />
+    <ClInclude Include="CScene.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="DSutil.h" />
     <ClInclude Include="dxutil.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneStateMachine.h" />
     <ClInclude Include="ScoreText.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -158,6 +160,7 @@
     <ClCompile Include="PorkChop.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneStateMachine.cpp" />
     <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

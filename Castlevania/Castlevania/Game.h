@@ -41,8 +41,8 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	// font 
-	ID3DXFont * font;
+		// font 
+		ID3DXFont * font;
 	
 
 

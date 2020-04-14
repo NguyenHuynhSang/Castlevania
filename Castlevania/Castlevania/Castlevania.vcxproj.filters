@@ -324,6 +324,12 @@
     <ClInclude Include="Crystal.h">
       <Filter>ObjectsManager\Items</Filter>
     </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStateMachine.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -553,6 +559,9 @@
     </ClCompile>
     <ClCompile Include="Crystal.cpp">
       <Filter>ObjectsManager\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStateMachine.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
