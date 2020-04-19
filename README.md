@@ -1,4 +1,4 @@
-# Castlevania
+# Bản cũ, đã có bản clean hơn tại ==> (https://github.com/NguyenHuynhSang/CleanGame)
 
 ## Các tool sử dụng
 ### Map
